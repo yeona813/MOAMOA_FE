@@ -1,7 +1,17 @@
-import './App.css';
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyle } from './styles/global';
+import { theme } from './styles/theme';
 
-function App() {
-  return <div>초기 세팅 성공</div>;
-}
-
-export default App;
+export const App: React.FC = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <>
+        <GlobalStyle />
+        <div>
+          <h1>Styled Components with Global Theme</h1>
+        </div>
+      </>
+    </ThemeProvider>
+  );
+};
