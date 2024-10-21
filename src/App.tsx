@@ -1,16 +1,17 @@
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from './styles/global';
 import { theme } from './styles/theme';
+import { Outlet } from 'react-router-dom';
 
 export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <>
         <GlobalStyle />
-        <div>
-          <h1>Styled Components with Global Theme</h1>
-        </div>
+        <Outlet />
       </>
     </ThemeProvider>
   );
 };
+
+export default App;
