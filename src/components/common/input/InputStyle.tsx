@@ -5,13 +5,13 @@ export const Input = styled.input`
   padding: 0.75rem 0.5rem;
   align-items: center;
   border-radius: 0.5rem;
-  border: 1px solid ${({ theme }) => theme.colors.grey50}; // pr 머지 되면 이거 바꿔야함!
-  color: ${({ theme }) => theme.colors.grey900};
+  border: 1px solid ${({ theme }) => theme.colors.gray50};
+  color: ${({ theme }) => theme.colors.gray900};
   font-size: 0.875rem;
   font-weight: 400;
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.grey300};
+    color: ${({ theme }) => theme.colors.gray300};
   }
 
   &:focus {
