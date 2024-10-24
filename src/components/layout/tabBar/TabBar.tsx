@@ -27,10 +27,10 @@ export const TabBar = ({ leftText, rightText, icon, centerText, onClick }: TabBa
   return (
     <S.TabBar>
       <S.Icon src="/icons/arrowIcon.svg" alt="이전버튼" onClick={handleClick} />
-      {leftText && <S.LeftText onClick={onClick}>{leftText}</S.LeftText>}
+      {leftText && <S.LeftText>{leftText}</S.LeftText>}
       {centerText && <S.CenterText>{centerText}</S.CenterText>}
       {rightText && <S.Text onClick={onClick}>{rightText}</S.Text>}
-      {icon && <S.Icon src={icon} alt="아이콘" />}
+      {icon && <S.Icon src={icon} alt="아이콘" onClick={onClick} />}
     </S.TabBar>
   );
 };
