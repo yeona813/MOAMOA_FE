@@ -20,7 +20,6 @@ export const SelectBox = ({ select, onChange }: SelectBoxProps) => {
     <S.Container>
       <S.SelectBox open={open} onClick={() => setOpen((prev) => !prev)}>
         <S.SelectText hasValue={!!select}>{select || '소속을 선택해주세요'}</S.SelectText>
-
         <S.Icon src="/icons/DownArrowIcon.svg" alt="downArrow" />
       </S.SelectBox>
       {open && (
