@@ -1,20 +1,20 @@
-import 'styled-components'
+import 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
       white: string;
-      grey25: string;
-      grey50: string;
-      grey100: string;
-      grey200: string;
-      grey300: string;
-      grey400: string;
-      grey500: string;
-      grey600: string;
-      grey700: string;
-      grey800: string;
-      grey900: string;
+      gray25: string;
+      gray50: string;
+      gray100: string;
+      gray200: string;
+      gray300: string;
+      gray400: string;
+      gray500: string;
+      gray600: string;
+      gray700: string;
+      gray800: string;
+      gray900: string;
       blue50: string;
       blue100: string;
       blue200: string;
