@@ -3,19 +3,19 @@ import * as S from './ChipStyle';
 interface ChipProps {
   children: React.ReactNode;
   color?: boolean;
-  isBig?: boolean;
+  size?: 'small' | 'large';
 }
 
 /**
  *
  * @param children - chip에 들어갈 글씨
  * @param color - (optional) true일 경우 노란색
- * @param isBig - (optinal) true일 경우 big size
+ * @param size - chip의 크기
  * @returns
  */
-export const Chip = ({ children, color, isBig }: ChipProps) => {
+export const Chip = ({ children, color, size = 'small' }: ChipProps) => {
   return (
-    <S.Chip isBig={isBig} color={color}>
+    <S.Chip size={size} color={color}>
       {children}
     </S.Chip>
   );
