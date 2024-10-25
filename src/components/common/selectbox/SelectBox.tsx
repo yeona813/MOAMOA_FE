@@ -6,10 +6,10 @@ interface SelectBoxProps {
   onChange: (value: string) => void;
 }
 
+const SELECT_DATA = ['대학생', '대학원생', '취업준비생', '인턴', '재직중'];
+
 export const SelectBox = ({ select, onChange }: SelectBoxProps) => {
   const [open, setOpen] = useState(false);
-
-  const SELECT_DATA = ['대학생', '대학원생', '취업준비생', '인턴', '재직중'];
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     onChange(e.currentTarget.innerText);
