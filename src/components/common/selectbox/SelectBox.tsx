@@ -8,6 +8,12 @@ interface SelectBoxProps {
 
 const SELECT_DATA = ['대학생', '대학원생', '취업준비생', '인턴', '재직중'];
 
+/**
+ *
+ * @param select - 선택될 값을 저장할 state
+ * @param onChange - state를 변경할 함수
+ * @returns
+ */
 export const SelectBox = ({ select, onChange }: SelectBoxProps) => {
   const [open, setOpen] = useState(false);
 
