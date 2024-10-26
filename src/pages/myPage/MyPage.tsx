@@ -4,10 +4,10 @@ import { Settings } from '../../components/features/my/Settings';
 
 export const MyPage = () => {
   return (
-    <div>
+    <>
       <Header />
       <Profile />
       <Settings />
-    </div>
+    </>
   );
 };
