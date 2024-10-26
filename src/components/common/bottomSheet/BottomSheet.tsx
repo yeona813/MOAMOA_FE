@@ -1,3 +1,4 @@
+import { Portal } from '../portal/Portal';
 import * as S from './BottomSheetStyle';
 
 interface BottomSheetProos {
@@ -17,12 +18,16 @@ interface BottomSheetProos {
  */
 export const BottomSheet = ({ title, children, onClick, type }: BottomSheetProos) => {
   return (
-    <S.BottomSheet $type={type}>
-      <S.Header>
-        <S.Title>{title}</S.Title>
-        <S.Icon src="/icons/CloseIcon.svg" alt="closeIcon" onClick={onClick} />
-      </S.Header>
-      {children}
-    </S.BottomSheet>
+    <Portal>
+      <S.Background onClick={onClick}>
+        <S.BottomSheet $type={type} onClick={(e) => e.stopPropagation()}>
+          <S.Header>
+            <S.Title>{title}</S.Title>
+            <S.Icon src="/icons/CloseIcon.svg" alt="closeIcon" onClick={onClick} />
+          </S.Header>
+          {children}
+        </S.BottomSheet>
+      </S.Background>
+    </Portal>
   );
 };
