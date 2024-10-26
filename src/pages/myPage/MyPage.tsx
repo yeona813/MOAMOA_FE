@@ -1,6 +1,6 @@
-import { Header } from '../../components/features/my/Header';
-import { Profile } from '../../components/features/my/Profile';
-import { Settings } from '../../components/features/my/Settings';
+import { Header } from '../../components/my/header/Header';
+import { Profile } from '../../components/my/profile/Profile';
+import { Settings } from '../../components/my/settings/Settings';
 
 export const MyPage = () => {
   return (

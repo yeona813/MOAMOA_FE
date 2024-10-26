@@ -1,24 +1,26 @@
 import { SettingItem } from './SettingItem';
 import * as S from './SettingsStyle';
 
+const POLICY_DATA = [
+  { title: '개인정보처리방침', url: 'www.naver.com' }, // 노션 링크로 수정 필요
+  { title: '이용약관', url: 'www.naver.com' }, // 노션 링크로 수정 필요
+];
+
 export const Settings = () => {
+  const goToLink = (url: string) => {
+    return () => {
+      window.location.href = url;
+    };
+  };
+
   return (
     <S.Container>
       <S.Content>
-        <SettingItem
-          onClick={() => {
-            console.log('개인정보처리방침 노션으로 바꾸기');
-          }}
-        >
-          개인정보처리방침
-        </SettingItem>
-        <SettingItem
-          onClick={() => {
-            console.log('이용약관 노션으로 바꾸기');
-          }}
-        >
-          이용약관
-        </SettingItem>
+        {POLICY_DATA.map((item, index) => (
+          <SettingItem key={index} onClick={() => goToLink(item.url)}>
+            {item.title}
+          </SettingItem>
+        ))}
       </S.Content>
       <S.Content>
         <SettingItem
