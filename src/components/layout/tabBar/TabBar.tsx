@@ -26,7 +26,7 @@ export const TabBar = ({ leftText, rightText, icon, centerText, onClick }: TabBa
 
   return (
     <S.TabBar>
-      <S.Icon src="/icons/arrowIcon.svg" alt="이전버튼" onClick={handleBackClick} />
+      <S.Icon src="/icons/ArrowIcon.svg" alt="이전버튼" onClick={handleBackClick} />
       {leftText && <S.LeftText>{leftText}</S.LeftText>}
       {centerText && <S.CenterText>{centerText}</S.CenterText>}
       {rightText && <S.Text onClick={onClick}>{rightText}</S.Text>}
