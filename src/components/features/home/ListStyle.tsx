@@ -3,16 +3,20 @@ import styled from 'styled-components';
 export const List = styled.section`
   display: flex;
   flex-direction: column;
-  width: 20rem;
-  gap: 0.5rem;
+  width: 100%;
+  height: 7.125rem;
+  justify-content: space-between;
   color: ${({ theme }) => theme.colors.gray900};
   background: url('/icons/HomeList.svg') no-repeat;
+  background-size: cover;
   padding: 0.6875rem 1.9375rem;
+  cursor: pointer;
 `;
 
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.3125rem;
 `;
 
 export const FolderText = styled.span`
