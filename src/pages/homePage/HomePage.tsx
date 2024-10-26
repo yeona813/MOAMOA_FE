@@ -4,15 +4,18 @@ import { Button } from '../../components/common/button/Button';
 import { List } from '../../components/features/home/List';
 import * as S from './HomePageStyle';
 import { SheetItem } from '../../components/features/home/SheetItem';
+import { useNavigate } from 'react-router-dom';
 
 const LISTDATA = [
   {
+    id: 1,
     folderText: '프로젝트',
     title: '프로젝트 진행 계획서',
     chips: ['창의력', '커뮤니케이션', '문제 해결'],
     date: '2024-10-25',
   },
   {
+    id: 2,
     folderText: '프로젝트',
     title: '프로젝트 진행 계획서',
     chips: ['창의력', '커뮤니케이션', '문제 해결'],
@@ -21,12 +24,10 @@ const LISTDATA = [
 ]; // 추후 백엔드에서 받아오면 다른 방식으로 변경할 것!
 
 // TODO
-// 2. 더보기 클릭 시 이동 처리
-// 3. List 하나 눌렀을 때 어디로 이동할지
-// 4. 푸터... 하 ㅜㅜㅜ 푸터야 푸터 생기면 바텀시트 위치 수정해야 함
-// 5. bottom sheet portal
+// 푸터... 하 ㅜㅜㅜ 푸터야 푸터 생기면 바텀시트 위치 수정해야 함
 
 export const HomePage = () => {
+  const navigate = useNavigate();
   const [openBottom, setOpenBottom] = useState(false);
 
   const handleBottomSheet = () => {
@@ -52,7 +53,7 @@ export const HomePage = () => {
           <S.Text>최근 생성된 경험 리스트</S.Text>
           <S.Plus
             onClick={() => {
-              console.log('더보기');
+              navigate('/list');
             }}
           >
             더보기
@@ -66,6 +67,9 @@ export const HomePage = () => {
               title={item.title}
               chips={item.chips}
               date={item.date}
+              onClick={() => {
+                navigate(`/list/${item.id}`);
+              }}
             />
           ))}
         </S.ListContainer>
