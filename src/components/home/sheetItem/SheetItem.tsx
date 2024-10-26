@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import * as S from './SheetItemStyle';
 
-interface SheetItemProps {
+export interface SheetItemProps {
   title: string;
   subTitle: string;
   color: 'blue' | 'yellow';

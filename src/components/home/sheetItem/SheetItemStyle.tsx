@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SheetItem = styled.div<{ $color: string }>`
+export const SheetItem = styled.div<{ $color: 'blue' | 'yellow' }>`
   position: relative;
   display: flex;
   width: 100%;
@@ -14,7 +14,7 @@ export const SheetItem = styled.div<{ $color: string }>`
   cursor: pointer;
 `;
 
-export const Icon = styled.div<{ $color: string }>`
+export const Icon = styled.div<{ $color: 'blue' | 'yellow' }>`
   width: 0.4375rem;
   height: 100%;
   background-image: ${(props) =>
@@ -40,7 +40,7 @@ export const Title = styled.span`
   line-height: 135%;
 `;
 
-export const Blur = styled.div<{ $color: string }>`
+export const Blur = styled.div<{ $color: 'blue' | 'yellow' }>`
   position: absolute;
   width: 6.25rem;
   height: 6.25rem;
