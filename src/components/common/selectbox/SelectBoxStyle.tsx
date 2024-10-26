@@ -33,7 +33,7 @@ export const Icon = styled.img`
 
 export const Option = styled.div`
   display: flex;
-  width: 20rem;
+  width: 100%;
   flex-direction: column;
   padding: 0.75rem 0.625rem;
   gap: 0.625rem;
