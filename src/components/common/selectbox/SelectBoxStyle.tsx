@@ -9,7 +9,7 @@ export const Container = styled.div`
 
 export const SelectBox = styled.div<{ open: boolean }>`
   position: relative;
-  width: 20rem;
+  width: 100%;
   height: 2.75rem;
   padding: 0.75rem 0.5rem;
   align-items: center;
@@ -21,14 +21,14 @@ export const SelectBox = styled.div<{ open: boolean }>`
   font-weight: 400;
 `;
 
-export const SelectText = styled.span<{ hasValue: boolean }>`
-  color: ${(props) => (props.hasValue ? props.theme.colors.gray900 : props.theme.colors.gray300)};
+export const SelectText = styled.span<{ $hasValue: boolean }>`
+  color: ${(props) => (props.$hasValue ? props.theme.colors.gray900 : props.theme.colors.gray300)};
 `;
 
 export const Icon = styled.img`
   position: absolute;
   top: 0.75rem;
-  left: 18.125rem;
+  right: 0.5rem;
 `;
 
 export const Option = styled.div`
