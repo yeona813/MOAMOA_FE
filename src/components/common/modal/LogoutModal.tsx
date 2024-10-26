@@ -8,6 +8,7 @@ import * as S from './LogoutModalStyle';
 interface LogoutModalProps {
   onClick: () => void;
 }
+
 export const LogoutModal = ({ onClick }: LogoutModalProps) => {
   return (
     <Modal onClick={onClick}>

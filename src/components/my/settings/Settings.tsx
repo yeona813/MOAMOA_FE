@@ -5,8 +5,12 @@ const POLICY_DATA = [
   { title: '개인정보처리방침', url: 'www.naver.com' }, // 노션 링크로 수정 필요
   { title: '이용약관', url: 'www.naver.com' }, // 노션 링크로 수정 필요
 ];
+interface SettingsProps {
+  onClickLogout: () => void;
+  onClickDeleteId: () => void;
+}
 
-export const Settings = () => {
+export const Settings = ({ onClickLogout, onClickDeleteId }: SettingsProps) => {
   const goToLink = (url: string) => {
     return () => {
       window.location.href = url;
@@ -23,19 +27,8 @@ export const Settings = () => {
         ))}
       </S.Content>
       <S.Content>
-        <SettingItem
-          onClick={() => {
-            console.log('메롱');
-          }}
-        >
-          로그아웃
-        </SettingItem>
-        <SettingItem
-          description="게시된 정보가 다 사라져요"
-          onClick={() => {
-            console.log('메롱');
-          }}
-        >
+        <SettingItem onClick={onClickLogout}>로그아웃</SettingItem>
+        <SettingItem description="게시된 정보가 다 사라져요" onClick={onClickDeleteId}>
           회원탈퇴
         </SettingItem>
       </S.Content>
