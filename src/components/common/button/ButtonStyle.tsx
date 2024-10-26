@@ -53,6 +53,7 @@ export const Container = styled.button<ButtonProps>`
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
 
   ${(props) => BUTTON_STYLES[props.$styleType]};
+  line-height: 140%;
 `;
 
 export const Icon = styled.img`
