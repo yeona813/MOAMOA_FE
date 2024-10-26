@@ -83,4 +83,5 @@ export const Plus = styled.p`
 export const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.75rem;
 `;
