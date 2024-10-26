@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const SheetItem = styled.div<{ $color: string }>`
+  position: relative;
   display: flex;
   width: 100%;
   height: 6.1875rem;
@@ -37,4 +38,17 @@ export const Title = styled.span`
   font-size: 1.5rem;
   font-weight: 600;
   line-height: 135%;
+`;
+
+export const Blur = styled.div<{ $color: string }>`
+  position: absolute;
+  width: 6.25rem;
+  height: 6.25rem;
+  bottom: -2.5rem;
+  right: -1.25rem;
+  border-radius: 6.1875rem;
+  background-color: ${(props) =>
+    props.$color === 'blue' ? '#657cff' : props.theme.colors.yellow300};
+  opacity: ${(props) => (props.$color === 'blue' ? 0.4 : 0.8)};
+  filter: blur(3.75rem);
 `;

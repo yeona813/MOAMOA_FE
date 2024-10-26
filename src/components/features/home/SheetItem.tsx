@@ -30,6 +30,7 @@ export const SheetItem = ({ title, subTitle, color, path }: SheetItemProps) => {
         <S.SubTitle>{subTitle}</S.SubTitle>
         <S.Title>{title}</S.Title>
       </S.TextContainer>
+      <S.Blur $color={color} />
     </S.SheetItem>
   );
 };
