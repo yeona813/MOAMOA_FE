@@ -1,7 +1,7 @@
 import { Portal } from '../portal/Portal';
 import * as S from './BottomSheetStyle';
 
-interface BottomSheetProos {
+interface BottomSheetProps {
   title: string;
   children: React.ReactNode;
   onClick: () => void;
@@ -16,7 +16,7 @@ interface BottomSheetProos {
  * @param type - bottomSheet의 길이 (short, long)
  * @returns
  */
-export const BottomSheet = ({ title, children, onClick, type }: BottomSheetProos) => {
+export const BottomSheet = ({ title, children, onClick, type }: BottomSheetProps) => {
   return (
     <Portal>
       <S.Background onClick={onClick}>
