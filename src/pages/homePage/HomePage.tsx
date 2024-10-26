@@ -1,6 +1,9 @@
+import { useState } from 'react';
+import { BottomSheet } from '../../components/common/bottomSheet/BottomSheet';
 import { Button } from '../../components/common/button/Button';
 import { List } from '../../components/features/home/List';
 import * as S from './HomePageStyle';
+import { SheetItem } from '../../components/features/home/SheetItem';
 
 const LISTDATA = [
   {
@@ -18,12 +21,18 @@ const LISTDATA = [
 ]; // 추후 백엔드에서 받아오면 다른 방식으로 변경할 것!
 
 // TODO
-// 1. 기록하기 버튼 클릭 시 밑에 버튼 팝업 나오기
 // 2. 더보기 클릭 시 이동 처리
 // 3. List 하나 눌렀을 때 어디로 이동할지
-// 4. 푸터... 하 ㅜㅜㅜ 푸터야
+// 4. 푸터... 하 ㅜㅜㅜ 푸터야 푸터 생기면 바텀시트 위치 수정해야 함
+// 5. bottom sheet portal
 
 export const HomePage = () => {
+  const [openBottom, setOpenBottom] = useState(false);
+
+  const handleBottomSheet = () => {
+    setOpenBottom((prev) => !prev);
+  };
+
   return (
     <>
       <S.Header>
@@ -33,13 +42,7 @@ export const HomePage = () => {
           CO:RECORD와 함께 <br /> 경험을 기록해보세요
         </S.Title>
         <S.ButtonContainer>
-          <Button
-            $styleType="shadow"
-            icon="/icons/RecordIcon.svg"
-            onClick={() => {
-              console.log('기록하러 가기 버튼 클릭');
-            }}
-          >
+          <Button $styleType="shadow" icon="/icons/RecordIcon.svg" onClick={handleBottomSheet}>
             기록하러 가기
           </Button>
         </S.ButtonContainer>
@@ -67,6 +70,24 @@ export const HomePage = () => {
           ))}
         </S.ListContainer>
       </S.Content>
+      {openBottom && (
+        <BottomSheet title="경험 기록하기" type="long" onClick={handleBottomSheet}>
+          <S.SheetContent>
+            <SheetItem
+              title="AI 채팅 기록"
+              subTitle="AI 대화를 통해 쉽게 기록하는"
+              color="blue"
+              path="/chat"
+            />
+            <SheetItem
+              title="메모 기록"
+              subTitle="간편하고 빠르게 기록하는"
+              color="yellow"
+              path="/memo"
+            />
+          </S.SheetContent>
+        </BottomSheet>
+      )}
     </>
   );
 };
