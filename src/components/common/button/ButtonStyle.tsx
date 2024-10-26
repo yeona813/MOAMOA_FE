@@ -23,7 +23,7 @@ const BUTTON_STYLES = {
     border-radius: 6.1875rem;
   `,
   basic: css`
-    width: 20rem;
+    width: 100%;
     height: 3rem;
     font-size: 1rem;
     font-weight: 600;
