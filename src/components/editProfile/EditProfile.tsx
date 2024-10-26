@@ -19,7 +19,11 @@ export const EditProfile = ({
     <S.EditProfile>
       <S.Edit>
         <S.Title>닉네임 변경</S.Title>
-        <Input placeholder="닉네임을 입력해주세요" value={nickname} onChange={onChangeNickname} />
+        <Input
+          placeholder="변경할 닉네임을 입력해주세요"
+          value={nickname}
+          onChange={onChangeNickname}
+        />
       </S.Edit>
       <S.Edit>
         <S.Title>소속 변경</S.Title>
