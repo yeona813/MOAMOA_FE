@@ -2,15 +2,25 @@ import styled from 'styled-components';
 
 export const List = styled.section`
   display: flex;
-  flex-direction: column;
   width: 100%;
   height: 7.125rem;
-  justify-content: space-between;
+  gap: 0.875rem;
   color: ${({ theme }) => theme.colors.gray900};
-  background: url('/icons/HomeList.svg') no-repeat;
-  background-size: cover;
-  padding: 0.6875rem 1.9375rem;
+  padding: 0.6875rem 1.5rem 0.6875rem 0.4375rem;
   cursor: pointer;
+  background-color: ${({ theme }) => theme.colors.white};
+`;
+
+export const Icon = styled.div`
+  width: 0.4375rem;
+  height: 100%;
+  background-image: url('/icons/CirclesIcon.svg');
+`;
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const TextContainer = styled.div`

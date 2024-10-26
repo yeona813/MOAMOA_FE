@@ -19,16 +19,19 @@ interface ListProps {
 export const List = ({ folderText, title, chips, date }: ListProps) => {
   return (
     <S.List>
-      <S.TextContainer>
-        <S.FolderText>{folderText}</S.FolderText>
-        <S.Title>{title}</S.Title>
-      </S.TextContainer>
-      <S.ChipContainer>
-        {chips.map((chip) => (
-          <Chip key={chip}>{chip}</Chip>
-        ))}
-      </S.ChipContainer>
-      <S.DateText>{date}</S.DateText>
+      <S.Icon />
+      <S.Content>
+        <S.TextContainer>
+          <S.FolderText>{folderText}</S.FolderText>
+          <S.Title>{title}</S.Title>
+        </S.TextContainer>
+        <S.ChipContainer>
+          {chips.map((chip) => (
+            <Chip key={chip}>{chip}</Chip>
+          ))}
+        </S.ChipContainer>
+        <S.DateText>{date}</S.DateText>
+      </S.Content>
     </S.List>
   );
 };
