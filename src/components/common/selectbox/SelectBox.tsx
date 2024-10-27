@@ -4,17 +4,17 @@ import * as S from './SelectBoxStyle';
 interface SelectBoxProps {
   select: string;
   onChange: (value: string) => void;
+  selectData: string[];
 }
-
-const SELECT_DATA = ['대학생', '대학원생', '취업준비생', '인턴', '재직중'];
 
 /**
  *
  * @param select - 선택될 값을 저장할 state
  * @param onChange - state를 변경할 함수
+ * @param selectData - 드롭다운 시 나올 값들
  * @returns
  */
-export const SelectBox = ({ select, onChange }: SelectBoxProps) => {
+export const SelectBox = ({ select, onChange, selectData }: SelectBoxProps) => {
   const [open, setOpen] = useState(false);
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -30,7 +30,7 @@ export const SelectBox = ({ select, onChange }: SelectBoxProps) => {
       </S.SelectBox>
       {open && (
         <S.Option>
-          {SELECT_DATA.map((item) => (
+          {selectData.map((item) => (
             <S.Text key={item} onClick={handleClick}>
               {item}
             </S.Text>

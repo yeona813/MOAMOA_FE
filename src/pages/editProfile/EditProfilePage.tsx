@@ -27,6 +27,8 @@ export const EditProfilePage = () => {
     setSelect(select);
   };
 
+  const SELECT_DATA = ['대학생', '대학원생', '취업준비생', '인턴', '재직중'];
+
   return (
     <div>
       <S.Header>
@@ -38,6 +40,7 @@ export const EditProfilePage = () => {
           onChangeNickname={handleChangeNickname}
           select={select}
           onChangeSelect={handleSelectChange}
+          selectData={SELECT_DATA}
         />
         <S.ButtonStyle>
           <Button

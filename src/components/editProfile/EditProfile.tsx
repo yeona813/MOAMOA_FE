@@ -7,6 +7,7 @@ interface EditProfileProps {
   onChangeNickname: (e: React.ChangeEvent<HTMLInputElement>) => void;
   select: string;
   onChangeSelect: (select: string) => void;
+  selectData: string[];
 }
 
 export const EditProfile = ({
@@ -14,6 +15,7 @@ export const EditProfile = ({
   onChangeNickname,
   select,
   onChangeSelect,
+  selectData,
 }: EditProfileProps) => {
   return (
     <S.EditProfile>
@@ -27,7 +29,7 @@ export const EditProfile = ({
       </S.Edit>
       <S.Edit>
         <S.Title>소속 변경</S.Title>
-        <SelectBox select={select} onChange={onChangeSelect} />
+        <SelectBox select={select} onChange={onChangeSelect} selectData={selectData} />
       </S.Edit>
     </S.EditProfile>
   );
