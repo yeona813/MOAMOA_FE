@@ -6,9 +6,9 @@ export const Note = styled.section<{ $color: 'blue' | 'yellow' }>`
   gap: 0.5625rem;
   width: 100%;
   height: 11.625rem;
-  padding: 0.8125rem 0.6875rem 1.25rem 0.4375rem;
+  padding: 1.25rem 0.6875rem 1.25rem 0.4375rem;
   background-color: ${(props) =>
-    props.$color === 'yellow' ? props.theme.colors.yellow100 : '#657cff'};
+    props.$color === 'yellow' ? props.theme.colors.yellow100 : props.theme.colors.blue50};
   border-radius: 0.125rem;
   box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.04);
 `;
@@ -17,7 +17,7 @@ export const Icon = styled.div`
   width: 0.4375rem;
   height: 100%;
   background-image: url('/icons/WhiteCirclesIcon.svg');
-  background-repeat: repeat-y;
+  background-repeat: no-repeat;
 `;
 
 const blurMixin = css`
