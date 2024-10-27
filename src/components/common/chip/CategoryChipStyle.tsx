@@ -9,6 +9,7 @@ export const CategoryChip = styled.div<{ $isSelected: boolean }>`
   color: ${(props) => (props.$isSelected ? props.theme.colors.white : props.theme.colors.gray500)};
   font-size: 0.875rem;
   white-space: nowrap;
+  align-items: center;
   cursor: pointer;
 
   &:hover {
