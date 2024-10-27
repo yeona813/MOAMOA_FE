@@ -8,6 +8,9 @@ export const Content = styled.div`
 `;
 
 export const Text = styled.span`
+  width: 12rem;
+  word-break: keep-all;
+  text-align: center;
   font-size: 1.125rem;
   font-weight: 600;
   line-height: 140%;
