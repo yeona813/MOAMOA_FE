@@ -23,7 +23,7 @@ const BUTTON_STYLES = {
     border-radius: 6.1875rem;
   `,
   basic: css`
-    width: 20rem;
+    width: 100%;
     height: 3rem;
     font-size: 1rem;
     font-weight: 600;
@@ -45,7 +45,7 @@ export const Container = styled.button<ButtonProps>`
   justify-content: center;
   align-items: center;
   background-color: ${(props) =>
-    props.disabled ? props.theme.colors.gray100 : props.theme.colors.blue400};
+    props.disabled ? props.theme.colors.gray50 : props.theme.colors.blue400};
   box-shadow: ${(props) =>
     props.$styleType !== 'shadow' ? 'none' : '0px 0px 8px 0px rgba(251, 247, 195, 0.6) inset'};
   border: none;
@@ -53,6 +53,7 @@ export const Container = styled.button<ButtonProps>`
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
 
   ${(props) => BUTTON_STYLES[props.$styleType]};
+  line-height: 140%;
 `;
 
 export const Icon = styled.img`

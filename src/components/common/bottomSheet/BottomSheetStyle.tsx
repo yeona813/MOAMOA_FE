@@ -8,6 +8,7 @@ export const Background = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 `;
+
 export const BottomSheet = styled.div<{ $type: string }>`
   position: absolute;
   bottom: 0;
