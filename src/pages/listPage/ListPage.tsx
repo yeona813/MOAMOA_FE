@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Header } from '../../components/list/header/Header';
+import { Footer } from '../../components/layout/footer/Footer';
 
 //@TODO
 // 1. 닉네임을 백에서 직접 받아와서 Header에 처리해야한다!
@@ -21,6 +22,7 @@ export const ListPage = () => {
         selectFolder={selectFolder}
         onClick={handleSelectFolder}
       />
+      <Footer />
     </div>
   );
 };
