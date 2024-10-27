@@ -5,7 +5,7 @@ export const Content = styled.div`
   top: 13.875rem;
   right: 0;
   width: 100%;
-  height: 33.125rem;
+  height: calc(100vh - 13.875rem); // 고민되는 부분임!!(홈 페이지에서 논의 후 주석 제거 예정)
   display: flex;
   flex-direction: column;
   gap: 1.5rem;

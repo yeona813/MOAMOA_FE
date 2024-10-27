@@ -5,6 +5,7 @@ import { BasicModal } from '../../components/common/modal/BasicModal';
 import { DetailModal } from '../../components/common/modal/DetailModal';
 import { ConfirmModal } from '../../components/common/modal/ConfirmModal';
 import { Header } from '../../components/layout/header/Header';
+import { Footer } from '../../components/layout/footer/Footer';
 
 export const MyPage = () => {
   const [logout, setLogout] = useState(false);
@@ -33,6 +34,7 @@ export const MyPage = () => {
       <Header isTabBar={false}>마이페이지</Header>
       <Profile />
       <Settings onClickLogout={toggleLogout} onClickDeleteId={toggleDeleteId} />
+      <Footer />
       {logout && (
         <BasicModal
           text="로그아웃 하시겠어요?"
