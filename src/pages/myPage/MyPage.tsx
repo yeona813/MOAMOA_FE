@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Header } from '../../components/my/header/Header';
 import { Profile } from '../../components/my/profile/Profile';
 import { Settings } from '../../components/my/settings/Settings';
 import { LogoutModal } from '../../components/common/modal/LogoutModal';
 import { DeleteIdModal } from '../../components/common/modal/DeleteIdModal';
 import { ConfirmModal } from '../../components/common/modal/ConfirmModal';
+import { Header } from '../../components/layout/header/Header';
 
 export const MyPage = () => {
   const [logout, setLogout] = useState(false);
@@ -30,7 +30,7 @@ export const MyPage = () => {
 
   return (
     <>
-      <Header />
+      <Header isTabBar={false}>마이페이지</Header>
       <Profile />
       <Settings onClickLogout={toggleLogout} onClickDeleteId={toggleDeleteId} />
       {logout && <LogoutModal onClick={toggleLogout} />}

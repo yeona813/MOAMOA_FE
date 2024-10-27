@@ -3,6 +3,7 @@ import { Button } from '../../components/common/button/Button';
 import { TabBar } from '../../components/layout/tabBar/TabBar';
 import * as S from './EditProfilePageStyle';
 import { EditProfile } from '../../components/editProfile/EditProfile';
+import { Header } from '../../components/layout/header/Header';
 
 //@TODO
 // 1. 닉네임 에러처리
@@ -31,9 +32,9 @@ export const EditProfilePage = () => {
 
   return (
     <div>
-      <S.Header>
+      <Header isTabBar={true}>
         <TabBar centerText="프로필 수정" />
-      </S.Header>
+      </Header>
       <S.Content>
         <EditProfile
           nickname={nickname}

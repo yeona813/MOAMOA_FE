@@ -1,13 +1,5 @@
 import styled from 'styled-components';
 
-export const Header = styled.header`
-  display: flex;
-  width: 100%;
-  height: 6.375rem;
-  padding-top: 2.8125rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-`;
-
 export const Content = styled.div`
   position: relative;
   display: flex;
