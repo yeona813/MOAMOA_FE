@@ -5,6 +5,7 @@ import { SheetItem } from '../../components/home/sheetItem/SheetItem';
 import { Header } from '../../components/home/header/Header';
 import { Content } from '../../components/home/content/Content';
 import { SheetItemProps } from '../../components/home/sheetItem/SheetItem';
+import { Footer } from '../../components/layout/footer/Footer';
 
 // TODO
 // 푸터... 하 ㅜㅜㅜ 푸터야 푸터 생기면 바텀시트 위치 수정해야 함
@@ -49,6 +50,7 @@ export const HomePage = () => {
           </S.SheetContent>
         </BottomSheet>
       )}
+      <Footer />
     </>
   );
 };
