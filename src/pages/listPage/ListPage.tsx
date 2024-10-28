@@ -31,6 +31,9 @@ export const ListPage = () => {
         onClick={handleSelectFolder}
       />
       <Content onClick={toggleBottomSheet} />
+      <S.Button onClick={toggleBottomSheet}>
+        <S.Icon src="/icons/WriteIcon.svg" alt="기록" />
+      </S.Button>
       <Footer />
       {openBottom && <RecordBottomSheet onClick={toggleBottomSheet} />}
     </S.ListPage>
