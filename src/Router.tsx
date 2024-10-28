@@ -7,6 +7,7 @@ import { MyPage } from './pages/myPage/MyPage';
 import { EditProfilePage } from './pages/editProfile/EditProfilePage';
 import { LoginPage } from './pages/oauthPage/LoginPage';
 import { SignUpPage } from './pages/oauthPage/SignUpPage';
+import { LoginSuccessPage } from './pages/oauthPage/LoginSuccessPage';
 
 export const Router = createBrowserRouter([
   {
@@ -42,8 +43,12 @@ export const Router = createBrowserRouter([
         element: <LoginPage />,
       },
       {
-        path: 'register',
+        path: 'login',
         element: <SignUpPage />,
+      },
+      {
+        path: 'login-success',
+        element: <LoginSuccessPage />,
       },
     ],
   },

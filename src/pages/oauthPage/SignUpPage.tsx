@@ -26,7 +26,7 @@ export const SignUpPage = () => {
     try {
       const apiResponse = await registerUser(token, nickname, status);
       console.log('회원가입 완료. 사용자 정보:', apiResponse);
-      navigate('/home');
+      navigate('/login/success');
     } catch (error) {
       console.error('회원가입 실패:', error);
     }
