@@ -5,7 +5,7 @@ export const Content = styled.div`
   top: 13.875rem;
   right: 0;
   width: 100%;
-  height: calc(100vh - 13.875rem); // 고민되는 부분임!!(홈 페이지에서 논의 후 주석 제거 예정)
+  height: calc(100vh - 13.875rem);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -39,4 +39,12 @@ export const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  height: 30rem;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import * as S from './ContentStyle';
-import { List } from '../list/List';
+import { List } from '../../common/list/List';
 
 const LISTDATA = [
   {
@@ -8,14 +8,28 @@ const LISTDATA = [
     folderText: '프로젝트',
     title: '프로젝트 진행 계획서',
     chips: ['창의력', '커뮤니케이션', '문제 해결'],
-    date: '2024-10-25',
+    date: '2024.10.25',
   },
   {
     id: 2,
     folderText: '프로젝트',
     title: '프로젝트 진행 계획서',
     chips: ['창의력', '커뮤니케이션', '문제 해결'],
-    date: '2024-10-25',
+    date: '2024.10.25',
+  },
+  {
+    id: 1,
+    folderText: '프로젝트',
+    title: '프로젝트 진행 계획서',
+    chips: ['창의력', '커뮤니케이션', '문제 해결'],
+    date: '2024.10.25',
+  },
+  {
+    id: 1,
+    folderText: '프로젝트',
+    title: '프로젝트 진행 계획서',
+    chips: ['창의력', '커뮤니케이션', '문제 해결'],
+    date: '2024.10.25',
   },
 ]; // 추후 백엔드에서 받아오면 다른 방식으로 변경할 것!
 
@@ -45,6 +59,7 @@ export const Content = () => {
             onClick={() => {
               navigate(`/list/${item.id}`);
             }}
+            type="large"
           />
         ))}
       </S.ListContainer>
