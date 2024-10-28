@@ -6,6 +6,7 @@ import { RecordPage } from './pages/recordPage/RecordPage';
 import { MyPage } from './pages/myPage/MyPage';
 import { EditProfilePage } from './pages/editProfile/EditProfilePage';
 import { LoginPage } from './pages/oauthPage/LoginPage';
+import { SignUpPage } from './pages/oauthPage/SignUpPage';
 
 export const Router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const Router = createBrowserRouter([
       {
         path: 'oauth',
         element: <LoginPage />,
+      },
+      {
+        path: 'register',
+        element: <SignUpPage />,
       },
     ],
   },
