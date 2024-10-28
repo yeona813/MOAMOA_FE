@@ -5,6 +5,7 @@ import { MemoPage } from './pages/memoPage/MemoPage';
 import { RecordPage } from './pages/recordPage/RecordPage';
 import { MyPage } from './pages/myPage/MyPage';
 import { EditProfilePage } from './pages/editProfile/EditProfilePage';
+import { LoginPage } from './pages/oauthPage/LoginPage';
 
 export const Router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const Router = createBrowserRouter([
       {
         path: 'editProfile',
         element: <EditProfilePage />,
+      },
+      {
+        path: 'oauth',
+        element: <LoginPage />,
       },
     ],
   },
