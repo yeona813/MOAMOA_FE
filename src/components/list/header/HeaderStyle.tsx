@@ -11,6 +11,8 @@ export const Header = styled.header`
   justify-content: space-between;
   padding: 5.3125rem 0rem 1.25rem 1.25rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray100};
+  background-color: ${({ theme }) => theme.colors.white};
+  z-index: 999;
 `;
 
 export const Title = styled.span`
