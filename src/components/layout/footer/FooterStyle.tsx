@@ -13,7 +13,7 @@ export const Footer = styled.footer`
   border-radius: 1.5rem 1.5rem 0rem 0rem;
   border: 1px solid ${({ theme }) => theme.colors.gray50};
   box-shadow: 0px -4px 30px 0px rgba(0, 0, 0, 0.07);
-  z-index: 999;
+  z-index: 10px;
 `;
 
 export const ItemContainer = styled.div`

@@ -19,3 +19,27 @@ export const Content = styled.div`
     display: none;
   }
 `;
+
+export const EmptyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 6.5625rem;
+  gap: 1.25rem;
+`;
+
+// 여기 바뀌어야함 아직 디자인 중인 것으로 알고 있음
+export const Empty = styled.div`
+  width: 6.25rem;
+  height: 6.25rem;
+  background-color: ${({ theme }) => theme.colors.blue100};
+  border-radius: 62.4375rem;
+  margin-bottom: 0.625rem;
+`;
+
+export const EmptyMessage = styled.p`
+  color: ${({ theme }) => theme.colors.gray900};
+  font-size: 0.875rem;
+  line-height: 145%;
+  text-align: center;
+`;
