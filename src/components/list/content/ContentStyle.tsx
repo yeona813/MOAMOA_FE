@@ -5,7 +5,7 @@ export const Content = styled.div`
   top: 11.625rem;
   left: 0;
   width: 100%;
-  height: calc(100vh - 17.5rem);
+  height: calc(100vh - 16rem);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
