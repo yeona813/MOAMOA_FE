@@ -2,13 +2,21 @@ import axios from 'axios';
 
 const BASE_URL = 'https://api.corecord.site';
 
-// 회원가입
+/**
+ * [1.2] 회원가입 api
+ * @param registerToken 
+ * @param nickName 
+ * @param status 
+ * @returns 
+ */
 export async function registerUser(registerToken: string, nickName: string, status: string) {
   try {
     const response = await axios.post(`${BASE_URL}/api/users/register`, { nickName, status }, {
       headers: {
+        'Content-Type': 'application/json',
         registerToken: registerToken
-      }
+      },
+      withCredentials: true,
     });
     console.log('User registration successful:', response.data);
     return response.data;
@@ -18,50 +26,71 @@ export async function registerUser(registerToken: string, nickName: string, stat
   }
 }
 
-// 임시 토큰으로 accessToken과 refreshToken 발급
-export async function getTokens(tmpToken: string) {
+/** [1.4]tmpToken으로 accessToken과 refreshToken 발급
+ * @param tmpToken 
+ * @returns 
+ */
+export async function getTokensWithTmpToken(tmpToken: string) {
   try {
+    console.log('API - 토큰 교환 요청 시작');
     const response = await axios.get(`${BASE_URL}/api/token`, {
       headers: {
+        'Content-Type': 'application/json',
         tmpToken: tmpToken
       }
     });
-    console.log('Tokens retrieved successfully:', response.data);
+    console.log('API - 토큰 교환 응답:', response.data);
     return response.data; // 이 응답에는 accessToken과 refreshToken이 포함
   } catch (error) {
-    console.error('Failed to get tokens:', error);
+    console.error('API - 토큰 교환 실패', error);
     throw error;
   }
 }
 
-// 리프레시 토큰으로 엑세스 토큰 재발급
-export async function reissueAccessToken(refreshToken: string) {
+/** [1.3] refreshToken으로 accessToken 재발급
+ * @param accessToken 
+ * @returns 
+ */
+export async function reissueAccessToken(accessToken: string) {
   try {
     const response = await axios.get(`${BASE_URL}/api/token/reissue`, {
       headers: {
-        refreshToken: refreshToken
-      }
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      },
+      withCredentials: true
     });
     console.log('Access token reissued successfully:', response.data);
-    return response.data; // 이 응답에는 새로운 accessToken이 포함
+    return response.data; // 새로운 accessToken 반환
   } catch (error) {
-    console.error('Failed to reissue access token:', error);
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        console.error('Refresh token expired or invalid. Re-login required.');
+        throw new Error('RefreshTokenExpired');
+      }
+      // 다른 오류 상황 처리
+      console.error('Failed to reissue access token:', error.response?.data);
+      throw new Error('TokenReissueError');
+    }
+    // 네트워크 오류 등 다른 예외 상황
+    console.error('An error occurred:', error);
     throw error;
   }
 }
 
-
-export const getUserInfo = async (accessToken: string) => {
-  const response = await fetch('https://api.corecord.site/user/info', {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${accessToken}`,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error('사용자 정보 조회 실패');
+export async function getUserInfo(accessToken: string) {
+  try {
+    console.log('API - 사용자 정보 요청 시작');
+    const response = await axios.get(`${BASE_URL}/api/users/info`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      }
+    });
+    console.log('API - 사용자 정보 응답:', response.data);
+    return response.data; // response.data를 리턴하도록 추가
+  } catch (error) {
+    console.error('API - 사용자 정보 요청 실패', error);
+    throw error;
   }
-
-  return response.json();
-};
+}
