@@ -15,7 +15,7 @@ interface CategoryChipProps {
  */
 export const CategoryChip = ({ children, isSelected, onClick }: CategoryChipProps) => {
   return (
-    <S.CategoryChip isSelected={isSelected} onClick={onClick}>
+    <S.CategoryChip $isSelected={isSelected} onClick={onClick}>
       {children}
     </S.CategoryChip>
   );

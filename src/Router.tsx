@@ -5,6 +5,7 @@ import { MemoPage } from './pages/memoPage/MemoPage';
 import { RecordPage } from './pages/recordPage/RecordPage';
 import { MyPage } from './pages/myPage/MyPage';
 import { EditProfilePage } from './pages/editProfile/EditProfilePage';
+import { ListPage } from './pages/listPage/ListPage';
 import { OauthPage } from './pages/oauthPage/OauthPage';
 import { SignUpPage } from './pages/registerPage/SignUpPage';
 import { LoginSuccessPage } from './pages/loginSuccessPage/LoginSuccessPage';
@@ -38,6 +39,10 @@ export const Router = createBrowserRouter([
       {
         path: 'editProfile',
         element: <EditProfilePage />,
+      },
+      {
+        path: 'list',
+        element: <ListPage />,
       },
       {
         path: 'oauth',

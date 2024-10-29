@@ -8,10 +8,12 @@ export const Footer = styled.footer`
   width: 100%;
   height: 5.625rem;
   justify-content: space-between;
+  background-color: ${({ theme }) => theme.colors.white};
   padding: 0.8125rem 1.875rem 2.3125rem;
   border-radius: 1.5rem 1.5rem 0rem 0rem;
   border: 1px solid ${({ theme }) => theme.colors.gray50};
   box-shadow: 0px -4px 30px 0px rgba(0, 0, 0, 0.07);
+  z-index: 10;
 `;
 
 export const ItemContainer = styled.div`
