@@ -5,11 +5,11 @@ export const Content = styled.div`
   top: 13.875rem;
   right: 0;
   width: 100%;
-  height: calc(100vh - 13.875rem);
+  height: calc(100% - 13.875rem);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 1rem 1.25rem 0rem 1.25rem;
+  padding: 1rem 1.25rem 6.625rem 1.25rem;
   background-color: ${({ theme }) => theme.colors.gray25};
   border-radius: 1.25rem 1.25rem 0rem 0rem;
   color: ${({ theme }) => theme.colors.gray900};
@@ -18,7 +18,6 @@ export const Content = styled.div`
 export const TextContainer = styled.div`
   display: flex;
   width: 100%;
-  height: 1.125rem;
   justify-content: space-between;
   align-items: center;
 `;
@@ -38,9 +37,10 @@ export const Plus = styled.p`
 export const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 0.75rem;
-  height: 30rem;
   overflow-y: auto;
+  flex-grow: 1;
   -ms-overflow-style: none;
   scrollbar-width: none;
 
