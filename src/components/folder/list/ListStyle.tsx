@@ -16,6 +16,7 @@ export const List = styled.section<{ $type: 'folder' | 'plus' }>`
           box-shadow: 0px 0px 10px 0px rgba(62, 91, 255, 0.2) inset;
         `
       : css`
+          cursor: pointer;
           background-color: ${theme.colors.blue100};
           box-shadow: 0px 0px 10px 0px rgba(62, 91, 255, 0.2) inset;
         `}
