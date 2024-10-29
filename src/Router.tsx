@@ -42,6 +42,10 @@ export const Router = createBrowserRouter([
         element: <EditProfilePage />,
       },
       {
+        path: 'list',
+        element: <ListPage />,
+      },
+      {
         path: 'oauth',
         element: <OauthPage />,
       },
@@ -56,10 +60,6 @@ export const Router = createBrowserRouter([
       {
         path: 'login-success',
         element: <LoginSuccessPage />,
-      },
-      {
-        path: 'list',
-        element: <ListPage />,
       },
       {
         path: 'folder',
