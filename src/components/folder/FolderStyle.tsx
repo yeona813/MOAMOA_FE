@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const List = styled.section<{ $type: 'folder' | 'plus' }>`
+export const Folder = styled.section<{ $type: 'folder' | 'plus' }>`
   width: 100%;
   height: 3.5rem;
   display: flex;
@@ -16,6 +16,7 @@ export const List = styled.section<{ $type: 'folder' | 'plus' }>`
           box-shadow: 0px 0px 10px 0px rgba(62, 91, 255, 0.2) inset;
         `
       : css`
+          flex-shrink: 0;
           cursor: pointer;
           background-color: ${theme.colors.blue100};
           box-shadow: 0px 0px 10px 0px rgba(62, 91, 255, 0.2) inset;

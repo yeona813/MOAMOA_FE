@@ -1,12 +1,24 @@
 import { useState } from 'react';
-import { List } from '../../components/folder/list/List';
+import { Folder } from '../../components/folder/Folder';
 import { Header } from '../../components/layout/header/Header';
 import { TabBar } from '../../components/layout/tabBar/TabBar';
 import * as S from './FolderPageStyle';
 import { FolderBottomSheet } from '../../components/common/bottomSheet/FolderBottomSheet';
 import { DetailModal } from '../../components/common/modal/DetailModal';
+import { Footer } from '../../components/layout/footer/Footer';
 
-const FOLDER_DATA = ['큐시즘 밋업', '프로젝트 공모전', '아르바이트'] as string[];
+const FOLDER_DATA = [
+  '큐시즘 밋업',
+  '프로젝트 공모전',
+  '아르바이트',
+  '1',
+  '2',
+  'dkdkd',
+  'dksdusd',
+  '하...',
+  '취업해요',
+  '큐시즘 사랑',
+] as string[];
 
 export const FolderPage = () => {
   const [openBottom, setOpenBottom] = useState(false);
@@ -33,21 +45,22 @@ export const FolderPage = () => {
       <S.Content>
         {FOLDER_DATA.length > 0 &&
           FOLDER_DATA.map((folder) => (
-            <S.ListContainer key={folder}>
+            <S.FolderContainer key={folder}>
               {isEditing && (
                 <S.Icon src="/icons/DeleteIcon.svg" alt="delete" onClick={toggleModal} />
               )}
-              <List type="folder">
+              <Folder type="folder">
                 <h6>{folder}</h6>
-              </List>
-            </S.ListContainer>
+              </Folder>
+            </S.FolderContainer>
           ))}
         {!isEditing && (
-          <List type="plus" onClick={toggleBottomSheet}>
+          <Folder type="plus" onClick={toggleBottomSheet}>
             <img src="/icons/PlusIcon.svg" alt="plusButton" />
-          </List>
+          </Folder>
         )}
       </S.Content>
+      <Footer />
       {openBottom && <FolderBottomSheet onClick={toggleBottomSheet} />}
       {openModal && (
         <DetailModal

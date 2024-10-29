@@ -1,6 +1,11 @@
 import styled, { css } from 'styled-components';
 
 const commonStyles = css`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background-color: ${({ theme }) => theme.colors.white};
   display: flex;
   width: 100%;
   height: 6.375rem;
