@@ -42,9 +42,6 @@ declare module 'styled-components' {
       h4: string;
       h5: string;
       h6: string;
-      h7: string;
-      h8: string;
-      h9: string;
     };
     fonts: {
       regular: string;
