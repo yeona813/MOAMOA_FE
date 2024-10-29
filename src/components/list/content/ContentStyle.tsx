@@ -5,11 +5,11 @@ export const Content = styled.div`
   top: 11.625rem;
   left: 0;
   width: 100%;
-  height: calc(100vh - 16rem);
+  height: calc(100vh - 11.625rem);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  padding: 1.25rem 1.25rem 0rem 1.25rem;
+  padding: 1.25rem 1.25rem 6.625rem 1.25rem;
   background-color: ${({ theme }) => theme.colors.gray25};
   overflow-y: auto;
   -ms-overflow-style: none;
