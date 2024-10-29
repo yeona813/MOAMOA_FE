@@ -19,7 +19,7 @@ export const BottomSheet = styled.div<{ $type: string }>`
   padding: 1.25rem;
   border-radius: 1.25rem 1.25rem 0rem 0rem;
   background-color: ${({ theme }) => theme.colors.white};
-  z-index: 100px;
+  z-index: 100;
 `;
 
 export const Header = styled.header`
