@@ -23,7 +23,7 @@ export const LoginSuccessPage = () => {
       </S.ContentWrapper>
       <S.ButtonWrapper>
         <Button $styleType="basic" onClick={handleStart}>
-          시작
+          완료
         </Button>
       </S.ButtonWrapper>
     </S.Container>

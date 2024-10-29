@@ -45,6 +45,7 @@ declare module 'styled-components' {
     };
     fonts: {
       regular: string;
+      montserratBold: string;
     };
   }
 }

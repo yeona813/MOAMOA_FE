@@ -15,8 +15,9 @@ export const Container = styled.div`
   text-align: center;
 `;
 
-export const Logo = styled.h1`
-  font-size: 1.5rem;
+export const Logo = styled.p`
+  font-family: ${props => props.theme.fonts.montserratBold};
+  font-size: 2rem;
   font-weight: 700;
   top: 17.25rem;
   margin-bottom: 1.25rem;
@@ -24,6 +25,7 @@ export const Logo = styled.h1`
 `;
 
 export const Subtitle = styled.p`
+  font-size: 0.875rem;
   color: black;
   margin-bottom: 8.0983rem;
   max-width: 17.5rem;

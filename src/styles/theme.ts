@@ -42,6 +42,7 @@ export const theme = {
   },
   fonts: {
     regular: "'Pretendard', sans-serif",
+    montserratBold: "'Montserrat', sans-serif",
   },
   breakpoints: {
     small: '@media (max-width: 639px)',

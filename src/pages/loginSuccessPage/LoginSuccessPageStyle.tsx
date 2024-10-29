@@ -16,7 +16,8 @@ export const Container = styled.section`
 `;
 
 export const Logo = styled.p`
-  font-size: 1.5rem;
+  font-family: ${props => props.theme.fonts.montserratBold};
+  font-size: 2rem;
   font-weight: 700;
   top: 17.25rem;
   margin-bottom: 1.25rem;
@@ -31,10 +32,10 @@ export const ContentWrapper = styled.div`
 `;
 
 export const WelcomeMessage = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.h6};
+  font-size: 0.875rem
   font-weight: 400;
   margin-bottom: 0.875rem;
-  line-height: 1.5;
+  line-height: 1.26875rem;
 `;
 
 export const ColoredSquare = styled.div`

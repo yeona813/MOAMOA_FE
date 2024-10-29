@@ -4,22 +4,19 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(100vh - 60px);
-  padding: 0 20px;
-  margin: 0 20px 0 20px;
-  align-items: center;
-  overflow: hidden;
+  padding: 0 1.25rem;
   width: 100%;
   box-sizing: border-box;
-
+  position: relative;
+  overflow: hidden;
 `;
 
 export const Title = styled.p`
   font-size: 1.25rem;
   font-weight: 700;
-  margin: 23.53px 0 40px 0;
+  margin: 1.4625rem 0 2.5rem 0;
   text-align: left;
   width: 100%;
-  padding-left: 0;
 `;
 
 export const InputWrapper = styled.div`
@@ -30,27 +27,28 @@ export const InputWrapper = styled.div`
 `;
 
 export const Label = styled.label`
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
   line-height: 1.575rem;
 `;
 
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2.5rem;
-  margin-top: 10px;
   width: 100%;
+  height: 100%;
+  position: relative;
 `;
 
 export const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: absolute;
-  bottom: 0;
-  margin-top: auto;
-  margin-bottom: 2.5313rem;
+  bottom: 1.25rem;
+  left: 0;
+  right: 0;
+  padding: 0 1.25rem;
   width: 100%;
+  box-sizing: border-box;
 `;
