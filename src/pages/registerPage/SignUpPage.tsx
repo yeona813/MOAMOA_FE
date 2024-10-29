@@ -15,7 +15,9 @@ export const SignUpPage = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  const token = location.state?.token;
+  const queryParams = new URLSearchParams(location.search);
+  const token = queryParams.get('token');
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,8 +27,9 @@ export const SignUpPage = () => {
     }
     try {
       const apiResponse = await registerUser(token, nickname, status);
-      console.log('회원가입 완료. 사용자 정보:', apiResponse);
-      navigate('/login/success');
+      if (apiResponse.is_success) {
+        navigate('/login-success');
+      }
     } catch (error) {
       console.error('회원가입 실패:', error);
     }

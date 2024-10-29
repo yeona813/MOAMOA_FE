@@ -5,9 +5,10 @@ import { MemoPage } from './pages/memoPage/MemoPage';
 import { RecordPage } from './pages/recordPage/RecordPage';
 import { MyPage } from './pages/myPage/MyPage';
 import { EditProfilePage } from './pages/editProfile/EditProfilePage';
-import { LoginPage } from './pages/oauthPage/LoginPage';
-import { SignUpPage } from './pages/oauthPage/SignUpPage';
-import { LoginSuccessPage } from './pages/oauthPage/LoginSuccessPage';
+import { OauthPage } from './pages/oauthPage/OauthPage';
+import { SignUpPage } from './pages/registerPage/SignUpPage';
+import { LoginSuccessPage } from './pages/loginSuccessPage/LoginSuccessPage';
+import { SigningIn } from './pages/loginPage/SigningIn';
 
 export const Router = createBrowserRouter([
   {
@@ -40,10 +41,14 @@ export const Router = createBrowserRouter([
       },
       {
         path: 'oauth',
-        element: <LoginPage />,
+        element: <OauthPage />,
       },
       {
         path: 'login',
+        element: <SigningIn />,
+      },
+      {
+        path: 'register',
         element: <SignUpPage />,
       },
       {

@@ -32,15 +32,13 @@ export async function registerUser(registerToken: string, nickName: string, stat
  */
 export async function getTokensWithTmpToken(tmpToken: string) {
   try {
-    console.log('API - 토큰 교환 요청 시작');
     const response = await axios.get(`${BASE_URL}/api/token`, {
       headers: {
         'Content-Type': 'application/json',
         tmpToken: tmpToken
       }
     });
-    console.log('API - 토큰 교환 응답:', response.data);
-    return response.data; // 이 응답에는 accessToken과 refreshToken이 포함
+    return response.data;
   } catch (error) {
     console.error('API - 토큰 교환 실패', error);
     throw error;
@@ -60,37 +58,17 @@ export async function reissueAccessToken(accessToken: string) {
       },
       withCredentials: true
     });
-    console.log('Access token reissued successfully:', response.data);
-    return response.data; // 새로운 accessToken 반환
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       if (error.response?.status === 401) {
         console.error('Refresh token expired or invalid. Re-login required.');
         throw new Error('RefreshTokenExpired');
       }
-      // 다른 오류 상황 처리
       console.error('Failed to reissue access token:', error.response?.data);
       throw new Error('TokenReissueError');
     }
-    // 네트워크 오류 등 다른 예외 상황
     console.error('An error occurred:', error);
-    throw error;
-  }
-}
-
-export async function getUserInfo(accessToken: string) {
-  try {
-    console.log('API - 사용자 정보 요청 시작');
-    const response = await axios.get(`${BASE_URL}/api/users/info`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: accessToken
-      }
-    });
-    console.log('API - 사용자 정보 응답:', response.data);
-    return response.data; // response.data를 리턴하도록 추가
-  } catch (error) {
-    console.error('API - 사용자 정보 요청 실패', error);
     throw error;
   }
 }
