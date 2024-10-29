@@ -8,17 +8,22 @@ export const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Pretendard';
     font-weight: 400;
-    src: url(../public/fonts/Pretendard-Regular.ttf) format('ttf');
+    src: url(/fonts/Pretendard-Regular.ttf) format('truetype');
   }
   @font-face {
     font-family: 'Pretendard';
     font-weight: 600;
-    src: url(../public/fonts/Pretendard-SemiBold.ttf) format('ttf');
+    src: url(/fonts/Pretendard-SemiBold.ttf) format('truetype');
   }
   @font-face {
     font-family: 'Pretendard';
     font-weight: 700;
-    src: url(../public/fonts/Pretendard-Bold.ttf) format('ttf');
+    src: url(/fonts/Pretendard-Bold.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Montserrat';
+    font-weight: 700;
+    src: url(/fonts/MontserratAlternates-Bold.ttf) format('truetype');
   }
 
   h1 {
@@ -49,21 +54,6 @@ export const GlobalStyle = createGlobalStyle`
   h6 {
     font-size: ${theme.fontSize.h6};
     font-weight: 600;
-  }
-  
-  h7 {
-    font-size: ${theme.fontSize.h7};
-    font-weight: 400;
-  }
-
-  h8 {
-    font-size: ${theme.fontSize.h8};
-    font-weight: 400;
-  }
-
-  h9 {
-    font-size: ${theme.fontSize.h9};
-    font-weight: 400;
   }
 
   * {
