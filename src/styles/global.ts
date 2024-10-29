@@ -50,21 +50,6 @@ export const GlobalStyle = createGlobalStyle`
     font-size: ${theme.fontSize.h6};
     font-weight: 600;
   }
-  
-  h7 {
-    font-size: ${theme.fontSize.h7};
-    font-weight: 400;
-  }
-
-  h8 {
-    font-size: ${theme.fontSize.h8};
-    font-weight: 400;
-  }
-
-  h9 {
-    font-size: ${theme.fontSize.h9};
-    font-weight: 400;
-  }
 
   * {
     margin: 0;
