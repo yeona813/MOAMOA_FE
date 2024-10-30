@@ -23,7 +23,6 @@
   },
   "include": [
     "src",
-    "custom.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "**/*.test.ts",
