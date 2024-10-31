@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
+import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
 import { theme } from './theme';
 
 export const GlobalStyle = createGlobalStyle`
@@ -8,22 +8,22 @@ export const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Pretendard';
     font-weight: 400;
-    src: url(/fonts/Pretendard-Regular.ttf) format('truetype');
+    src: url(/fonts/Pretendard-Regular.ttf) format('ttf');
   }
   @font-face {
     font-family: 'Pretendard';
     font-weight: 600;
-    src: url(/fonts/Pretendard-SemiBold.ttf) format('truetype');
+    src: url(/fonts/Pretendard-SemiBold.ttf) format('ttf');
   }
   @font-face {
     font-family: 'Pretendard';
     font-weight: 700;
-    src: url(/fonts/Pretendard-Bold.ttf) format('truetype');
+    src: url(/fonts/Pretendard-Bold.ttf) format('ttf');
   }
   @font-face {
     font-family: 'Montserrat';
     font-weight: 700;
-    src: url(/fonts/MontserratAlternates-Bold.ttf) format('truetype');
+    src: url(/fonts/MontserratAlternates-Bold.ttf) format('ttf');
   }
 
   h1 {
