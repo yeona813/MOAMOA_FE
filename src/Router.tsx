@@ -10,6 +10,7 @@ import { OauthPage } from './pages/oauthPage/OauthPage';
 import { SignUpPage } from './pages/registerPage/SignUpPage';
 import { LoginSuccessPage } from './pages/loginSuccessPage/LoginSuccessPage';
 import { SigningIn } from './pages/loginPage/SigningIn';
+import { KeywordPage } from './pages/keywordPage/KeywordPage';
 
 export const Router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ export const Router = createBrowserRouter([
       {
         path: 'login-success',
         element: <LoginSuccessPage />,
+      },
+      {
+        path: 'keyword',
+        element: <KeywordPage />,
       },
     ],
   },
