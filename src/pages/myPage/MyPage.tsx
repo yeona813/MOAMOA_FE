@@ -6,6 +6,7 @@ import { DetailModal } from '../../components/common/modal/DetailModal';
 import { ConfirmModal } from '../../components/common/modal/ConfirmModal';
 import { Header } from '../../components/layout/header/Header';
 import { Footer } from '../../components/layout/footer/Footer';
+import * as S from './MyPageStyle';
 
 export const MyPage = () => {
   const [logout, setLogout] = useState(false);
@@ -32,8 +33,11 @@ export const MyPage = () => {
   return (
     <>
       <Header isTabBar={false}>마이페이지</Header>
-      <Profile />
-      <Settings onClickLogout={toggleLogout} onClickDeleteId={toggleDeleteId} />
+      <S.Content>
+        <Profile />
+        <Settings onClickLogout={toggleLogout} onClickDeleteId={toggleDeleteId} />
+      </S.Content>
+
       <Footer />
       {logout && (
         <BasicModal
