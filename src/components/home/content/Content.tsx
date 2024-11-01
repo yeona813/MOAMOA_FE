@@ -57,7 +57,7 @@ export const Content = () => {
             chips={item.chips}
             date={item.date}
             onClick={() => {
-              navigate(`/list/${item.id}`);
+              navigate(`/report/${item.id}`);
             }}
             type="large"
           />
