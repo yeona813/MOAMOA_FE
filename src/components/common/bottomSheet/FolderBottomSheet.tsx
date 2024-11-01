@@ -63,7 +63,6 @@ export const FolderBottomSheet = ({
             onChange={changeFolderName}
           />
         )}
-        ;
         <Button $styleType="basic" disabled={folderName === '' || isError} onClick={onClickButton}>
           완료
         </Button>
