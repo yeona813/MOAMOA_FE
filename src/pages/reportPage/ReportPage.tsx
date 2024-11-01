@@ -30,6 +30,11 @@ export const ReportPage = () => {
     setOpenBottom(false);
     setIsEdit(true);
   };
+
+  const onClickBackIcon = () => {
+    setIsEdit(false);
+  };
+
   return (
     <>
       <Header isTabBar={true}>
@@ -37,6 +42,7 @@ export const ReportPage = () => {
           centerText="역량 레포트"
           icon={!isEdit ? '/icons/KebabIcon.svg' : undefined}
           onClick={togleBottomSheet}
+          onClickBackIcon={isEdit ? onClickBackIcon : undefined}
         />
       </Header>
       <Content isEdit={isEdit} />
