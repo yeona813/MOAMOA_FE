@@ -1,9 +1,10 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '../../components/common/button/Button';
 import { TabBar } from '../../components/layout/tabBar/TabBar';
 import * as S from './EditProfilePageStyle';
 import { EditProfile } from '../../components/editProfile/EditProfile';
 import { Header } from '../../components/layout/header/Header';
+import { useNicknameValidation } from '../../hooks/useNicknameValidation';
 
 //@TODO
 // 1. 닉네임 에러처리
@@ -12,17 +13,15 @@ import { Header } from '../../components/layout/header/Header';
 export const EditProfilePage = () => {
   const [submit, setSubmit] = useState(true);
   const [select, setSelect] = useState('');
-  const [nickname, setNickname] = useState('');
+  const { nickname, isError, errorMessage, onChangeNickname } = useNicknameValidation();
 
   useEffect(() => {
-    if (nickname !== '' && select !== '') {
+    if (!isError && nickname !== '' && select !== '') {
       setSubmit(false);
+    } else {
+      setSubmit(true);
     }
-  }, [nickname, select]);
-
-  const handleChangeNickname = (e: ChangeEvent<HTMLInputElement>) => {
-    setNickname(e.target.value);
-  };
+  }, [isError, nickname, select]);
 
   const handleSelectChange = (select: string) => {
     setSelect(select);
@@ -38,17 +37,19 @@ export const EditProfilePage = () => {
       <S.Content>
         <EditProfile
           nickname={nickname}
-          onChangeNickname={handleChangeNickname}
+          onChangeNickname={onChangeNickname}
           select={select}
           onChangeSelect={handleSelectChange}
           selectData={SELECT_DATA}
+          isError={isError}
+          errorMessage={errorMessage}
         />
         <S.ButtonStyle>
           <Button
             $styleType="basic"
             disabled={submit}
             onClick={() => {
-              console.log('제출처리 해야함');
+              console.log(nickname);
             }}
           >
             저장하기

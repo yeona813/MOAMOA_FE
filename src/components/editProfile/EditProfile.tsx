@@ -8,6 +8,8 @@ interface EditProfileProps {
   select: string;
   onChangeSelect: (select: string) => void;
   selectData: string[];
+  isError: boolean;
+  errorMessage: string;
 }
 
 export const EditProfile = ({
@@ -16,6 +18,8 @@ export const EditProfile = ({
   select,
   onChangeSelect,
   selectData,
+  isError,
+  errorMessage,
 }: EditProfileProps) => {
   return (
     <S.EditProfile>
@@ -25,6 +29,10 @@ export const EditProfile = ({
           placeholder="변경할 닉네임을 입력해주세요"
           value={nickname}
           onChange={onChangeNickname}
+          required
+          maxLength={10}
+          isError={isError}
+          errorMessage={errorMessage}
         />
       </S.Edit>
       <S.Edit>
