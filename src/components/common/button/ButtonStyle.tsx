@@ -50,6 +50,7 @@ export const Container = styled.button<ButtonProps>`
     props.$styleType !== 'shadow' ? 'none' : '0px 0px 8px 0px rgba(251, 247, 195, 0.6) inset'};
   border: none;
   color: #fefef3;
+  outline: none;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
 
   ${(props) => BUTTON_STYLES[props.$styleType]};
