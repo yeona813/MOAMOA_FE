@@ -10,22 +10,22 @@ export const Background = styled.div`
   z-index: 100;
 `;
 
-export const BottomSheet = styled.div<{ $type: string }>`
+export const BottomSheet = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
   width: 100%;
-  height: ${(props) => (props.$type === 'short' ? '13.5rem' : '21.375rem')};
+  height: fit-content;
   padding: 1.25rem;
   border-radius: 1.25rem 1.25rem 0rem 0rem;
   background-color: ${({ theme }) => theme.colors.white};
   z-index: 100;
 `;
 
-export const Header = styled.header`
+export const Header = styled.header<{ $hasTitle: boolean }>`
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  justify-content: ${({ $hasTitle }) => ($hasTitle ? 'space-between' : 'flex-end')};
 `;
 
 export const Title = styled.span`
