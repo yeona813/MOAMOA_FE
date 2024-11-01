@@ -15,7 +15,7 @@ interface ChipProps {
  */
 export const Chip = ({ children, color, size = 'small' }: ChipProps) => {
   return (
-    <S.Chip size={size} color={color}>
+    <S.Chip size={size} $color={color}>
       {children}
     </S.Chip>
   );

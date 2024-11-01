@@ -11,6 +11,7 @@ import { LoginSuccessPage } from './pages/loginSuccessPage/LoginSuccessPage';
 import { SigningIn } from './pages/loginPage/SigningIn';
 import { ListPage } from './pages/listPage/ListPage';
 import { FolderPage } from './pages/folderPage/FolderPage';
+import { KeywordPage } from './pages/keywordPage/KeywordPage';
 
 export const Router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ export const Router = createBrowserRouter([
       {
         path: 'folder',
         element: <FolderPage />,
+      },
+      {
+        path: 'keyword',
+        element: <KeywordPage />,
       },
     ],
   },
