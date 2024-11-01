@@ -28,9 +28,7 @@ export const Header = styled.header<{ $hasTitle: boolean }>`
   justify-content: ${({ $hasTitle }) => ($hasTitle ? 'space-between' : 'flex-end')};
 `;
 
-export const Title = styled.span`
-  font-size: 1.125rem;
-  font-weight: 600;
+export const Title = styled.h5`
   color: ${({ theme }) => theme.colors.gray900};
 `;
 

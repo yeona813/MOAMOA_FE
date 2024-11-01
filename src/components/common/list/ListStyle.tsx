@@ -56,9 +56,7 @@ export const ChipContainer = styled.div`
   gap: 0.25rem;
 `;
 
-export const Title = styled.span`
-  font-size: 1rem;
-  font-weight: 600;
+export const Title = styled.h6`
   line-height: 140%;
 `;
 

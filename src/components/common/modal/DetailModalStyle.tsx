@@ -8,12 +8,10 @@ export const Content = styled.div`
   color: ${({ theme }) => theme.colors.gray700};
 `;
 
-export const Text = styled.span`
+export const Text = styled.h5`
   width: 12rem;
   word-break: keep-all;
   text-align: center;
-  font-size: 1.125rem;
-  font-weight: 600;
   line-height: 140%;
 `;
 
