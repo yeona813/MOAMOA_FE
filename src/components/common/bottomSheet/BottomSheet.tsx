@@ -2,10 +2,9 @@ import { Portal } from '../portal/Portal';
 import * as S from './BottomSheetStyle';
 
 interface BottomSheetProps {
-  title: string;
+  title?: string;
   children: React.ReactNode;
   onClick: () => void;
-  type: 'short' | 'long';
 }
 
 /**
@@ -16,12 +15,12 @@ interface BottomSheetProps {
  * @param type - bottomSheet의 길이 (short, long)
  * @returns
  */
-export const BottomSheet = ({ title, children, onClick, type }: BottomSheetProps) => {
+export const BottomSheet = ({ title, children, onClick }: BottomSheetProps) => {
   return (
     <Portal>
       <S.Background onClick={onClick}>
-        <S.BottomSheet $type={type} onClick={(e) => e.stopPropagation()}>
-          <S.Header>
+        <S.BottomSheet onClick={(e) => e.stopPropagation()}>
+          <S.Header $hasTitle={!!title}>
             <S.Title>{title}</S.Title>
             <S.Icon src="/icons/CloseIcon.svg" alt="closeIcon" onClick={onClick} />
           </S.Header>

@@ -22,7 +22,7 @@ interface RecordBottomSheetProps {
 }
 export const RecordBottomSheet = ({ onClick }: RecordBottomSheetProps) => {
   return (
-    <BottomSheet title="경험 기록하기" type="long" onClick={onClick}>
+    <BottomSheet title="경험 기록하기" onClick={onClick}>
       <S.SheetContent>
         {SHEET_ITEMS.map((item, index) => (
           <SheetItem

@@ -15,12 +15,14 @@ const BUTTON_STYLES = {
     font-size: 0.875rem;
     font-weight: 400;
     border-radius: 6.1875rem;
+    width: fit-content;
   `,
   shadow: css`
     padding: 0.625rem 0.75rem;
     font-size: 1rem;
     font-weight: 600;
     border-radius: 6.1875rem;
+    width: fit-content;
   `,
   basic: css`
     width: 100%;
