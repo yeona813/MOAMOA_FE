@@ -6,11 +6,12 @@ interface KeywordListProps {
   title: string;
   description: string;
   date: string;
+  onClick: () => void;
 }
 
-export const KeywordList = ({ chip, title, description, date }: KeywordListProps) => {
+export const KeywordList = ({ chip, title, description, date, onClick }: KeywordListProps) => {
   return (
-    <S.KeywordList>
+    <S.KeywordList onClick={onClick}>
       <S.Icon src="/icons/ShortCirclesIcon.svg" alt="circle" />
       <S.Content>
         <Chip color={true}>{chip}</Chip>

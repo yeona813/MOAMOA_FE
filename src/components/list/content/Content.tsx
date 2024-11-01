@@ -66,7 +66,7 @@ export const Content = ({ onClick }: ContentProps) => {
             chips={item.chips}
             date={item.date}
             onClick={() => {
-              navigate(`/list/${item.id}`);
+              navigate(`/report/${item.id}`);
             }}
             type="small"
           />

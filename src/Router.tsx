@@ -12,6 +12,7 @@ import { SigningIn } from './pages/loginPage/SigningIn';
 import { ListPage } from './pages/listPage/ListPage';
 import { FolderPage } from './pages/folderPage/FolderPage';
 import { KeywordPage } from './pages/keywordPage/KeywordPage';
+import { ReportPage } from './pages/reportPage/ReportPage';
 
 export const Router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ export const Router = createBrowserRouter([
       {
         path: 'keyword',
         element: <KeywordPage />,
+      },
+      {
+        path: 'report/:id',
+        element: <ReportPage />,
       },
     ],
   },
