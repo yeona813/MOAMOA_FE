@@ -12,8 +12,6 @@ export const Edit = styled.div`
   gap: 0.625rem;
 `;
 
-export const Title = styled.span`
-  font-size: 1.125rem;
-  font-weight: 600;
+export const Title = styled.h5`
   line-height: 140%;
 `;

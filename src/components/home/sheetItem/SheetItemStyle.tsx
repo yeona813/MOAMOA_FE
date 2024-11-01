@@ -34,9 +34,7 @@ export const SubTitle = styled.p`
   line-height: 145%;
 `;
 
-export const Title = styled.span`
-  font-size: 1.5rem;
-  font-weight: 600;
+export const Title = styled.h3`
   line-height: 135%;
 `;
 

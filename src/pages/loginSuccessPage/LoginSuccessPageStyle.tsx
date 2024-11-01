@@ -16,7 +16,7 @@ export const Container = styled.section`
 `;
 
 export const Logo = styled.p`
-  font-family: ${props => props.theme.fonts.montserratBold};
+  font-family: ${(props) => props.theme.fonts.montserratBold};
   font-size: 2rem;
   font-weight: 700;
   top: 17.25rem;
@@ -32,19 +32,19 @@ export const ContentWrapper = styled.div`
 `;
 
 export const WelcomeMessage = styled.p`
-  font-size: 0.875rem
+  font-size: 0.875rem;
   font-weight: 400;
   margin-bottom: 0.875rem;
   line-height: 1.26875rem;
 `;
 
 export const ColoredSquare = styled.div`
-  width: 12.5rem; 
+  width: 12.5rem;
   height: 12.5rem;
   background-color: ${({ theme }) => theme.colors.blue200};
   position: absolute;
   top: 50%;
-  left: 50%; 
+  left: 50%;
   transform: translate(-50%, -50%);
 `;
 

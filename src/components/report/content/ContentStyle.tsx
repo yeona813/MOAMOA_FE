@@ -19,9 +19,7 @@ export const TopContent = styled.div`
   gap: 1rem;
 `;
 
-export const Title = styled.div`
-  font-size: 1.25rem;
-  font-weight: 700;
+export const Title = styled.h4`
   line-height: 135%;
 `;
 
@@ -55,9 +53,7 @@ export const MiddleHead = styled.div`
   align-items: center;
 `;
 
-export const SubTitle = styled.span`
-  font-size: 1rem;
-  font-weight: 600;
+export const SubTitle = styled.h6`
   line-height: 140%;
 `;
 

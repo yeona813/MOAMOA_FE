@@ -21,9 +21,7 @@ export const TextContainer = styled.div`
   color: #373737;
 `;
 
-export const Text = styled.span`
-  font-size: 1rem;
-  font-weight: 600;
+export const Text = styled.h6`
   line-height: 140%;
 `;
 
