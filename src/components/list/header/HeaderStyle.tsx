@@ -15,9 +15,7 @@ export const Header = styled.header`
   z-index: 10;
 `;
 
-export const Title = styled.span`
-  font-size: 1.25rem;
-  font-weight: 700;
+export const Title = styled.h4`
   line-height: 135%;
   color: ${({ theme }) => theme.colors.gray900};
 `;

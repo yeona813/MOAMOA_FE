@@ -33,9 +33,7 @@ export const BlueBlur = styled.div`
   border-radius: 99px;
 `;
 
-export const Title = styled.span`
-  font-size: 1.25rem;
-  font-weight: 700;
+export const Title = styled.h4`
   line-height: 135%;
 `;
 

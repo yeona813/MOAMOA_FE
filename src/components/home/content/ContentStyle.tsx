@@ -22,9 +22,7 @@ export const TextContainer = styled.div`
   align-items: center;
 `;
 
-export const Text = styled.span`
-  font-size: 1.125rem;
-  font-weight: 600;
+export const Text = styled.h5`
   line-height: 140%;
 `;
 

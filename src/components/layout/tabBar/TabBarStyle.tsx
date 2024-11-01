@@ -16,20 +16,16 @@ export const Icon = styled.img`
   cursor: pointer;
 `;
 
-export const CenterText = styled.span`
+export const CenterText = styled.h6`
   position: absolute;
   top: 1.1875rem;
   left: 50%;
   transform: translateX(-50%);
   color: ${({ theme }) => theme.colors.gray900};
-  font-size: 1rem;
-  font-weight: 600;
 `;
 
-export const Text = styled.span`
+export const Text = styled.h6`
   color: ${({ theme }) => theme.colors.gray700};
-  font-size: 1rem;
-  font-weight: 600;
   cursor: pointer;
 `;
 

@@ -7,9 +7,7 @@ export const Content = styled.div`
   gap: 1.75rem;
 `;
 
-export const Text = styled.span`
-  font-size: 1.125rem;
-  font-weight: 600;
+export const Text = styled.h5`
   line-height: 140%;
   color: ${({ theme }) => theme.colors.gray700};
 `;
