@@ -1,6 +1,15 @@
-import { InputHTMLAttributes } from 'react';
 import * as S from './InputStyle';
 
-export const Input = ({ ...props }: InputHTMLAttributes<HTMLInputElement>) => {
-  return <S.Input {...props} />;
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  isError: boolean;
+  errorMessage: string;
+}
+
+export const Input = ({ isError, errorMessage, ...props }: InputProps) => {
+  return (
+    <S.Container>
+      <S.Input $isError={isError} {...props} />
+      {isError && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+    </S.Container>
+  );
 };
