@@ -37,7 +37,6 @@ export const MyPage = () => {
         <Profile />
         <Settings onClickLogout={toggleLogout} onClickDeleteId={toggleDeleteId} />
       </S.Content>
-
       <Footer />
       {logout && (
         <BasicModal
