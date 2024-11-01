@@ -3,19 +3,21 @@ import * as S from './EditBottomSheetStyle';
 
 interface EditBottomSheetProps {
   onClick: () => void;
+  onClickEdit: () => void;
   onClickDelete: () => void;
   onClickChange: () => void;
 }
 
 export const EditBottomSheet = ({
   onClick,
+  onClickEdit,
   onClickDelete,
   onClickChange,
 }: EditBottomSheetProps) => {
   return (
     <BottomSheet onClick={onClick}>
       <S.SheetContent>
-        <S.SheetItem>
+        <S.SheetItem onClick={onClickEdit}>
           <S.Icon src="/icons/EditIcon.svg" />
           수정하기
         </S.SheetItem>
