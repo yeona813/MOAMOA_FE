@@ -33,9 +33,15 @@ export const FolderBottomSheet = ({
   isSelectBox = false,
 }: FolderBottomSheetProps) => {
   const [folderName, setFolderName] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const changeFolderName = (e: ChangeEvent<HTMLInputElement>) => {
     setFolderName(e.target.value);
+    if (e.target.value.length > 15) {
+      setIsError(true);
+    } else {
+      setIsError(false);
+    }
   };
 
   const changeSelect = (select: string) => {
@@ -50,12 +56,14 @@ export const FolderBottomSheet = ({
           <SelectBox select={folderName} onChange={changeSelect} selectData={FOLDER_DATA} />
         ) : (
           <Input
+            isError={isError}
+            errorMessage="15자 이내의 폴더 이름을 입력해주세요"
             placeholder="최대 15자까지 입력할 수 있어요"
             value={folderName}
             onChange={changeFolderName}
           />
         )}
-        <Button $styleType="basic" disabled={folderName === ''} onClick={onClickButton}>
+        <Button $styleType="basic" disabled={folderName === '' || isError} onClick={onClickButton}>
           완료
         </Button>
       </S.SheetContent>

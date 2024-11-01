@@ -6,18 +6,18 @@ import { SelectBox } from '../../components/common/selectbox/SelectBox';
 import { Button } from '../../components/common/button/Button';
 import { TabBar } from '../../components/layout/tabBar/TabBar';
 import { registerUser } from '../../api/Oauth';
+import { useNicknameValidation } from '../../hooks/useNicknameValidation';
 
 const statusOptions = ['대학생', '대학원생', '취업준비생', '인턴', '재직중'];
 
 export const SignUpPage = () => {
-  const [nickname, setNickname] = useState('');
   const [status, setStatus] = useState('');
   const navigate = useNavigate();
+  const { nickname, isError, errorMessage, onChangeNickname } = useNicknameValidation();
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get('token');
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,13 +35,6 @@ export const SignUpPage = () => {
     }
   };
 
-  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value.length <= 10) {
-      setNickname(value);
-    }
-  };
-
   return (
     <>
       <TabBar leftText="회원가입" />
@@ -53,9 +46,11 @@ export const SignUpPage = () => {
             <Input
               placeholder="10자 이내로 입력해주세요."
               value={nickname}
-              onChange={handleNicknameChange}
-              maxLength={10}
+              onChange={onChangeNickname}
               required
+              maxLength={10}
+              isError={isError}
+              errorMessage={errorMessage}
             />
           </S.InputWrapper>
           <S.InputWrapper>
@@ -63,10 +58,7 @@ export const SignUpPage = () => {
             <SelectBox select={status} onChange={setStatus} selectData={statusOptions} />
           </S.InputWrapper>
           <S.ButtonWrapper>
-            <Button
-              $styleType="basic"
-              disabled={!nickname || !status}
-            >
+            <Button $styleType="basic" disabled={isError || !nickname || !status}>
               완료
             </Button>
           </S.ButtonWrapper>
