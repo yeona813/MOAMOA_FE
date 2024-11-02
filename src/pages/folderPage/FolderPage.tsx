@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Folder } from '../../components/folder/Folder';
-import { Header } from '../../components/layout/header/Header';
-import { TabBar } from '../../components/layout/tabBar/TabBar';
+import { Folder } from '@components/folder/Folder';
+import { Header } from '@components/layout/header/Header';
+import { TabBar } from '@components/layout/tabBar/TabBar';
 import * as S from './FolderPageStyle';
-import { FolderBottomSheet } from '../../components/common/bottomSheet/FolderBottomSheet';
-import { DetailModal } from '../../components/common/modal/DetailModal';
-import { Footer } from '../../components/layout/footer/Footer';
+import { FolderBottomSheet } from '@components/common/bottomSheet/FolderBottomSheet';
+import { DetailModal } from '@components/common/modal/DetailModal';
+import { Footer } from '@components/layout/footer/Footer';
+import DeleteIcon from '@icons/DeleteIcon.svg';
+import PlusIcon from '@icons/PlusIcon.svg';
 
 const FOLDER_DATA = [
   '큐시즘 밋업',
@@ -46,9 +48,7 @@ export const FolderPage = () => {
         {FOLDER_DATA.length > 0 &&
           FOLDER_DATA.map((folder) => (
             <S.FolderContainer key={folder}>
-              {isEditing && (
-                <S.Icon src="/icons/DeleteIcon.svg" alt="delete" onClick={toggleModal} />
-              )}
+              {isEditing && <S.Icon src={DeleteIcon} alt="delete" onClick={toggleModal} />}
               <Folder type="folder">
                 <h6>{folder}</h6>
               </Folder>
@@ -56,7 +56,7 @@ export const FolderPage = () => {
           ))}
         {!isEditing && (
           <Folder type="plus" onClick={toggleBottomSheet}>
-            <img src="/icons/PlusIcon.svg" alt="plusButton" />
+            <img src={PlusIcon} alt="plusButton" />
           </Folder>
         )}
       </S.Content>

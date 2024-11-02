@@ -8,22 +8,26 @@ export const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Pretendard';
     font-weight: 400;
-    src: url(/fonts/Pretendard-Regular.ttf) format('ttf');
+    font-style: normal;
+    src: url(/public/font/Pretendard-Regular.woff) format('woff');
   }
   @font-face {
     font-family: 'Pretendard';
     font-weight: 600;
-    src: url(/fonts/Pretendard-SemiBold.ttf) format('ttf');
+    font-style: normal;
+    src: url(/public/font/fonts/Pretendard-SemiBold.woff) format('woff');
   }
   @font-face {
     font-family: 'Pretendard';
     font-weight: 700;
-    src: url(/fonts/Pretendard-Bold.ttf) format('ttf');
+    font-style: normal;
+    src: url(/public/font/fonts/Pretendard-Bold.woff) format('woff');
   }
   @font-face {
     font-family: 'Montserrat';
     font-weight: 700;
-    src: url(/fonts/MontserratAlternates-Bold.ttf) format('ttf');
+    font-style: normal;
+    src: url(/font/MontserratAlternates-Bold.ttf) format('ttf');
   }
 
   h1 {

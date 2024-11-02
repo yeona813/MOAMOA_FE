@@ -1,5 +1,5 @@
 import * as S from '../../common/button/ButtonStyle';
-import KakaoIcon from '/icons/KakaoIcon.svg';
+import KakaoIcon from '@icons/KakaoIcon.svg';
 import styled from 'styled-components';
 
 const LoginButtonContainer = styled(S.Container)`

@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { Memo } from '../../components/memo/Memo';
+import { Memo } from '@components/memo/Memo';
 
 export const MemoPage = () => {
   const [memo, setMemo] = useState('');

@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import BlueCirclesIcon from '@icons/BlueCirclesIcon.svg';
+import YellowCirclesIcon from '@icons/YellowCirclesIcon.svg';
 
 export const SheetItem = styled.div<{ $color: 'blue' | 'yellow' }>`
   position: relative;
@@ -18,9 +20,7 @@ export const Icon = styled.div<{ $color: 'blue' | 'yellow' }>`
   width: 0.4375rem;
   height: 100%;
   background-image: ${(props) =>
-    props.$color === 'blue'
-      ? "url('/icons/BlueCirclesIcon.svg')"
-      : "url('/icons/YellowCirclesIcon.svg')"};
+    props.$color === 'blue' ? `url(${BlueCirclesIcon})` : `url(${YellowCirclesIcon})`};
 `;
 
 export const TextContainer = styled.div`

@@ -2,6 +2,7 @@ import { Modal } from './Modal';
 import * as S from './ConfirmModalStyle';
 import { Button } from '../button/Button';
 import { useState } from 'react';
+import CheckIcon from '@icons/CheckIcon.svg';
 
 interface ConfirmModalProps {
   onClick: () => void;
@@ -26,7 +27,7 @@ export const ConfirmModal = ({ onClick }: ConfirmModalProps) => {
         </S.Text>
         <S.MessageContainer>
           <S.IconContainer $isCheck={isCheck} onClick={checkMessage}>
-            <S.Icon src="/icons/CheckIcon.svg" alt="checkIcon" />
+            <S.Icon src={CheckIcon} alt="checkIcon" />
           </S.IconContainer>
           <S.Message>동의합니다.</S.Message>
         </S.MessageContainer>

@@ -1,4 +1,4 @@
-import { LoginButton } from '../../components/common/login/LoginButton';
+import { LoginButton } from '@components/common/login/LoginButton';
 import * as S from './OauthPageStyle';
 
 export const OauthPage = () => {

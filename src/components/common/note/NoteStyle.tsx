@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import WhiteCirclesIcon from '@icons/WhiteCirclesIcon.svg';
 
 export const Note = styled.section<{ $color: 'blue' | 'yellow' }>`
   position: relative;
@@ -16,7 +17,7 @@ export const Note = styled.section<{ $color: 'blue' | 'yellow' }>`
 export const Icon = styled.div`
   width: 0.4375rem;
   height: 100%;
-  background-image: url('/icons/WhiteCirclesIcon.svg');
+  background-image: url(${WhiteCirclesIcon});
   background-repeat: no-repeat;
 `;
 

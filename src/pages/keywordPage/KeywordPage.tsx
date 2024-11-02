@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { CategoryChip } from '../../components/common/chip/CategoryChip';
-import { Footer } from '../../components/layout/footer/Footer';
+import { CategoryChip } from '@components/common/chip/CategoryChip';
+import { Footer } from '@components/layout/footer/Footer';
 import * as S from './KeywordPageStyle';
-import { KeywordList } from '../../components/keyword/KeywordList';
-import { Button } from '../../components/common/button/Button';
-import { RecordBottomSheet } from '../../components/common/bottomSheet/RecordBottomSheet';
+import { KeywordList } from '@components/keyword/KeywordList';
+import { Button } from '@components/common/button/Button';
+import { RecordBottomSheet } from '@components/common/bottomSheet/RecordBottomSheet';
 import { useNavigate } from 'react-router-dom';
+import RecordIcon from '@icons/RecordIcon.svg';
 
 interface KeywordListItem {
   id: number;
@@ -137,7 +138,7 @@ export const KeywordPage = () => {
               CO:RECORD와 함께 <br />
               경험을 기록해보세요!
             </S.EmptyMessage>
-            <Button $styleType="shadow" icon="/icons/RecordIcon.svg" onClick={toggleBottomSheet}>
+            <Button $styleType="shadow" icon={RecordIcon} onClick={toggleBottomSheet}>
               기록하러 가기
             </Button>
           </S.EmptyContainer>

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import * as S from './TabBarStyle';
+import ArrowIcon from '@icons/ArrowIcon.svg';
 
 interface TabBarProps {
   leftText?: string;
@@ -36,7 +37,7 @@ export const TabBar = ({
   return (
     <S.TabBar>
       <S.Icon
-        src="/icons/ArrowIcon.svg"
+        src={ArrowIcon}
         alt="이전버튼"
         onClick={onClickBackIcon ? onClickBackIcon : handleBackClick}
       />
