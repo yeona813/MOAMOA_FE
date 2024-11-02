@@ -1,10 +1,7 @@
-import { useNavigate } from 'react-router-dom';
 import { LoginButton } from '../../components/common/login/LoginButton';
 import * as S from './OauthPageStyle';
 
 export const OauthPage = () => {
-  const navigate = useNavigate();
-
   const handleOauth = () => {
     window.location.href = 'https://api.corecord.site/oauth2/authorization/kakao';
   };
@@ -13,8 +10,10 @@ export const OauthPage = () => {
     <S.Container>
       <S.Logo>co:record</S.Logo>
       <S.Subtitle>
-        차곡차곡 쌓여가는<br />
-        나의 하나뿐인 커리어 기록<br />
+        차곡차곡 쌓여가는
+        <br />
+        나의 하나뿐인 커리어 기록
+        <br />
       </S.Subtitle>
       <S.ButtonWrapper>
         <LoginButton onClick={handleOauth} />
