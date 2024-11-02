@@ -7,9 +7,9 @@ export const Header = styled.header`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 11.625rem;
+  height: 8.8125rem;
   justify-content: space-between;
-  padding: 5.3125rem 0rem 1.25rem 1.25rem;
+  padding: 2.5rem 0rem 1.25rem 1.25rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray100};
   background-color: ${({ theme }) => theme.colors.white};
   z-index: 10;

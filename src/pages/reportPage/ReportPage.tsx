@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Header } from '@components/layout/header/Header';
 import { TabBar } from '@components/layout/tabBar/TabBar';
 import { Content } from '@components/report/content/Content';
 import { EditBottomSheet } from '@components/common/bottomSheet/EditBottomSheet';
@@ -38,14 +37,12 @@ export const ReportPage = () => {
 
   return (
     <>
-      <Header isTabBar={true}>
-        <TabBar
-          centerText="역량 레포트"
-          icon={!isEdit ? KebabIcon : undefined}
-          onClick={togleBottomSheet}
-          onClickBackIcon={isEdit ? onClickBackIcon : undefined}
-        />
-      </Header>
+      <TabBar
+        centerText="역량 레포트"
+        icon={!isEdit ? KebabIcon : undefined}
+        onClick={togleBottomSheet}
+        onClickBackIcon={isEdit ? onClickBackIcon : undefined}
+      />
       <Content isEdit={isEdit} />
       {openBottom && (
         <EditBottomSheet

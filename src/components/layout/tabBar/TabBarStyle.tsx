@@ -1,13 +1,18 @@
 import styled from 'styled-components';
 
 export const TabBar = styled.nav`
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 3.375rem;
   width: 100%;
   padding: 0rem 1.25rem;
+  background-color: ${({ theme }) => theme.colors.white};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray50};
+  z-index: 1000;
 `;
 
 export const Icon = styled.img`

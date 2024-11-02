@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 export const Content = styled.div`
   position: absolute;
-  top: 11.625rem;
+  top: 8.8125rem;
   left: 0;
   width: 100%;
-  height: calc(100vh - 11.625rem);
+  height: calc(100vh - 8.8125rem);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;

@@ -3,7 +3,6 @@ import { Button } from '@components/common/button/Button';
 import { TabBar } from '@components/layout/tabBar/TabBar';
 import * as S from './EditProfilePageStyle';
 import { EditProfile } from '@components/editProfile/EditProfile';
-import { Header } from '@components/layout/header/Header';
 import { useNicknameValidation } from '../../hooks/useNicknameValidation';
 
 //@TODO
@@ -31,9 +30,7 @@ export const EditProfilePage = () => {
 
   return (
     <div>
-      <Header isTabBar={true}>
-        <TabBar centerText="프로필 수정" />
-      </Header>
+      <TabBar centerText="프로필 수정" />
       <S.Content>
         <EditProfile
           nickname={nickname}

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Folder } from '@components/folder/Folder';
-import { Header } from '@components/layout/header/Header';
 import { TabBar } from '@components/layout/tabBar/TabBar';
 import * as S from './FolderPageStyle';
 import { FolderBottomSheet } from '@components/common/bottomSheet/FolderBottomSheet';
@@ -41,9 +40,7 @@ export const FolderPage = () => {
 
   return (
     <div>
-      <Header isTabBar={true}>
-        <TabBar centerText="폴더 관리" rightText="편집" onClick={handleEdit} />
-      </Header>
+      <TabBar centerText="폴더 관리" rightText="편집" onClick={handleEdit} />
       <S.Content>
         {FOLDER_DATA.length > 0 &&
           FOLDER_DATA.map((folder) => (
