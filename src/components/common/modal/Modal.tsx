@@ -1,5 +1,6 @@
 import { Portal } from '../portal/Portal';
 import * as S from './ModalStyle';
+import CloseIcon from '@icons/CloseIcon.svg';
 
 interface ModalProps {
   children: React.ReactNode;
@@ -12,7 +13,7 @@ export const Modal = ({ children, onClick, isIcon }: ModalProps) => {
     <Portal>
       <S.Background onClick={onClick}>
         <S.Modal onClick={(e) => e.stopPropagation()}>
-          {isIcon && <S.Icon src="/icons/CloseIcon.svg" alt="closeIcon" onClick={onClick} />}
+          {isIcon && <S.Icon src={CloseIcon} alt="closeIcon" onClick={onClick} />}
           {children}
         </S.Modal>
       </S.Background>

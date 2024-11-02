@@ -1,4 +1,5 @@
 import { Portal } from '../portal/Portal';
+import CloseIcon from '@icons/CloseIcon.svg';
 import * as S from './BottomSheetStyle';
 
 interface BottomSheetProps {
@@ -22,7 +23,7 @@ export const BottomSheet = ({ title, children, onClick }: BottomSheetProps) => {
         <S.BottomSheet onClick={(e) => e.stopPropagation()}>
           <S.Header $hasTitle={!!title}>
             <S.Title>{title}</S.Title>
-            <S.Icon src="/icons/CloseIcon.svg" alt="closeIcon" onClick={onClick} />
+            <S.Icon src={CloseIcon} alt="closeIcon" onClick={onClick} />
           </S.Header>
           {children}
         </S.BottomSheet>

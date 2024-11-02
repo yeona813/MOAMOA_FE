@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as S from './SignUpPageStyle';
-import { Input } from '../../components/common/input/Input';
-import { SelectBox } from '../../components/common/selectbox/SelectBox';
-import { Button } from '../../components/common/button/Button';
-import { TabBar } from '../../components/layout/tabBar/TabBar';
+import { Input } from '@components/common/input/Input';
+import { SelectBox } from '@components/common/selectbox/SelectBox';
+import { Button } from '@components/common/button/Button';
+import { TabBar } from '@components/layout/tabBar/TabBar';
 import { registerUser } from '../../api/Oauth';
 import { useNicknameValidation } from '../../hooks/useNicknameValidation';
 

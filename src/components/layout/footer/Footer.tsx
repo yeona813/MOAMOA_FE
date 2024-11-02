@@ -1,9 +1,9 @@
 import * as S from './FooterStyle';
 import { useLocation, useNavigate } from 'react-router-dom';
-import HomeIcon from '/src/icons/HomeIcon.svg?react';
-import ListIcon from '/src/icons/HamburgerIcon.svg?react';
-import KeywordIcon from '/src/icons/KeywordIcon.svg?react';
-import MyIcon from '/src/icons/MyIcon.svg?react';
+import HomeIcon from '@icons/HomeIcon.svg?react';
+import ListIcon from '@icons/HamburgerIcon.svg?react';
+import KeywordIcon from '@icons/KeywordIcon.svg?react';
+import MyIcon from '@icons/MyIcon.svg?react';
 
 const FOOTER_ITEM = [
   {

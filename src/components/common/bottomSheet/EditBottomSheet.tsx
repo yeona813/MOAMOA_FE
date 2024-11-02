@@ -1,5 +1,8 @@
 import { BottomSheet } from './BottomSheet';
 import * as S from './EditBottomSheetStyle';
+import EditIcon from '@icons/EditIcon.svg';
+import DeleteIcon from '@icons/ReportDeleteIcon.svg';
+import ChangeIcon from '@icons/ChangeFolderIcon.svg';
 
 interface EditBottomSheetProps {
   onClick: () => void;
@@ -9,14 +12,14 @@ interface EditBottomSheetProps {
 }
 
 const EDIT_ITEM = [
-  { icon: '/icons/EditIcon.svg', label: '수정하기', actionKey: 'onClickEdit' },
+  { icon: EditIcon, label: '수정하기', actionKey: 'onClickEdit' },
   {
-    icon: '/icons/ReportDeleteIcon.svg',
+    icon: DeleteIcon,
     label: '삭제하기',
     actionKey: 'onClickDelete',
     isDelete: true,
   },
-  { icon: '/icons/ChangeFolderIcon.svg', label: '폴더 변경하기', actionKey: 'onClickChange' },
+  { icon: ChangeIcon, label: '폴더 변경하기', actionKey: 'onClickChange' },
 ];
 
 export const EditBottomSheet = ({

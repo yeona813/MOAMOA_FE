@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import * as S from './HeaderStyle';
 import { CategoryChip } from '../../common/chip/CategoryChip';
+import FolderIcon from '@icons/FolderIcon.svg';
 
 interface HeaderProps {
   nickname: string;
@@ -29,7 +30,7 @@ export const Header = ({ nickname, folderData, selectFolder, onClick }: HeaderPr
       <S.Title>{nickname}님의 경험 리스트</S.Title>
       <S.FolderContainer>
         <S.FolderIcon onClick={goToFolderPage}>
-          <S.Icon src="/icons/FolderIcon.svg" alt="FolderIcon" />
+          <S.Icon src={FolderIcon} alt="FolderIcon" />
         </S.FolderIcon>
         <S.ChipContainer>
           {folderData &&

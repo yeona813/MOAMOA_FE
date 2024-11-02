@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Header } from '../../components/list/header/Header';
-import { Footer } from '../../components/layout/footer/Footer';
-import { Content } from '../../components/list/content/Content';
+import { Header } from '@components/list/header/Header';
+import { Footer } from '@components/layout/footer/Footer';
+import { Content } from '@components/list/content/Content';
 import * as S from './ListPageStyle';
-import { RecordBottomSheet } from '../../components/common/bottomSheet/RecordBottomSheet';
+import { RecordBottomSheet } from '@components/common/bottomSheet/RecordBottomSheet';
+import WriteIcon from '@icons/WriteIcon.svg';
 
 //@TODO
 // 1. 닉네임을 백에서 직접 받아와서 Header에 처리해야한다!
@@ -32,7 +33,7 @@ export const ListPage = () => {
       />
       <Content onClick={toggleBottomSheet} />
       <S.Button onClick={toggleBottomSheet}>
-        <S.Icon src="/icons/WriteIcon.svg" alt="기록" />
+        <S.Icon src={WriteIcon} alt="기록" />
       </S.Button>
       <Footer />
       {openBottom && <RecordBottomSheet onClick={toggleBottomSheet} />}

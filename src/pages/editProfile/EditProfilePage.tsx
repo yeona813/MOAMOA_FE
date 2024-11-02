@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Button } from '../../components/common/button/Button';
-import { TabBar } from '../../components/layout/tabBar/TabBar';
+import { Button } from '@components/common/button/Button';
+import { TabBar } from '@components/layout/tabBar/TabBar';
 import * as S from './EditProfilePageStyle';
-import { EditProfile } from '../../components/editProfile/EditProfile';
-import { Header } from '../../components/layout/header/Header';
+import { EditProfile } from '@components/editProfile/EditProfile';
+import { Header } from '@components/layout/header/Header';
 import { useNicknameValidation } from '../../hooks/useNicknameValidation';
 
 //@TODO
