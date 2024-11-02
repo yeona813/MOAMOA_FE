@@ -3,10 +3,10 @@ import styled from 'styled-components';
 export const Header = styled.header`
   position: relative;
   width: 100%;
-  height: 17.4375rem;
+  height: 14.9375rem; //279px
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.4) 100%),
     #d6dcff;
-  padding: 4.1875rem 1.25rem 0px;
+  padding: 1.6875rem 1.25rem 0px; //4.1875rem 1.25rem 0px
   color: ${({ theme }) => theme.colors.gray900};
 `;
 
