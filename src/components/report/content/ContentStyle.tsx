@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Content = styled.div`
   position: absolute;
-  top: 6.375rem;
+  top: 3.375rem;
   right: 0;
   display: flex;
   flex-direction: column;

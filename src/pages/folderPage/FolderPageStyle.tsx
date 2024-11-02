@@ -2,12 +2,12 @@ import styled from 'styled-components';
 
 export const Content = styled.div`
   position: absolute;
-  top: 6.375rem;
+  top: 3.375rem;
   left: 0;
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: calc(100% - 6.375rem);
+  height: calc(100% - 3.375rem);
   padding: 1.5rem 1.75rem 6.625rem 1.75rem;
   gap: 10px;
   overflow: auto;
