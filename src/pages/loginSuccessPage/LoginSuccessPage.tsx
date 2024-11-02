@@ -1,4 +1,4 @@
-import { Button } from '../../components/common/button/Button';
+import { Button } from '@components/common/button/Button';
 import { useNavigate } from 'react-router-dom';
 import * as S from './LoginSuccessPageStyle';
 import { Logo } from './LoginSuccessPageStyle';
@@ -15,8 +15,10 @@ export const LoginSuccessPage = () => {
       <S.ContentWrapper>
         <Logo>co:record</Logo>
         <S.WelcomeMessage>
-          회원가입 완료!<br />
-          코어레코드에 오신 것을<br />
+          회원가입 완료!
+          <br />
+          코어레코드에 오신 것을
+          <br />
           환영합니다.
         </S.WelcomeMessage>
         <S.ColoredSquare />

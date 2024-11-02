@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Header } from '../../components/layout/header/Header';
-import { TabBar } from '../../components/layout/tabBar/TabBar';
-import { Content } from '../../components/report/content/Content';
-import { EditBottomSheet } from '../../components/common/bottomSheet/EditBottomSheet';
-import { BasicModal } from '../../components/common/modal/BasicModal';
-import { FolderBottomSheet } from '../../components/common/bottomSheet/FolderBottomSheet';
+import { Header } from '@components/layout/header/Header';
+import { TabBar } from '@components/layout/tabBar/TabBar';
+import { Content } from '@components/report/content/Content';
+import { EditBottomSheet } from '@components/common/bottomSheet/EditBottomSheet';
+import { BasicModal } from '@components/common/modal/BasicModal';
+import { FolderBottomSheet } from '@components/common/bottomSheet/FolderBottomSheet';
+import KebabIcon from '@icons/KebabIcon.svg';
 
 export const ReportPage = () => {
   const [openBottom, setOpenBottom] = useState(false);
@@ -40,7 +41,7 @@ export const ReportPage = () => {
       <Header isTabBar={true}>
         <TabBar
           centerText="역량 레포트"
-          icon={!isEdit ? '/icons/KebabIcon.svg' : undefined}
+          icon={!isEdit ? KebabIcon : undefined}
           onClick={togleBottomSheet}
           onClickBackIcon={isEdit ? onClickBackIcon : undefined}
         />

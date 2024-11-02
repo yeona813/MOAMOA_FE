@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import CircleIcon from '@icons/CirclesIcon.svg';
 
 const sizeStyles = {
   small: {
@@ -32,7 +33,7 @@ export const List = styled.section<{ $type: 'small' | 'large' }>`
 export const Icon = styled.div<{ $type: 'small' | 'large' }>`
   width: ${(props) => (props.$type === 'small' ? '0.375rem' : '0.4375rem')};
   height: 100%;
-  background-image: url('/icons/CirclesIcon.svg');
+  background-image: url(${CircleIcon});
 `;
 
 export const Content = styled.div<{ $type: 'small' | 'large' }>`

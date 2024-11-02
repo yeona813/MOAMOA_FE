@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Profile } from '../../components/my/profile/Profile';
-import { Settings } from '../../components/my/settings/Settings';
-import { BasicModal } from '../../components/common/modal/BasicModal';
-import { DetailModal } from '../../components/common/modal/DetailModal';
-import { ConfirmModal } from '../../components/common/modal/ConfirmModal';
-import { Header } from '../../components/layout/header/Header';
-import { Footer } from '../../components/layout/footer/Footer';
+import { Profile } from '@components/my/profile/Profile';
+import { Settings } from '@components/my/settings/Settings';
+import { BasicModal } from '@components/common/modal/BasicModal';
+import { DetailModal } from '@components/common/modal/DetailModal';
+import { ConfirmModal } from '@components/common/modal/ConfirmModal';
+import { Header } from '@components/layout/header/Header';
+import { Footer } from '@components/layout/footer/Footer';
 import * as S from './MyPageStyle';
 
 export const MyPage = () => {
