@@ -23,22 +23,16 @@ const DUMMY_MEMO = {
 
 export const MemoPage = () => {
   const navigate = useNavigate();
-  const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('');
-  const [memo, setMemo] = useState('');
+  const [tempMemo, setTempMemo] = useState({
+    title: '',
+    category: '',
+    memo: ''
+  });
   const [showModal, setShowModal] = useState(false);
   const [showTempDataModal, setShowTempDataModal] = useState(false);
-  const [tempMemo, setTempMemo] = useState<{
-    title: string;
-    category: string;
-    memo: string;
-  } | null>(null);
 
   useEffect(() => {
-    // 컴포넌트 마운트 시 더미데이터를 임시저장
     localStorage.setItem('tempMemo', JSON.stringify(DUMMY_MEMO));
-
-    // 임시저장된 메모 확인 및 모달 표시
     const savedMemo = localStorage.getItem('tempMemo');
     if (savedMemo) {
       setTempMemo(JSON.parse(savedMemo));
@@ -46,18 +40,19 @@ export const MemoPage = () => {
     }
   }, []);
 
-  const saveTempMemo = (title: string, category: string, memo: string) => {
-    const titleToSave = title || getFormattedDate();
-    localStorage.setItem('tempMemo', JSON.stringify({
-      title: titleToSave,
-      category,
-      memo
-    }));
+  const saveTempMemo = () => {
+    const titleToSave = tempMemo.title || getFormattedDate();
+    if (tempMemo.title && tempMemo.memo) {
+      localStorage.setItem('tempMemo', JSON.stringify({
+        ...tempMemo,
+        title: titleToSave
+      }));
+    }
   };
 
   const handleBackButton = () => {
-    if ((title || getFormattedDate()) && memo) {
-      saveTempMemo(title, category, memo);
+    if ((tempMemo.title || getFormattedDate()) && tempMemo.memo) {
+      saveTempMemo();
       setShowModal(true);
     } else {
       navigate(-1);
@@ -66,36 +61,34 @@ export const MemoPage = () => {
 
   const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
-    setTitle(newTitle);
-    saveTempMemo(newTitle, category, memo);
+    setTempMemo((prev) => ({ ...prev, title: newTitle }));
+    saveTempMemo();
   };
 
   const handleChangeCategory = (value: string) => {
-    setCategory(value);
-    saveTempMemo(title, value, memo);
+    setTempMemo((prev) => ({ ...prev, category: value }));
+    saveTempMemo();
   };
 
   const handleChangeMemo = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newMemo = e.target.value;
-    setMemo(newMemo);
-    saveTempMemo(title, category, newMemo);
+    setTempMemo((prev) => ({ ...prev, memo: newMemo }));
+    saveTempMemo();
   };
 
   const handleSaveButton = () => {
-    const titleToSave = title || getFormattedDate();
+    const titleToSave = tempMemo.title || getFormattedDate();
     console.log('저장되었습니다.', {
       title: titleToSave,
-      category,
-      memo
+      category: tempMemo.category,
+      memo: tempMemo.memo
     });
     clearTempMemo();
   };
 
   const restoreTempMemo = () => {
     if (tempMemo) {
-      setTitle(tempMemo.title);
-      setCategory(tempMemo.category);
-      setMemo(tempMemo.memo);
+      setTempMemo(tempMemo);
     }
     setShowModal(false);
   };
@@ -106,7 +99,13 @@ export const MemoPage = () => {
     navigate('/');
   };
 
-  const isSaveDisabled = !title && !memo;
+  const handleNewMemo = () => {
+    localStorage.removeItem('tempMemo');
+    setTempMemo({ title: '', category: '', memo: '' });
+    setShowTempDataModal(false);
+  };
+
+  const isSaveDisabled = !tempMemo.title && !tempMemo.memo;
 
   return (
     <S.Container>
@@ -115,29 +114,28 @@ export const MemoPage = () => {
         centerText="경험 기록"
         rightText="저장"
         onClick={handleSaveButton}
-        $isDisabled={isSaveDisabled}
+        isDisabled={isSaveDisabled}
       />
       <S.Form>
         <S.Label>경험의 제목을 적어주세요</S.Label>
         <S.InputContainer>
           <Input
             placeholder={getFormattedDate()}
-            value={title}
+            value={tempMemo.title}
             onChange={handleChangeTitle}
             isError={false}
-            errorMessage={''}
           />
         </S.InputContainer>
         <S.Label>경험의 카테고리를 선택해주세요</S.Label>
         <S.InputContainer>
           <SelectBox
-            select={category}
+            select={tempMemo.category}
             onChange={handleChangeCategory}
             selectData={['카테고리1', '카테고리2', '카테고리3']}
           />
         </S.InputContainer>
         <S.Label>경험 기록</S.Label>
-        <Memo memo={memo} onChange={handleChangeMemo} />
+        <Memo memo={tempMemo.memo} onChange={handleChangeMemo} />
       </S.Form>
       {showModal && (
         <DetailModal
@@ -157,10 +155,7 @@ export const MemoPage = () => {
           leftButtonText="새로 작성하기"
           rightButtonText="이어서 작성하기"
           onClickBackground={() => setShowTempDataModal(false)}
-          onClickLeft={() => {
-            localStorage.removeItem('tempMemo');
-            setShowTempDataModal(false);
-          }}
+          onClickLeft={handleNewMemo}
           onClickRight={() => {
             restoreTempMemo();
             setShowTempDataModal(false);
