@@ -103,6 +103,7 @@ export const MemoPage = () => {
   const clearTempMemo = () => {
     localStorage.removeItem('tempMemo');
     setShowModal(false);
+    navigate('/');
   };
 
   const isSaveDisabled = !title && !memo;
