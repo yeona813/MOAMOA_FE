@@ -10,7 +10,7 @@ export const Background = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 100;
+  z-index: 1100;
 `;
 
 export const Modal = styled.div`
