@@ -4,10 +4,10 @@ import { Button } from '../button/Button';
 
 interface DetailModal {
   text: string;
-  description: string;
+  description?: string;
   leftButtonText: string;
   rightButtonText: string;
-  onClickBackground: () => void;
+  onClickBackground?: () => void;
   onClickLeft: () => void;
   onClickRight: () => void;
 }
@@ -33,7 +33,7 @@ export const DetailModal = ({
   onClickRight,
 }: DetailModal) => {
   return (
-    <Modal onClick={onClickBackground}>
+    <Modal onClick={onClickBackground || (() => { })}>
       <S.Content>
         <S.Text>{text}</S.Text>
         <S.Description>{description}</S.Description>
