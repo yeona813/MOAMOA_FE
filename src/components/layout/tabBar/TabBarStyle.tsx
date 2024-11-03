@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface TextProps {
+  $isDisabled?: boolean;
+}
+
 export const TabBar = styled.nav`
   position: fixed;
   top: 0;
@@ -29,9 +33,10 @@ export const CenterText = styled.h6`
   color: ${({ theme }) => theme.colors.gray900};
 `;
 
-export const Text = styled.h6`
+export const Text = styled.h6<TextProps>`
   color: ${({ theme }) => theme.colors.gray700};
   cursor: pointer;
+  $isDisabled ? theme.colors.gray300 : theme.colors.gray700};
 `;
 
 export const LeftText = styled.span`
