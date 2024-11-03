@@ -2,7 +2,7 @@ import * as S from './InputStyle';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   isError: boolean;
-  errorMessage: string;
+  errorMessage?: string;
 }
 
 /**

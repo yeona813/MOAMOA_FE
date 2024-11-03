@@ -7,6 +7,7 @@ const popupCommonStyles = css`
   font-size: 1rem;
   font-weight: 600;
   border-radius: 0.75rem;
+  white-space: nowrap;
 `;
 
 const BUTTON_STYLES = {
