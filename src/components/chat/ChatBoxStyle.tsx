@@ -27,6 +27,7 @@ export const ChatBoxInput = styled.input`
   font-size: 0.875rem;
   font-weight: 400;
   border: none;
+  padding: 0.625rem;
 `;
 
 export const ChatBoxButton = styled.button`

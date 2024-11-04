@@ -24,7 +24,7 @@ export const ChatBox = ({ onSubmit }: ChatBoxProps) => {
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="  내용을 입력해 주세요"
+          placeholder="내용을 입력해 주세요"
         />
         <S.ChatBoxButton type="submit">
           <img src={UpArrowIcon} alt="Send" />
