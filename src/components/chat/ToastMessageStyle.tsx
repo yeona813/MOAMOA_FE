@@ -16,9 +16,9 @@ export const ToastContainer = styled.div`
   left: 50%;
   transform: translate(-50%, 0);
   background-color: ${({ theme }) => theme.colors.gray700};
-  padding: 0.625rem 1.25rem; /* 10px 20px -> rem */
-  border-radius: 1.25rem; /* 20px -> rem */
-  font-size: 1rem; /* 16px -> rem */
+  padding: 0.625rem 1.25rem;
+  border-radius: 1.25rem;
+  font-size: 1rem;
   animation: ${fadeIn} 0.5s ease-in, ${fadeOut} 0.5s ease-out;
   animation-delay: 0s, 2.5s;
   z-index: 1000;
