@@ -13,6 +13,8 @@ import { ListPage } from './pages/listPage/ListPage';
 import { FolderPage } from './pages/folderPage/FolderPage';
 import { KeywordPage } from './pages/keywordPage/KeywordPage';
 import { ReportPage } from './pages/reportPage/ReportPage';
+import { ChatPage } from './pages/chatPage/ChatPage';
+import { RecordCompletePage } from './pages/recordCompletePage/RecordCompletePage';
 
 export const Router = createBrowserRouter([
   {
@@ -74,6 +76,14 @@ export const Router = createBrowserRouter([
       {
         path: 'report/:id',
         element: <ReportPage />,
+      },
+      {
+        path: 'chat',
+        element: <ChatPage />,
+      },
+      {
+        path: 'record-complete',
+        element: <RecordCompletePage />,
       },
     ],
   },
