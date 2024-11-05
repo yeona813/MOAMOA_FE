@@ -37,10 +37,10 @@ export const BasicModal = ({
       <S.Content>
         <S.Text>{text}</S.Text>
         <S.ButtonContainer>
-          <Button $styleType="popupLeft" onClick={onClickLeft}>
+          <Button styleType="popupLeft" onClick={onClickLeft}>
             {leftButtonText}
           </Button>
-          <Button $styleType="popupRight" onClick={onClickRight}>
+          <Button styleType="popupRight" onClick={onClickRight}>
             {rightButtonText}
           </Button>
         </S.ButtonContainer>

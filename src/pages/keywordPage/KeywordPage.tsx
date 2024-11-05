@@ -138,7 +138,7 @@ export const KeywordPage = () => {
               CO:RECORD와 함께 <br />
               경험을 기록해보세요!
             </S.EmptyMessage>
-            <Button $styleType="shadow" icon={RecordIcon} onClick={toggleBottomSheet}>
+            <Button styleType="shadow" icon={RecordIcon} onClick={toggleBottomSheet}>
               기록하러 가기
             </Button>
           </S.EmptyContainer>

@@ -81,7 +81,7 @@ export const Content = ({ onClick }: ContentProps) => {
             <br />
             경험을 기록해보세요!
           </S.EmptyMessage>
-          <Button $styleType="shadow" onClick={onClick}>
+          <Button styleType="shadow" onClick={onClick}>
             기록하러 가기
           </Button>
         </S.EmptyContainer>

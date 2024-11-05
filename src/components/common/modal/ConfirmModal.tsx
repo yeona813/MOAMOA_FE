@@ -31,7 +31,7 @@ export const ConfirmModal = ({ onClick }: ConfirmModalProps) => {
           </S.IconContainer>
           <S.Message>동의합니다.</S.Message>
         </S.MessageContainer>
-        <Button $styleType="basic" disabled={disabled}>
+        <Button styleType="basic" disabled={disabled}>
           회원 탈퇴하기
         </Button>
       </S.Content>

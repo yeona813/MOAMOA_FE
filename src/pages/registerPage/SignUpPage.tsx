@@ -58,7 +58,7 @@ export const SignUpPage = () => {
             <SelectBox select={status} onChange={setStatus} selectData={statusOptions} />
           </S.InputWrapper>
           <S.ButtonWrapper>
-            <Button $styleType="basic" disabled={isError || !nickname || !status}>
+            <Button styleType="basic" disabled={isError || !nickname || !status}>
               완료
             </Button>
           </S.ButtonWrapper>

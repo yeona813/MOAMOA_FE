@@ -1,16 +1,14 @@
 import * as S from './ButtonStyle';
 
-export interface ButtonProps {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   icon?: string;
-  disabled?: boolean;
-  $styleType: 'shadow' | 'small' | 'basic' | 'popupRight' | 'popupLeft';
-  onClick?: () => void;
+  styleType: 'shadow' | 'small' | 'basic' | 'popupRight' | 'popupLeft';
 }
 
-export const Button = ({ children, icon, disabled, $styleType, onClick }: ButtonProps) => {
+export const Button = ({ children, icon, styleType, ...props }: ButtonProps) => {
   return (
-    <S.Container $styleType={$styleType} disabled={disabled} onClick={onClick}>
+    <S.Container $styleType={styleType} {...props}>
       {children}
       {icon && <S.Icon src={icon} alt="icon" />}
     </S.Container>

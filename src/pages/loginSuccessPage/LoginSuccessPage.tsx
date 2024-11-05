@@ -24,7 +24,7 @@ export const LoginSuccessPage = () => {
         <S.ColoredSquare />
       </S.ContentWrapper>
       <S.ButtonWrapper>
-        <Button $styleType="basic" onClick={handleStart}>
+        <Button styleType="basic" onClick={handleStart}>
           완료
         </Button>
       </S.ButtonWrapper>

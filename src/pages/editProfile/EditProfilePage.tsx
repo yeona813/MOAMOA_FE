@@ -43,7 +43,7 @@ export const EditProfilePage = () => {
         />
         <S.ButtonStyle>
           <Button
-            $styleType="basic"
+            styleType="basic"
             disabled={submit}
             onClick={() => {
               console.log(nickname);
