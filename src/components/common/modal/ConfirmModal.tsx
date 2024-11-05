@@ -1,5 +1,5 @@
 import { Modal } from './Modal';
-import * as S from './ConfirmModalStyle';
+import * as S from './ConfirmModal.Style';
 import { Button } from '../button/Button';
 import { useState } from 'react';
 import CheckIcon from '@icons/CheckIcon.svg';
@@ -31,7 +31,7 @@ export const ConfirmModal = ({ onClick }: ConfirmModalProps) => {
           </S.IconContainer>
           <S.Message>동의합니다.</S.Message>
         </S.MessageContainer>
-        <Button $styleType="basic" disabled={disabled}>
+        <Button styleType="basic" disabled={disabled}>
           회원 탈퇴하기
         </Button>
       </S.Content>

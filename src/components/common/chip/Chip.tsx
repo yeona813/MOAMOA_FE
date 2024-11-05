@@ -1,4 +1,4 @@
-import * as S from './ChipStyle';
+import * as S from './Chip.Style';
 
 interface ChipProps {
   children: React.ReactNode;

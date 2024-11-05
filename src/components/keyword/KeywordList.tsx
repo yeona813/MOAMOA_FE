@@ -1,5 +1,5 @@
 import { Chip } from '../common/chip/Chip';
-import * as S from './KeywordListStyle';
+import * as S from './KeywordList.Style';
 import ShortCirclesIcon from '@icons/ShortCirclesIcon.svg';
 
 interface KeywordListProps {

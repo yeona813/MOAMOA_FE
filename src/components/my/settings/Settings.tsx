@@ -1,5 +1,5 @@
 import { SettingItem } from './SettingItem';
-import * as S from './SettingsStyle';
+import * as S from './Settings.Style';
 
 const POLICY_DATA = [
   { title: '개인정보처리방침', url: 'www.naver.com' }, // 노션 링크로 수정 필요

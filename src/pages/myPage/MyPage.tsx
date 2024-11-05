@@ -5,7 +5,7 @@ import { BasicModal } from '@components/common/modal/BasicModal';
 import { DetailModal } from '@components/common/modal/DetailModal';
 import { ConfirmModal } from '@components/common/modal/ConfirmModal';
 import { Footer } from '@components/layout/footer/Footer';
-import * as S from './MyPageStyle';
+import * as S from './MyPage.Style';
 
 export const MyPage = () => {
   const [logout, setLogout] = useState(false);

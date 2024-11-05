@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../common/button/Button';
-import * as S from './ContentStyle';
+import * as S from './Content.Style';
 import { Skill } from '../skill/Skill';
 import { useState } from 'react';
 import { Comment } from '../comment/Comment';
@@ -66,7 +66,7 @@ export const Content = ({ isEdit }: ContentProps) => {
       <S.MiddleContent>
         <S.MiddleHead>
           <S.SubTitle>코코님의 핵심 역량</S.SubTitle>
-          <Button $styleType="small" onClick={goToChatPage}>
+          <Button styleType="small" onClick={goToChatPage}>
             채팅 다시보기
           </Button>
         </S.MiddleHead>
@@ -87,7 +87,7 @@ export const Content = ({ isEdit }: ContentProps) => {
         의사소통에서는 간결하고 명확한 메시지 전달과 다양한 스타일 조절이 필요합니다."
       />
       {isEdit && (
-        <Button $styleType="shadow" onClick={onSaveChanges}>
+        <Button styleType="shadow" onClick={onSaveChanges}>
           수정 완료하기
         </Button>
       )}

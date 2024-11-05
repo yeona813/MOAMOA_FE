@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Chip } from '../../common/chip/Chip';
-import * as S from './SkillStyle';
+import * as S from './Skill.Style';
 
 interface SkillProps {
   keyword: string;

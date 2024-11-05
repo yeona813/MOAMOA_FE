@@ -9,19 +9,19 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Pretendard';
     font-weight: 400;
     font-style: normal;
-    src: url(/public/font/Pretendard-Regular.woff) format('woff');
+    src: url(/font/Pretendard-Regular.woff) format('woff');
   }
   @font-face {
     font-family: 'Pretendard';
     font-weight: 600;
     font-style: normal;
-    src: url(/public/font/fonts/Pretendard-SemiBold.woff) format('woff');
+    src: url(/font/Pretendard-SemiBold.woff) format('woff');
   }
   @font-face {
     font-family: 'Pretendard';
     font-weight: 700;
     font-style: normal;
-    src: url(/public/font/fonts/Pretendard-Bold.woff) format('woff');
+    src: url(/font/Pretendard-Bold.woff) format('woff');
   }
   @font-face {
     font-family: 'Montserrat';

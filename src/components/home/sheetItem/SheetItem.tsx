@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import * as S from './SheetItemStyle';
+import * as S from './SheetItem.Style';
 
 export interface SheetItemProps {
   title: string;

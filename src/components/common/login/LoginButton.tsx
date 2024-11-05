@@ -1,4 +1,4 @@
-import * as S from '../../common/button/ButtonStyle';
+import * as S from '../button/Button.Style';
 import KakaoIcon from '@icons/KakaoIcon.svg';
 import styled from 'styled-components';
 

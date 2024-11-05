@@ -34,9 +34,8 @@ export const CenterText = styled.h6`
 `;
 
 export const Text = styled.h6<TextProps>`
-  color: ${({ theme }) => theme.colors.gray700};
+  color: ${({ $isDisabled, theme }) => ($isDisabled ? theme.colors.gray300 : theme.colors.gray700)};
   cursor: pointer;
-  $isDisabled ? theme.colors.gray300 : theme.colors.gray700};
 `;
 
 export const LeftText = styled.span`

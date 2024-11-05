@@ -1,5 +1,5 @@
 import { Modal } from './Modal';
-import * as S from './DetailModalStyle';
+import * as S from './DetailModal.Style';
 import { Button } from '../button/Button';
 
 interface DetailModal {
@@ -33,15 +33,15 @@ export const DetailModal = ({
   onClickRight,
 }: DetailModal) => {
   return (
-    <Modal onClick={onClickBackground || (() => { })}>
+    <Modal onClick={onClickBackground || (() => {})}>
       <S.Content>
         <S.Text>{text}</S.Text>
         <S.Description>{description}</S.Description>
         <S.ButtonContainer>
-          <Button $styleType="popupLeft" onClick={onClickLeft}>
+          <Button styleType="popupLeft" onClick={onClickLeft}>
             {leftButtonText}
           </Button>
-          <Button $styleType="popupRight" onClick={onClickRight}>
+          <Button styleType="popupRight" onClick={onClickRight}>
             {rightButtonText}
           </Button>
         </S.ButtonContainer>

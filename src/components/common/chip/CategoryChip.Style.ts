@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CategoryChip = styled.div<{ $isSelected: boolean }>`
+export const CategoryChip = styled.button<{ $isSelected: boolean }>`
   display: inline-flex;
   padding: 0.5rem 1rem;
   border-radius: 6.1875rem;
