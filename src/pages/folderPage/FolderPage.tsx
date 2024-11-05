@@ -30,12 +30,12 @@ export const FolderPage = () => {
     setOpenBottom((prev) => !prev);
   };
 
-  const toggleModal = () => {
-    setOpenModal((prev) => !prev);
-  };
-
   const handleEdit = () => {
     setIsEditing((prev) => !prev);
+  };
+
+  const toggleModal = () => {
+    setOpenModal((prev) => !prev);
   };
 
   return (
