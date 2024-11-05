@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import * as S from './HeaderStyle';
+import * as S from './Header.Style';
 import { CategoryChip } from '../../common/chip/CategoryChip';
 import FolderIcon from '@icons/FolderIcon.svg';
 

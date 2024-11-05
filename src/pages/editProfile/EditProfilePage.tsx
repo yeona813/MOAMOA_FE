@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@components/common/button/Button';
 import { TabBar } from '@components/layout/tabBar/TabBar';
-import * as S from './EditProfilePageStyle';
+import * as S from './EditProfilePage.Style';
 import { EditProfile } from '@components/editProfile/EditProfile';
 import { useNicknameValidation } from '../../hooks/useNicknameValidation';
 

@@ -1,5 +1,5 @@
 import { Modal } from './Modal';
-import * as S from './ConfirmModalStyle';
+import * as S from './ConfirmModal.Style';
 import { Button } from '../button/Button';
 import { useState } from 'react';
 import CheckIcon from '@icons/CheckIcon.svg';

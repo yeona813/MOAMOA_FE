@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Header } from '@components/list/header/Header';
 import { Footer } from '@components/layout/footer/Footer';
 import { Content } from '@components/list/content/Content';
-import * as S from './ListPageStyle';
+import * as S from './ListPage.Style';
 import { RecordBottomSheet } from '@components/common/bottomSheet/RecordBottomSheet';
 import WriteIcon from '@icons/WriteIcon.svg';
 

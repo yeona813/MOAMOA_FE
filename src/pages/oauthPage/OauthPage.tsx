@@ -1,5 +1,5 @@
 import { LoginButton } from '@components/common/login/LoginButton';
-import * as S from './OauthPageStyle';
+import * as S from './OauthPage.Style';
 
 export const OauthPage = () => {
   const handleOauth = () => {

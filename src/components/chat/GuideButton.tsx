@@ -1,4 +1,4 @@
-import * as S from './GuideButtonStyle';
+import * as S from './GuideButton.Style';
 
 interface GuideButtonProps {
   text: string;

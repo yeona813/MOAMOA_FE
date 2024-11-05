@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import UpArrowIcon from '@icons/UpArrowIcon.svg';
-import * as S from './ChatBoxStyle';
+import * as S from './ChatBox.Style';
 
 interface ChatBoxProps {
   onSubmit: (message: string) => void;

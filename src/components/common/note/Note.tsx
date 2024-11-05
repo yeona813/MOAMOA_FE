@@ -1,4 +1,4 @@
-import * as S from './NoteStyle';
+import * as S from './Note.Style';
 
 interface NoteProps {
   children: React.ReactNode;

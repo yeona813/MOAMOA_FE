@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Folder } from '@components/folder/Folder';
 import { TabBar } from '@components/layout/tabBar/TabBar';
-import * as S from './FolderPageStyle';
+import * as S from './FolderPage.Style';
 import { FolderBottomSheet } from '@components/common/bottomSheet/FolderBottomSheet';
 import { DetailModal } from '@components/common/modal/DetailModal';
 import { Footer } from '@components/layout/footer/Footer';

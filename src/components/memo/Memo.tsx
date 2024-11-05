@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import * as S from './MemoStyle';
+import * as S from './Memo.Style';
 import { Note } from '../common/note/Note';
 
 interface MemoProps {

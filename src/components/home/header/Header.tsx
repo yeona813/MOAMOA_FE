@@ -1,5 +1,5 @@
 import { Button } from '../../common/button/Button';
-import * as S from './HeaderStyle';
+import * as S from './Header.Style';
 import RecordIcon from '@icons/RecordIcon.svg';
 
 interface HeaderProps {

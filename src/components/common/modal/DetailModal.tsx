@@ -1,5 +1,5 @@
 import { Modal } from './Modal';
-import * as S from './DetailModalStyle';
+import * as S from './DetailModal.Style';
 import { Button } from '../button/Button';
 
 interface DetailModal {

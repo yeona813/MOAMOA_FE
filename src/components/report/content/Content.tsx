@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../common/button/Button';
-import * as S from './ContentStyle';
+import * as S from './Content.Style';
 import { Skill } from '../skill/Skill';
 import { useState } from 'react';
 import { Comment } from '../comment/Comment';

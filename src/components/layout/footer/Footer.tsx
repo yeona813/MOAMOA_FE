@@ -1,4 +1,4 @@
-import * as S from './FooterStyle';
+import * as S from './Footer.Style';
 import { useLocation, useNavigate } from 'react-router-dom';
 import HomeIcon from '@icons/HomeIcon.svg?react';
 import ListIcon from '@icons/HamburgerIcon.svg?react';

@@ -1,6 +1,6 @@
 import { Portal } from '../portal/Portal';
 import CloseIcon from '@icons/CloseIcon.svg';
-import * as S from './BottomSheetStyle';
+import * as S from './BottomSheet.Style';
 
 interface BottomSheetProps {
   title?: string;

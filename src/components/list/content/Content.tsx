@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import * as S from './ContentStyle';
+import * as S from './Content.Style';
 import { List } from '../../common/list/List';
 import { Button } from '../../common/button/Button';
 

@@ -1,4 +1,4 @@
-import * as S from './ButtonStyle';
+import * as S from './Button.Style';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;

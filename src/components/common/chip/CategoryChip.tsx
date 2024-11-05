@@ -1,4 +1,4 @@
-import * as S from './CategoryChipStyle';
+import * as S from './CategoryChip.Style';
 
 interface CategoryChipProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;

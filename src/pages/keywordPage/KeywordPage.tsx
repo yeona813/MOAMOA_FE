@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CategoryChip } from '@components/common/chip/CategoryChip';
 import { Footer } from '@components/layout/footer/Footer';
-import * as S from './KeywordPageStyle';
+import * as S from './KeywordPage.Style';
 import { KeywordList } from '@components/keyword/KeywordList';
 import { Button } from '@components/common/button/Button';
 import { RecordBottomSheet } from '@components/common/bottomSheet/RecordBottomSheet';

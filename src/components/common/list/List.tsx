@@ -1,5 +1,5 @@
 import { Chip } from '../chip/Chip';
-import * as S from './ListStyle';
+import * as S from './List.Style';
 
 interface ListProps {
   folderText?: string;

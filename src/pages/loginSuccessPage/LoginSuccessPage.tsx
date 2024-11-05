@@ -1,7 +1,7 @@
 import { Button } from '@components/common/button/Button';
 import { useNavigate } from 'react-router-dom';
-import * as S from './LoginSuccessPageStyle';
-import { Logo } from './LoginSuccessPageStyle';
+import * as S from './LoginSuccessPage.Style';
+import { Logo } from './LoginSuccessPage.Style';
 
 export const LoginSuccessPage = () => {
   const navigate = useNavigate();

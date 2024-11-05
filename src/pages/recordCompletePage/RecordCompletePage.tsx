@@ -4,7 +4,7 @@ import { Input } from '@/components/common/input/Input';
 import { SelectBox } from '@/components/common/selectbox/SelectBox';
 import { Button } from '@/components/common/button/Button';
 import { FolderBottomSheet } from '@/components/common/bottomSheet/FolderBottomSheet';
-import * as S from './RecordCompletePageStyle';
+import * as S from './RecordCompletePage.Style';
 
 const getFormattedDate = () => {
   const date = new Date();
