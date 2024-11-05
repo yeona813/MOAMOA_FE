@@ -6,14 +6,7 @@ import { SelectBox } from '@components/common/selectbox/SelectBox';
 import { TabBar } from '@components/layout/tabBar/TabBar';
 import { DetailModal } from '@components/common/modal/DetailModal';
 import * as S from './MemoPage.Style';
-
-const getFormattedDate = () => {
-  const date = new Date();
-  const year = date.getFullYear().toString().slice(-2);
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const day = date.getDate().toString().padStart(2, '0');
-  return `${year}${month}${day}`;
-};
+import { getFormattedDate } from '@/utils/dateUtils';
 
 const DUMMY_MEMO = {
   title: '오늘의 회고',
