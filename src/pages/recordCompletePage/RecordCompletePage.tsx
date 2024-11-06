@@ -16,6 +16,7 @@ export const RecordCompletePage = () => {
 
   const handleButtonClick = () => {
     setIsClicked(true);
+    console.log(isClicked);
   };
 
   // 카테고리 선택 처리
