@@ -5,14 +5,7 @@ import { SelectBox } from '@/components/common/selectbox/SelectBox';
 import { Button } from '@/components/common/button/Button';
 import { FolderBottomSheet } from '@/components/common/bottomSheet/FolderBottomSheet';
 import * as S from './RecordCompletePage.Style';
-
-const getFormattedDate = () => {
-  const date = new Date();
-  const year = date.getFullYear().toString().slice(-2);
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const day = date.getDate().toString().padStart(2, '0');
-  return `${year}${month}${day}`;
-};
+import { getFormattedDate } from '@/utils/dateUtils';
 
 export const RecordCompletePage = () => {
   const [recordSummary] = useState('오늘의 경험 요약입니다. 이곳에 간단한 경험 요약이 들어갑니다.');
