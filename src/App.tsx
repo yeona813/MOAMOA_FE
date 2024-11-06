@@ -1,7 +1,17 @@
-import './App.css';
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyle } from './styles/global';
+import { theme } from './styles/theme';
+import { Outlet } from 'react-router-dom';
 
-function App() {
-  return <div>초기 세팅 성공</div>;
-}
+export const App = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <>
+        <GlobalStyle />
+        <Outlet />
+      </>
+    </ThemeProvider>
+  );
+};
 
 export default App;
