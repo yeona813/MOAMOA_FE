@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import * as S from './SignUpPageStyle';
+import * as S from './SignUpPage.Style';
 import { Input } from '@components/common/input/Input';
 import { SelectBox } from '@components/common/selectbox/SelectBox';
 import { Button } from '@components/common/button/Button';
@@ -58,7 +58,7 @@ export const SignUpPage = () => {
             <SelectBox select={status} onChange={setStatus} selectData={statusOptions} />
           </S.InputWrapper>
           <S.ButtonWrapper>
-            <Button $styleType="basic" disabled={isError || !nickname || !status}>
+            <Button styleType="basic" disabled={isError || !nickname || !status}>
               완료
             </Button>
           </S.ButtonWrapper>

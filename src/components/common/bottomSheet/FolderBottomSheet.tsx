@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from 'react';
 import { Button } from '../button/Button';
 import { Input } from '../input/Input';
 import { BottomSheet } from './BottomSheet';
-import * as S from './FolderBottomSheetStyle';
+import * as S from './FolderBottomSheet.Style';
 import { SelectBox } from '../selectbox/SelectBox';
 
 interface FolderBottomSheetProps {
@@ -63,7 +63,7 @@ export const FolderBottomSheet = ({
             onChange={changeFolderName}
           />
         )}
-        <Button $styleType="basic" disabled={folderName === '' || isError} onClick={onClickButton}>
+        <Button styleType="basic" disabled={folderName === '' || isError} onClick={onClickButton}>
           완료
         </Button>
       </S.SheetContent>

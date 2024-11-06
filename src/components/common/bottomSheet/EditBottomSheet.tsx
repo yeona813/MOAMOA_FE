@@ -1,5 +1,5 @@
 import { BottomSheet } from './BottomSheet';
-import * as S from './EditBottomSheetStyle';
+import * as S from './EditBottomSheet.Style';
 import EditIcon from '@icons/EditIcon.svg';
 import DeleteIcon from '@icons/ReportDeleteIcon.svg';
 import ChangeIcon from '@icons/ChangeFolderIcon.svg';

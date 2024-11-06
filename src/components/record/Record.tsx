@@ -1,5 +1,5 @@
 import { Note } from '../common/note/Note';
-import * as S from './RecordStyle';
+import * as S from './Record.Style';
 
 interface RecordProps {
   children: React.ReactNode;

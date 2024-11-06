@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@components/common/button/Button';
 import { TabBar } from '@components/layout/tabBar/TabBar';
-import * as S from './EditProfilePageStyle';
+import * as S from './EditProfilePage.Style';
 import { EditProfile } from '@components/editProfile/EditProfile';
 import { useNicknameValidation } from '../../hooks/useNicknameValidation';
 import { patchUserInfo } from '@/api/My';
@@ -50,7 +50,7 @@ export const EditProfilePage = () => {
           errorMessage={errorMessage}
         />
         <S.ButtonStyle>
-          <Button $styleType="basic" disabled={submit} onClick={handleSubmit}>
+          <Button styleType="basic" disabled={submit} onClick={handleSubmit}>
             저장하기
           </Button>
         </S.ButtonStyle>

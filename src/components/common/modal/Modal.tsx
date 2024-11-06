@@ -1,5 +1,5 @@
 import { Portal } from '../portal/Portal';
-import * as S from './ModalStyle';
+import * as S from './Modal.Style';
 import CloseIcon from '@icons/CloseIcon.svg';
 
 interface ModalProps {

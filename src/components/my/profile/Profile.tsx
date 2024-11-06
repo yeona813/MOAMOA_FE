@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import * as S from './ProfileStyle';
+import * as S from './Profile.Style';
 import { useEffect, useState } from 'react';
 import { getUsers } from '@/api/My';
 

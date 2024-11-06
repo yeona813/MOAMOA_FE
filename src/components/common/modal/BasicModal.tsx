@@ -1,6 +1,6 @@
 import { Button } from '../button/Button';
 import { Modal } from './Modal';
-import * as S from './BasicModalStyle';
+import * as S from './BasicModal.Style';
 
 //@TODO
 // 1. 로그아웃 함수 만들어야함
@@ -37,10 +37,10 @@ export const BasicModal = ({
       <S.Content>
         <S.Text>{text}</S.Text>
         <S.ButtonContainer>
-          <Button $styleType="popupLeft" onClick={onClickLeft}>
+          <Button styleType="popupLeft" onClick={onClickLeft}>
             {leftButtonText}
           </Button>
-          <Button $styleType="popupRight" onClick={onClickRight}>
+          <Button styleType="popupRight" onClick={onClickRight}>
             {rightButtonText}
           </Button>
         </S.ButtonContainer>

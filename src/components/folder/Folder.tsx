@@ -1,4 +1,4 @@
-import * as S from './FolderStyle';
+import * as S from './Folder.Style';
 
 interface FolderProps {
   children: React.ReactNode;

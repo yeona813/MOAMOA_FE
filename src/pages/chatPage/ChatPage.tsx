@@ -5,7 +5,7 @@ import { GuideButton } from '@components/chat/GuideButton';
 import { TabBar } from '@components/layout/tabBar/TabBar';
 import { DetailModal } from '@components/common/modal/DetailModal';
 import { useNavigate } from 'react-router-dom';
-import * as S from './ChatPageStyle';
+import * as S from './ChatPage.Style';
 import ToastMessage from '@/components/chat/ToastMessage';
 
 interface Message {
@@ -15,21 +15,24 @@ interface Message {
 
 export const ChatPage = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { message: "안녕하세요! 코코님 💜 코코님의 경험이 궁금해요. 코코님의 경험을 들려주세요!", isMe: false },
+    {
+      message: '안녕하세요! 코코님 💜 코코님의 경험이 궁금해요. 코코님의 경험을 들려주세요!',
+      isMe: false,
+    },
   ]);
   const [isModalOpen, setIsModalOpen] = useState(false); // 완료 모달 상태
   const [isTempSaveModalOpen, setIsTempSaveModalOpen] = useState(false); // 뒤로 가기 시 임시 저장 모달 상태
   const [isLoadTempModalOpen, setIsLoadTempModalOpen] = useState(false); // 페이지 로드시 임시 저장 데이터 불러오기 모달 상태
   const [showToast, setShowToast] = useState(false);
   const [tempChat, setTempChat] = useState<Message[]>([
-    { message: "안녕", isMe: true },
-    { message: "이어서 진행하고 싶은 경험을 말씀해주세요.", isMe: false }
+    { message: '안녕', isMe: true },
+    { message: '이어서 진행하고 싶은 경험을 말씀해주세요.', isMe: false },
   ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -47,14 +50,17 @@ export const ChatPage = () => {
   const handleSendMessage = (message: string) => {
     if (!message.trim()) return;
 
-    setMessages(prev => [...prev, { message, isMe: true }]);
+    setMessages((prev) => [...prev, { message, isMe: true }]);
 
     // AI 응답 시뮬레이션 (실제로는 API 호출로 대체)
     setTimeout(() => {
-      setMessages(prev => [...prev, {
-        message: "더 자세히 설명해주실 수 있나요?",
-        isMe: false
-      }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          message: '더 자세히 설명해주실 수 있나요?',
+          isMe: false,
+        },
+      ]);
     }, 500);
   };
 
@@ -73,7 +79,8 @@ export const ChatPage = () => {
 
   // 탭바 뒤로 가기 버튼 클릭 시 임시 저장 모달 열기
   const handleTemporarySave = () => {
-    if (messages.length > 1) { // 환영 메시지 외에 채팅이 있는지 확인
+    if (messages.length > 1) {
+      // 환영 메시지 외에 채팅이 있는지 확인
       setIsTempSaveModalOpen(true);
     } else {
       navigate(-1); // 작성된 메시지가 없으면 바로 나가기
@@ -144,7 +151,9 @@ export const ChatPage = () => {
         />
       )}
 
-      {showToast && <ToastMessage text="경험이 임시저장 되었어요" onClose={() => setShowToast(false)} />}
+      {showToast && (
+        <ToastMessage text="경험이 임시저장 되었어요" onClose={() => setShowToast(false)} />
+      )}
 
       <S.ChatContainer>
         {messages.map((msg, index) => (
@@ -152,7 +161,7 @@ export const ChatPage = () => {
         ))}
         <div ref={messagesEndRef} />
         <S.InputContainer>
-          <GuideButton text="어떤 경험을 말해야 할지 모르겠어요." onClick={() => { }} />
+          <GuideButton text="어떤 경험을 말해야 할지 모르겠어요." onClick={() => {}} />
           <ChatBox onSubmit={handleSendMessage} />
         </S.InputContainer>
       </S.ChatContainer>

@@ -1,4 +1,4 @@
-import * as S from './CommentStyle';
+import * as S from './Comment.Style';
 import LeftIcon from '@icons/LeftCommentIcon.svg';
 import RightIcon from '@icons/RightArrowIcon.svg';
 

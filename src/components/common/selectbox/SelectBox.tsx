@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import * as S from './SelectBoxStyle';
+import * as S from './SelectBox.Style';
 import DownArrowIcon from '@icons/DownArrowIcon.svg';
 
 interface SelectBoxProps {

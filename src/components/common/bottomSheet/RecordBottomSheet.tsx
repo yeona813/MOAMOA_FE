@@ -1,6 +1,6 @@
 import { SheetItem, SheetItemProps } from '../../home/sheetItem/SheetItem';
 import { BottomSheet } from './BottomSheet';
-import * as S from './RecordBottomSheetStyle';
+import * as S from './RecordBottomSheet.Style';
 
 const SHEET_ITEMS: SheetItemProps[] = [
   {

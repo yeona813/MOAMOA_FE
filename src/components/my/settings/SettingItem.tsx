@@ -1,4 +1,4 @@
-import * as S from './SettingItemStyle';
+import * as S from './SettingItem.Style';
 import RightArrowIcon from '@icons/RightArrowIcon.svg';
 
 interface SettingItemProps {

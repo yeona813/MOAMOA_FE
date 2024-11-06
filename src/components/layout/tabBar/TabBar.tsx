@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import * as S from './TabBarStyle';
+import * as S from './TabBar.Style';
 import ArrowIcon from '@icons/ArrowIcon.svg';
 
 interface TabBarProps {
@@ -46,7 +46,11 @@ export const TabBar = ({
       />
       {leftText && <S.LeftText>{leftText}</S.LeftText>}
       {centerText && <S.CenterText>{centerText}</S.CenterText>}
-      {rightText && <S.Text onClick={onClick} $isDisabled={isDisabled}>{rightText}</S.Text>}
+      {rightText && (
+        <S.Text onClick={onClick} $isDisabled={isDisabled}>
+          {rightText}
+        </S.Text>
+      )}
       {icon && <S.Icon src={icon} alt="아이콘" onClick={onClick} />}
     </S.TabBar>
   );

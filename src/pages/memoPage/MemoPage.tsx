@@ -5,20 +5,13 @@ import { Input } from '@components/common/input/Input';
 import { SelectBox } from '@components/common/selectbox/SelectBox';
 import { TabBar } from '@components/layout/tabBar/TabBar';
 import { DetailModal } from '@components/common/modal/DetailModal';
-import * as S from './MemoPageStyle';
-
-const getFormattedDate = () => {
-  const date = new Date();
-  const year = date.getFullYear().toString().slice(-2);
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const day = date.getDate().toString().padStart(2, '0');
-  return `${year}${month}${day}`;
-};
+import * as S from './MemoPage.Style';
+import { getFormattedDate } from '@/utils/dateUtils';
 
 const DUMMY_MEMO = {
   title: '오늘의 회고',
   category: '카테고리1',
-  memo: '오늘 하루 동안 있었던 일을 기록합니다...'
+  memo: '오늘 하루 동안 있었던 일을 기록합니다...',
 };
 
 export const MemoPage = () => {
@@ -26,7 +19,7 @@ export const MemoPage = () => {
   const [tempMemo, setTempMemo] = useState({
     title: '',
     category: '',
-    memo: ''
+    memo: '',
   });
   const [showModal, setShowModal] = useState(false);
   const [showTempDataModal, setShowTempDataModal] = useState(false);
@@ -43,10 +36,13 @@ export const MemoPage = () => {
   const saveTempMemo = () => {
     const titleToSave = tempMemo.title || getFormattedDate();
     if (tempMemo.title && tempMemo.memo) {
-      localStorage.setItem('tempMemo', JSON.stringify({
-        ...tempMemo,
-        title: titleToSave
-      }));
+      localStorage.setItem(
+        'tempMemo',
+        JSON.stringify({
+          ...tempMemo,
+          title: titleToSave,
+        }),
+      );
     }
   };
 
@@ -81,7 +77,7 @@ export const MemoPage = () => {
     console.log('저장되었습니다.', {
       title: titleToSave,
       category: tempMemo.category,
-      memo: tempMemo.memo
+      memo: tempMemo.memo,
     });
     clearTempMemo();
   };

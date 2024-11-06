@@ -1,4 +1,4 @@
-import * as S from './InputStyle';
+import * as S from './Input.Style';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   isError: boolean;

@@ -1,6 +1,6 @@
 import { Input } from '../common/input/Input';
 import { SelectBox } from '../common/selectbox/SelectBox';
-import * as S from './EditProfileStyle';
+import * as S from './EditProfile.Style';
 
 interface EditProfileProps {
   nickname: string;

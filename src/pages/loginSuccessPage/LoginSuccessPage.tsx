@@ -1,7 +1,7 @@
 import { Button } from '@components/common/button/Button';
 import { useNavigate } from 'react-router-dom';
-import * as S from './LoginSuccessPageStyle';
-import { Logo } from './LoginSuccessPageStyle';
+import * as S from './LoginSuccessPage.Style';
+import { Logo } from './LoginSuccessPage.Style';
 
 export const LoginSuccessPage = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export const LoginSuccessPage = () => {
         <S.ColoredSquare />
       </S.ContentWrapper>
       <S.ButtonWrapper>
-        <Button $styleType="basic" onClick={handleStart}>
+        <Button styleType="basic" onClick={handleStart}>
           완료
         </Button>
       </S.ButtonWrapper>
