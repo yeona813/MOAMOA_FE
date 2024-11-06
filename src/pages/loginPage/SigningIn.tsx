@@ -17,7 +17,11 @@ export const SigningIn = () => {
       }
       try {
         const apiResponse = await getTokensWithTmpToken(token);
+
         if (apiResponse.is_success) {
+          if (apiResponse.data.accessToken) {
+            localStorage.setItem('accessToken', apiResponse.data.accessToken); // 로컬 스토리지에 엑세스 토큰 저장
+          }
           navigate('/home');
         }
       } catch (error) {

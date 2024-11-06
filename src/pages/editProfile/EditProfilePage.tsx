@@ -4,6 +4,8 @@ import { TabBar } from '@components/layout/tabBar/TabBar';
 import * as S from './EditProfilePage.Style';
 import { EditProfile } from '@components/editProfile/EditProfile';
 import { useNicknameValidation } from '../../hooks/useNicknameValidation';
+import { patchUserInfo } from '@/api/My';
+import { useNavigate } from 'react-router-dom';
 
 //@TODO
 // 1. 닉네임 에러처리
@@ -12,6 +14,7 @@ import { useNicknameValidation } from '../../hooks/useNicknameValidation';
 export const EditProfilePage = () => {
   const [submit, setSubmit] = useState(true);
   const [select, setSelect] = useState('');
+  const navigate = useNavigate();
   const { nickname, isError, errorMessage, onChangeNickname } = useNicknameValidation();
 
   useEffect(() => {
@@ -26,7 +29,12 @@ export const EditProfilePage = () => {
     setSelect(select);
   };
 
-  const SELECT_DATA = ['대학생', '대학원생', '취업준비생', '인턴', '재직중'];
+  const handleSubmit = async () => {
+    await patchUserInfo({ nickname, status: select });
+    navigate('/my');
+  };
+
+  const SELECT_DATA = ['대학생', '대학원생', '취업 준비생', '인턴', '재직 중'];
 
   return (
     <div>
@@ -42,13 +50,7 @@ export const EditProfilePage = () => {
           errorMessage={errorMessage}
         />
         <S.ButtonStyle>
-          <Button
-            styleType="basic"
-            disabled={submit}
-            onClick={() => {
-              console.log(nickname);
-            }}
-          >
+          <Button styleType="basic" disabled={submit} onClick={handleSubmit}>
             저장하기
           </Button>
         </S.ButtonStyle>

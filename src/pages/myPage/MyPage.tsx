@@ -6,6 +6,7 @@ import { DetailModal } from '@components/common/modal/DetailModal';
 import { ConfirmModal } from '@components/common/modal/ConfirmModal';
 import { Footer } from '@components/layout/footer/Footer';
 import * as S from './MyPage.Style';
+import { postLogout } from '@/api/My';
 
 export const MyPage = () => {
   const [logout, setLogout] = useState(false);
@@ -29,6 +30,10 @@ export const MyPage = () => {
     setDeleteId(false);
   };
 
+  const handleLogout = async () => {
+    await postLogout();
+  };
+
   return (
     <>
       <S.Header>마이페이지</S.Header>
@@ -43,9 +48,7 @@ export const MyPage = () => {
           leftButtonText="로그아웃하기"
           rightButtonText="돌아가기"
           onClickBackground={toggleLogout}
-          onClickLeft={() => {
-            console.log('로그아웃 함수 만들어야함~!');
-          }}
+          onClickLeft={handleLogout}
           onClickRight={toggleLogout}
         />
       )}
