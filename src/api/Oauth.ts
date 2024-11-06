@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://api.corecord.site';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 /**
  * [1.2] 회원가입 api
