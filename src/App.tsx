@@ -1,9 +1,22 @@
+import { useEffect } from 'react';
+import { useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from './styles/global';
 import { theme } from './styles/theme';
-import { Outlet } from 'react-router-dom';
 
 export const App = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    const unprotectedPaths = ['/oauth', '/login', '/register', '/login-success'];
+
+    if (!accessToken && !unprotectedPaths.includes(location.pathname)) {
+      navigate('/oauth');
+    }
+  }, [location, navigate]);
+
   return (
     <ThemeProvider theme={theme}>
       <>

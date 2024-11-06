@@ -23,4 +23,5 @@ export const Content = styled.div`
   top: 3.375rem;
   left: 0;
   width: 100%;
+  height: 100%;
 `;
