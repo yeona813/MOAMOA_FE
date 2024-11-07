@@ -12,8 +12,8 @@ export const Input = styled.input<{ $isError: boolean }>`
   border-radius: 0.5rem;
   border: 1px solid ${({ $isError, theme }) => ($isError ? '#f00' : theme.colors.gray50)};
   color: ${({ theme }) => theme.colors.gray900};
-  font-size: 0.875rem;
-  font-weight: 400;
+  font-size: 1rem;
+  line-height: 145%;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray300};
