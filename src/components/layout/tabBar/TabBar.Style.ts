@@ -11,7 +11,7 @@ export const TabBar = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 3.375rem;
+  height: 3.75rem;
   width: 100%;
   padding: 0rem 1.25rem;
   background-color: ${({ theme }) => theme.colors.white};

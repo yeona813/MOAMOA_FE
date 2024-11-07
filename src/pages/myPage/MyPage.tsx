@@ -4,7 +4,6 @@ import { Settings } from '@components/my/settings/Settings';
 import { BasicModal } from '@components/common/modal/BasicModal';
 import { DetailModal } from '@components/common/modal/DetailModal';
 import { ConfirmModal } from '@components/common/modal/ConfirmModal';
-import { Footer } from '@components/layout/footer/Footer';
 import * as S from './MyPage.Style';
 import { postLogout } from '@/api/My';
 
@@ -41,7 +40,6 @@ export const MyPage = () => {
         <Profile />
         <Settings onClickLogout={toggleLogout} onClickDeleteId={toggleDeleteId} />
       </S.Content>
-      <Footer />
       {logout && (
         <BasicModal
           text="로그아웃 하시겠어요?"

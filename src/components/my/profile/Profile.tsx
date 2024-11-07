@@ -37,9 +37,8 @@ export const Profile = () => {
           내 프로필 수정하기
         </S.Button>
       </S.Profile>
-      <S.Record>
-        <S.Span>총 {user.recordCount}건</S.Span>의 레코드를 기록했어요.
-      </S.Record>
+      <S.DIV /> {/* 임시 작업 */}
+      <S.Record>총 {user.recordCount}건의 레코드를 기록했어요.</S.Record>
     </S.Container>
   );
 };
