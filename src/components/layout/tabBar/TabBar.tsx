@@ -12,6 +12,7 @@ interface TabBarProps {
   onClickBackIcon?: () => void;
   isDisabled?: boolean;
   isEditable?: boolean;
+  onClickEditIcon?: () => void;
 }
 /**
  *
@@ -22,7 +23,8 @@ interface TabBarProps {
  * @param onClick - (optional) rightText나 icon을 클릭 시 수행하는 함수
  * @param onClickBackIcon - (optional) 이전 버튼을 클릭 시 수행하는 함수, 전달되지 않을 경우 이전 페이지로 이동하는 함수 수행
  * @param isDisabled - (optional) rightText를 클릭 시 수행하는 함수, 전달되지 않을 경우 이전 페이지로 이동하는 함수 수행
- *  @param isEditable - (optional) 편집 아이콘의 유무
+ * @param isEditable - (optional) 편집 아이콘의 유무
+ * @param onClickEditIcon - (optional) 편집 아이콘 클릭 시 수행하는 함수
  * @returns
  */
 export const TabBar = ({
@@ -34,6 +36,7 @@ export const TabBar = ({
   onClickBackIcon,
   isDisabled,
   isEditable,
+  onClickEditIcon,
 }: TabBarProps) => {
   const navigate = useNavigate();
 
@@ -56,7 +59,7 @@ export const TabBar = ({
         </S.Text>
       )}
       <S.IconContainer>
-        {isEditable && <S.Icon src={EditIcon} alt="편집 아이콘" />}
+        {isEditable && <S.Icon src={EditIcon} alt="편집 아이콘" onClick={onClickEditIcon} />}
         {icon && <S.Icon src={icon} alt="아이콘" onClick={onClick} />}
       </S.IconContainer>
     </S.TabBar>
