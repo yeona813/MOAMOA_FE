@@ -21,18 +21,3 @@ export const BottomSheet = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   z-index: 100;
 `;
-
-export const Header = styled.header<{ $hasTitle: boolean }>`
-  display: flex;
-  width: 100%;
-  justify-content: ${({ $hasTitle }) => ($hasTitle ? 'space-between' : 'flex-end')};
-`;
-
-export const Title = styled.h5`
-  color: ${({ theme }) => theme.colors.gray900};
-`;
-
-export const Icon = styled.img`
-  width: 1.125rem;
-  height: 1.125rem;
-`;
