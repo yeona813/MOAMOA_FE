@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Header } from '@components/list/header/Header';
-import { Footer } from '@components/layout/footer/Footer';
+import { ListHeader } from '@components/list/header/Header';
 import { Content } from '@components/list/content/Content';
 import * as S from './ListPage.Style';
 import { RecordBottomSheet } from '@components/common/bottomSheet/RecordBottomSheet';
 import WriteIcon from '@icons/WriteIcon.svg';
+import { SideBar } from '@/components/common/sideBar/SideBar';
 
 //@TODO
 // 1. 닉네임을 백에서 직접 받아와서 Header에 처리해야한다!
@@ -14,6 +14,7 @@ const FOLDERDATA = ['전체', '밋업 프로젝트'];
 export const ListPage = () => {
   const [selectFolder, setSelectFolder] = useState('전체');
   const [openBottom, setOpenBottom] = useState(false);
+  const [openSideBar, setOpenSideBar] = useState(false);
 
   const handleSelectFolder = (folderName: string) => {
     setSelectFolder(folderName);
@@ -23,20 +24,25 @@ export const ListPage = () => {
     setOpenBottom((prev) => !prev);
   };
 
+  const toggleSideBar = () => {
+    setOpenSideBar((prev) => !prev);
+  };
+
   return (
     <S.ListPage>
-      <Header
+      <ListHeader
         nickname="코코"
         folderData={FOLDERDATA}
         selectFolder={selectFolder}
         onClick={handleSelectFolder}
+        onClickSideBar={toggleSideBar}
       />
-      <Content onClick={toggleBottomSheet} />
+      <Content />
       <S.Button onClick={toggleBottomSheet}>
         <S.Icon src={WriteIcon} alt="기록" />
       </S.Button>
-      <Footer />
       {openBottom && <RecordBottomSheet onClick={toggleBottomSheet} />}
+      {openSideBar && <SideBar onClick={toggleSideBar} />}
     </S.ListPage>
   );
 };

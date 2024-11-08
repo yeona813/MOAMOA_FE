@@ -6,8 +6,8 @@ export const ListPage = styled.div`
 
 export const Button = styled.button`
   position: absolute;
-  bottom: 6.875rem;
-  right: 1.5625rem;
+  bottom: 3rem;
+  right: 1.5rem;
   width: 4rem;
   height: 4rem;
   display: flex;

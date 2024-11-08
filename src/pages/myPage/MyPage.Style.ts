@@ -5,7 +5,7 @@ export const Header = styled.div`
   width: 100%;
   padding: 0rem 1.25rem;
   height: 3.75rem;
-  border-bottom: 1px solid #e7e8e9;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray100};
 `;
 
 export const Content = styled.div`
