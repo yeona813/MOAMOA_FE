@@ -1,10 +1,18 @@
 import styled from 'styled-components';
 
+export const DateContainer = styled.div`
+  text-align: center;
+  margin-top: 4.5rem;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.colors.gray700};
+  line-height: 1.0875rem;
+`;
+
 export const ChatContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 54px);
-  margin-top: 54px;
+  height: calc(100vh - 4.5rem - 4.5rem);
   padding: 1rem;
   overflow-y: auto;
     background: linear-gradient(

@@ -16,7 +16,7 @@ interface Message {
 export const ChatPage = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
-      message: '안녕하세요! 코코님 💜 코코님의 경험이 궁금해요. 코코님의 경험을 들려주세요!',
+      message: '안녕하세요! 뫄뫄님 오늘은 어떤 경험을 했나요? 저와 함께 정리해보아요!',
       isMe: false,
     },
   ]);
@@ -113,10 +113,12 @@ export const ChatPage = () => {
     navigate(-1);
   };
 
+  const currentDate = new Date().toISOString().split('T')[0].replace(/-/g, '.');
+
   return (
     <>
       <TabBar rightText="완료하기" onClickBackIcon={handleTemporarySave} onClick={handleComplete} />
-
+      <S.DateContainer>{currentDate}</S.DateContainer>
       {/* 경험 기록 완료 모달 */}
       {isModalOpen && (
         <DetailModal
@@ -161,7 +163,7 @@ export const ChatPage = () => {
         ))}
         <div ref={messagesEndRef} />
         <S.InputContainer>
-          <GuideButton text="어떤 경험을 말해야 할지 모르겠어요." onClick={() => {}} />
+          <GuideButton text="어떤 경험을 말해야 할지 모르겠어요." onClick={() => { }} />
           <ChatBox onSubmit={handleSendMessage} />
         </S.InputContainer>
       </S.ChatContainer>
