@@ -2,17 +2,16 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  height: 100vh;
-  padding: 2.5rem 2rem 6.875rem;
+  height: calc(100vh - 13.125rem);
+  position: absolute;
+  top: 13.125rem;
+  left: 0;
+  padding: 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
   background-color: ${({ theme }) => theme.colors.gray25};
   color: ${({ theme }) => theme.colors.gray900};
-`;
-
-export const Title = styled.h4`
-  line-height: 135%;
 `;
 
 export const ChipsContainer = styled.div`
@@ -23,9 +22,9 @@ export const ChipsContainer = styled.div`
 `;
 
 export const KeywordListContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.625rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
   width: 100%;
   overflow-y: auto;
   -ms-overflow-style: none;
@@ -34,18 +33,4 @@ export const KeywordListContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-`;
-
-export const EmptyContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 7.75rem;
-  gap: 1.375rem;
-`;
-
-export const EmptyMessage = styled.p`
-  font-size: 0.875rem;
-  line-height: 145%;
-  text-align: center;
 `;

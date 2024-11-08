@@ -1,6 +1,5 @@
-import { Chip } from '../common/chip/Chip';
+import { Chip } from '../../common/chip/Chip';
 import * as S from './KeywordList.Style';
-import ShortCirclesIcon from '@icons/ShortCirclesIcon.svg';
 
 interface KeywordListProps {
   chip: string;
@@ -13,13 +12,12 @@ interface KeywordListProps {
 export const KeywordList = ({ chip, title, description, date, onClick }: KeywordListProps) => {
   return (
     <S.KeywordList onClick={onClick}>
-      <S.Icon src={ShortCirclesIcon} alt="circle" />
-      <S.Content>
-        <Chip color={true}>{chip}</Chip>
+      <Chip color={true}>{chip}</Chip>
+      <div>
         <S.Title>{title}</S.Title>
         <S.Description>{description}</S.Description>
         <S.Date>{date}</S.Date>
-      </S.Content>
+      </div>
     </S.KeywordList>
   );
 };
