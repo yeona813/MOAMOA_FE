@@ -7,8 +7,10 @@ interface GuideButtonProps {
 
 export const GuideButton = ({ text, onClick }: GuideButtonProps) => {
   return (
-    <S.GuideButton onClick={onClick}>
-      <S.GuideText>{text}</S.GuideText>
-    </S.GuideButton>
+    <S.GuideButtonContainer>
+      <S.GuideButton onClick={onClick}>
+        <S.GuideText>{text}</S.GuideText>
+      </S.GuideButton>
+    </S.GuideButtonContainer>
   );
 };

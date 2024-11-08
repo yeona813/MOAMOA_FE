@@ -16,7 +16,7 @@ interface Message {
 export const ChatPage = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
-      message: '안녕하세요! 코코님 💜 코코님의 경험이 궁금해요. 코코님의 경험을 들려주세요!',
+      message: `안녕하세요! 뫄뫄님\n오늘은 어떤 경험을 했나요?\n저와 함께 정리해보아요!`,
       isMe: false,
     },
   ]);
@@ -25,7 +25,7 @@ export const ChatPage = () => {
   const [isLoadTempModalOpen, setIsLoadTempModalOpen] = useState(false); // 페이지 로드시 임시 저장 데이터 불러오기 모달 상태
   const [showToast, setShowToast] = useState(false);
   const [tempChat, setTempChat] = useState<Message[]>([
-    { message: '안녕', isMe: true },
+    { message: '나는 큐시즘이라는 IT 연합 동아리에서 지금 디자이너를 맡고 있어. 우리는 AI 역량 분석 앱을 만들고 있어. 근데 오늘 이제 회의를 했거든. ', isMe: true },
     { message: '이어서 진행하고 싶은 경험을 말씀해주세요.', isMe: false },
   ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -113,10 +113,12 @@ export const ChatPage = () => {
     navigate(-1);
   };
 
+  const currentDate = new Date().toISOString().split('T')[0].replace(/-/g, '.');
+
   return (
     <>
       <TabBar rightText="완료하기" onClickBackIcon={handleTemporarySave} onClick={handleComplete} />
-
+      <S.DateContainer>{currentDate}</S.DateContainer>
       {/* 경험 기록 완료 모달 */}
       {isModalOpen && (
         <DetailModal
@@ -161,7 +163,7 @@ export const ChatPage = () => {
         ))}
         <div ref={messagesEndRef} />
         <S.InputContainer>
-          <GuideButton text="어떤 경험을 말해야 할지 모르겠어요." onClick={() => {}} />
+          <GuideButton text="🙋‍ 경험을 어떻게 말해야 할지 모르겠어요." onClick={() => { }} />
           <ChatBox onSubmit={handleSendMessage} />
         </S.InputContainer>
       </S.ChatContainer>
