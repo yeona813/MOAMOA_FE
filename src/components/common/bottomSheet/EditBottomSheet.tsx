@@ -2,6 +2,7 @@ import { BottomSheet } from './BottomSheet';
 import * as S from './EditBottomSheet.Style';
 import DeleteIcon from '@icons/ReportDeleteIcon.svg';
 import ChangeIcon from '@icons/ChangeFolderIcon.svg';
+import CloseIcon from '@icons/CloseIcon.svg';
 
 interface EditBottomSheetProps {
   onClick: () => void;
@@ -31,6 +32,9 @@ export const EditBottomSheet = ({
 
   return (
     <BottomSheet onClick={onClick}>
+      <S.Header>
+        <S.CloseIcon src={CloseIcon} alt="closeIcon" onClick={onClick} />
+      </S.Header>
       <S.SheetContent>
         {EDIT_ITEM.map(({ icon, label, actionKey, isDelete }) => (
           <S.SheetItem
