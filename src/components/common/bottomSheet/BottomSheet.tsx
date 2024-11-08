@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Portal } from '../portal/Portal';
 import * as S from './BottomSheet.Style';
 
@@ -13,6 +14,13 @@ interface BottomSheetProps {
  * @returns
  */
 export const BottomSheet = ({ children, onClick }: BottomSheetProps) => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
   return (
     <Portal>
       <S.Background onClick={onClick}>
