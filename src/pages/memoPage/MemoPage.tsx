@@ -5,6 +5,7 @@ import * as S from './MemoPage.Style';
 import { getFormattedDate } from '@/utils/dateUtils';
 import { SelectBox } from '@/components/common/selectbox/SelectBox';
 import { Button } from '@/components/common/button/Button';
+import { FolderBottomSheet } from '@/components/common/bottomSheet/FolderBottomSheet';
 
 const DUMMY_MEMO = {
   title: '경쟁 서비스 기능',
@@ -22,6 +23,7 @@ export const MemoPage = () => {
   });
   const [showModal, setShowModal] = useState(false);
   const [showTempDataModal, setShowTempDataModal] = useState(false);
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('tempMemo', JSON.stringify(DUMMY_MEMO));
@@ -62,11 +64,11 @@ export const MemoPage = () => {
 
   const handleChangeCategory = (value: string) => {
     if (value === '새 폴더 추가하기') {
-      navigate('/folder');
-      return;
+      setIsBottomSheetOpen(true);
+    } else {
+      setTempMemo((prev) => ({ ...prev, category: value }));
+      saveTempMemo();
     }
-    setTempMemo((prev) => ({ ...prev, category: value }));
-    saveTempMemo();
   };
 
   const handleChangeMemo = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -112,6 +114,10 @@ export const MemoPage = () => {
   }, [tempMemo.memo]);
 
   const isSaveDisabled = !tempMemo.memo;
+
+  function handleBottomSheetComplete(): void {
+    setIsBottomSheetOpen(false);
+  }
 
   return (
     <S.Container>
@@ -174,6 +180,14 @@ export const MemoPage = () => {
             restoreTempMemo();
             setShowTempDataModal(false);
           }}
+        />
+      )}
+      {isBottomSheetOpen && (
+        <FolderBottomSheet
+          onClick={() => setIsBottomSheetOpen(false)}
+          onClickButton={handleBottomSheetComplete}
+          title="새 폴더 추가하기"
+          text="추가할 폴더의 이름을 적어주세요"
         />
       )}
     </S.Container>
