@@ -8,8 +8,8 @@ export const Content = styled.div`
   flex-direction: column;
   width: 100%;
   height: calc(100% - 3.375rem);
-  padding: 1.5rem 1.75rem 6.625rem 1.75rem;
-  gap: 10px;
+  padding: 1.5rem 1.75rem;
+  gap: 0.625rem;
   overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;

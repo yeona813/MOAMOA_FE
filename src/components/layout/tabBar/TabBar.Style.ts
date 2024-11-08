@@ -11,7 +11,7 @@ export const TabBar = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 3.75rem;
+  height: 3.375rem;
   width: 100%;
   padding: 0rem 1.25rem;
   background-color: ${({ theme }) => theme.colors.white};
@@ -27,20 +27,23 @@ export const Icon = styled.img`
 
 export const CenterText = styled.h6`
   position: absolute;
-  top: 1.1875rem;
+  top: 1rem;
   left: 50%;
   transform: translateX(-50%);
   color: ${({ theme }) => theme.colors.gray900};
+  line-height: 140%;
 `;
 
-export const Text = styled.h6<TextProps>`
+export const Text = styled.p<TextProps>`
+  font-size: 0.875rem;
+  line-height: 145%;
   color: ${({ $isDisabled, theme }) => ($isDisabled ? theme.colors.gray300 : theme.colors.gray700)};
   cursor: pointer;
 `;
 
-export const LeftText = styled.span`
+export const LeftText = styled.h5`
   position: absolute;
-  top: 1.1875rem;
+  top: 0.875rem;
   left: 4rem;
-  ${Text}
+  line-height: 140%;
 `;

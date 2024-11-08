@@ -4,7 +4,6 @@ import { TabBar } from '@components/layout/tabBar/TabBar';
 import * as S from './FolderPage.Style';
 import { FolderBottomSheet } from '@components/common/bottomSheet/FolderBottomSheet';
 import { DetailModal } from '@components/common/modal/DetailModal';
-import { Footer } from '@components/layout/footer/Footer';
 import DeleteIcon from '@icons/DeleteIcon.svg';
 import PlusIcon from '@icons/PlusIcon.svg';
 
@@ -57,13 +56,13 @@ export const FolderPage = () => {
           </Folder>
         )}
       </S.Content>
-      <Footer />
       {openBottom && (
         <FolderBottomSheet
           onClick={toggleBottomSheet}
           onClickButton={() => {
             console.log('구현 해야함');
           }}
+          title="새 폴더 추가하기"
           text="추가할 폴더의 이름을 적어주세요."
         />
       )}
