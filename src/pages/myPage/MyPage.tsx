@@ -6,11 +6,14 @@ import { DetailModal } from '@components/common/modal/DetailModal';
 import { ConfirmModal } from '@components/common/modal/ConfirmModal';
 import * as S from './MyPage.Style';
 import { postLogout } from '@/api/My';
+import { Header } from '@/components/layout/header/Header';
+import { SideBar } from '@/components/common/sideBar/SideBar';
 
 export const MyPage = () => {
   const [logout, setLogout] = useState(false);
   const [deleteId, setDeleteId] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [openSideBar, setOpenSideBar] = useState(false);
 
   const toggleLogout = () => {
     setLogout((prev) => !prev);
@@ -24,6 +27,10 @@ export const MyPage = () => {
     setConfirmDelete((prev) => !prev);
   };
 
+  const toggleSideBar = () => {
+    setOpenSideBar((prev) => !prev);
+  };
+
   const checkDelete = () => {
     setConfirmDelete(true);
     setDeleteId(false);
@@ -35,7 +42,9 @@ export const MyPage = () => {
 
   return (
     <>
-      <S.Header>마이페이지</S.Header>
+      <S.Header>
+        <Header onClick={toggleSideBar} title="마이페이지" />
+      </S.Header>
       <S.Content>
         <Profile />
         <Settings onClickLogout={toggleLogout} onClickDeleteId={toggleDeleteId} />
@@ -62,6 +71,7 @@ export const MyPage = () => {
         />
       )}
       {confirmDelete && <ConfirmModal onClick={toggleConfirmDelete} />}
+      {openSideBar && <SideBar onClick={toggleSideBar} />}
     </>
   );
 };
