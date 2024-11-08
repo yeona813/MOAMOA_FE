@@ -1,52 +1,36 @@
 import styled from 'styled-components';
-import BlueCirclesIcon from '@icons/BlueCirclesIcon.svg';
-import YellowCirclesIcon from '@icons/YellowCirclesIcon.svg';
 
-export const SheetItem = styled.div<{ $color: 'blue' | 'yellow' }>`
-  position: relative;
+export const SheetItem = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 6.1875rem;
-  padding: 0.75rem 0rem 0.75rem 0.4375rem;
-  gap: 0.875rem;
-  background-color: ${(props) =>
-    props.$color === 'blue' ? props.theme.colors.blue50 : props.theme.colors.yellow100};
+  padding: 1.375rem 1.125rem 1rem 1rem;
+  gap: 1.375rem;
   color: ${({ theme }) => theme.colors.gray900};
-  border-radius: 0.125rem;
+  border-radius: 0.75rem;
+  border: 1px solid ${({ theme }) => theme.colors.gray50};
   cursor: pointer;
 `;
 
-export const Icon = styled.div<{ $color: 'blue' | 'yellow' }>`
-  width: 0.4375rem;
-  height: 100%;
-  background-image: ${(props) =>
-    props.$color === 'blue' ? `url(${BlueCirclesIcon})` : `url(${YellowCirclesIcon})`};
+// 이 부분 아이콘이나 뭐 추가될 예정
+export const DIV = styled.div<{ color: 'blue' | 'yellow' }>`
+  width: 4.375rem;
+  height: 4.375rem;
+  background-color: ${({ theme, color }) =>
+    color === 'blue' ? theme.colors.blue100 : theme.colors.yellow100};
 `;
 
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
 `;
 
 export const SubTitle = styled.p`
-  font-size: 0.875rem;
+  font-size: 1rem;
   line-height: 145%;
+  width: 6.5625rem;
 `;
 
 export const Title = styled.h3`
   line-height: 135%;
-`;
-
-export const Blur = styled.div<{ $color: 'blue' | 'yellow' }>`
-  position: absolute;
-  width: 6.25rem;
-  height: 6.25rem;
-  bottom: -2.5rem;
-  right: -1.25rem;
-  border-radius: 6.1875rem;
-  background-color: ${(props) =>
-    props.$color === 'blue' ? '#657cff' : props.theme.colors.yellow300};
-  opacity: ${(props) => (props.$color === 'blue' ? 0.4 : 0.8)};
-  filter: blur(3.75rem);
 `;
