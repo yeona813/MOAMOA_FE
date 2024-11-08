@@ -10,15 +10,15 @@ export const Container = styled.div`
 export const SelectBox = styled.div<{ open: boolean }>`
   position: relative;
   width: 100%;
-  height: 2.75rem;
+  height: 3rem;
   padding: 0.75rem 0.5rem;
   align-items: center;
   border-radius: 0.5rem;
   border: 1px solid
     ${(props) => (props.open ? props.theme.colors.blue200 : props.theme.colors.gray50)}; // pr 머지 되면 이거 바꿔야함!
   color: ${({ theme }) => theme.colors.gray900};
-  font-size: 0.875rem;
-  font-weight: 400;
+  font-size: 1rem;
+  line-height: 145%;
 `;
 
 export const SelectText = styled.span<{ $hasValue: boolean }>`
@@ -42,6 +42,6 @@ export const Option = styled.div`
 `;
 
 export const Text = styled.div`
-  font-size: 0.875rem;
-  font-weight: 400;
+  font-size: 1rem;
+  line-height: 145%;
 `;

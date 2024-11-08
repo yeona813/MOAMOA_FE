@@ -20,7 +20,7 @@ export const Text = styled.span`
 `;
 
 export const Description = styled.p`
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   color: #939393;
 `;
 

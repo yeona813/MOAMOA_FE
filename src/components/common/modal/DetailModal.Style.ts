@@ -4,7 +4,7 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
+  gap: 0.875rem;
   color: ${({ theme }) => theme.colors.gray700};
 `;
 
@@ -16,7 +16,7 @@ export const Text = styled.h5`
 `;
 
 export const Description = styled.p`
-  font-size: 0.6875rem;
+  font-size: 0.8125rem;
   font-weight: 400;
   height: 145%;
 `;
