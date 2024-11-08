@@ -25,7 +25,7 @@ export const ChatPage = () => {
   const [isLoadTempModalOpen, setIsLoadTempModalOpen] = useState(false); // 페이지 로드시 임시 저장 데이터 불러오기 모달 상태
   const [showToast, setShowToast] = useState(false);
   const [tempChat, setTempChat] = useState<Message[]>([
-    { message: '안녕', isMe: true },
+    { message: '나는 큐시즘이라는 IT 연합 동아리에서 지금 디자이너를 맡고 있어. 우리는 AI 역량 분석 앱을 만들고 있어. 근데 오늘 이제 회의를 했거든. ', isMe: true },
     { message: '이어서 진행하고 싶은 경험을 말씀해주세요.', isMe: false },
   ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
