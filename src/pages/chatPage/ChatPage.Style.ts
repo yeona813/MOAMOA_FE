@@ -6,13 +6,13 @@ export const DateContainer = styled.div`
   font-size: 0.75rem;
   font-weight: 400;
   color: ${({ theme }) => theme.colors.gray700};
-  line-height: 1.0875rem;
+  line-height: 145%;
 `;
 
 export const ChatContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 4.5rem - 4.5rem);
+  height: calc(100vh - 9rem);
   padding: 1rem;
   overflow-y: auto;
     background: linear-gradient(
