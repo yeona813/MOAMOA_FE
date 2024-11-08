@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 interface ButtonProps {
-  $styleType: 'shadow' | 'small' | 'basic' | 'popupRight' | 'popupLeft';
+  $styleType: 'shadow' | 'basic' | 'popupRight' | 'popupLeft';
 }
 
 const popupCommonStyles = css`
@@ -14,13 +14,6 @@ const popupCommonStyles = css`
 `;
 
 const BUTTON_STYLES = {
-  small: css`
-    padding: 0.4375rem 0.75rem;
-    font-size: 0.875rem;
-    font-weight: 400;
-    border-radius: 6.1875rem;
-    width: fit-content;
-  `,
   shadow: css`
     padding: 0.625rem 0.75rem;
     font-size: 1rem;

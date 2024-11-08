@@ -19,6 +19,10 @@ export const TabBar = styled.nav`
   z-index: 1000;
 `;
 
+export const IconContainer = styled.div`
+  display: flex;
+  gap: 0.625rem;
+`;
 export const Icon = styled.img`
   width: 1.5rem;
   height: 1.5rem;
