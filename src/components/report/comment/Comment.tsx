@@ -1,6 +1,4 @@
 import * as S from './Comment.Style';
-import LeftIcon from '@icons/LeftCommentIcon.svg';
-import RightIcon from '@icons/RightArrowIcon.svg';
 
 interface CommentProps {
   comment: string;
@@ -9,12 +7,11 @@ interface CommentProps {
 export const Comment = ({ comment }: CommentProps) => {
   return (
     <S.Comment>
-      <S.Title>co:mment</S.Title>
-      <S.Content>
-        <img src={LeftIcon} alt="leftIcon" />
-        {comment}
-        <img src={RightIcon} alt="rightIcon" />
-      </S.Content>
+      <S.Title>이 점을 보완해보세요.</S.Title>
+      <S.Container>
+        <S.Div />
+        <S.Description>{comment}</S.Description>
+      </S.Container>
     </S.Comment>
   );
 };

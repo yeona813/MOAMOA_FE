@@ -7,44 +7,39 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 1.875rem;
+  padding: 1.75rem 1.25rem;
   color: ${({ theme }) => theme.colors.gray900};
-  gap: 1.5625rem;
+  gap: 2.75rem;
 `;
 
 export const TopContent = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 1rem;
+  gap: 0.75rem;
 `;
 
 export const Title = styled.h4`
   line-height: 135%;
 `;
 
-export const Description = styled.textarea`
-  width: 100%;
-  padding: 0.75rem 0.5rem;
-  border-radius: 0.5rem;
-  border: 1px solid ${({ theme }) => theme.colors.gray50};
-  resize: none;
-  font-family: 'Pretendard';
+export const Description = styled.h6`
   color: ${({ theme }) => theme.colors.gray900};
-  font-size: 0.875rem;
+  font-weight: 400;
   line-height: 145%;
-  outline: none;
+`;
 
-  &:focus {
-    border: 1px solid ${({ theme }) => theme.colors.blue200};
-  }
+export const Line = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: ${({ theme }) => theme.colors.gray50};
 `;
 
 export const MiddleContent = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 1.0625rem;
+  gap: 1.25rem;
 `;
 
 export const MiddleHead = styled.div`
@@ -53,12 +48,8 @@ export const MiddleHead = styled.div`
   align-items: center;
 `;
 
-export const SubTitle = styled.h6`
-  line-height: 140%;
-`;
-
-export const SkillContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+export const ChatText = styled.h6`
+  color: ${({ theme }) => theme.colors.gray500};
+  font-weight: 400;
+  line-height: 145%;
 `;
