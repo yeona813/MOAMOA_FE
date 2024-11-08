@@ -52,14 +52,12 @@ export const Content = () => {
         {LISTDATA.map((item, index) => (
           <List
             key={index}
-            folderText={item.folderText}
             title={item.title}
             chips={item.chips}
             date={item.date}
             onClick={() => {
               navigate(`/report/${item.id}`);
             }}
-            type="large"
           />
         ))}
       </S.ListContainer>

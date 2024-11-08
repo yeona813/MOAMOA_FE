@@ -13,7 +13,6 @@ interface BottomSheetProps {
  * @param title - bottomSheet의 제목
  * @param children - bottomSheet 안의 내용물
  * @param onClick - close 버튼 클릭했을 때 수행할 함수
- * @param type - bottomSheet의 길이 (short, long)
  * @returns
  */
 export const BottomSheet = ({ title, children, onClick }: BottomSheetProps) => {
