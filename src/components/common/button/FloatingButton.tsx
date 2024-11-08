@@ -1,4 +1,4 @@
-import * as S from './FloatingButton.style';
+import * as S from './FloatingButton.Style';
 import WriteIcon from '@icons/WriteIcon.svg';
 
 interface FloatingButtonProps {
