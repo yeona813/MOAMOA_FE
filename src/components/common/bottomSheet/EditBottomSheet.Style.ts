@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const SheetContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
-  margin-bottom: 1.875rem;
+  gap: 2.3125rem;
+  margin-bottom: 1.25rem;
 `;
 
 export const SheetItem = styled.div<{ $isDelete?: boolean }>`

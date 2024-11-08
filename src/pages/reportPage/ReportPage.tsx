@@ -10,7 +10,6 @@ export const ReportPage = () => {
   const [openBottom, setOpenBottom] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openChangeBottom, setOpenChangeBottom] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
 
   const togleBottomSheet = () => {
     setOpenBottom((prev) => !prev);
@@ -26,28 +25,18 @@ export const ReportPage = () => {
     setOpenChangeBottom((prev) => !prev);
   };
 
-  const toggleEdit = () => {
-    setOpenBottom(false);
-    setIsEdit(true);
-  };
-
-  const onClickBackIcon = () => {
-    setIsEdit(false);
-  };
-
   return (
     <>
       <TabBar
-        centerText="역량 레포트"
-        icon={!isEdit ? KebabIcon : undefined}
+        centerText="역량 모아보기"
+        icon={KebabIcon}
         onClick={togleBottomSheet}
-        onClickBackIcon={isEdit ? onClickBackIcon : undefined}
+        isEditable={true}
       />
-      <Content isEdit={isEdit} />
+      <Content />
       {openBottom && (
         <EditBottomSheet
           onClick={togleBottomSheet}
-          onClickEdit={toggleEdit}
           onClickDelete={toggleModal}
           onClickChange={toggleChangeFoler}
         />

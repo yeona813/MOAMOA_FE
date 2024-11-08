@@ -4,24 +4,31 @@ export const Comment = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5625rem;
+  gap: 1.25rem;
+`;
+
+export const Title = styled.h6`
+  line-height: 140%;
+`;
+
+export const Container = styled.div`
+  display: flex;
   width: 100%;
-  padding: 0.6875rem 0.875rem 1.125rem;
-  border-radius: 0.5rem;
+  gap: 0.3125rem;
+`;
+
+export const Div = styled.div`
+  width: 2rem;
+  height: 2rem;
+  border-radius: 100%;
   background-color: ${({ theme }) => theme.colors.blue50};
 `;
 
-export const Title = styled.span`
-  color: ${({ theme }) => theme.colors.blue300};
-  font-size: 0.75rem;
-  font-weight: 600;
-  line-height: 145%;
-`;
-
-export const Content = styled.div`
-  display: flex;
-  gap: 0.4375rem;
-  align-items: flex-start;
-  font-size: 0.875rem;
+export const Description = styled.div`
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0rem 1.25rem 1.25rem;
+  border: 1px solid ${({ theme }) => theme.colors.gray50};
+  font-size: 1rem;
   line-height: 145%;
 `;
