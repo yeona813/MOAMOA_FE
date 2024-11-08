@@ -3,8 +3,8 @@ import { ListHeader } from '@components/list/header/Header';
 import { Content } from '@components/list/content/Content';
 import * as S from './ListPage.Style';
 import { RecordBottomSheet } from '@components/common/bottomSheet/RecordBottomSheet';
-import WriteIcon from '@icons/WriteIcon.svg';
 import { SideBar } from '@/components/common/sideBar/SideBar';
+import { FloatingButton } from '@/components/common/button/FloatingButton';
 
 //@TODO
 // 1. 닉네임을 백에서 직접 받아와서 Header에 처리해야한다!
@@ -38,9 +38,7 @@ export const ListPage = () => {
         onClickSideBar={toggleSideBar}
       />
       <Content />
-      <S.Button onClick={toggleBottomSheet}>
-        <S.Icon src={WriteIcon} alt="기록" />
-      </S.Button>
+      <FloatingButton onClick={toggleBottomSheet} />
       {openBottom && <RecordBottomSheet onClick={toggleBottomSheet} />}
       {openSideBar && <SideBar onClick={toggleSideBar} />}
     </S.ListPage>
