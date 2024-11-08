@@ -6,10 +6,10 @@ export const Header = styled.header`
   left: 0;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   width: 100%;
-  height: 8.8125rem;
-  justify-content: space-between;
-  padding: 2.5rem 0rem 1.25rem 1.25rem;
+  height: 11.125rem;
+  padding: 0rem 0rem 1.25rem 1.5rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray100};
   background-color: ${({ theme }) => theme.colors.white};
   z-index: 10;
@@ -26,9 +26,11 @@ export const FolderContainer = styled.div`
 `;
 
 export const FolderIcon = styled.div`
-  width: 2.25rem;
-  height: 2.25rem;
-  padding: 0.6875rem;
+  width: 2.375rem;
+  height: 2.375rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: ${({ theme }) => theme.colors.blue50};
   border-radius: 6.1875rem;
   border: 1px solid ${({ theme }) => theme.colors.gray50};
@@ -36,8 +38,8 @@ export const FolderIcon = styled.div`
 `;
 
 export const Icon = styled.img`
-  width: 0.875rem;
-  height: 0.875rem;
+  width: 0.9375rem;
+  height: 0.9375rem;
 `;
 
 export const ChipContainer = styled.div`
