@@ -1,6 +1,7 @@
 import { SheetItem, SheetItemProps } from '../../home/sheetItem/SheetItem';
 import { BottomSheet } from './BottomSheet';
 import * as S from './RecordBottomSheet.Style';
+import CloseIcon from '@icons/CloseIcon.svg';
 
 const SHEET_ITEMS: SheetItemProps[] = [
   {
@@ -22,7 +23,11 @@ interface RecordBottomSheetProps {
 }
 export const RecordBottomSheet = ({ onClick }: RecordBottomSheetProps) => {
   return (
-    <BottomSheet title="경험 기록하기" onClick={onClick}>
+    <BottomSheet onClick={onClick}>
+      <S.Header>
+        <S.Title>경험 기록하기</S.Title>
+        <S.Icon src={CloseIcon} alt="closeIcon" onClick={onClick} />
+      </S.Header>
       <S.SheetContent>
         {SHEET_ITEMS.map((item, index) => (
           <SheetItem

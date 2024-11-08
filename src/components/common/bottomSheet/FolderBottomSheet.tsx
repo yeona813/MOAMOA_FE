@@ -4,6 +4,7 @@ import { Input } from '../input/Input';
 import { BottomSheet } from './BottomSheet';
 import * as S from './FolderBottomSheet.Style';
 import { SelectBox } from '../selectbox/SelectBox';
+import CloseIcon from '@icons/CloseIcon.svg';
 
 interface FolderBottomSheetProps {
   onClick: () => void;
@@ -52,7 +53,11 @@ export const FolderBottomSheet = ({
   };
 
   return (
-    <BottomSheet title={title} onClick={onClick}>
+    <BottomSheet onClick={onClick}>
+      <S.Header>
+        <S.Title>{title}</S.Title>
+        <S.Icon src={CloseIcon} alt="closeIcon" onClick={onClick} />
+      </S.Header>
       <S.SheetContent>
         {text}
         {isSelectBox ? (
