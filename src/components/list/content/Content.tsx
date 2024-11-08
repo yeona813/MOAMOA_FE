@@ -68,7 +68,6 @@ export const Content = ({ onClick }: ContentProps) => {
             onClick={() => {
               navigate(`/report/${item.id}`);
             }}
-            type="small"
           />
         ))
       ) : (
