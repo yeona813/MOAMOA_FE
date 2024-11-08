@@ -3,6 +3,7 @@ import { RecordBottomSheet } from '@components/common/bottomSheet/RecordBottomSh
 import { KeywordHeader } from '@/components/keyword/header/KeywordHeader';
 import { SideBar } from '@/components/common/sideBar/SideBar';
 import { KeywordSkill } from '@/components/keyword/keywordSkill/KeywordSkill';
+import { FloatingButton } from '@/components/common/button/FloatingButton';
 
 export const KeywordPage = () => {
   const [openBottom, setOpenBottom] = useState(false);
@@ -33,6 +34,7 @@ export const KeywordPage = () => {
       ) : (
         <span>유민아 이거 지우고 여기에 그래프하면 될 것 같아! </span>
       )}
+      <FloatingButton onClick={toggleBottomSheet} />
       {openBottom && <RecordBottomSheet onClick={toggleBottomSheet} />}
       {openSideBar && <SideBar onClick={toggleSideBar} />}
     </div>
