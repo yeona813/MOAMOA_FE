@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import * as S from './Content.Style';
 import { List } from '../../common/list/List';
+import { Empty } from '@/components/common/empty/Empty';
 
 interface ListItem {
   id: number;
@@ -66,13 +67,7 @@ export const Content = () => {
           />
         ))
       ) : (
-        <S.EmptyContainer>
-          <S.Empty />
-          <S.EmptyMessage>아직 작성한 경험이 없어요!</S.EmptyMessage>
-          <S.Description>
-            모아모아와 함께 <br /> 내 경험과 역량을 모아보세요!
-          </S.Description>
-        </S.EmptyContainer>
+        <Empty />
       )}
     </S.Content>
   );
