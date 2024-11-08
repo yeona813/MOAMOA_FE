@@ -53,7 +53,13 @@ export const SideBar = ({ onClick }: SideBarProps) => {
 
               return (
                 <S.Item key={item.name} onClick={() => goToUrl(item.path)}>
-                  <S.Icon as={IconComponent} style={{ fill: isActive ? '#333538' : '#989AA0' }} />
+                  <S.Icon
+                    as={IconComponent}
+                    style={{
+                      fill: isActive ? '#333538' : '#989AA0',
+                      stroke: isActive ? '#333538' : '#989AA0',
+                    }}
+                  />
                   <S.Text $isActive={isActive}>{item.name}</S.Text>
                 </S.Item>
               );
