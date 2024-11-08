@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SelectBox } from '@/components/common/selectbox/SelectBox';
 import { Button } from '@/components/common/button/Button';
 import { FolderBottomSheet } from '@/components/common/bottomSheet/FolderBottomSheet';
@@ -11,7 +12,7 @@ export const RecordCompletePage = () => {
   const [content, setContent] = useState(recordSummary);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-
+  const navigate = useNavigate();
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
@@ -34,7 +35,7 @@ export const RecordCompletePage = () => {
 
   const handleSaveButton = () => {
     // 저장 로직 구현
-    console.log('저장됨:', { title, content, selectedCategory });
+    navigate('/home');
   };
 
   const isSaveDisabled = !title || !content || !selectedCategory;
