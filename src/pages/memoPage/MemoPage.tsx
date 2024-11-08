@@ -1,21 +1,20 @@
-import { ChangeEvent, useState, useEffect } from 'react';
+import { ChangeEvent, useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Memo } from '@components/memo/Memo';
-import { Input } from '@components/common/input/Input';
-import { SelectBox } from '@components/common/selectbox/SelectBox';
-import { TabBar } from '@components/layout/tabBar/TabBar';
 import { DetailModal } from '@components/common/modal/DetailModal';
 import * as S from './MemoPage.Style';
 import { getFormattedDate } from '@/utils/dateUtils';
+import { SelectBox } from '@/components/common/selectbox/SelectBox';
+import { Button } from '@/components/common/button/Button';
 
 const DUMMY_MEMO = {
-  title: '오늘의 회고',
-  category: '카테고리1',
-  memo: '오늘 하루 동안 있었던 일을 기록합니다...',
+  title: '경쟁 서비스 기능',
+  category: '큐시즘 서비스 기획',
+  memo: '오늘은 큐시즘에서 서비스 기획을 했따',
 };
 
 export const MemoPage = () => {
   const navigate = useNavigate();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [tempMemo, setTempMemo] = useState({
     title: '',
     category: '',
@@ -62,6 +61,10 @@ export const MemoPage = () => {
   };
 
   const handleChangeCategory = (value: string) => {
+    if (value === '새 폴더 추가하기') {
+      navigate('/folder');
+      return;
+    }
     setTempMemo((prev) => ({ ...prev, category: value }));
     saveTempMemo();
   };
@@ -101,38 +104,53 @@ export const MemoPage = () => {
     setShowTempDataModal(false);
   };
 
-  const isSaveDisabled = !tempMemo.title && !tempMemo.memo;
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = '250px';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [tempMemo.memo]);
+
+  const isSaveDisabled = !tempMemo.memo;
 
   return (
     <S.Container>
-      <TabBar
-        onClickBackIcon={handleBackButton}
-        centerText="경험 기록"
-        rightText="저장"
-        onClick={handleSaveButton}
-        isDisabled={isSaveDisabled}
-      />
+      <S.HeaderContainer>
+        <S.BackButton onClick={handleBackButton} type="button">
+          <img src="src/assets/icons/ArrowIcon.svg" alt="뒤로가기" />
+        </S.BackButton>
+        <S.Title>오늘은 무슨 경험을 하셨나요? <br /> 자유롭게 기록해주세요!</S.Title>
+      </S.HeaderContainer>
+
       <S.Form>
-        <S.Label>경험의 제목을 적어주세요</S.Label>
-        <S.InputContainer>
-          <Input
-            placeholder={getFormattedDate()}
-            value={tempMemo.title}
-            onChange={handleChangeTitle}
-            isError={false}
-          />
-        </S.InputContainer>
-        <S.Label>경험의 카테고리를 선택해주세요</S.Label>
-        <S.InputContainer>
-          <SelectBox
-            select={tempMemo.category}
-            onChange={handleChangeCategory}
-            selectData={['카테고리1', '카테고리2', '카테고리3']}
-          />
-        </S.InputContainer>
-        <S.Label>경험 기록</S.Label>
-        <Memo memo={tempMemo.memo} onChange={handleChangeMemo} />
+        <S.Input
+          placeholder={getFormattedDate()}
+          value={tempMemo.title}
+          onChange={handleChangeTitle}
+          isError={false}
+        />
+        <S.Line />
+        <S.Content
+          ref={textareaRef}
+          placeholder="경험 당시의 상황, 행동, 문제, 결과 등을 기록해주세요."
+          value={tempMemo.memo}
+          onChange={handleChangeMemo}
+        />
+        <S.Line />
+        <S.Label>경험의 카테고리를 선택해주세요.</S.Label>
+        <SelectBox
+          select={tempMemo.category}
+          onChange={handleChangeCategory}
+          selectData={['큐시즘 서비스 기획', '마이리얼트립 인턴', '서비스디자인학과 팀 프로젝트', '회사문장', '새 폴더 추가하기']} // 백엔드에 저장되어 있는 폴더명 가져오기
+          placeholder="선택하기"
+        />
+        <S.ButtonWrapper>
+          <Button type="submit" onClick={handleSaveButton} styleType={'basic'} disabled={isSaveDisabled}>
+            저장하기
+          </Button>
+        </S.ButtonWrapper>
       </S.Form>
+
       {showModal && (
         <DetailModal
           text="작성 중인 내용을 임시 저장할까요?"
