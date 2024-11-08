@@ -16,7 +16,7 @@ interface Message {
 export const ChatPage = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
-      message: '안녕하세요! 뫄뫄님 오늘은 어떤 경험을 했나요? 저와 함께 정리해보아요!',
+      message: `안녕하세요! 뫄뫄님\n오늘은 어떤 경험을 했나요?\n저와 함께 정리해보아요!`,
       isMe: false,
     },
   ]);
@@ -163,7 +163,7 @@ export const ChatPage = () => {
         ))}
         <div ref={messagesEndRef} />
         <S.InputContainer>
-          <GuideButton text="어떤 경험을 말해야 할지 모르겠어요." onClick={() => { }} />
+          <GuideButton text="🙋‍ 경험을 어떻게 말해야 할지 모르겠어요." onClick={() => { }} />
           <ChatBox onSubmit={handleSendMessage} />
         </S.InputContainer>
       </S.ChatContainer>
