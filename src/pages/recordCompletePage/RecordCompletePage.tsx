@@ -59,7 +59,8 @@ export const RecordCompletePage = () => {
         <FolderBottomSheet
           onClick={() => setIsBottomSheetOpen(false)}
           onClickButton={handleBottomSheetComplete}
-          text="폴더 이름을 입력하세요"
+          title="새 폴더 추가하기"
+          text="추가할 폴더의 이름을 적어주세요"
         />
       )}
     </S.Container>

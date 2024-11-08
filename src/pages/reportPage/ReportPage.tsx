@@ -70,6 +70,7 @@ export const ReportPage = () => {
           onClickButton={() => {
             console.log('구현해야함');
           }}
+          title="폴더 변경하기"
           text="저장할 폴더를 선택해주세요"
           isSelectBox={true}
         />

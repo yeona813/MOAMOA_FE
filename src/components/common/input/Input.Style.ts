@@ -8,12 +8,12 @@ export const Container = styled.div`
 
 export const Input = styled.input<{ $isError: boolean }>`
   width: 100%;
-  padding: 0.75rem 0.5rem;
+  padding: 0.75rem 0.625rem;
   align-items: center;
   border-radius: 0.5rem;
   border: 1px solid ${({ $isError, theme }) => ($isError ? '#f00' : theme.colors.gray50)};
   color: ${({ theme }) => theme.colors.gray900};
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 145%;
 
   &::placeholder {
