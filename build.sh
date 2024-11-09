@@ -1,5 +1,5 @@
 #!/bin/sh
 cd ../
 mkdir output
-cp -R ./CORECORD_FE/* ./output
-cp -R ./output ./CORECORD_FE/
+cp -R ./MOAMOA_FE/* ./output
+cp -R ./output ./MOAMOA_FE/
