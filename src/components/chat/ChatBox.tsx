@@ -17,6 +17,8 @@ export const ChatBox = ({ onSubmit }: ChatBoxProps) => {
     }
   };
 
+  const hasMessage = message.trim().length > 0;
+
   return (
     <S.ChatBoxContainer>
       <S.ChatBoxForm onSubmit={handleSend}>
@@ -26,7 +28,7 @@ export const ChatBox = ({ onSubmit }: ChatBoxProps) => {
           onChange={(e) => setMessage(e.target.value)}
           placeholder="내용을 입력해 주세요"
         />
-        <S.ChatBoxButton type="submit">
+        <S.ChatBoxButton type="submit" $hasMessage={hasMessage}>
           <img src={UpArrowIcon} alt="Send" />
         </S.ChatBoxButton>
       </S.ChatBoxForm>

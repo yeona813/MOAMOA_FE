@@ -31,14 +31,13 @@ export const ChatBoxInput = styled.input`
   outline: none;
 `;
 
-export const ChatBoxButton = styled.button`
+export const ChatBoxButton = styled.button<{ $hasMessage: boolean }>`
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 0.75rem;
   border: none;
   padding: 0.5rem 0.483rem;
-  background-color: ${({ theme }) => theme.colors.gray100};
-  &:active {
-    background-color: ${({ theme }) => theme.colors.gray700};
-  }
+  background-color: ${({ theme, $hasMessage }) =>
+    $hasMessage ? theme.colors.gray700 : theme.colors.gray100};
+  transition: background-color 0.2s ease;
 `;
