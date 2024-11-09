@@ -3,7 +3,7 @@ import * as S from './Button.Style';
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   icon?: string;
-  styleType: 'shadow' | 'basic' | 'popupRight' | 'popupLeft';
+  styleType: 'basic' | 'popupRight' | 'popupLeft';
 }
 
 export const Button = ({ children, icon, styleType, ...props }: ButtonProps) => {

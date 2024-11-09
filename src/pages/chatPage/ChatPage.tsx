@@ -16,7 +16,7 @@ interface Message {
 export const ChatPage = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
-      message: `안녕하세요! 뫄뫄님\n오늘은 어떤 경험을 했나요?\n저와 함께 정리해보아요!`,
+      message: `안녕하세요! 코코님 🩷\n오늘은 어떤 경험을 했나요?\n저와 함께 정리해보아요!`,
       isMe: false,
     },
   ]);
@@ -26,7 +26,7 @@ export const ChatPage = () => {
   const [showToast, setShowToast] = useState(false);
   const [tempChat, setTempChat] = useState<Message[]>([
     { message: '나는 큐시즘이라는 IT 연합 동아리에서 지금 디자이너를 맡고 있어. 우리는 AI 역량 분석 앱을 만들고 있어. 근데 오늘 이제 회의를 했거든. ', isMe: true },
-    { message: '이어서 진행하고 싶은 경험을 말씀해주세요.', isMe: false },
+    { message: '김코코님이 말씀해주신 경험의 당시 상황을 더 자세히 말해주세요!', isMe: false },
   ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -93,14 +93,21 @@ export const ChatPage = () => {
     setIsTempSaveModalOpen(false); // 모달 닫기
     setShowToast(true);
     setTimeout(() => {
-      setShowToast(false);
-      navigate(-1); // 2초 후 페이지 이동
-    }, 2000);
+      navigate(-1);
+      setTimeout(() => {
+        setShowToast(false);
+      }, 500);
+    }, 1500);
   };
 
   // 완료 버튼 클릭 시 모달 열기
   const handleComplete = () => {
     setIsModalOpen(true);
+  };
+
+  // 완료하기 버튼 클릭 시 실행할 모달 함수
+  const handleCompleteConfirm = () => {
+    setIsModalOpen(false);
     navigate('/record-complete');
   };
 
@@ -117,8 +124,7 @@ export const ChatPage = () => {
 
   return (
     <>
-      <TabBar rightText="완료하기" onClickBackIcon={handleTemporarySave} onClick={handleComplete} />
-      <S.DateContainer>{currentDate}</S.DateContainer>
+      <TabBar rightText="완료하기" onClickBackIcon={handleTemporarySave} onClick={handleComplete} isDisabled={messages.length === 0} />
       {/* 경험 기록 완료 모달 */}
       {isModalOpen && (
         <DetailModal
@@ -127,7 +133,7 @@ export const ChatPage = () => {
           rightButtonText="완료하기"
           onClickBackground={closeModal}
           onClickLeft={closeModal}
-          onClickRight={handleComplete}
+          onClickRight={handleCompleteConfirm}
         />
       )}
 
@@ -145,7 +151,7 @@ export const ChatPage = () => {
       {/* 뒤로 가기 시 임시 저장 여부를 묻는 모달 */}
       {isTempSaveModalOpen && (
         <DetailModal
-          text={`작성 중인 레코드를\n임시 저장할까요?`}
+          text={`작성 중인 대화를\n임시 저장할까요?`}
           leftButtonText="나가기"
           rightButtonText="저장하기"
           onClickLeft={closeTempSaveModal}
@@ -158,6 +164,7 @@ export const ChatPage = () => {
       )}
 
       <S.ChatContainer>
+        <S.DateContainer>{currentDate}</S.DateContainer>
         {messages.map((msg, index) => (
           <ChatBubble key={index} message={msg.message} isMe={msg.isMe} />
         ))}
