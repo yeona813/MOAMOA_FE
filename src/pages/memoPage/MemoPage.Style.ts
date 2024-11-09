@@ -7,8 +7,7 @@ export const Container = styled.div`
   gap: 0.625rem;
   position: relative;
   width: 100%;
-  height: 100vh;
-  overflow-y: auto;
+  height: 100%;
 `;
 
 export const HeaderContainer = styled.div`
@@ -79,14 +78,19 @@ export const Content = styled.textarea`
   font-weight: 400;
   line-height: 145%;
   width: 95%;
-  height: 10rem;
-  align-self: center;
+  min-height: 10rem;
   border: none;
   outline: none;
   padding: 0.5rem;
   resize: none;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
   &::placeholder {
-    font-family: 'Pretendard';
     color: ${({ theme }) => theme.colors.gray300};
     font-size: 1rem;
     font-weight: 400;
