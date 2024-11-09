@@ -41,6 +41,11 @@ export const FolderPage = () => {
     <div>
       <TabBar centerText="폴더 관리" rightText="편집" onClick={handleEdit} />
       <S.Content>
+        {!isEditing && (
+          <Folder type="plus" onClick={toggleBottomSheet}>
+            <img src={PlusIcon} alt="plusButton" />
+          </Folder>
+        )}
         {FOLDER_DATA.length > 0 &&
           FOLDER_DATA.map((folder) => (
             <S.FolderContainer key={folder}>
@@ -50,11 +55,6 @@ export const FolderPage = () => {
               </Folder>
             </S.FolderContainer>
           ))}
-        {!isEditing && (
-          <Folder type="plus" onClick={toggleBottomSheet}>
-            <img src={PlusIcon} alt="plusButton" />
-          </Folder>
-        )}
       </S.Content>
       {openBottom && (
         <FolderBottomSheet
