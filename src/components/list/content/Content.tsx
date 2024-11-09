@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import * as S from './Content.Style';
 import { List } from '../../common/list/List';
-import { Button } from '../../common/button/Button';
+import { Empty } from '@/components/common/empty/Empty';
 
 interface ListItem {
   id: number;
@@ -49,11 +49,7 @@ const LISTDATA: ListItem[] = [
   },
 ]; // 추후 백엔드에서 받아오면 다른 방식으로 변경할 것!
 
-interface ContentProps {
-  onClick: () => void;
-}
-
-export const Content = ({ onClick }: ContentProps) => {
+export const Content = () => {
   const navigate = useNavigate();
 
   return (
@@ -68,23 +64,10 @@ export const Content = ({ onClick }: ContentProps) => {
             onClick={() => {
               navigate(`/report/${item.id}`);
             }}
-            type="small"
           />
         ))
       ) : (
-        <S.EmptyContainer>
-          <S.Empty />
-          <S.EmptyMessage>
-            아직 작성한 경험이 없어요.
-            <br />
-            CO:RECORD와 함께
-            <br />
-            경험을 기록해보세요!
-          </S.EmptyMessage>
-          <Button styleType="shadow" onClick={onClick}>
-            기록하러 가기
-          </Button>
-        </S.EmptyContainer>
+        <Empty />
       )}
     </S.Content>
   );

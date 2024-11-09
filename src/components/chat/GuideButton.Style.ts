@@ -1,11 +1,18 @@
 import styled from 'styled-components';
 
+export const GuideButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
 export const GuideButton = styled.button`
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 0.75rem;
   background-color: ${({ theme }) => theme.colors.white};
-  border-radius: 0.75rem;
+  border-radius: 6.1875rem;
   border: 1px solid ${({ theme }) => theme.colors.gray50};
   max-width: 18.75rem;
   margin-bottom: 0.625rem;

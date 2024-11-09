@@ -7,7 +7,7 @@ export const Background = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 100;
+  z-index: 1000;
 `;
 
 export const BottomSheet = styled.div`
@@ -20,19 +20,4 @@ export const BottomSheet = styled.div`
   border-radius: 1.25rem 1.25rem 0rem 0rem;
   background-color: ${({ theme }) => theme.colors.white};
   z-index: 100;
-`;
-
-export const Header = styled.header<{ $hasTitle: boolean }>`
-  display: flex;
-  width: 100%;
-  justify-content: ${({ $hasTitle }) => ($hasTitle ? 'space-between' : 'flex-end')};
-`;
-
-export const Title = styled.h5`
-  color: ${({ theme }) => theme.colors.gray900};
-`;
-
-export const Icon = styled.img`
-  width: 1.125rem;
-  height: 1.125rem;
 `;

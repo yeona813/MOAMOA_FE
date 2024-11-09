@@ -24,13 +24,12 @@ export const SheetItem = ({ title, subTitle, color, path }: SheetItemProps) => {
   };
 
   return (
-    <S.SheetItem $color={color} onClick={handleClick}>
-      <S.Icon $color={color} />
+    <S.SheetItem onClick={handleClick}>
+      <S.DIV color={color} />
       <S.TextContainer>
         <S.SubTitle>{subTitle}</S.SubTitle>
         <S.Title>{title}</S.Title>
       </S.TextContainer>
-      <S.Blur $color={color} />
     </S.SheetItem>
   );
 };

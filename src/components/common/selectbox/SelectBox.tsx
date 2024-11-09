@@ -6,6 +6,7 @@ interface SelectBoxProps {
   select: string;
   onChange: (value: string) => void;
   selectData: string[];
+  placeholder?: string;
 }
 
 /**
@@ -15,7 +16,7 @@ interface SelectBoxProps {
  * @param selectData - 드롭다운 시 나올 값들
  * @returns
  */
-export const SelectBox = ({ select, onChange, selectData }: SelectBoxProps) => {
+export const SelectBox = ({ select, onChange, selectData, placeholder }: SelectBoxProps) => {
   const [open, setOpen] = useState(false);
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -26,7 +27,7 @@ export const SelectBox = ({ select, onChange, selectData }: SelectBoxProps) => {
   return (
     <S.Container>
       <S.SelectBox open={open} onClick={() => setOpen((prev) => !prev)}>
-        <S.SelectText $hasValue={!!select}>{select || '소속을 선택해주세요'}</S.SelectText>
+        <S.SelectText $hasValue={!!select}>{select || placeholder}</S.SelectText>
         <S.Icon src={DownArrowIcon} alt="downArrow" />
       </S.SelectBox>
       {open && (
