@@ -125,7 +125,7 @@ export const MemoPage = () => {
         <S.BackButton onClick={handleBackButton} type="button">
           <img src="src/assets/icons/ArrowIcon.svg" alt="뒤로가기" />
         </S.BackButton>
-        <S.Title>오늘은 무슨 경험을 하셨나요? <br /> 자유롭게 기록해주세요!</S.Title>
+        <S.Title>오늘은 무슨 경험을 하셨나요?<br />자유롭게 기록해주세요!</S.Title>
       </S.HeaderContainer>
 
       <S.Form>

@@ -32,9 +32,7 @@ export const BackButton = styled.button`
   left: 1.25rem;
 `;
 
-export const Title = styled.h1`
-  font-size: 1.25rem;
-  font-weight: 700;
+export const Title = styled.h4`
   line-height: 135%;
   margin-top: 125px;
   margin-left: 1.25rem;
@@ -61,12 +59,7 @@ export const Form = styled.form`
 
 export const Input = styled(OriginalInput)`
   width: 95%;
-  align-self: center;
-  padding: 0.5rem;
   margin-bottom: 0rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 145%;
   border: none;
   &:focus {
     border: none;
@@ -91,7 +84,7 @@ export const Content = styled.textarea`
   border: none;
   outline: none;
   padding: 0.5rem;
-
+  resize: none;
   &::placeholder {
     font-family: 'Pretendard';
     color: ${({ theme }) => theme.colors.gray300};
