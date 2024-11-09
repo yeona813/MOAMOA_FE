@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     container: pandoc/latex
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install mustache (to update the date)
         run: apk add ruby && gem install mustache
       - name: creates output
@@ -22,7 +22,7 @@ jobs:
         with:
           source-directory: 'output'
           destination-github-username: yeona813
-          destination-repository-name: CORECORD_FE
+          destination-repository-name: MOAMOA_FE
           user-email: ${{ secrets.EMAIL }} 
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
