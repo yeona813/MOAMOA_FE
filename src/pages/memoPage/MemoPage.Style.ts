@@ -98,6 +98,15 @@ export const Content = styled.textarea`
   }
 `;
 
+export const Count = styled.p`
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 130%;
+  color: ${({ theme }) => theme.colors.gray500};
+  width: 95%;
+  align-self: flex-end;
+`;
+
 export const ButtonWrapper = styled.div`
   position: fixed;
   bottom: 1.25rem;

@@ -137,7 +137,9 @@ export const MemoPage = () => {
           placeholder="경험 당시의 상황, 행동, 문제, 결과 등을 기록해주세요."
           value={tempMemo.memo}
           onChange={handleChangeMemo}
+          maxLength={500}
         />
+        <S.Count>{tempMemo.memo.length}/500</S.Count>
         <S.Line />
         <S.Label>경험의 카테고리를 선택해주세요.</S.Label>
         <SelectBox
