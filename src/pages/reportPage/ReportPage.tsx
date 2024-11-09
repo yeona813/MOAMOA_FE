@@ -4,7 +4,6 @@ import { Content } from '@components/report/content/Content';
 import { EditBottomSheet } from '@components/common/bottomSheet/EditBottomSheet';
 import { BasicModal } from '@components/common/modal/BasicModal';
 import { FolderBottomSheet } from '@components/common/bottomSheet/FolderBottomSheet';
-import KebabIcon from '@icons/KebabIcon.svg';
 import { ReportBottomSheet } from '@/components/common/bottomSheet/reportBottomSheet/ReportBottomSheet';
 
 const MOCK_DATA = {
@@ -77,7 +76,6 @@ export const ReportPage = () => {
     <>
       <TabBar
         centerText="역량 모아보기"
-        icon={KebabIcon}
         onClick={toggleBottomSheet}
         isEditable={true}
         onClickEditIcon={toggleEditBottomSheet}
