@@ -2,14 +2,14 @@ import styled from 'styled-components';
 
 export const Content = styled.div`
   position: absolute;
-  top: 11.375rem;
+  top: 13.4375rem;
   right: 0;
   width: 100%;
-  height: calc(100% - 11.375rem);
+  height: calc(100vh - 13.4375rem);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 1rem 1.25rem 6.625rem 1.25rem;
+  padding: 1rem 1.25rem 1.25rem;
   background-color: ${({ theme }) => theme.colors.gray25};
   border-radius: 1.25rem 1.25rem 0rem 0rem;
   color: ${({ theme }) => theme.colors.gray900};

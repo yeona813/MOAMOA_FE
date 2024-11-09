@@ -4,10 +4,12 @@ import { Input } from '../input/Input';
 import { BottomSheet } from './BottomSheet';
 import * as S from './FolderBottomSheet.Style';
 import { SelectBox } from '../selectbox/SelectBox';
+import CloseIcon from '@icons/CloseIcon.svg';
 
 interface FolderBottomSheetProps {
   onClick: () => void;
   onClickButton: () => void;
+  title: string;
   text: string;
   isSelectBox?: boolean;
 }
@@ -22,13 +24,15 @@ const FOLDER_DATA = [
  *
  * @param onClick - BottomSheet 열고 닫는 함수
  * @param onClickButton - Button 클릭 시 수행하는 함수
- * @param text - BottomSheet의 제목
+ * @param title - BottomSheet의 제목
+ * @param text - BottomSheet의 부가 설명
  * @param isSelectBox - (optional) true일 경우 selectBox나옴
  * @returns
  */
 export const FolderBottomSheet = ({
   onClick,
   onClickButton,
+  title,
   text,
   isSelectBox = false,
 }: FolderBottomSheetProps) => {
@@ -49,7 +53,11 @@ export const FolderBottomSheet = ({
   };
 
   return (
-    <BottomSheet title="새 폴더 추가하기" onClick={onClick}>
+    <BottomSheet onClick={onClick}>
+      <S.Header>
+        <S.Title>{title}</S.Title>
+        <S.Icon src={CloseIcon} alt="closeIcon" onClick={onClick} />
+      </S.Header>
       <S.SheetContent>
         {text}
         {isSelectBox ? (
