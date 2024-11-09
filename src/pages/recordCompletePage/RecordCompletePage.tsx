@@ -65,7 +65,7 @@ export const RecordCompletePage = () => {
           select={selectedCategory}
           onChange={handleChangeCategory}
           selectData={['큐시즘 서비스 기획', '마이리얼트립 인턴', '서비스디자인학과 팀 프로젝트', '회사문장', '새 폴더 추가하기']}
-        // placeholder="선택하기"
+          placeholder="선택하기"
         />
         <S.ButtonWrapper>
           <Button
