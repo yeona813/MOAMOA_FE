@@ -1,40 +1,30 @@
 import { useNavigate } from 'react-router-dom';
 import * as S from './Content.Style';
 import { List } from '../../common/list/List';
+import { useEffect, useState } from 'react';
+import { getRecords } from '@/api/Home';
+import { Empty } from '@/components/common/empty/Empty';
 
-const LISTDATA = [
-  {
-    id: 1,
-    folderText: '프로젝트',
-    title: '프로젝트 진행 계획서',
-    chips: ['창의력', '커뮤니케이션', '문제 해결'],
-    date: '2024.10.25',
-  },
-  {
-    id: 2,
-    folderText: '프로젝트',
-    title: '프로젝트 진행 계획서',
-    chips: ['창의력', '커뮤니케이션', '문제 해결'],
-    date: '2024.10.25',
-  },
-  {
-    id: 1,
-    folderText: '프로젝트',
-    title: '프로젝트 진행 계획서',
-    chips: ['창의력', '커뮤니케이션', '문제 해결'],
-    date: '2024.10.25',
-  },
-  {
-    id: 1,
-    folderText: '프로젝트',
-    title: '프로젝트 진행 계획서',
-    chips: ['창의력', '커뮤니케이션', '문제 해결'],
-    date: '2024.10.25',
-  },
-]; // 추후 백엔드에서 받아오면 다른 방식으로 변경할 것!
-
+interface LISTPROPS {
+  title: string;
+  keywordList: string[];
+  createdAt: string;
+  analysisId: number;
+}
 export const Content = () => {
   const navigate = useNavigate();
+  const [listData, setListData] = useState<LISTPROPS[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getRecords();
+      if (data) {
+        setListData(data);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <S.Content>
@@ -49,17 +39,21 @@ export const Content = () => {
         </S.Plus>
       </S.TextContainer>
       <S.ListContainer>
-        {LISTDATA.map((item, index) => (
-          <List
-            key={index}
-            title={item.title}
-            chips={item.chips}
-            date={item.date}
-            onClick={() => {
-              navigate(`/report/${item.id}`);
-            }}
-          />
-        ))}
+        {listData.length === 0 ? (
+          <Empty />
+        ) : (
+          listData.map((item, index) => (
+            <List
+              key={index}
+              title={item.title}
+              chips={item.keywordList}
+              date={item.createdAt}
+              onClick={() => {
+                navigate(`/report/${item.analysisId}`);
+              }}
+            />
+          ))
+        )}
       </S.ListContainer>
     </S.Content>
   );
