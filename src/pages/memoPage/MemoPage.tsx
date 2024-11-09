@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useEffect, useRef } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DetailModal } from '@components/common/modal/DetailModal';
 import * as S from './MemoPage.Style';
@@ -16,7 +16,6 @@ const DUMMY_MEMO = {
 
 export const MemoPage = () => {
   const navigate = useNavigate();
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [tempMemo, setTempMemo] = useState({
     title: '',
     category: '',
@@ -107,13 +106,6 @@ export const MemoPage = () => {
     setShowTempDataModal(false);
   };
 
-  useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = '250px';
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  }, [tempMemo.memo]);
-
   const isSaveDisabled = !tempMemo.memo;
 
   function handleBottomSheetComplete(): void {
@@ -142,7 +134,6 @@ export const MemoPage = () => {
         />
         <S.Line />
         <S.Content
-          ref={textareaRef}
           placeholder="경험 당시의 상황, 행동, 문제, 결과 등을 기록해주세요."
           value={tempMemo.memo}
           onChange={handleChangeMemo}
