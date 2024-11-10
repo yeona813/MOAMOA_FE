@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SelectBox } from '@/components/common/selectbox/SelectBox';
+import { CategoryChip } from '@/components/common/chip/CategoryChip';
 import { Button } from '@/components/common/button/Button';
 import { FolderBottomSheet } from '@/components/common/bottomSheet/FolderBottomSheet';
 import * as S from './RecordCompletePage.Style';
 import { getFormattedDate } from '@/utils/dateUtils';
+import FolderIcon from '@icons/FolderIcon.svg';
+
+const categoryData = ['큐시즘 서비스 기획', '밋업 프로젝트', '뤼튼', '멍냥부리', '새 폴더 추가하기', '카테고리 수정하기', '카테고리 삭제하기', '카테고리 복사하기', '카테고리 이름 변경하기', '사과', '바나나', '딸기', '포도', '라임', '레몬', '자몽', '라임', '레몬', '자몽', '라임', '레몬', '자몽',];
 
 export const RecordCompletePage = () => {
   const [recordSummary] = useState('경쟁 서비스 기능, 사용자 인터페이스(UI), 요금제 등을 분석하고 글로벌 시장에서 주요 플레이어들의 특징을 파악한 점은 서비스 기획 직무에서 필수적인 시장 분석 능력을 잘 보여줍니다.');
@@ -29,6 +32,11 @@ export const RecordCompletePage = () => {
     }
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
+
   const handleBottomSheetComplete = () => {
     setIsBottomSheetOpen(false);
   };
@@ -47,7 +55,7 @@ export const RecordCompletePage = () => {
         <S.SubTitle>코코님의 경험을 모아서<br />한눈에 보기 쉽게 요약해드렸어요</S.SubTitle>
       </S.HeaderContainer>
 
-      <S.Form>
+      <S.Form onSubmit={handleSubmit}>
         <S.Input
           placeholder={getFormattedDate()}
           value={title}
@@ -60,13 +68,22 @@ export const RecordCompletePage = () => {
           onChange={handleChangeContent}
         />
         <S.Line />
+
         <S.Label>경험의 카테고리를 선택해주세요.</S.Label>
-        <SelectBox
-          select={selectedCategory}
-          onChange={handleChangeCategory}
-          selectData={['큐시즘 서비스 기획', '마이리얼트립 인턴', '서비스디자인학과 팀 프로젝트', '회사문장', '새 폴더 추가하기']}
-          placeholder="선택하기"
-        />
+        <S.CategoryContainer>
+          {categoryData.map((category) => (
+            <CategoryChip
+              key={category}
+              children={category}
+              isSelected={selectedCategory === category}
+              onClick={() => handleChangeCategory(category)}
+            />
+          ))}
+          <CategoryChip onClick={() => handleChangeCategory('새 폴더 추가하기')} isSelected={false}>
+            <img src={FolderIcon} alt="changeFolder" />
+          </CategoryChip>
+        </S.CategoryContainer>
+
         <S.ButtonWrapper>
           <Button
             type="submit"

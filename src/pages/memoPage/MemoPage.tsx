@@ -3,16 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { DetailModal } from '@components/common/modal/DetailModal';
 import * as S from './MemoPage.Style';
 import { getFormattedDate } from '@/utils/dateUtils';
-import { SelectBox } from '@/components/common/selectbox/SelectBox';
 import { Button } from '@/components/common/button/Button';
 import { FolderBottomSheet } from '@/components/common/bottomSheet/FolderBottomSheet';
 import BackIcon from '@icons/ArrowIcon.svg';
+import FolderIcon from '@icons/FolderIcon.svg';
+import { CategoryChip } from '@/components/common/chip/CategoryChip';
 
 const DUMMY_MEMO = {
   title: '경쟁 서비스 기능',
   category: '큐시즘 서비스 기획',
   memo: '오늘은 큐시즘에서 서비스 기획을 했따',
 };
+
+const categoryData = ['큐시즘 서비스 기획', '마이리얼트립 인턴', '서비스디자인학과 팀 프로젝트', '회사문장'];
 
 export const MemoPage = () => {
   const navigate = useNavigate();
@@ -106,6 +109,10 @@ export const MemoPage = () => {
     setShowTempDataModal(false);
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   const isSaveDisabled = !tempMemo.memo;
 
   function handleBottomSheetComplete(): void {
@@ -125,7 +132,7 @@ export const MemoPage = () => {
         </S.Title>
       </S.HeaderContainer>
 
-      <S.Form>
+      <S.Form onSubmit={handleSubmit}>
         <S.Input
           placeholder={getFormattedDate()}
           value={tempMemo.title}
@@ -142,18 +149,19 @@ export const MemoPage = () => {
         <S.Count>{tempMemo.memo.length}/500</S.Count>
         <S.Line />
         <S.Label>경험의 카테고리를 선택해주세요.</S.Label>
-        <SelectBox
-          select={tempMemo.category}
-          onChange={handleChangeCategory}
-          selectData={[
-            '큐시즘 서비스 기획',
-            '마이리얼트립 인턴',
-            '서비스디자인학과 팀 프로젝트',
-            '회사문장',
-            '새 폴더 추가하기',
-          ]} // 백엔드에 저장되어 있는 폴더명 가져오기
-          placeholder="선택하기"
-        />
+        <S.CategoryContainer>
+          {categoryData.map((category) => (
+            <CategoryChip
+              key={category}
+              children={category}
+              isSelected={tempMemo.category === category}
+              onClick={() => handleChangeCategory(category)}
+            />
+          ))}
+          <CategoryChip onClick={() => handleChangeCategory('새 폴더 추가하기')} isSelected={false}>
+            <img src={FolderIcon} alt="changeFolder" />
+          </CategoryChip>
+        </S.CategoryContainer>
         <S.ButtonWrapper>
           <Button
             type="submit"
