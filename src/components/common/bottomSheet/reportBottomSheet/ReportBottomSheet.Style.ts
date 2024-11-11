@@ -24,7 +24,7 @@ export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 2.3125rem;
-  max-height: calc(100vh - 10rem);
+  max-height: calc(100vh - 20rem);
   gap: 1.25rem;
   overflow-y: auto;
   -ms-overflow-style: none;

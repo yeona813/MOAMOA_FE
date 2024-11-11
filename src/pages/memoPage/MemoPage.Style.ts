@@ -98,6 +98,15 @@ export const Content = styled.textarea`
   }
 `;
 
+export const Count = styled.p`
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 130%;
+  color: ${({ theme }) => theme.colors.gray500};
+  width: 95%;
+  align-self: flex-end;
+`;
+
 export const ButtonWrapper = styled.div`
   position: fixed;
   bottom: 1.25rem;
@@ -105,3 +114,16 @@ export const ButtonWrapper = styled.div`
   right: 1.25rem;
   width: calc(100% - 2.5rem);
 `;
+
+export const CategoryContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+`;
+
+export const Icon = styled.svg`
+  width: 38px;
+  height: 38px;
+`;
+
