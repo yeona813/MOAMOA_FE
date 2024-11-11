@@ -4,6 +4,8 @@ import { KeywordHeader } from '@/components/keyword/header/KeywordHeader';
 import { SideBar } from '@/components/common/sideBar/SideBar';
 import { KeywordSkill } from '@/components/keyword/keywordSkill/KeywordSkill';
 import { FloatingButton } from '@/components/common/button/FloatingButton';
+import { SkillList } from '@/components/report/skill/SkillList';
+import { SkillGraph } from '@/components/report/skill/SkillGraph';
 
 export const KeywordPage = () => {
   const [openBottom, setOpenBottom] = useState(false);
@@ -32,7 +34,10 @@ export const KeywordPage = () => {
       {currentTabBar === '역량 키워드' ? (
         <KeywordSkill />
       ) : (
-        <span>유민아 이거 지우고 여기에 그래프하면 될 것 같아! </span>
+        <>
+          <SkillGraph />
+          <SkillList />
+        </>
       )}
       <FloatingButton onClick={toggleBottomSheet} />
       {openBottom && <RecordBottomSheet onClick={toggleBottomSheet} />}
