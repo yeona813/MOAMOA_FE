@@ -21,8 +21,8 @@ export const Label = styled.text`
 export const CHART_STYLES = {
   width: 350,
   height: 350,
-  innerRadius: 50,
-  outerRadius: 80,
+  innerRadius: 70,
+  outerRadius: 100,
   paddingAngle: 5,
   pieProps: {
     cx: "50%",

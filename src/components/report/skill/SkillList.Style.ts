@@ -9,8 +9,8 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   height: 100%;
-  padding: 0.78125rem 1rem;
-  margin: 0rem 3rem 4rem 3rem;
+  padding: 0.75rem 1rem;
+  margin: 0rem 3rem 0 3rem;
 `;
 
 export const Line = styled.div`
