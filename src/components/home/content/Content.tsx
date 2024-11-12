@@ -22,7 +22,6 @@ export const Content = () => {
         setListData(data);
       }
     };
-
     fetchData();
   }, []);
 
