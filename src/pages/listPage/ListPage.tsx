@@ -40,7 +40,7 @@ export const ListPage = () => {
       }
 
       const listData = await getFolderLists(selectFolder);
-      if (listData) {
+      if (listData.recordDtoList) {
         setListData(listData);
       }
     };

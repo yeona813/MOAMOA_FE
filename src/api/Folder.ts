@@ -40,7 +40,7 @@ export async function getFolderLists(folder?: string, lastRecordId?: number) {
     });
 
     if (response.data.is_success) {
-      return response.data.data.recordDtoList;
+      return response.data.data;
     }
   } catch (error) {
     console.error(error);
