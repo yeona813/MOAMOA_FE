@@ -69,7 +69,7 @@ export async function patchFolder({ recordId, folder }: PatchFolderProps) {
  */
 export async function getKeywordList() {
   try {
-    const response = await api.get('/api/keywords');
+    const response = await api.get('/api/keyword');
     if (response.data.is_success) {
       return response.data.data.keywordList;
     }
