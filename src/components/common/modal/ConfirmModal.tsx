@@ -3,6 +3,8 @@ import * as S from './ConfirmModal.Style';
 import { Button } from '../button/Button';
 import { useState } from 'react';
 import CheckIcon from '@icons/CheckIcon.svg';
+import { deleteUser } from '@/api/My';
+import { useNavigate } from 'react-router-dom';
 
 interface ConfirmModalProps {
   onClick: () => void;
@@ -10,12 +12,20 @@ interface ConfirmModalProps {
 
 //TODO 진짜 탈퇴 구현하기
 export const ConfirmModal = ({ onClick }: ConfirmModalProps) => {
+  const navigate = useNavigate();
   const [disabled, setDisabled] = useState(true);
   const [isCheck, setIsCheck] = useState(false);
 
   const checkMessage = () => {
     setIsCheck((prev) => !prev);
     setDisabled((prev) => !prev);
+  };
+
+  const handleDeleteUser = async () => {
+    const response = await deleteUser();
+    if (response.is_success) {
+      navigate('/oauth');
+    }
   };
 
   return (
@@ -31,7 +41,7 @@ export const ConfirmModal = ({ onClick }: ConfirmModalProps) => {
           </S.IconContainer>
           <S.Message>동의합니다.</S.Message>
         </S.MessageContainer>
-        <Button styleType="basic" disabled={disabled}>
+        <Button styleType="basic" disabled={disabled} onClick={handleDeleteUser}>
           회원 탈퇴하기
         </Button>
       </S.Content>
