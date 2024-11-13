@@ -8,33 +8,39 @@ import { FolderBottomSheet } from '@/components/common/bottomSheet/FolderBottomS
 import BackIcon from '@icons/ArrowIcon.svg';
 import FolderIcon from '@icons/FolderIcon.svg';
 import { CategoryChip } from '@/components/common/chip/CategoryChip';
+import { postRecord } from '@/api/Record';
+import { getFolders } from '@/api/Folder';
 
-const DUMMY_MEMO = {
-  title: '경쟁 서비스 기능',
-  category: '큐시즘 서비스 기획',
-  memo: '오늘은 큐시즘에서 서비스 기획을 했따',
-};
-
-const categoryData = [
-  '큐시즘 서비스 기획',
-  '마이리얼트립 인턴',
-  '서비스디자인학과 팀 프로젝트',
-  '회사문장',
-];
+interface FolderType {
+  folderId: number;
+  title: string;
+}
 
 export const MemoPage = () => {
   const navigate = useNavigate();
+  const [folderList, setFolderList] = useState<FolderType[]>([]);
   const [tempMemo, setTempMemo] = useState({
     title: '',
     category: '',
+    folderId: 0,
     memo: '',
   });
   const [showModal, setShowModal] = useState(false);
   const [showTempDataModal, setShowTempDataModal] = useState(false);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
+  // 폴더 목록 가져오기
   useEffect(() => {
-    localStorage.setItem('tempMemo', JSON.stringify(DUMMY_MEMO));
+    const fetchFolders = async () => {
+      const response = await getFolders();
+      if (response) {
+        setFolderList(response);
+      }
+    };
+    fetchFolders();
+  }, [isBottomSheetOpen]);
+
+  useEffect(() => {
     const savedMemo = localStorage.getItem('tempMemo');
     if (savedMemo) {
       setTempMemo(JSON.parse(savedMemo));
@@ -70,11 +76,15 @@ export const MemoPage = () => {
     saveTempMemo();
   };
 
-  const handleChangeCategory = (value: string) => {
-    if (value === '새 폴더 추가하기') {
+  const handleChangeCategory = (folder: FolderType | '새 폴더 추가하기') => {
+    if (folder === '새 폴더 추가하기') {
       setIsBottomSheetOpen(true);
     } else {
-      setTempMemo((prev) => ({ ...prev, category: value }));
+      setTempMemo((prev) => ({
+        ...prev,
+        category: folder.title,
+        folderId: folder.folderId
+      }));
       saveTempMemo();
     }
   };
@@ -85,14 +95,21 @@ export const MemoPage = () => {
     saveTempMemo();
   };
 
-  const handleSaveButton = () => {
-    const titleToSave = tempMemo.title || getFormattedDate();
-    console.log('저장되었습니다.', {
-      title: titleToSave,
-      category: tempMemo.category,
-      memo: tempMemo.memo,
-    });
-    clearTempMemo();
+  const handleSaveButton = async () => {
+    try {
+      const response = await postRecord({
+        title: tempMemo.title || getFormattedDate(),
+        content: tempMemo.memo,
+        folderId: tempMemo.folderId || 1, // 임시 폴더 아이디, 선택된 폴더 아이디로 변경 필요!
+        recordType: 'MEMO',
+      });
+      if (response) {
+        clearTempMemo();
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('메모 기록 실패', error);
+    }
   };
 
   const restoreTempMemo = () => {
@@ -110,7 +127,7 @@ export const MemoPage = () => {
 
   const handleNewMemo = () => {
     localStorage.removeItem('tempMemo');
-    setTempMemo({ title: '', category: '', memo: '' });
+    setTempMemo({ title: '', category: '', folderId: 0, memo: '' });
     setShowTempDataModal(false);
   };
 
@@ -119,6 +136,10 @@ export const MemoPage = () => {
   };
 
   const isSaveDisabled = !tempMemo.memo;
+
+  // function handleBottomSheetComplete(): void {
+  //   setIsBottomSheetOpen(false);
+  // }
 
   return (
     <S.Container>
@@ -151,12 +172,12 @@ export const MemoPage = () => {
         <S.Line />
         <S.Label>경험의 카테고리를 선택해주세요.</S.Label>
         <S.CategoryContainer>
-          {categoryData.map((category) => (
+          {folderList.map((folder) => (
             <CategoryChip
-              key={category}
-              children={category}
-              isSelected={tempMemo.category === category}
-              onClick={() => handleChangeCategory(category)}
+              key={folder.folderId}
+              children={folder.title}
+              isSelected={tempMemo.category === folder.title}
+              onClick={() => handleChangeCategory(folder)}
             />
           ))}
           <CategoryChip onClick={() => handleChangeCategory('새 폴더 추가하기')} isSelected={false}>
@@ -165,7 +186,7 @@ export const MemoPage = () => {
         </S.CategoryContainer>
         <S.ButtonWrapper>
           <Button
-            type="submit"
+            type="button"
             onClick={handleSaveButton}
             styleType={'basic'}
             disabled={isSaveDisabled}
@@ -203,6 +224,7 @@ export const MemoPage = () => {
       {isBottomSheetOpen && (
         <FolderBottomSheet
           onClick={() => setIsBottomSheetOpen(false)}
+          // onClickButton={handleBottomSheetComplete}
           title="새 폴더 추가하기"
           text="추가할 폴더의 이름을 적어주세요"
         />
@@ -210,3 +232,4 @@ export const MemoPage = () => {
     </S.Container>
   );
 };
+

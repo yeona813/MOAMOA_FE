@@ -9,7 +9,7 @@ export async function getRecords() {
     const response = await api.get('/api/records');
 
     if (response.data.is_success) {
-      return response.data.recordDtoList;
+      return response.data.data.recordDtoList;
     }
   } catch (error) {
     console.error(error);
