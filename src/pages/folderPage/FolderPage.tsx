@@ -6,7 +6,7 @@ import { FolderBottomSheet } from '@components/common/bottomSheet/FolderBottomSh
 import { DetailModal } from '@components/common/modal/DetailModal';
 import DeleteIcon from '@icons/DeleteIcon.svg';
 import PlusIcon from '@icons/PlusIcon.svg';
-import { getFolders } from '@/api/Folder';
+import { deleteFolder, getFolders } from '@/api/Folder';
 import { FolderListProps } from '@/types/Folder';
 
 export const FolderPage = () => {
@@ -14,6 +14,17 @@ export const FolderPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [folderList, setFolderList] = useState<FolderListProps[]>([]);
+  const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const folderList = await getFolders();
+      if (folderList) {
+        setFolderList(folderList);
+      }
+    };
+    fetchUser();
+  }, []);
 
   const toggleBottomSheet = () => {
     setOpenBottom((prev) => !prev);
@@ -23,20 +34,20 @@ export const FolderPage = () => {
     setIsEditing((prev) => !prev);
   };
 
-  const toggleModal = () => {
+  const toggleModal = (folderId?: number) => {
+    setSelectedFolderId(folderId ?? null);
     setOpenModal((prev) => !prev);
   };
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const folderList = await getFolders();
-      if (folderList) {
-        setFolderList(folderList);
-      }
-    };
+  const handleDeleteFolder = async (folderId: number | null) => {
+    if (folderId === null) return;
 
-    fetchUser();
-  }, []);
+    const response = await deleteFolder(folderId);
+    if (response.is_success) {
+      setFolderList((prev) => prev.filter((folder) => folder.folderId !== folderId));
+      setOpenModal((prev) => !prev);
+    }
+  };
 
   return (
     <div>
@@ -50,7 +61,13 @@ export const FolderPage = () => {
         {folderList.length > 0 &&
           folderList.map((folder) => (
             <S.FolderContainer key={folder.folderId}>
-              {isEditing && <S.Icon src={DeleteIcon} alt="delete" onClick={toggleModal} />}
+              {isEditing && (
+                <S.Icon
+                  src={DeleteIcon}
+                  alt="delete"
+                  onClick={() => toggleModal(folder.folderId)}
+                />
+              )}
               <Folder type="folder">
                 <h6>{folder.title}</h6>
               </Folder>
@@ -72,9 +89,7 @@ export const FolderPage = () => {
           rightButtonText="삭제하기"
           onClickBackground={toggleModal}
           onClickLeft={toggleModal}
-          onClickRight={() => {
-            console.log('delete 구현 해야함~');
-          }}
+          onClickRight={() => handleDeleteFolder(selectedFolderId)}
         />
       )}
     </div>
