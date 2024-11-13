@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+import api from './instance';
 
 /**
  * [1.2] 회원가입 api
@@ -11,15 +9,13 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
  */
 export async function registerUser(registerToken: string, nickName: string, status: string) {
   try {
-    const response = await axios.post(
-      `${BASE_URL}/api/users/register`,
+    const response = await api.post(
+      '/api/users/register ',
       { nickName, status },
       {
         headers: {
-          'Content-Type': 'application/json',
           registerToken: registerToken,
         },
-        withCredentials: true,
       },
     );
     console.log('User registration successful:', response.data);
@@ -36,12 +32,10 @@ export async function registerUser(registerToken: string, nickName: string, stat
  */
 export async function getTokensWithTmpToken(tmpToken: string) {
   try {
-    const response = await axios.get(`${BASE_URL}/api/token`, {
+    const response = await api.get('/api/token', {
       headers: {
-        'Content-Type': 'application/json',
         tmpToken: tmpToken,
       },
-      withCredentials: true,
     });
     return response.data;
   } catch (error) {
@@ -51,29 +45,14 @@ export async function getTokensWithTmpToken(tmpToken: string) {
 }
 
 /** [1.3] refreshToken으로 accessToken 재발급
- * @param accessToken
  * @returns
  */
-export async function reissueAccessToken(accessToken: string) {
+export async function reissueAccessToken() {
   try {
-    const response = await axios.get(`${BASE_URL}/api/token/reissue`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: accessToken,
-      },
-      withCredentials: true,
-    });
+    const response = await api.get('/api/token/reissue');
     return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      if (error.response?.status === 401) {
-        console.error('Refresh token expired or invalid. Re-login required.');
-        throw new Error('RefreshTokenExpired');
-      }
-      console.error('Failed to reissue access token:', error.response?.data);
-      throw new Error('TokenReissueError');
-    }
-    console.error('An error occurred:', error);
+    console.error('Failed to reissue access token:', error);
     throw error;
   }
 }
