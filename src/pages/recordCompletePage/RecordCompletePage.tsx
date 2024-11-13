@@ -7,10 +7,35 @@ import * as S from './RecordCompletePage.Style';
 import { getFormattedDate } from '@/utils/dateUtils';
 import FolderIcon from '@icons/FolderIcon.svg';
 
-const categoryData = ['큐시즘 서비스 기획', '밋업 프로젝트', '뤼튼', '멍냥부리', '새 폴더 추가하기', '카테고리 수정하기', '카테고리 삭제하기', '카테고리 복사하기', '카테고리 이름 변경하기', '사과', '바나나', '딸기', '포도', '라임', '레몬', '자몽', '라임', '레몬', '자몽', '라임', '레몬', '자몽',];
+const categoryData = [
+  '큐시즘 서비스 기획',
+  '밋업 프로젝트',
+  '뤼튼',
+  '멍냥부리',
+  '새 폴더 추가하기',
+  '카테고리 수정하기',
+  '카테고리 삭제하기',
+  '카테고리 복사하기',
+  '카테고리 이름 변경하기',
+  '사과',
+  '바나나',
+  '딸기',
+  '포도',
+  '라임',
+  '레몬',
+  '자몽',
+  '라임',
+  '레몬',
+  '자몽',
+  '라임',
+  '레몬',
+  '자몽',
+];
 
 export const RecordCompletePage = () => {
-  const [recordSummary] = useState('경쟁 서비스 기능, 사용자 인터페이스(UI), 요금제 등을 분석하고 글로벌 시장에서 주요 플레이어들의 특징을 파악한 점은 서비스 기획 직무에서 필수적인 시장 분석 능력을 잘 보여줍니다.');
+  const [recordSummary] = useState(
+    '경쟁 서비스 기능, 사용자 인터페이스(UI), 요금제 등을 분석하고 글로벌 시장에서 주요 플레이어들의 특징을 파악한 점은 서비스 기획 직무에서 필수적인 시장 분석 능력을 잘 보여줍니다.',
+  );
   const [title, setTitle] = useState(getFormattedDate());
   const [content, setContent] = useState(recordSummary);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -36,11 +61,6 @@ export const RecordCompletePage = () => {
     e.preventDefault();
   };
 
-
-  const handleBottomSheetComplete = () => {
-    setIsBottomSheetOpen(false);
-  };
-
   const handleSaveButton = () => {
     // 저장 로직 구현
     navigate('/home');
@@ -52,7 +72,11 @@ export const RecordCompletePage = () => {
     <S.Container>
       <S.HeaderContainer>
         <S.Title>경험 기록이 완료되었어요!</S.Title>
-        <S.SubTitle>코코님의 경험을 모아서<br />한눈에 보기 쉽게 요약해드렸어요</S.SubTitle>
+        <S.SubTitle>
+          코코님의 경험을 모아서
+          <br />
+          한눈에 보기 쉽게 요약해드렸어요
+        </S.SubTitle>
       </S.HeaderContainer>
 
       <S.Form onSubmit={handleSubmit}>
@@ -63,10 +87,7 @@ export const RecordCompletePage = () => {
           isError={false}
         />
         <S.Line />
-        <S.TextArea
-          value={content}
-          onChange={handleChangeContent}
-        />
+        <S.TextArea value={content} onChange={handleChangeContent} />
         <S.Line />
 
         <S.Label>경험의 카테고리를 선택해주세요.</S.Label>
@@ -99,7 +120,6 @@ export const RecordCompletePage = () => {
       {isBottomSheetOpen && (
         <FolderBottomSheet
           onClick={() => setIsBottomSheetOpen(false)}
-          onClickButton={handleBottomSheetComplete}
           title="새 폴더 추가하기"
           text="추가할 폴더의 이름을 적어주세요"
         />
