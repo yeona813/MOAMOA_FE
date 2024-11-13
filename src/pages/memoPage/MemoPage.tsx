@@ -15,7 +15,12 @@ const DUMMY_MEMO = {
   memo: '오늘은 큐시즘에서 서비스 기획을 했따',
 };
 
-const categoryData = ['큐시즘 서비스 기획', '마이리얼트립 인턴', '서비스디자인학과 팀 프로젝트', '회사문장'];
+const categoryData = [
+  '큐시즘 서비스 기획',
+  '마이리얼트립 인턴',
+  '서비스디자인학과 팀 프로젝트',
+  '회사문장',
+];
 
 export const MemoPage = () => {
   const navigate = useNavigate();
@@ -115,10 +120,6 @@ export const MemoPage = () => {
 
   const isSaveDisabled = !tempMemo.memo;
 
-  function handleBottomSheetComplete(): void {
-    setIsBottomSheetOpen(false);
-  }
-
   return (
     <S.Container>
       <S.HeaderContainer>
@@ -202,7 +203,6 @@ export const MemoPage = () => {
       {isBottomSheetOpen && (
         <FolderBottomSheet
           onClick={() => setIsBottomSheetOpen(false)}
-          onClickButton={handleBottomSheetComplete}
           title="새 폴더 추가하기"
           text="추가할 폴더의 이름을 적어주세요"
         />

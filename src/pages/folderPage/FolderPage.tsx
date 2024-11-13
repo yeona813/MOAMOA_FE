@@ -59,9 +59,6 @@ export const FolderPage = () => {
       {openBottom && (
         <FolderBottomSheet
           onClick={toggleBottomSheet}
-          onClickButton={() => {
-            console.log('구현 해야함');
-          }}
           title="새 폴더 추가하기"
           text="추가할 폴더의 이름을 적어주세요."
         />
