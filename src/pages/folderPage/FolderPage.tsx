@@ -6,7 +6,7 @@ import { FolderBottomSheet } from '@components/common/bottomSheet/FolderBottomSh
 import { DetailModal } from '@components/common/modal/DetailModal';
 import DeleteIcon from '@icons/DeleteIcon.svg';
 import PlusIcon from '@icons/PlusIcon.svg';
-import { deleteFolder, getFolders } from '@/api/Folder';
+import { deleteFolder, getFolders, patchFolderName } from '@/api/Folder';
 import { FolderListProps } from '@/types/Folder';
 
 export const FolderPage = () => {
@@ -24,7 +24,7 @@ export const FolderPage = () => {
       }
     };
     fetchUser();
-  }, []);
+  }, [openBottom]);
 
   const toggleBottomSheet = () => {
     setOpenBottom((prev) => !prev);
@@ -49,6 +49,19 @@ export const FolderPage = () => {
     }
   };
 
+  const handleKeyDown = async (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    folderId: number,
+    title: string,
+  ) => {
+    if (event.key === 'Enter') {
+      const response = await patchFolderName({ folderId, title });
+      if (response.is_success) {
+        toggleBottomSheet();
+      }
+    }
+  };
+
   return (
     <div>
       <TabBar centerText="폴더 관리" rightText="편집" onClick={handleEdit} />
@@ -69,7 +82,24 @@ export const FolderPage = () => {
                 />
               )}
               <Folder type="folder">
-                <h6>{folder.title}</h6>
+                {isEditing ? (
+                  <S.Input
+                    value={folder.title}
+                    type="text"
+                    onChange={(e) => {
+                      setFolderList((prev) =>
+                        prev.map((f) =>
+                          f.folderId === folder.folderId ? { ...f, title: e.target.value } : f,
+                        ),
+                      );
+                    }}
+                    onKeyDown={(e) => {
+                      handleKeyDown(e, folder.folderId, folder.title);
+                    }}
+                  />
+                ) : (
+                  <h6>{folder.title}</h6>
+                )}
               </Folder>
             </S.FolderContainer>
           ))}

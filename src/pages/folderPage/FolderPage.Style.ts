@@ -29,3 +29,15 @@ export const Icon = styled.img`
   width: 1.5rem;
   height: 1.5rem;
 `;
+
+export const Input = styled.input`
+  width: 90%;
+  height: 3rem;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.gray800};
+  background-color: ${({ theme }) => theme.colors.blue50};
+`;

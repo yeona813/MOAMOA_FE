@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios';
 import api from './instance';
+import { FolderListProps } from '@/types/Folder';
 
 /**
  * [6.1] 폴더 추가하기
@@ -59,6 +60,32 @@ export async function getFolders() {
     }
   } catch (error) {
     console.error(error);
+  }
+}
+
+/**
+ * [6.4] 폴더명 수정하기
+ * @param folderId - 변경할 폴더의 Id
+ * @param title - 변경할 폴더 이름
+ * @returns
+ */
+export async function patchFolderName({ folderId, title }: FolderListProps) {
+  try {
+    const response = await api.patch('/api/folders', {
+      folderId,
+      title,
+    });
+    if (response.data.is_success) {
+      return response.data;
+    }
+  } catch (error) {
+    if (error instanceof AxiosError && error.response) {
+      const errorMessage = error.response.data?.message || '서버 오류가 발생했습니다.';
+      alert(errorMessage);
+    } else {
+      console.error(error);
+      alert('서버와의 연결에 실패했습니다.');
+    }
   }
 }
 
