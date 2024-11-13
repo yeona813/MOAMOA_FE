@@ -32,7 +32,7 @@ export async function postNewFolder(title: string) {
  */
 export async function getFolderLists(folder?: string, lastRecordId?: number) {
   try {
-    const response = await api.get('/api/folders', {
+    const response = await api.get('/api/records', {
       params: {
         folder: folder || 'all',
         lastRecordId: lastRecordId || 0,

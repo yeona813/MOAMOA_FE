@@ -13,7 +13,7 @@ import { FolderListProps, ListProps } from '@/types/Folder';
 // 2. 경험 리스트가 아예 없을 때 에러 없이 되는지 또 다시 한번 확인하기!
 
 export const ListPage = () => {
-  const [selectFolder, setSelectFolder] = useState('');
+  const [selectFolder, setSelectFolder] = useState('all');
   //const [lastRecordId, setLastRecordId] = useState(0);
   const [openBottom, setOpenBottom] = useState(false);
   const [openSideBar, setOpenSideBar] = useState(false);
@@ -41,7 +41,7 @@ export const ListPage = () => {
 
       const listData = await getFolderLists(selectFolder);
       if (listData.recordDtoList) {
-        setListData(listData);
+        setListData(listData.recordDtoList);
       }
     };
 
