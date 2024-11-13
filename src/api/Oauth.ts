@@ -14,7 +14,6 @@ export async function registerUser(registerToken: string, nickName: string, stat
       { nickName, status },
       {
         headers: {
-          'Content-Type': 'application/json',
           registerToken: registerToken,
         },
       },
@@ -35,7 +34,6 @@ export async function getTokensWithTmpToken(tmpToken: string) {
   try {
     const response = await api.get('/api/token', {
       headers: {
-        'Content-Type': 'application/json',
         tmpToken: tmpToken,
       },
     });
