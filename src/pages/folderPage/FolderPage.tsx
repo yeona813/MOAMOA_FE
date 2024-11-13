@@ -55,10 +55,7 @@ export const FolderPage = () => {
     title: string,
   ) => {
     if (event.key === 'Enter') {
-      const response = await patchFolderName({ folderId, title });
-      if (response.is_success) {
-        toggleBottomSheet();
-      }
+      await patchFolderName({ folderId, title });
     }
   };
 
