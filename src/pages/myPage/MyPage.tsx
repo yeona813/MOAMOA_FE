@@ -8,8 +8,10 @@ import * as S from './MyPage.Style';
 import { postLogout } from '@/api/My';
 import { Header } from '@/components/layout/header/Header';
 import { SideBar } from '@/components/common/sideBar/SideBar';
+import { useNavigate } from 'react-router-dom';
 
 export const MyPage = () => {
+  const navigate = useNavigate();
   const [logout, setLogout] = useState(false);
   const [deleteId, setDeleteId] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -37,7 +39,10 @@ export const MyPage = () => {
   };
 
   const handleLogout = async () => {
-    await postLogout();
+    const response = await postLogout();
+    if (response.is_success) {
+      navigate('/oauth');
+    }
   };
 
   return (
