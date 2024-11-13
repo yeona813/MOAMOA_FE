@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Folder } from '@components/folder/Folder';
 import { TabBar } from '@components/layout/tabBar/TabBar';
 import * as S from './FolderPage.Style';
@@ -6,24 +6,14 @@ import { FolderBottomSheet } from '@components/common/bottomSheet/FolderBottomSh
 import { DetailModal } from '@components/common/modal/DetailModal';
 import DeleteIcon from '@icons/DeleteIcon.svg';
 import PlusIcon from '@icons/PlusIcon.svg';
-
-const FOLDER_DATA = [
-  '큐시즘 밋업',
-  '프로젝트 공모전',
-  '아르바이트',
-  '1',
-  '2',
-  'dkdkd',
-  'dksdusd',
-  '하...',
-  '취업해요',
-  '큐시즘 사랑',
-] as string[];
+import { getFolders } from '@/api/Folder';
+import { FolderListProps } from '@/types/Folder';
 
 export const FolderPage = () => {
   const [openBottom, setOpenBottom] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [folderList, setFolderList] = useState<FolderListProps[]>([]);
 
   const toggleBottomSheet = () => {
     setOpenBottom((prev) => !prev);
@@ -37,6 +27,17 @@ export const FolderPage = () => {
     setOpenModal((prev) => !prev);
   };
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      const folderList = await getFolders();
+      if (folderList) {
+        setFolderList(folderList);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   return (
     <div>
       <TabBar centerText="폴더 관리" rightText="편집" onClick={handleEdit} />
@@ -46,12 +47,12 @@ export const FolderPage = () => {
             <img src={PlusIcon} alt="plusButton" />
           </Folder>
         )}
-        {FOLDER_DATA.length > 0 &&
-          FOLDER_DATA.map((folder) => (
-            <S.FolderContainer key={folder}>
+        {folderList.length > 0 &&
+          folderList.map((folder) => (
+            <S.FolderContainer key={folder.folderId}>
               {isEditing && <S.Icon src={DeleteIcon} alt="delete" onClick={toggleModal} />}
               <Folder type="folder">
-                <h6>{folder}</h6>
+                <h6>{folder.title}</h6>
               </Folder>
             </S.FolderContainer>
           ))}
