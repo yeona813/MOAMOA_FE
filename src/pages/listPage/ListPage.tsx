@@ -21,26 +21,29 @@ export const ListPage = () => {
   const observerRef = useRef<HTMLDivElement | null>(null);
 
   // 폴더 데이터 및 리스트 데이터 가져오기
-  const getFolderData = async (folder: string, recordId: number) => {
-    if (isFetching) return; // 이미 데이터 로딩 중이면 중지
-    setIsFetching(true);
-    try {
-      const listResponse = await getFolderLists(folder, recordId);
-      if (listResponse?.recordDtoList && listResponse.recordDtoList.length > 0) {
-        setListData((prev) =>
-          recordId === 0 ? listResponse.recordDtoList : [...prev, ...listResponse.recordDtoList],
-        );
-        setLastRecordId(
-          listResponse.recordDtoList[listResponse.recordDtoList.length - 1]?.recordId || 0,
-        );
-        setHasNext(listResponse.hasNext);
-      } else {
-        setHasNext(false);
+  const getFolderData = useCallback(
+    async (folder: string, recordId: number) => {
+      if (isFetching) return; // 이미 데이터 로딩 중이면 중지
+      setIsFetching(true);
+      try {
+        const listResponse = await getFolderLists(folder, recordId);
+        if (listResponse?.recordDtoList && listResponse.recordDtoList.length > 0) {
+          setListData((prev) =>
+            recordId === 0 ? listResponse.recordDtoList : [...prev, ...listResponse.recordDtoList],
+          );
+          setLastRecordId(
+            listResponse.recordDtoList[listResponse.recordDtoList.length - 1]?.recordId || 0,
+          );
+          setHasNext(listResponse.hasNext);
+        } else {
+          setHasNext(false);
+        }
+      } finally {
+        setIsFetching(false);
       }
-    } finally {
-      setIsFetching(false);
-    }
-  };
+    },
+    [isFetching],
+  );
 
   // 폴더 목록 가져오기
   const fetchFolderList = async () => {
@@ -62,8 +65,7 @@ export const ListPage = () => {
     setIsFetching(true);
     await getFolderData(selectFolder, lastRecordId);
     setIsFetching(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectFolder, lastRecordId, hasNext, isFetching]);
+  }, [isFetching, hasNext, getFolderData, selectFolder, lastRecordId]);
 
   // Intersection Observer 설정
   useEffect(() => {
