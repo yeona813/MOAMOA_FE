@@ -117,13 +117,7 @@ export const RecordCompletePage = () => {
         </S.ButtonWrapper>
       </S.Form>
 
-      {isBottomSheetOpen && (
-        <FolderBottomSheet
-          onClick={() => setIsBottomSheetOpen(false)}
-          title="새 폴더 추가하기"
-          text="추가할 폴더의 이름을 적어주세요"
-        />
-      )}
+      {isBottomSheetOpen && <FolderBottomSheet onClick={() => setIsBottomSheetOpen(false)} />}
     </S.Container>
   );
 };

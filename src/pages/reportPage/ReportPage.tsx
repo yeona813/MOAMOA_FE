@@ -1,40 +1,91 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TabBar } from '@components/layout/tabBar/TabBar';
 import { Content } from '@components/report/content/Content';
 import { EditBottomSheet } from '@components/common/bottomSheet/EditBottomSheet';
 import { BasicModal } from '@components/common/modal/BasicModal';
-import { FolderBottomSheet } from '@components/common/bottomSheet/FolderBottomSheet';
 import { ReportBottomSheet } from '@/components/common/bottomSheet/reportBottomSheet/ReportBottomSheet';
-
-const MOCK_DATA = {
-  recordTitle: '코어레코드 와이어프레임 설계',
-  recordContent:
-    '사용자 관점에서 코어 레코드 서비스를 설계하고 다른 파트 팀원들과 커뮤니케이션을 했어요. 사용자 관점에서 코어 레코드 서비스를 설계하고 다른 파트 팀원들과 커뮤니케이션을 했어요.',
-  abilityDtoList: [
-    {
-      keyword: '커뮤니케이션',
-      content:
-        '경쟁 서비스 기능, 사용자 인터페이스(UI), 요금제 등을 분석하고 글로벌 시장에서 주요 플레이어들의 특징을 파악한 점은 서비스 기획 직무에서 필수적인 시장 분석 능력을 잘 보여줍니다.',
-    },
-    {
-      keyword: '커뮤니케이션',
-      content:
-        '경쟁 서비스 기능, 사용자 인터페이스(UI), 요금제 등을 분석하고 글로벌 시장에서 주요 플레이어들의 특징을 파악한 점은 서비스 기획 직무에서 필수적인 시장 분석 능력을 잘 보여줍니다.',
-    },
-    {
-      keyword: '커뮤니케이션',
-      content:
-        '경쟁 서비스 기능, 사용자 인터페이스(UI), 요금제 등을 분석하고 글로벌 시장에서 주요 플레이어들의 특징을 파악한 점은 서비스 기획 직무에서 필수적인 시장 분석 능력을 잘 보여줍니다.',
-    },
-  ],
-};
+import { AbilityProps, AnalysisProps, SkillProps } from '@/types/Analysis';
+import { deleteAnaylsis, getAnalysis, patchAnalysis } from '@/api/Analysis';
+import { useNavigate, useParams } from 'react-router-dom';
+import { FolderChangeBottomSheet } from '@/components/common/bottomSheet/FolderChangeBottomSheet';
 
 export const ReportPage = () => {
+  const { id } = useParams<{ id?: string }>();
+  const [data, setData] = useState<SkillProps | null>(null);
+  const [newData, setNewData] = useState<AnalysisProps | null>(null);
   const [openBottom, setOpenBottom] = useState(false);
   const [openEditBottom, setOpenEditBottom] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openChangeBottom, setOpenChangeBottom] = useState(false);
-  const [data, setData] = useState(MOCK_DATA);
+  const navigate = useNavigate();
+
+  const analysisId = id ? parseInt(id, 10) : undefined;
+
+  useEffect(() => {
+    const fetchSkill = async () => {
+      if (analysisId) {
+        const skillData = await getAnalysis(analysisId);
+        if (skillData) {
+          setData(skillData);
+          setNewData({
+            analysisId,
+            title: skillData.recordTitle,
+            content: skillData.recordContent,
+            abilityMap: skillData.abilityDtoList.reduce(
+              (acc: { [key: string]: string }, ability: AbilityProps) => ({
+                ...acc,
+                [ability.keyword]: ability.content,
+              }),
+              {},
+            ),
+          });
+        }
+      }
+    };
+
+    fetchSkill();
+  }, [analysisId, openEditBottom]);
+
+  const handleDataChange = (key: keyof AnalysisProps, value: string) => {
+    if (newData) {
+      setNewData({ ...newData, [key]: value });
+    }
+  };
+
+  const handleAbilityChange = (index: number, value: string) => {
+    if (newData && data) {
+      const updatedAbilityMap = { ...newData.abilityMap };
+      const abilityKey = data.abilityDtoList[index].keyword;
+      if (updatedAbilityMap) {
+        updatedAbilityMap[abilityKey] = value;
+        setNewData({ ...newData, abilityMap: updatedAbilityMap });
+      }
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    if (analysisId === undefined) return;
+    const response = await deleteAnaylsis(analysisId);
+    if (response.is_success) {
+      navigate('/home');
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (analysisId && newData) {
+      const { title, content, abilityMap } = newData;
+      const response = await patchAnalysis({
+        analysisId,
+        title,
+        content,
+        abilityMap,
+      });
+
+      if (response.is_success) {
+        toggleEditBottomSheet();
+      }
+    }
+  };
 
   const toggleBottomSheet = () => {
     setOpenBottom((prev) => !prev);
@@ -55,23 +106,6 @@ export const ReportPage = () => {
     setOpenChangeBottom((prev) => !prev);
   };
 
-  const handleDataChange = (key: string, value: string) => {
-    setData((prevData) => ({
-      ...prevData,
-      [key]: value,
-    }));
-  };
-
-  const handleAbilityChange = (index: number, value: string) => {
-    const updatedAbilities = data.abilityDtoList.map((item, idx) =>
-      idx === index ? { ...item, content: value } : item,
-    );
-    setData((prevData) => ({
-      ...prevData,
-      abilityDtoList: updatedAbilities,
-    }));
-  };
-
   return (
     <>
       <TabBar
@@ -80,7 +114,7 @@ export const ReportPage = () => {
         isEditable={true}
         onClickEditIcon={toggleEditBottomSheet}
       />
-      <Content data={MOCK_DATA} />
+      {data && <Content data={data} />}
       {openBottom && (
         <EditBottomSheet
           onClick={toggleBottomSheet}
@@ -88,14 +122,11 @@ export const ReportPage = () => {
           onClickChange={toggleChangeFoler}
         />
       )}
-      {openEditBottom && (
+      {openEditBottom && data && (
         <ReportBottomSheet
           onClick={toggleEditBottomSheet}
-          onClickStore={() => {
-            console.log(data);
-            toggleEditBottomSheet();
-          }}
-          data={data}
+          onClickStore={handleSubmit}
+          data={newData}
           onChange={handleDataChange}
           onAbilityChange={handleAbilityChange}
         />
@@ -107,18 +138,11 @@ export const ReportPage = () => {
           rightButtonText="삭제하기"
           onClickBackground={toggleModal}
           onClickLeft={toggleModal}
-          onClickRight={() => {
-            console.log('여기 구현해야함');
-          }}
+          onClickRight={handleDeleteUser}
         />
       )}
-      {openChangeBottom && (
-        <FolderBottomSheet
-          onClick={toggleChangeFoler}
-          title="폴더 변경하기"
-          text="저장할 폴더를 선택해주세요"
-          isSelectBox={true}
-        />
+      {openChangeBottom && analysisId && (
+        <FolderChangeBottomSheet analysisId={analysisId} onClick={toggleChangeFoler} />
       )}
     </>
   );
