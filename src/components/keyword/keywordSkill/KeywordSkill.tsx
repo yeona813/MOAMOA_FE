@@ -20,7 +20,7 @@ export const KeywordSkill = () => {
 
   // 키워드 데이터 및 리스트 데이터 가져오기
   const getKeywordData = async (keyword: string, recordId: number) => {
-    if (!keyword) return;
+    if (!keyword || isFetching) return;
     setIsFetching(true);
     try {
       const listResponse = await getRecords(keyword, recordId);
@@ -54,16 +54,21 @@ export const KeywordSkill = () => {
 
   useEffect(() => {
     if (selectedKeyword) {
-      setRecordList([]);
-      setLastRecordId(0);
-      getKeywordData(selectedKeyword, 0);
+      const fetchData = async () => {
+        setRecordList([]);
+        setLastRecordId(0);
+        await getKeywordData(selectedKeyword, 0);
+      };
+      fetchData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedKeyword]);
 
   // 무한 스크롤 데이터 로드
   const fetchMoreData = useCallback(async () => {
     if (isFetching || !hasNext || lastRecordId === null) return;
     await getKeywordData(selectedKeyword!, lastRecordId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedKeyword, lastRecordId, hasNext, isFetching]);
 
   // Intersection Observer 설정
@@ -91,7 +96,9 @@ export const KeywordSkill = () => {
           keywordList.map((item, index) => (
             <CategoryChip
               isSelected={selectedKeyword === item}
-              onClick={() => setSelectedKeyword(item)}
+              onClick={() => {
+                setSelectedKeyword(item);
+              }}
               key={index}
             >
               {item}

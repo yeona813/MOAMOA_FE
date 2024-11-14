@@ -18,7 +18,7 @@ export const ChipsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  max-width: 100%;
+  width: 100%;
 `;
 
 export const KeywordListContainer = styled.div`
