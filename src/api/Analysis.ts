@@ -24,7 +24,7 @@ export async function getAnalysis(analysisId: number) {
  */
 export async function getRecords(keyword: string, lastRecordId?: number) {
   try {
-    const response = await api.get('/api/analysis/keyword', {
+    const response = await api.get('/api/records/keyword', {
       params: {
         keyword: keyword,
         lastRecordId: lastRecordId || 0,
