@@ -12,7 +12,8 @@ export const Textarea = styled.textarea<{ $isTitle: boolean }>`
   line-height: ${({ $isTitle }) => ($isTitle ? '135%' : '145%')};
   color: ${({ theme }) => theme.colors.gray900};
   font-family: 'Pretendard';
-  height: ${({ $isTitle }) => ($isTitle ? '3.1875rem' : '7.25rem')};
+  min-height: ${({ $isTitle }) => ($isTitle ? '3.1875rem' : '7.25rem')};
+  height: 100%;
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
