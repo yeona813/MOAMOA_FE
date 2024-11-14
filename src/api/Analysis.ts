@@ -81,10 +81,10 @@ export async function getKeywordList() {
 
 /**
  * [7.1] 경험 기록 및 역량 수정
- * @param analysisId
- * @param title
- * @param content
- * @param abilityMap
+ * @param analysisId - analysisId
+ * @param title - 변경할 title
+ * @param content - 변경할 content
+ * @param abilityMap - 변경할 핵심 역량
  * @returns
  */
 export async function patchAnalysis({ analysisId, title, content, abilityMap }: AnalysisProps) {
@@ -106,6 +106,7 @@ export async function patchAnalysis({ analysisId, title, content, abilityMap }: 
 
 /**
  * [7.2] 역량 분석 삭제하기
+ * @param analysisId - analysisId
  * @returns
  */
 export async function deleteAnaylsis(analysisId: number) {
