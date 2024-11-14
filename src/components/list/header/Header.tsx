@@ -44,6 +44,9 @@ export const ListHeader = ({
           <S.Icon src={FolderIcon} alt="FolderIcon" />
         </S.FolderIcon>
         <S.ChipContainer>
+          <CategoryChip isSelected={selectFolder === 'all'} onClick={() => onClick('all')}>
+            전체
+          </CategoryChip>
           {folderData &&
             folderData.map((item) => (
               <CategoryChip

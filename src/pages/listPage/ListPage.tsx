@@ -22,14 +22,17 @@ export const ListPage = () => {
 
   // 폴더 데이터 및 리스트 데이터 가져오기
   const getFolderData = async (folder: string, recordId: number) => {
+    if (isFetching) return; // 이미 데이터 로딩 중이면 중지
     setIsFetching(true);
     try {
       const listResponse = await getFolderLists(folder, recordId);
-      if (listResponse.recordDtoList) {
+      if (listResponse?.recordDtoList && listResponse.recordDtoList.length > 0) {
         setListData((prev) =>
           recordId === 0 ? listResponse.recordDtoList : [...prev, ...listResponse.recordDtoList],
         );
-        setLastRecordId(listResponse.recordDtoList[listResponse.recordDtoList.length - 1].recordId);
+        setLastRecordId(
+          listResponse.recordDtoList[listResponse.recordDtoList.length - 1]?.recordId || 0,
+        );
         setHasNext(listResponse.hasNext);
       } else {
         setHasNext(false);
@@ -49,32 +52,45 @@ export const ListPage = () => {
   useEffect(() => {
     fetchFolderList();
     getFolderData(selectFolder, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectFolder]);
 
-  // 무한 스크롤 데이터 로드
   const fetchMoreData = useCallback(async () => {
+    // 데이터가 이미 로딩 중이거나 더 이상 데이터가 없을 경우 요청 중지
     if (isFetching || !hasNext) return;
+
+    setIsFetching(true);
     await getFolderData(selectFolder, lastRecordId);
+    setIsFetching(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectFolder, lastRecordId, hasNext, isFetching]);
 
   // Intersection Observer 설정
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && !isFetching) {
+        if (entries[0].isIntersecting && !isFetching && hasNext) {
           fetchMoreData();
         }
       },
       { rootMargin: '200px', threshold: 0.1 },
     );
 
-    if (observerRef.current) observer.observe(observerRef.current);
+    if (observerRef.current && hasNext) {
+      observer.observe(observerRef.current);
+    }
 
-    return () => observer.disconnect();
-  }, [fetchMoreData, isFetching]);
+    return () => {
+      observer.disconnect();
+    };
+  }, [fetchMoreData, isFetching, hasNext]);
 
   const handleSelectFolder = useCallback((folderName: string) => {
-    setSelectFolder(folderName);
+    if (folderName === 'all') {
+      setSelectFolder('all');
+    } else {
+      setSelectFolder(folderName);
+    }
     setListData([]);
     setLastRecordId(0);
   }, []);

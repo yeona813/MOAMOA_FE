@@ -61,7 +61,7 @@ export const FolderPage = () => {
 
   return (
     <div>
-      <TabBar centerText="폴더 관리" rightText="편집" onClick={handleEdit} />
+      <TabBar centerText="경험 폴더 관리" rightText="편집" onClick={handleEdit} />
       <S.Content>
         {!isEditing && (
           <Folder type="plus" onClick={toggleBottomSheet}>
@@ -105,7 +105,7 @@ export const FolderPage = () => {
       {openModal && (
         <DetailModal
           text="폴더를 삭제 하시겠어요?"
-          description="폴더 내 모든 레코드도 함께 삭제됩니다."
+          description="폴더 내 모든 레코드도 함께 삭제됩니다"
           leftButtonText="돌아가기"
           rightButtonText="삭제하기"
           onClickBackground={toggleModal}
