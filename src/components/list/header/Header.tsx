@@ -3,10 +3,11 @@ import * as S from './Header.Style';
 import { CategoryChip } from '../../common/chip/CategoryChip';
 import FolderIcon from '@icons/FolderIcon.svg';
 import { Header } from '@/components/layout/header/Header';
+import { FolderListProps } from '@/types/Folder';
 
 interface ListHeaderProps {
   nickname: string;
-  folderData: string[] | null;
+  folderData: FolderListProps[];
   selectFolder: string;
   onClick: (folderName: string) => void;
   onClickSideBar: () => void;
@@ -44,13 +45,13 @@ export const ListHeader = ({
         </S.FolderIcon>
         <S.ChipContainer>
           {folderData &&
-            folderData.map((item, index) => (
+            folderData.map((item) => (
               <CategoryChip
-                key={index}
-                isSelected={item === selectFolder}
-                onClick={() => onClick(item)}
+                key={item.folderId}
+                isSelected={item.title === selectFolder}
+                onClick={() => onClick(item.title)}
               >
-                {item}
+                {item.title}
               </CategoryChip>
             ))}
         </S.ChipContainer>
