@@ -43,7 +43,7 @@ export const Profile = () => {
           navigate('/list');
         }}
       >
-        {user.nickname}님의 경험을 {user.recordCount}개 모았어요
+        {user.nickname}경험을 {user.recordCount}개 모았어요
       </S.Record>
     </S.Container>
   );
