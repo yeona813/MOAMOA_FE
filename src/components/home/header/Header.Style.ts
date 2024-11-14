@@ -13,12 +13,6 @@ export const Header = styled.header`
 `;
 
 export const Title = styled.h3`
+  margin-top: 3.75rem;
   line-height: 135%;
-  margin-bottom: 1.5rem;
-`;
-
-export const ButtonContainer = styled.div`
-  position: absolute;
-  bottom: 4.8125rem;
-  right: 1.25rem;
 `;

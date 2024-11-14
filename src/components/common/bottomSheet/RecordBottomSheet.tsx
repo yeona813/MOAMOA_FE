@@ -5,16 +5,16 @@ import CloseIcon from '@icons/CloseIcon.svg';
 
 const SHEET_ITEMS: SheetItemProps[] = [
   {
-    title: 'AI 채팅 기록',
-    subTitle: 'AI 대화를 통해 쉽게 기록하는',
-    color: 'blue',
-    path: '/chat',
-  },
-  {
     title: '메모 기록',
-    subTitle: '간편하고 빠르게 기록하는',
+    subTitle: '간편하고 빠르게',
     color: 'yellow',
     path: '/memo',
+  },
+  {
+    title: 'AI 채팅 기록',
+    subTitle: 'AI 대화로 쉽게',
+    color: 'blue',
+    path: '/chat',
   },
 ];
 

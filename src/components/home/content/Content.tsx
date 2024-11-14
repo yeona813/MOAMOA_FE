@@ -28,7 +28,7 @@ export const Content = () => {
   return (
     <S.Content>
       <S.TextContainer>
-        <S.Text>최근 생성된 경험 리스트</S.Text>
+        <S.Text>최근 작성된 경험을 모았어요</S.Text>
         <S.Plus
           onClick={() => {
             navigate('/list');
