@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ListHeader } from '@components/list/header/Header';
 import { Content } from '@components/list/content/Content';
 import * as S from './ListPage.Style';
@@ -8,45 +8,84 @@ import { FloatingButton } from '@/components/common/button/FloatingButton';
 import { getFolderLists, getFolders } from '@/api/Folder';
 import { FolderListProps, ListProps } from '@/types/Folder';
 
-//@TODO
-// 1. 닉네임을 백에서 직접 받아와서 Header에 처리해야한다!
-// 2. 경험 리스트가 아예 없을 때 에러 없이 되는지 또 다시 한번 확인하기!
-
 export const ListPage = () => {
-  const [selectFolder, setSelectFolder] = useState('');
-  //const [lastRecordId, setLastRecordId] = useState(0);
+  const [selectFolder, setSelectFolder] = useState('all');
+  const [lastRecordId, setLastRecordId] = useState(0);
   const [openBottom, setOpenBottom] = useState(false);
   const [openSideBar, setOpenSideBar] = useState(false);
   const [folderList, setFolderList] = useState<FolderListProps[]>([]);
   const [listData, setListData] = useState<ListProps[]>([]);
+  const [hasNext, setHasNext] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
 
-  const handleSelectFolder = (folderName: string) => {
-    setSelectFolder(folderName);
+  const observerRef = useRef<HTMLDivElement | null>(null);
+
+  // 폴더 데이터 및 리스트 데이터 가져오기
+  const getFolderData = async (folder: string, recordId: number) => {
+    setIsFetching(true);
+    try {
+      const listResponse = await getFolderLists(folder, recordId);
+      if (listResponse.recordDtoList) {
+        setListData((prev) =>
+          recordId === 0 ? listResponse.recordDtoList : [...prev, ...listResponse.recordDtoList],
+        );
+        setLastRecordId(listResponse.recordDtoList[listResponse.recordDtoList.length - 1].recordId);
+        setHasNext(listResponse.hasNext);
+      } else {
+        setHasNext(false);
+      }
+    } finally {
+      setIsFetching(false);
+    }
   };
 
-  const toggleBottomSheet = () => {
-    setOpenBottom((prev) => !prev);
+  // 폴더 목록 가져오기
+  const fetchFolderList = async () => {
+    const folderResponse = await getFolders();
+    if (folderResponse) setFolderList(folderResponse);
   };
 
-  const toggleSideBar = () => {
-    setOpenSideBar((prev) => !prev);
-  };
-
+  // 초기 데이터 로드
   useEffect(() => {
-    const fetchUser = async () => {
-      const folderList = await getFolders();
-      if (folderList) {
-        setFolderList(folderList);
-      }
-
-      const listData = await getFolderLists(selectFolder);
-      if (listData.recordDtoList) {
-        setListData(listData);
-      }
-    };
-
-    fetchUser();
+    fetchFolderList();
+    getFolderData(selectFolder, 0);
   }, [selectFolder]);
+
+  // 무한 스크롤 데이터 로드
+  const fetchMoreData = useCallback(async () => {
+    if (isFetching || !hasNext) return;
+    await getFolderData(selectFolder, lastRecordId);
+  }, [selectFolder, lastRecordId, hasNext, isFetching]);
+
+  // Intersection Observer 설정
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !isFetching) {
+          fetchMoreData();
+        }
+      },
+      { rootMargin: '200px', threshold: 0.1 },
+    );
+
+    if (observerRef.current) observer.observe(observerRef.current);
+
+    return () => observer.disconnect();
+  }, [fetchMoreData, isFetching]);
+
+  const handleSelectFolder = useCallback((folderName: string) => {
+    setSelectFolder(folderName);
+    setListData([]);
+    setLastRecordId(0);
+  }, []);
+
+  const handleToggleBottomSheet = useCallback(() => {
+    setOpenBottom((prev) => !prev);
+  }, []);
+
+  const handleToggleSideBar = useCallback(() => {
+    setOpenSideBar((prev) => !prev);
+  }, []);
 
   return (
     <S.ListPage>
@@ -55,12 +94,15 @@ export const ListPage = () => {
         folderData={folderList}
         selectFolder={selectFolder}
         onClick={handleSelectFolder}
-        onClickSideBar={toggleSideBar}
+        onClickSideBar={handleToggleSideBar}
       />
-      <Content listData={listData} />
-      <FloatingButton onClick={toggleBottomSheet} />
-      {openBottom && <RecordBottomSheet onClick={toggleBottomSheet} />}
-      {openSideBar && <SideBar onClick={toggleSideBar} />}
+      <S.Content>
+        <Content listData={listData} />
+        <div ref={observerRef} style={{ height: '20px' }} />
+      </S.Content>
+      <FloatingButton onClick={handleToggleBottomSheet} />
+      {openBottom && <RecordBottomSheet onClick={handleToggleBottomSheet} />}
+      {openSideBar && <SideBar onClick={handleToggleSideBar} />}
     </S.ListPage>
   );
 };

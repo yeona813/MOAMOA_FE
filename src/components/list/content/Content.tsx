@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import * as S from './Content.Style';
 import { List } from '../../common/list/List';
 import { Empty } from '@/components/common/empty/Empty';
 import { ListProps } from '@/types/Folder';
@@ -12,7 +11,7 @@ export const Content = ({ listData }: ContentProps) => {
   const navigate = useNavigate();
 
   return (
-    <S.Content>
+    <>
       {listData.length > 0 ? (
         listData.map((item) => (
           <List
@@ -28,6 +27,6 @@ export const Content = ({ listData }: ContentProps) => {
       ) : (
         <Empty />
       )}
-    </S.Content>
+    </>
   );
 };
