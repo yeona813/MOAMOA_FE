@@ -3,23 +3,13 @@ import { Textarea } from './Textarea';
 import * as S from './ReportBottomSheet.Style';
 import CloseIcon from '@icons/CloseIcon.svg';
 import { Chip } from '../../chip/Chip';
-
-interface Ability {
-  keyword: string;
-  content: string;
-}
-
-interface RecordData {
-  recordTitle: string;
-  recordContent: string;
-  abilityDtoList: Ability[];
-}
+import { AnalysisProps } from '@/types/Analysis';
 
 interface ReportBottomSheet {
   onClick: () => void;
   onClickStore: () => void;
-  data: RecordData;
-  onChange: (key: string, value: string) => void;
+  data: AnalysisProps | null;
+  onChange: (key: keyof AnalysisProps, value: string) => void;
   onAbilityChange: (index: number, value: string) => void;
 }
 
@@ -40,24 +30,25 @@ export const ReportBottomSheet = ({
       <S.ContentContainer>
         <Textarea
           isTitle={true}
-          value={data.recordTitle}
-          onChange={(e) => onChange('recordTitle', e.target.value)}
+          value={data?.title || ''}
+          onChange={(e) => onChange('title', e.target.value)}
         />
         <Textarea
-          value={data.recordContent}
-          onChange={(e) => onChange('recordContent', e.target.value)}
+          value={data?.content || ''}
+          onChange={(e) => onChange('content', e.target.value)}
         />
-        {data.abilityDtoList.map((item, index) => (
-          <S.Keyword key={index}>
-            <Chip size="large" color={index % 2 !== 0}>
-              {item.keyword}
-            </Chip>
-            <Textarea
-              value={item.content}
-              onChange={(e) => onAbilityChange(index, e.target.value)}
-            />
-          </S.Keyword>
-        ))}
+        {data?.abilityMap &&
+          Object.keys(data.abilityMap).map((keyword, index) => (
+            <S.Keyword key={index}>
+              <Chip size="large" color={index % 2 !== 0}>
+                {keyword}
+              </Chip>
+              <Textarea
+                value={data.abilityMap?.[keyword] ?? ''}
+                onChange={(e) => onAbilityChange(index, e.target.value)}
+              />
+            </S.Keyword>
+          ))}
       </S.ContentContainer>
     </BottomSheet>
   );

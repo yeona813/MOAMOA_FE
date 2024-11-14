@@ -1,3 +1,4 @@
+import { AnalysisProps } from '@/types/Analysis';
 import api from './instance';
 
 /**
@@ -72,6 +73,31 @@ export async function getKeywordList() {
     const response = await api.get('/api/keyword');
     if (response.data.is_success) {
       return response.data.data.keywordList;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+/**
+ * [7.1] 경험 기록 및 역량 수정
+ * @param analysisId
+ * @param title
+ * @param content
+ * @param abilityMap
+ * @returns
+ */
+export async function patchAnalysis({ analysisId, title, content, abilityMap }: AnalysisProps) {
+  const payload: Partial<AnalysisProps> = { analysisId };
+
+  if (title) payload.title = title;
+  if (content) payload.content = content;
+  if (abilityMap) payload.abilityMap = abilityMap;
+
+  try {
+    const response = await api.patch('/api/analysis', payload);
+    if (response.data.is_success) {
+      return response.data;
     }
   } catch (error) {
     console.error(error);

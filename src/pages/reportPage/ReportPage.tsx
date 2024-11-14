@@ -4,21 +4,88 @@ import { Content } from '@components/report/content/Content';
 import { EditBottomSheet } from '@components/common/bottomSheet/EditBottomSheet';
 import { BasicModal } from '@components/common/modal/BasicModal';
 import { ReportBottomSheet } from '@/components/common/bottomSheet/reportBottomSheet/ReportBottomSheet';
-import { SkillProps } from '@/types/Analysis';
-import { deleteAnaylsis, getAnalysis } from '@/api/Analysis';
+import { AbilityProps, AnalysisProps, SkillProps } from '@/types/Analysis';
+import { deleteAnaylsis, getAnalysis, patchAnalysis } from '@/api/Analysis';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FolderChangeBottomSheet } from '@/components/common/bottomSheet/FolderChangeBottomSheet';
 
 export const ReportPage = () => {
   const { id } = useParams<{ id?: string }>();
+  const [data, setData] = useState<SkillProps | null>(null);
+  const [newData, setNewData] = useState<AnalysisProps | null>(null);
   const [openBottom, setOpenBottom] = useState(false);
   const [openEditBottom, setOpenEditBottom] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openChangeBottom, setOpenChangeBottom] = useState(false);
-  const [data, setData] = useState<SkillProps | null>(null);
   const navigate = useNavigate();
 
   const analysisId = id ? parseInt(id, 10) : undefined;
+
+  useEffect(() => {
+    const fetchSkill = async () => {
+      if (analysisId) {
+        const skillData = await getAnalysis(analysisId);
+        if (skillData) {
+          setData(skillData);
+          setNewData({
+            analysisId,
+            title: skillData.recordTitle,
+            content: skillData.recordContent,
+            abilityMap: skillData.abilityDtoList.reduce(
+              (acc: { [key: string]: string }, ability: AbilityProps) => ({
+                ...acc,
+                [ability.keyword]: ability.content,
+              }),
+              {},
+            ),
+          });
+        }
+      }
+    };
+
+    fetchSkill();
+  }, [analysisId, openEditBottom]);
+
+  const handleDataChange = (key: keyof AnalysisProps, value: string) => {
+    if (newData) {
+      setNewData({ ...newData, [key]: value });
+    }
+  };
+
+  const handleAbilityChange = (index: number, value: string) => {
+    if (newData && data) {
+      const updatedAbilityMap = { ...newData.abilityMap };
+      const abilityKey = data.abilityDtoList[index].keyword;
+      if (updatedAbilityMap) {
+        updatedAbilityMap[abilityKey] = value;
+        setNewData({ ...newData, abilityMap: updatedAbilityMap });
+      }
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    if (analysisId === undefined) return;
+    const response = await deleteAnaylsis(analysisId);
+    if (response.is_success) {
+      navigate('/home');
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (analysisId && newData) {
+      const { title, content, abilityMap } = newData;
+      const response = await patchAnalysis({
+        analysisId,
+        title,
+        content,
+        abilityMap,
+      });
+
+      if (response.is_success) {
+        toggleEditBottomSheet();
+      }
+    }
+  };
 
   const toggleBottomSheet = () => {
     setOpenBottom((prev) => !prev);
@@ -37,41 +104,6 @@ export const ReportPage = () => {
   const toggleChangeFoler = () => {
     setOpenBottom(false);
     setOpenChangeBottom((prev) => !prev);
-  };
-
-  const handleDataChange = (key: string, value: string) => {
-    if (data) {
-      setData({ ...data, [key]: value });
-    }
-  };
-
-  const handleAbilityChange = (index: number, value: string) => {
-    if (data && data.abilityDtoList) {
-      const updatedAbilities = data.abilityDtoList.map((item, idx) =>
-        idx === index ? { ...item, content: value } : item,
-      );
-      setData({ ...data, abilityDtoList: updatedAbilities });
-    }
-  };
-  useEffect(() => {
-    const fetchSkill = async () => {
-      if (analysisId) {
-        const skillData = await getAnalysis(analysisId);
-        if (skillData) {
-          setData(skillData);
-        }
-      }
-    };
-
-    fetchSkill();
-  }, [analysisId]);
-
-  const handleDeleteUser = async () => {
-    if (analysisId === undefined) return;
-    const response = await deleteAnaylsis(analysisId);
-    if (response.is_success) {
-      navigate('/home');
-    }
   };
 
   return (
@@ -93,11 +125,8 @@ export const ReportPage = () => {
       {openEditBottom && data && (
         <ReportBottomSheet
           onClick={toggleEditBottomSheet}
-          onClickStore={() => {
-            console.log(data);
-            toggleEditBottomSheet();
-          }}
-          data={data}
+          onClickStore={handleSubmit}
+          data={newData}
           onChange={handleDataChange}
           onAbilityChange={handleAbilityChange}
         />

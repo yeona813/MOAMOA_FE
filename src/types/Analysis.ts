@@ -1,4 +1,4 @@
-interface abilityProps {
+export interface AbilityProps {
   keyword: string;
   content: string;
 }
@@ -10,7 +10,7 @@ export interface SkillProps {
   recordType: string;
   recordTitle: string;
   recordContent: string;
-  abilityDtoList: abilityProps[];
+  abilityDtoList: AbilityProps[];
   comment: string;
   createdAt: string;
 }
@@ -22,4 +22,11 @@ export interface KeywordSkillProps {
   title: string;
   content: string;
   createdAt: string;
+}
+
+export interface AnalysisProps {
+  analysisId: number;
+  title?: string;
+  content?: string;
+  abilityMap?: { [key: string]: string };
 }
