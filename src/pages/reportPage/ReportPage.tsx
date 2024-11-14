@@ -109,7 +109,7 @@ export const ReportPage = () => {
   return (
     <>
       <TabBar
-        centerText="역량 모아보기"
+        centerText="AI 역량 분석"
         onClick={toggleBottomSheet}
         isEditable={true}
         onClickEditIcon={toggleEditBottomSheet}
@@ -133,7 +133,7 @@ export const ReportPage = () => {
       )}
       {openDelete && (
         <BasicModal
-          text="역량 레포트를 삭제하시겠어요?"
+          text="분석한 내용을 삭제하시겠어요?"
           leftButtonText="돌아가기"
           rightButtonText="삭제하기"
           onClickBackground={toggleModal}

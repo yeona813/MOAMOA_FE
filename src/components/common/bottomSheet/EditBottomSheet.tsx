@@ -17,7 +17,7 @@ const EDIT_ITEM = [
     actionKey: 'onClickDelete',
     isDelete: true,
   },
-  { icon: ChangeIcon, label: '폴더 변경하기', actionKey: 'onClickChange' },
+  { icon: ChangeIcon, label: '경험 폴더 변경하기', actionKey: 'onClickChange' },
 ];
 
 export const EditBottomSheet = ({
