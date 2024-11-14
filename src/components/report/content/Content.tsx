@@ -12,8 +12,10 @@ export const Content = ({ data }: ContentProps) => {
   const navigate = useNavigate();
 
   const goToChatPage = () => {
-    if (data.chatRoomId) {
+    if (data.recordType === 'CHAT') {
       navigate(`/chat/${data.chatRoomId}`);
+    } else {
+      navigate(`memo`); // 수정해야 함
     }
   };
 
@@ -27,7 +29,9 @@ export const Content = ({ data }: ContentProps) => {
       <S.MiddleContent>
         <S.MiddleHead>
           <S.Title>코코님의 핵심 역량</S.Title>
-          <S.ChatText onClick={goToChatPage}>채팅 다시보기</S.ChatText>
+          <S.ChatText onClick={goToChatPage}>
+            {data.recordType === 'CHAT' ? '채팅' : '메모'} 다시보기
+          </S.ChatText>
         </S.MiddleHead>
         {data.abilityDtoList.map((item, index) => (
           <Skill
