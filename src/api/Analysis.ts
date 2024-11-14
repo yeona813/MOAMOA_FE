@@ -77,3 +77,18 @@ export async function getKeywordList() {
     console.error(error);
   }
 }
+
+/**
+ * [7.2] 역량 분석 삭제하기
+ * @returns
+ */
+export async function deleteAnaylsis(analysisId: number) {
+  try {
+    const response = await api.delete(`/api/analysis/${analysisId}`);
+    if (response.data.is_success) {
+      return response.data;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}

@@ -7,19 +7,19 @@ import CloseIcon from '@icons/CloseIcon.svg';
 import { getFolders } from '@/api/Folder';
 import { FolderListProps } from '@/types/Folder';
 import { patchFolder } from '@/api/Analysis';
-import { useParams } from 'react-router-dom';
 
 interface FolderBottomSheetProps {
+  analysisId: number;
   onClick: () => void;
 }
 
 /**
  *
+ * @param analysisId - analysisId
  * @param onClick - BottomSheet 열고 닫는 함수
  * @returns
  */
-export const FolderChangeBottomSheet = ({ onClick }: FolderBottomSheetProps) => {
-  const { id } = useParams<{ id: string }>();
+export const FolderChangeBottomSheet = ({ analysisId, onClick }: FolderBottomSheetProps) => {
   const [folderName, setFolderName] = useState('');
   const [folderList, setFolderList] = useState<FolderListProps[]>([]);
 
@@ -39,10 +39,10 @@ export const FolderChangeBottomSheet = ({ onClick }: FolderBottomSheetProps) => 
   };
 
   const handleSubmit = async () => {
-    if (folderName && id) {
+    if (folderName) {
       try {
         const response = await patchFolder({
-          recordId: parseInt(id, 10),
+          recordId: analysisId,
           folder: folderName,
         });
 

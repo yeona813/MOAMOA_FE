@@ -5,17 +5,20 @@ import { EditBottomSheet } from '@components/common/bottomSheet/EditBottomSheet'
 import { BasicModal } from '@components/common/modal/BasicModal';
 import { ReportBottomSheet } from '@/components/common/bottomSheet/reportBottomSheet/ReportBottomSheet';
 import { SkillProps } from '@/types/Analysis';
-import { getAnalysis } from '@/api/Analysis';
-import { useParams } from 'react-router-dom';
+import { deleteAnaylsis, getAnalysis } from '@/api/Analysis';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FolderChangeBottomSheet } from '@/components/common/bottomSheet/FolderChangeBottomSheet';
 
 export const ReportPage = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id?: string }>();
   const [openBottom, setOpenBottom] = useState(false);
   const [openEditBottom, setOpenEditBottom] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openChangeBottom, setOpenChangeBottom] = useState(false);
   const [data, setData] = useState<SkillProps | null>(null);
+  const navigate = useNavigate();
+
+  const analysisId = id ? parseInt(id, 10) : undefined;
 
   const toggleBottomSheet = () => {
     setOpenBottom((prev) => !prev);
@@ -52,18 +55,24 @@ export const ReportPage = () => {
   };
   useEffect(() => {
     const fetchSkill = async () => {
-      if (id) {
-        const analysisId = parseInt(id, 10);
-        if (!isNaN(analysisId)) {
-          const skillData = await getAnalysis(analysisId);
-          if (skillData) {
-            setData(skillData);
-          }
+      if (analysisId) {
+        const skillData = await getAnalysis(analysisId);
+        if (skillData) {
+          setData(skillData);
         }
       }
     };
+
     fetchSkill();
-  }, [id]);
+  }, [analysisId]);
+
+  const handleDeleteUser = async () => {
+    if (analysisId === undefined) return;
+    const response = await deleteAnaylsis(analysisId);
+    if (response.is_success) {
+      navigate('/home');
+    }
+  };
 
   return (
     <>
@@ -100,12 +109,12 @@ export const ReportPage = () => {
           rightButtonText="삭제하기"
           onClickBackground={toggleModal}
           onClickLeft={toggleModal}
-          onClickRight={() => {
-            console.log('여기 구현해야함');
-          }}
+          onClickRight={handleDeleteUser}
         />
       )}
-      {openChangeBottom && <FolderChangeBottomSheet onClick={toggleChangeFoler} />}
+      {openChangeBottom && analysisId && (
+        <FolderChangeBottomSheet analysisId={analysisId} onClick={toggleChangeFoler} />
+      )}
     </>
   );
 };
