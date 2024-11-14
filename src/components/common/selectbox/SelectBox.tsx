@@ -6,7 +6,8 @@ import { FolderListProps } from '@/types/Folder';
 interface SelectBoxProps {
   select: string;
   onChange: (value: string) => void;
-  selectData: FolderListProps[];
+  selectData?: FolderListProps[];
+  statusData?: string[];
   placeholder?: string;
 }
 
@@ -15,10 +16,19 @@ interface SelectBoxProps {
  * @param select - 선택될 값을 저장할 state
  * @param onChange - state를 변경할 함수
  * @param selectData - 드롭다운 시 나올 값들
+ * @param statusData - 상태 데이터 옵션
  * @returns
  */
-export const SelectBox = ({ select, onChange, selectData, placeholder }: SelectBoxProps) => {
+export const SelectBox = ({
+  select,
+  onChange,
+  selectData,
+  statusData,
+  placeholder,
+}: SelectBoxProps) => {
   const [open, setOpen] = useState(false);
+
+  const options = statusData ? statusData : selectData?.map((item) => item.title) || [];
 
   const handleClick = (item: string) => {
     onChange(item);
@@ -33,9 +43,9 @@ export const SelectBox = ({ select, onChange, selectData, placeholder }: SelectB
       </S.SelectBox>
       {open && (
         <S.Option>
-          {selectData.map((item) => (
-            <S.Text key={item.folderId} onClick={() => handleClick(item.title)}>
-              {item.title}
+          {options.map((item, index) => (
+            <S.Text key={index} onClick={() => handleClick(item)}>
+              {item}
             </S.Text>
           ))}
         </S.Option>
