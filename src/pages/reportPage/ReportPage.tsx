@@ -3,11 +3,11 @@ import { TabBar } from '@components/layout/tabBar/TabBar';
 import { Content } from '@components/report/content/Content';
 import { EditBottomSheet } from '@components/common/bottomSheet/EditBottomSheet';
 import { BasicModal } from '@components/common/modal/BasicModal';
-import { FolderBottomSheet } from '@components/common/bottomSheet/FolderBottomSheet';
 import { ReportBottomSheet } from '@/components/common/bottomSheet/reportBottomSheet/ReportBottomSheet';
 import { SkillProps } from '@/types/Analysis';
 import { getAnalysis } from '@/api/Analysis';
 import { useParams } from 'react-router-dom';
+import { FolderChangeBottomSheet } from '@/components/common/bottomSheet/FolderChangeBottomSheet';
 
 export const ReportPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -105,14 +105,7 @@ export const ReportPage = () => {
           }}
         />
       )}
-      {openChangeBottom && (
-        <FolderBottomSheet
-          onClick={toggleChangeFoler}
-          title="폴더 변경하기"
-          text="저장할 폴더를 선택해주세요"
-          isSelectBox={true}
-        />
-      )}
+      {openChangeBottom && <FolderChangeBottomSheet onClick={toggleChangeFoler} />}
     </>
   );
 };

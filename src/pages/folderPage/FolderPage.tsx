@@ -101,13 +101,7 @@ export const FolderPage = () => {
             </S.FolderContainer>
           ))}
       </S.Content>
-      {openBottom && (
-        <FolderBottomSheet
-          onClick={toggleBottomSheet}
-          title="새 폴더 추가하기"
-          text="추가할 폴더의 이름을 적어주세요."
-        />
-      )}
+      {openBottom && <FolderBottomSheet onClick={toggleBottomSheet} />}
       {openModal && (
         <DetailModal
           text="폴더를 삭제 하시겠어요?"

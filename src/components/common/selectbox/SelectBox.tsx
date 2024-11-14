@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import * as S from './SelectBox.Style';
 import DownArrowIcon from '@icons/DownArrowIcon.svg';
+import { FolderListProps } from '@/types/Folder';
 
 interface SelectBoxProps {
   select: string;
   onChange: (value: string) => void;
-  selectData: string[];
+  selectData: FolderListProps[];
   placeholder?: string;
 }
 
@@ -19,8 +20,8 @@ interface SelectBoxProps {
 export const SelectBox = ({ select, onChange, selectData, placeholder }: SelectBoxProps) => {
   const [open, setOpen] = useState(false);
 
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    onChange(e.currentTarget.innerText);
+  const handleClick = (item: string) => {
+    onChange(item);
     setOpen(false);
   };
 
@@ -33,8 +34,8 @@ export const SelectBox = ({ select, onChange, selectData, placeholder }: SelectB
       {open && (
         <S.Option>
           {selectData.map((item) => (
-            <S.Text key={item} onClick={handleClick}>
-              {item}
+            <S.Text key={item.folderId} onClick={() => handleClick(item.title)}>
+              {item.title}
             </S.Text>
           ))}
         </S.Option>

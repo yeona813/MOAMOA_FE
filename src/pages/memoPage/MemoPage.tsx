@@ -83,7 +83,7 @@ export const MemoPage = () => {
       setTempMemo((prev) => ({
         ...prev,
         category: folder.title,
-        folderId: folder.folderId
+        folderId: folder.folderId,
       }));
       saveTempMemo();
     }
@@ -225,11 +225,8 @@ export const MemoPage = () => {
         <FolderBottomSheet
           onClick={() => setIsBottomSheetOpen(false)}
           // onClickButton={handleBottomSheetComplete}
-          title="새 폴더 추가하기"
-          text="추가할 폴더의 이름을 적어주세요"
         />
       )}
     </S.Container>
   );
 };
-
