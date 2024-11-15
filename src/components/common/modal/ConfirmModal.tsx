@@ -10,7 +10,6 @@ interface ConfirmModalProps {
   onClick: () => void;
 }
 
-//TODO 진짜 탈퇴 구현하기
 export const ConfirmModal = ({ onClick }: ConfirmModalProps) => {
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(true);
@@ -24,6 +23,7 @@ export const ConfirmModal = ({ onClick }: ConfirmModalProps) => {
   const handleDeleteUser = async () => {
     const response = await deleteUser();
     if (response.is_success) {
+      localStorage.removeItem('nickname');
       navigate('/oauth');
     }
   };

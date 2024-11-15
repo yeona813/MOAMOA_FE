@@ -51,6 +51,7 @@ export const MyPage = () => {
   const handleLogout = async () => {
     const response = await postLogout();
     if (response.is_success) {
+      localStorage.removeItem('nickname');
       navigate('/oauth');
     }
   };
