@@ -2,9 +2,6 @@ import { Button } from '../button/Button';
 import { Modal } from './Modal';
 import * as S from './BasicModal.Style';
 
-//@TODO
-// 1. 로그아웃 함수 만들어야함
-
 interface BasicModalProps {
   text: string;
   leftButtonText: string;

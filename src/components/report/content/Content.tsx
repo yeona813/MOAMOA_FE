@@ -10,6 +10,7 @@ interface ContentProps {
 
 export const Content = ({ data }: ContentProps) => {
   const navigate = useNavigate();
+  const nickname = localStorage.getItem('nickname');
 
   const goToChatPage = () => {
     if (data.recordType === 'CHAT') {
@@ -28,7 +29,7 @@ export const Content = ({ data }: ContentProps) => {
       <S.Line />
       <S.MiddleContent>
         <S.MiddleHead>
-          <S.Title>코코님의 핵심 역량</S.Title> {/* 유저 이름 */}
+          <S.Title>{nickname}님의 핵심 역량</S.Title> {/* 유저 이름 */}
           <S.ChatText onClick={goToChatPage}>
             {data.recordType === 'CHAT' ? '채팅' : '메모'} 다시보기
           </S.ChatText>

@@ -14,7 +14,7 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       try {
         // 액세스 토큰 만료 시 리프레시 토큰으로 액세스 토큰 갱신 시도
-        await axios.get('/api/token/reissue');
+        await api.get('/api/token/reissue');
 
         return api.request(error.config);
       } catch (refreshError) {
@@ -24,7 +24,7 @@ api.interceptors.response.use(
       }
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;
