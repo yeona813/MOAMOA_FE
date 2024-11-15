@@ -22,7 +22,7 @@ jobs:
         with:
           source-directory: 'output'
           destination-github-username: yeona813
-          destination-repository-name: CORECORD_FE
+          destination-repository-name: MOAMOA_FE
           user-email: ${{ secrets.EMAIL }} 
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
