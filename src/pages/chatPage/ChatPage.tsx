@@ -7,10 +7,11 @@ import { DetailModal } from '@components/common/modal/DetailModal';
 import { useNavigate } from 'react-router-dom';
 import * as S from './ChatPage.Style';
 import ToastMessage from '@/components/chat/ToastMessage';
-
+import { LoadingDots } from '@components/chat/LodingDots';
 interface Message {
   message: string;
   isMe: boolean;
+  isLoading?: boolean;
 }
 
 export const ChatPage = () => {
@@ -18,6 +19,7 @@ export const ChatPage = () => {
     {
       message: `안녕하세요! 코코님 🩷\n오늘은 어떤 경험을 했나요?\n저와 함께 정리해보아요!`,
       isMe: false,
+      isLoading: false,
     },
   ]);
   const [isModalOpen, setIsModalOpen] = useState(false); // 완료 모달 상태
@@ -46,22 +48,34 @@ export const ChatPage = () => {
     }
   }, []);
 
-  // 메시지 전송 함수
   const handleSendMessage = (message: string) => {
     if (!message.trim()) return;
 
-    setMessages((prev) => [...prev, { message, isMe: true }]);
+    setMessages((prev) => [...prev, { message, isMe: true, isLoading: false }]);
 
     // AI 응답 시뮬레이션 (실제로는 API 호출로 대체)
+    setMessages((prev) => [
+      ...prev,
+      {
+        message: '',
+        isMe: false,
+        isLoading: true, // 서버 응답이 올 때까지 로딩 상태로 표시
+      },
+    ]);
+
+    // 서버 응답 시뮬레이션
     setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        {
-          message: '더 자세히 설명해주실 수 있나요?',
+      setMessages((prev) => {
+        // 기존 메시지에서 마지막 메시지만 수정
+        const updatedMessages = [...prev];
+        updatedMessages[updatedMessages.length - 1] = {
+          message: '더 자세히 설명해주실 수 있나요?', // AI 응답 메시지
           isMe: false,
-        },
-      ]);
-    }, 500);
+          isLoading: false, // 로딩 상태 종료
+        };
+        return updatedMessages;
+      });
+    }, 1500); // 1.5초 후 응답
   };
 
   // 임시 저장 모달에서 "새로 작성하기" 선택 시
@@ -166,7 +180,7 @@ export const ChatPage = () => {
       <S.ChatContainer>
         <S.DateContainer>{currentDate}</S.DateContainer>
         {messages.map((msg, index) => (
-          <ChatBubble key={index} message={msg.message} isMe={msg.isMe} />
+          <ChatBubble key={index} message={msg.isLoading ? <LoadingDots /> : msg.message} isMe={msg.isMe} isLoading={msg.isLoading} />
         ))}
         <div ref={messagesEndRef} />
         <S.InputContainer>

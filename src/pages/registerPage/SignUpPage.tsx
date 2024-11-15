@@ -28,7 +28,10 @@ export const SignUpPage = () => {
     try {
       const apiResponse = await registerUser(token, nickname, status);
       if (apiResponse.is_success) {
-        navigate('/login-success');
+        if (apiResponse.data.nickname) {
+          localStorage.setItem('nickname', apiResponse.data.nickname); // 로컬 스토리지에 엑세스 토큰 저장
+          navigate('/login-success');
+        }
       }
     } catch (error) {
       console.error('회원가입 실패:', error);
@@ -55,7 +58,7 @@ export const SignUpPage = () => {
           </S.InputWrapper>
           <S.InputWrapper>
             <S.Label>현소속</S.Label>
-            <SelectBox select={status} onChange={setStatus} selectData={statusOptions} />
+            <SelectBox select={status} onChange={setStatus} statusData={statusOptions} />
           </S.InputWrapper>
           <S.ButtonWrapper>
             <Button styleType="basic" disabled={isError || !nickname || !status}>

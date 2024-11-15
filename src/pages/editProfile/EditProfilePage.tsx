@@ -18,7 +18,7 @@ export const EditProfilePage = () => {
   const { nickname, isError, errorMessage, onChangeNickname } = useNicknameValidation();
 
   useEffect(() => {
-    if (!isError && nickname !== '' && select !== '') {
+    if ((!isError && nickname !== '') || select !== '') {
       setSubmit(false);
     } else {
       setSubmit(true);
@@ -30,8 +30,10 @@ export const EditProfilePage = () => {
   };
 
   const handleSubmit = async () => {
-    await patchUserInfo({ nickname, status: select });
-    navigate('/my');
+    const response = await patchUserInfo({ nickname, status: select });
+    if (response.is_success) {
+      navigate('/my', { state: { alertMessage: '변경 내용이 저장되었어요!' } });
+    }
   };
 
   const SELECT_DATA = ['대학생', '대학원생', '취업 준비생', '인턴', '재직 중'];

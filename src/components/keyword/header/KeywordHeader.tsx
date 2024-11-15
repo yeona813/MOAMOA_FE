@@ -12,11 +12,13 @@ export const KeywordHeader = ({
   onClickSideBar,
   onClickTabBar,
 }: KeywordHeaderProps) => {
+  const nickname = localStorage.getItem('nickname');
+
   return (
     <S.Header>
       <Header onClick={onClickSideBar} />
       <S.Content>
-        뫄뫄님의 경험을 <br /> 키워드로 모아봤어요
+        {nickname}님의 경험을 <br /> 키워드로 모아봤어요
         <S.Div />
       </S.Content>
       <S.TabBar>

@@ -19,10 +19,10 @@ export const SigningIn = () => {
         const apiResponse = await getTokensWithTmpToken(token);
 
         if (apiResponse.is_success) {
-          if (apiResponse.data.accessToken) {
-            localStorage.setItem('accessToken', apiResponse.data.accessToken); // 로컬 스토리지에 엑세스 토큰 저장
+          if (apiResponse.data.nickname) {
+            localStorage.setItem('nickname', apiResponse.data.nickname); // 로컬 스토리지에 엑세스 토큰 저장
+            navigate('/home');
           }
-          navigate('/home');
         }
       } catch (error) {
         console.error('로그인 실패:', error);

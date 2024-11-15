@@ -89,3 +89,15 @@ export const Input = styled(OriginalInput)`
     border: none;
   }
 `;
+
+export const CategoryContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+`;
+
+export const Icon = styled.svg`
+  width: 38px;
+  height: 38px;
+`;

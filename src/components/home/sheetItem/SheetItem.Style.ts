@@ -5,7 +5,7 @@ export const SheetItem = styled.div`
   flex-direction: column;
   width: 100%;
   padding: 1.375rem 1.125rem 1rem 1rem;
-  gap: 1.375rem;
+  gap: 2.8125rem;
   color: ${({ theme }) => theme.colors.gray900};
   border-radius: 0.75rem;
   border: 1px solid ${({ theme }) => theme.colors.gray50};
