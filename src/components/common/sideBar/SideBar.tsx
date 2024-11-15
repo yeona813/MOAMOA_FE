@@ -18,12 +18,12 @@ const SIDEBAR_ITEMS = [
     icon: ListIcon,
   },
   {
-    name: '키워드',
+    name: '역량 모아보기',
     path: '/keyword',
     icon: KeywordIcon,
   },
   {
-    name: '마이',
+    name: '마이페이지',
     path: '/my',
     icon: MyIcon,
   },

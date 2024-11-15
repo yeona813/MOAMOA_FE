@@ -19,11 +19,6 @@ export const Text = styled.span`
   color: #070707;
 `;
 
-export const Description = styled.p`
-  font-size: 0.875rem;
-  color: #939393;
-`;
-
 export const Icon = styled.img`
   width: 1.5rem;
   height: 1.5rem;

@@ -28,9 +28,7 @@ export const Settings = ({ onClickLogout, onClickDeleteId }: SettingsProps) => {
       </S.Content>
       <S.Content>
         <SettingItem onClick={onClickLogout}>로그아웃</SettingItem>
-        <SettingItem description="게시된 정보가 다 사라져요" onClick={onClickDeleteId}>
-          회원탈퇴
-        </SettingItem>
+        <SettingItem onClick={onClickDeleteId}>회원탈퇴</SettingItem>
       </S.Content>
     </S.Container>
   );

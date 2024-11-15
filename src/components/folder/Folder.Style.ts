@@ -13,12 +13,10 @@ export const Folder = styled.section<{ $type: 'folder' | 'plus' }>`
     $type === 'folder'
       ? css`
           background-color: ${theme.colors.blue50};
-          box-shadow: 0px 0px 10px 0px rgba(62, 91, 255, 0.2) inset;
         `
       : css`
           flex-shrink: 0;
           cursor: pointer;
           background-color: ${theme.colors.blue100};
-          box-shadow: 0px 0px 10px 0px rgba(62, 91, 255, 0.2) inset;
         `}
 `;

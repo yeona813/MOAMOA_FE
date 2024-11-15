@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Profile } from '@components/my/profile/Profile';
 import { Settings } from '@components/my/settings/Settings';
 import { BasicModal } from '@components/common/modal/BasicModal';
@@ -8,12 +8,24 @@ import * as S from './MyPage.Style';
 import { postLogout } from '@/api/My';
 import { Header } from '@/components/layout/header/Header';
 import { SideBar } from '@/components/common/sideBar/SideBar';
+import { useLocation, useNavigate } from 'react-router-dom';
+import ToastMessage from '@/components/chat/ToastMessage';
 
 export const MyPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [logout, setLogout] = useState(false);
   const [deleteId, setDeleteId] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [openSideBar, setOpenSideBar] = useState(false);
+  const [editProfile, setEditProfile] = useState(false);
+
+  useEffect(() => {
+    if (location.state?.alertMessage) {
+      setEditProfile(true);
+      navigate('/my', { replace: true });
+    }
+  }, [location, navigate]);
 
   const toggleLogout = () => {
     setLogout((prev) => !prev);
@@ -37,7 +49,11 @@ export const MyPage = () => {
   };
 
   const handleLogout = async () => {
-    await postLogout();
+    const response = await postLogout();
+    if (response.is_success) {
+      localStorage.removeItem('nickname');
+      navigate('/oauth');
+    }
   };
 
   return (
@@ -48,11 +64,14 @@ export const MyPage = () => {
       <S.Content>
         <Profile />
         <Settings onClickLogout={toggleLogout} onClickDeleteId={toggleDeleteId} />
+        {editProfile && (
+          <ToastMessage text="변경 내용이 저장되었어요!" onClose={() => setEditProfile(false)} />
+        )}
       </S.Content>
       {logout && (
         <BasicModal
           text="로그아웃 하시겠어요?"
-          leftButtonText="로그아웃하기"
+          leftButtonText="로그아웃"
           rightButtonText="돌아가기"
           onClickBackground={toggleLogout}
           onClickLeft={handleLogout}
@@ -61,8 +80,8 @@ export const MyPage = () => {
       )}
       {deleteId && (
         <DetailModal
-          text="정말 코어레코드를 탈퇴하시겠어요?"
-          description="탈퇴 시, 모든 기록이 사라지며 복구할 수 없어요."
+          text="정말 모아모아를 탈퇴하시겠어요?"
+          description="탈퇴 시, 모든 기록이 사라지며 복구할 수 없어요"
           leftButtonText="탈퇴하기"
           rightButtonText="돌아가기"
           onClickBackground={toggleDeleteId}

@@ -3,10 +3,10 @@ import * as S from './Header.Style';
 import { CategoryChip } from '../../common/chip/CategoryChip';
 import FolderIcon from '@icons/FolderIcon.svg';
 import { Header } from '@/components/layout/header/Header';
+import { FolderListProps } from '@/types/Folder';
 
 interface ListHeaderProps {
-  nickname: string;
-  folderData: string[] | null;
+  folderData: FolderListProps[];
   selectFolder: string;
   onClick: (folderName: string) => void;
   onClickSideBar: () => void;
@@ -14,7 +14,6 @@ interface ListHeaderProps {
 
 /**
  *
- * @param nickname - 유저 이름
  * @param folderData - 폴더 리스트 | null
  * @param selectFolder - 선택된 폴더 값
  * @param onClick - 폴더를 선택하는 함수
@@ -22,13 +21,13 @@ interface ListHeaderProps {
  * @returns
  */
 export const ListHeader = ({
-  nickname,
   folderData,
   selectFolder,
   onClick,
   onClickSideBar,
 }: ListHeaderProps) => {
   const navigate = useNavigate();
+  const nickname = localStorage.getItem('nickname');
 
   const goToFolderPage = () => {
     navigate('/folder');
@@ -43,14 +42,17 @@ export const ListHeader = ({
           <S.Icon src={FolderIcon} alt="FolderIcon" />
         </S.FolderIcon>
         <S.ChipContainer>
+          <CategoryChip isSelected={selectFolder === 'all'} onClick={() => onClick('all')}>
+            전체
+          </CategoryChip>
           {folderData &&
-            folderData.map((item, index) => (
+            folderData.map((item) => (
               <CategoryChip
-                key={index}
-                isSelected={item === selectFolder}
-                onClick={() => onClick(item)}
+                key={item.folderId}
+                isSelected={item.title === selectFolder}
+                onClick={() => onClick(item.title)}
               >
-                {item}
+                {item.title}
               </CategoryChip>
             ))}
         </S.ChipContainer>

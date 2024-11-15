@@ -1,17 +1,19 @@
 import ChatProfileIcon from '@icons/ChatProfileIcon.svg';
+import { LoadingDots } from './LodingDots';
 import * as S from './ChatBubble.Style';
 
 interface ChatBubbleProps {
-  message: string;
+  message: string | React.ReactNode;
   isMe: boolean;
+  isLoading?: boolean;
 }
 
-export const ChatBubble = ({ message, isMe }: ChatBubbleProps) => {
+export const ChatBubble = ({ message, isMe, isLoading }: ChatBubbleProps) => {
   return (
     <S.ChatBubbleWrapper $isMe={isMe}>
       {!isMe && <S.ProfileIcon src={ChatProfileIcon} alt="Profile" />}
       <S.Bubble $isMe={isMe}>
-        <S.Message>{message}</S.Message>
+        {isLoading ? <LoadingDots /> : <S.Message>{message}</S.Message>}
       </S.Bubble>
     </S.ChatBubbleWrapper>
   );

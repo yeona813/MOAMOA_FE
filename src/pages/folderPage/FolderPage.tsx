@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Folder } from '@components/folder/Folder';
 import { TabBar } from '@components/layout/tabBar/TabBar';
 import * as S from './FolderPage.Style';
@@ -6,24 +6,25 @@ import { FolderBottomSheet } from '@components/common/bottomSheet/FolderBottomSh
 import { DetailModal } from '@components/common/modal/DetailModal';
 import DeleteIcon from '@icons/DeleteIcon.svg';
 import PlusIcon from '@icons/PlusIcon.svg';
-
-const FOLDER_DATA = [
-  '큐시즘 밋업',
-  '프로젝트 공모전',
-  '아르바이트',
-  '1',
-  '2',
-  'dkdkd',
-  'dksdusd',
-  '하...',
-  '취업해요',
-  '큐시즘 사랑',
-] as string[];
+import { deleteFolder, getFolders, patchFolderName } from '@/api/Folder';
+import { FolderListProps } from '@/types/Folder';
 
 export const FolderPage = () => {
   const [openBottom, setOpenBottom] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [folderList, setFolderList] = useState<FolderListProps[]>([]);
+  const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const folderList = await getFolders();
+      if (folderList) {
+        setFolderList(folderList);
+      }
+    };
+    fetchUser();
+  }, [openBottom]);
 
   const toggleBottomSheet = () => {
     setOpenBottom((prev) => !prev);
@@ -33,50 +34,83 @@ export const FolderPage = () => {
     setIsEditing((prev) => !prev);
   };
 
-  const toggleModal = () => {
+  const toggleModal = (folderId?: number) => {
+    setSelectedFolderId(folderId ?? null);
     setOpenModal((prev) => !prev);
+  };
+
+  const handleDeleteFolder = async (folderId: number | null) => {
+    if (folderId === null) return;
+
+    const response = await deleteFolder(folderId);
+    if (response.is_success) {
+      setFolderList((prev) => prev.filter((folder) => folder.folderId !== folderId));
+      setOpenModal((prev) => !prev);
+    }
+  };
+
+  const handleKeyDown = async (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    folderId: number,
+    title: string,
+  ) => {
+    if (event.key === 'Enter') {
+      await patchFolderName({ folderId, title });
+    }
   };
 
   return (
     <div>
-      <TabBar centerText="폴더 관리" rightText="편집" onClick={handleEdit} />
+      <TabBar centerText="경험 폴더 관리" rightText="편집" onClick={handleEdit} />
       <S.Content>
-        {FOLDER_DATA.length > 0 &&
-          FOLDER_DATA.map((folder) => (
-            <S.FolderContainer key={folder}>
-              {isEditing && <S.Icon src={DeleteIcon} alt="delete" onClick={toggleModal} />}
-              <Folder type="folder">
-                <h6>{folder}</h6>
-              </Folder>
-            </S.FolderContainer>
-          ))}
         {!isEditing && (
           <Folder type="plus" onClick={toggleBottomSheet}>
             <img src={PlusIcon} alt="plusButton" />
           </Folder>
         )}
+        {folderList.length > 0 &&
+          folderList.map((folder) => (
+            <S.FolderContainer key={folder.folderId}>
+              {isEditing && (
+                <S.Icon
+                  src={DeleteIcon}
+                  alt="delete"
+                  onClick={() => toggleModal(folder.folderId)}
+                />
+              )}
+              <Folder type="folder">
+                {isEditing ? (
+                  <S.Input
+                    value={folder.title}
+                    type="text"
+                    onChange={(e) => {
+                      setFolderList((prev) =>
+                        prev.map((f) =>
+                          f.folderId === folder.folderId ? { ...f, title: e.target.value } : f,
+                        ),
+                      );
+                    }}
+                    onKeyDown={(e) => {
+                      handleKeyDown(e, folder.folderId, folder.title);
+                    }}
+                  />
+                ) : (
+                  <h6>{folder.title}</h6>
+                )}
+              </Folder>
+            </S.FolderContainer>
+          ))}
       </S.Content>
-      {openBottom && (
-        <FolderBottomSheet
-          onClick={toggleBottomSheet}
-          onClickButton={() => {
-            console.log('구현 해야함');
-          }}
-          title="새 폴더 추가하기"
-          text="추가할 폴더의 이름을 적어주세요."
-        />
-      )}
+      {openBottom && <FolderBottomSheet onClick={toggleBottomSheet} />}
       {openModal && (
         <DetailModal
           text="폴더를 삭제 하시겠어요?"
-          description="폴더 내 모든 레코드도 함께 삭제됩니다."
+          description="폴더 내 모든 레코드도 함께 삭제됩니다"
           leftButtonText="돌아가기"
           rightButtonText="삭제하기"
           onClickBackground={toggleModal}
           onClickLeft={toggleModal}
-          onClickRight={() => {
-            console.log('delete 구현 해야함~');
-          }}
+          onClickRight={() => handleDeleteFolder(selectedFolderId)}
         />
       )}
     </div>
