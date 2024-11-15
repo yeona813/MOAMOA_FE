@@ -41,6 +41,8 @@ export const RecordCompletePage = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const navigate = useNavigate();
+  const nickname = localStorage.getItem('nickname');
+
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
@@ -73,7 +75,7 @@ export const RecordCompletePage = () => {
       <S.HeaderContainer>
         <S.Title>경험 기록이 완료되었어요!</S.Title>
         <S.SubTitle>
-          코코님의 경험을 모아서
+          {nickname}님의 경험을 모아서
           <br />
           한눈에 보기 쉽게 요약해드렸어요
         </S.SubTitle>

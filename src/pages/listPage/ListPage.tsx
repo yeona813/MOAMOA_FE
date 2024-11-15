@@ -108,7 +108,6 @@ export const ListPage = () => {
   return (
     <S.ListPage>
       <ListHeader
-        nickname="코코"
         folderData={folderList}
         selectFolder={selectFolder}
         onClick={handleSelectFolder}
