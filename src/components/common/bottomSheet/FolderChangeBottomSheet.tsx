@@ -58,7 +58,7 @@ export const FolderChangeBottomSheet = ({ analysisId, onClick }: FolderBottomShe
   return (
     <BottomSheet onClick={onClick}>
       <S.Header>
-        <S.Title>폴더 변경하기</S.Title>
+        <S.Title>경험 폴더 변경하기</S.Title>
         <S.Icon src={CloseIcon} alt="closeIcon" onClick={onClick} />
       </S.Header>
       <S.SheetContent>

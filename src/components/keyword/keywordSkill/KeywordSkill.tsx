@@ -19,24 +19,29 @@ export const KeywordSkill = () => {
   const observerRef = useRef<HTMLDivElement | null>(null);
 
   // 키워드 데이터 및 리스트 데이터 가져오기
-  const getKeywordData = async (keyword: string, recordId: number) => {
-    if (!keyword) return;
-    setIsFetching(true);
-    try {
-      const listResponse = await getRecords(keyword, recordId);
-      if (listResponse.recordDtoList) {
-        setRecordList((prev) =>
-          recordId === 0 ? listResponse.recordDtoList : [...prev, ...listResponse.recordDtoList],
-        );
-        setLastRecordId(listResponse.recordDtoList[listResponse.recordDtoList.length - 1].recordId);
-        setHasNext(listResponse.hasNext);
-      } else {
-        setHasNext(false);
+  const getKeywordData = useCallback(
+    async (keyword: string, recordId: number) => {
+      if (!keyword || isFetching) return;
+      setIsFetching(true);
+      try {
+        const listResponse = await getRecords(keyword, recordId);
+        if (listResponse.recordDtoList) {
+          setRecordList((prev) =>
+            recordId === 0 ? listResponse.recordDtoList : [...prev, ...listResponse.recordDtoList],
+          );
+          setLastRecordId(
+            listResponse.recordDtoList[listResponse.recordDtoList.length - 1].recordId,
+          );
+          setHasNext(listResponse.hasNext);
+        } else {
+          setHasNext(false);
+        }
+      } finally {
+        setIsFetching(false);
       }
-    } finally {
-      setIsFetching(false);
-    }
-  };
+    },
+    [isFetching],
+  );
 
   // 키워드 목록 가져오기
   const fetchKeywordList = async () => {
@@ -54,20 +59,32 @@ export const KeywordSkill = () => {
 
   useEffect(() => {
     if (selectedKeyword) {
-      setRecordList([]);
-      setLastRecordId(0);
-      getKeywordData(selectedKeyword, 0);
+      const fetchData = async () => {
+        setRecordList([]);
+        setLastRecordId(0);
+        await getKeywordData(selectedKeyword, 0);
+      };
+      fetchData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedKeyword]);
 
   // 무한 스크롤 데이터 로드
   const fetchMoreData = useCallback(async () => {
-    if (isFetching || !hasNext || lastRecordId === null) return;
-    await getKeywordData(selectedKeyword!, lastRecordId);
-  }, [selectedKeyword, lastRecordId, hasNext, isFetching]);
+    if (isFetching || !hasNext || !selectedKeyword) return;
+
+    setIsFetching(true);
+    try {
+      await getKeywordData(selectedKeyword, lastRecordId);
+    } finally {
+      setIsFetching(false);
+    }
+  }, [isFetching, hasNext, lastRecordId, getKeywordData, selectedKeyword]);
 
   // Intersection Observer 설정
   useEffect(() => {
+    if (!hasNext || isFetching) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && !isFetching) {
@@ -77,12 +94,15 @@ export const KeywordSkill = () => {
       { rootMargin: '200px', threshold: 0.1 },
     );
 
-    if (observerRef.current) observer.observe(observerRef.current);
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
 
     return () => {
       observer.disconnect();
     };
-  }, [fetchMoreData, isFetching]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchMoreData, hasNext]);
 
   return (
     <S.Container>
@@ -91,7 +111,9 @@ export const KeywordSkill = () => {
           keywordList.map((item, index) => (
             <CategoryChip
               isSelected={selectedKeyword === item}
-              onClick={() => setSelectedKeyword(item)}
+              onClick={() => {
+                setSelectedKeyword(item);
+              }}
               key={index}
             >
               {item}

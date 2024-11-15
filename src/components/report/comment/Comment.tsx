@@ -7,7 +7,7 @@ interface CommentProps {
 export const Comment = ({ comment }: CommentProps) => {
   return (
     <S.Comment>
-      <S.Title>이 점을 보완해보세요.</S.Title>
+      <S.Title>이렇게 해보는 건 어때요?</S.Title>
       <S.Container>
         <S.Div />
         <S.Description>{comment}</S.Description>

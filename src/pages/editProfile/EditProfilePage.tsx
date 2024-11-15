@@ -32,7 +32,7 @@ export const EditProfilePage = () => {
   const handleSubmit = async () => {
     const response = await patchUserInfo({ nickname, status: select });
     if (response.is_success) {
-      navigate('/my');
+      navigate('/my', { state: { alertMessage: '변경 내용이 저장되었어요!' } });
     }
   };
 

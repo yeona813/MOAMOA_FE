@@ -24,7 +24,7 @@ export const ReportBottomSheet = ({
     <BottomSheet onClick={onClick}>
       <S.Header>
         <S.Icon src={CloseIcon} alt="모달 닫기" onClick={onClick} />
-        <S.Title>역량 모아보기 편집</S.Title>
+        <S.Title>AI 역량 분석 편집</S.Title>
         <h6 onClick={onClickStore}>저장</h6>
       </S.Header>
       <S.ContentContainer>

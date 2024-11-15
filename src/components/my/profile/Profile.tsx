@@ -38,7 +38,13 @@ export const Profile = () => {
         </S.Button>
       </S.Profile>
       <S.DIV /> {/* 임시 작업 */}
-      <S.Record>총 {user.recordCount}건의 레코드를 기록했어요.</S.Record>
+      <S.Record
+        onClick={() => {
+          navigate('/list');
+        }}
+      >
+        {user.nickname}경험을 {user.recordCount}개 모았어요
+      </S.Record>
     </S.Container>
   );
 };
