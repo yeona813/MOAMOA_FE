@@ -13,7 +13,15 @@ export const ChatBubble = ({ message, isMe, isLoading }: ChatBubbleProps) => {
     <S.ChatBubbleWrapper $isMe={isMe}>
       {!isMe && <S.ProfileIcon src={ChatProfileIcon} alt="Profile" />}
       <S.Bubble $isMe={isMe}>
-        {isLoading ? <LoadingDots /> : <S.Message>{message}</S.Message>}
+        {isLoading ? (
+          <LoadingDots />
+        ) : (
+          typeof message === 'string' ? (
+            <S.Message dangerouslySetInnerHTML={{ __html: message }} />
+          ) : (
+            <S.Message>{message}</S.Message>
+          )
+        )}
       </S.Bubble>
     </S.ChatBubbleWrapper>
   );
