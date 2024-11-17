@@ -11,6 +11,10 @@ export const Icon = styled.img`
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+
+  @media screen and (min-width: 1280px) {
+    display: none;
+  }
 `;
 
 export const Title = styled.h6`
