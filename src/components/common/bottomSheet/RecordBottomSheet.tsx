@@ -16,7 +16,7 @@ const SHEET_ITEMS: SheetItemProps[] = [
     title: 'AI 채팅 기록',
     subTitle: 'AI 대화로 쉽게',
     color: 'blue',
-    path: '/chat',
+    path: ''
   },
 ];
 
@@ -29,21 +29,19 @@ export const RecordBottomSheet = ({ onClick }: RecordBottomSheetProps) => {
   const handleItemClick = async (item: SheetItemProps) => {
     if (item.title === 'AI 채팅 기록') {
       try {
+        onClick();
         const chatData = await postChat();
-        if (chatData) {
-          const { chatRoomId, firstChat } = chatData;
+        console.log('Received chatData:', chatData);
 
-          localStorage.setItem('chatRoomId', chatRoomId.toString()); // 채팅방 아이디 저장
-          navigate(item.path, {
-            state: { chatRoomId, firstChat }
-          });
+        if (chatData?.chatRoomId) {
+          const { chatRoomId } = chatData;
+          navigate(`/chat/${chatRoomId}`);
         }
       } catch (error) {
-        console.error('채팅 시작 실패:', error);
         throw error;
       }
-    }
-    else {
+    } else {
+      onClick();
       navigate(item.path);
     }
   };
