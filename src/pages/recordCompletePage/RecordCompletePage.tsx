@@ -56,6 +56,14 @@ export const RecordCompletePage = () => {
       if (!folderId) {
         throw new Error('유효하지 않은 폴더입니다.');
       }
+      // 요청 데이터 로그
+      console.log('전송할 데이터:', {
+        title,
+        content,
+        folderId,
+        recordType: 'CHAT',
+        chatRoomId: state.chatRoomId
+      });
       const response = await postRecord({
         title,
         content,
@@ -107,12 +115,12 @@ export const RecordCompletePage = () => {
       <S.Form onSubmit={handleSubmit}>
         <S.Input
           placeholder={getFormattedDate()}
-          value={state?.title || title}
+          value={title}
           onChange={handleChangeTitle}
           isError={false}
         />
         <S.Line />
-        <S.TextArea value={state?.summary || content} onChange={handleChangeContent} />
+        <S.TextArea value={content} onChange={handleChangeContent} />
         <S.Line />
 
         <S.Label>경험의 카테고리를 선택해주세요.</S.Label>
