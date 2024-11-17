@@ -6,8 +6,13 @@ import { KeywordList } from '../keywordList/KeywordList';
 import { Empty } from '@/components/common/empty/Empty';
 import { KeywordSkillProps } from '@/types/Analysis';
 import { getKeywordList, getRecords } from '@/api/Analysis';
+import { FloatingButton } from '@/components/common/button/FloatingButton';
 
-export const KeywordSkill = () => {
+interface KeywordSkilProps {
+  onClick: () => void;
+}
+
+export const KeywordSkill = ({ onClick }: KeywordSkilProps) => {
   const navigate = useNavigate();
   const [keywordList, setKeywordList] = useState<string[]>([]);
   const [recordList, setRecordList] = useState<KeywordSkillProps[]>([]);
@@ -137,7 +142,10 @@ export const KeywordSkill = () => {
           <div ref={observerRef} style={{ height: '20px' }} />
         </S.KeywordListContainer>
       ) : (
-        <Empty />
+        <>
+          <Empty />
+          <FloatingButton onClick={onClick} />
+        </>
       )}
     </S.Container>
   );
