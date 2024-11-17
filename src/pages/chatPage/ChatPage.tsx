@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './ChatPage.Style';
 import ToastMessage from '@/components/chat/ToastMessage';
 import { LoadingDots } from '@components/chat/LodingDots';
-import { postAiChat, postTmpChat, checkTmpChat, getChat, getSummary, deleteChat } from '@/api/Chat';
+import { postAiChat, postTmpChat, checkTmpChat, getChat, getSummary, deleteChat, postChat } from '@/api/Chat';
 
 interface Message {
   message: string;
@@ -218,7 +218,6 @@ export const ChatPage = () => {
       if (!chatRoomId) {
         throw new Error('유효하지 않은 채팅방 ID입니다.');
       }
-
       try {
         console.log('chatRoomId for getSummary:', chatRoomId);
 
@@ -250,6 +249,43 @@ export const ChatPage = () => {
     }
   };
 
+  const handleNewChat = async () => {
+    try {
+      if (chatRoomId !== null) {
+        await deleteChat(chatRoomId);
+        console.log('임시 저장된 채팅방 삭제 성공');
+      }
+      // 새로운 채팅방 생성
+      const newChatData = await postChat();
+      if (newChatData?.chatRoomId) {
+        setChatRoomId(newChatData.chatRoomId);
+        console.log('새로운 채팅방 생성 성공:', newChatData.chatRoomId);
+      }
+      setIsLoadTempModalOpen(false);
+      // 새로 작성하기를 선택한 경우 기본 메시지로 초기화
+      setMessages([{
+        message: formattedFirstChat,
+        isMe: false,
+        isLoading: false,
+      }]);
+    } catch (error) {
+      console.error('임시 저장된 채팅방 삭제 실패 또는 새로운 채팅방 생성 실패:', error);
+    }
+  }
+
+  const handleContinueChat = async () => {
+    try {
+      setIsLoadTempModalOpen(false);
+      if (chatRoomId !== null) {
+        console.log('저장된 채팅방 ID로 기록 불러오기 시도:', chatRoomId);
+        await fetchChatHistory(chatRoomId);
+      } else {
+        console.error('유효하지 않은 채팅방 ID입니다.');
+      }
+    } catch (error) {
+      console.error('채팅 기록 불러오기 실패:', error);
+    }
+  }
 
   const currentDate = new Date().toISOString().split('T')[0].replace(/-/g, '.');
 
@@ -272,25 +308,8 @@ export const ChatPage = () => {
           text="최근 작성 내역이 있어요\n이어서 작성하시겠어요?"
           leftButtonText="새로 작성하기"
           rightButtonText="이어서 작성하기"
-          onClickLeft={() => {
-            setIsLoadTempModalOpen(false);
-            // 새로 작성하기를 선택한 경우 기본 메시지로 초기화
-            setMessages([{
-              message: formattedFirstChat,
-              isMe: false,
-              isLoading: false,
-            }]);
-          }}
-          onClickRight={async () => {
-            try {
-              setIsLoadTempModalOpen(false);
-              const savedChatRoomId = Number(localStorage.getItem('chatRoomId'));
-              console.log('저장된 채팅방 ID로 기록 불러오기 시도:', savedChatRoomId);
-              await fetchChatHistory(savedChatRoomId);
-            } catch (error) {
-              console.error('채팅 기록 불러오기 실패:', error);
-            }
-          }}
+          onClickLeft={handleNewChat}
+          onClickRight={handleContinueChat}
         />
       )}
 
