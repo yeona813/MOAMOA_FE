@@ -14,7 +14,7 @@ export const Content = ({ data }: ContentProps) => {
 
   const goToChatPage = () => {
     if (data.recordType === 'CHAT') {
-      navigate(`/chat/${data.chatRoomId}`);
+      navigate(`/review-chat/${data.chatRoomId}`);
     } else {
       navigate(`memo`); // 수정해야 함
     }
