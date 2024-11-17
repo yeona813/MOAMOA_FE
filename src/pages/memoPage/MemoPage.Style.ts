@@ -91,7 +91,7 @@ export const Content = styled.textarea`
     display: none;
   }
   &::placeholder {
-    color: ${({ theme }) => theme.colors.gray300};
+    color: ${({ theme }) => theme.colors.gray200};
     font-size: 1rem;
     font-weight: 400;
     line-height: 145%;
