@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './ChatPage.Style';
 import ToastMessage from '@/components/chat/ToastMessage';
 import { LoadingDots } from '@components/chat/LodingDots';
-import { postAiChat, postTmpChat, checkTmpChat, getChat } from '@/api/Chat';
+import { postAiChat, postTmpChat, checkTmpChat, getChat, getSummary } from '@/api/Chat';
 
 interface Message {
   message: string;
@@ -92,11 +92,10 @@ export const ChatPage = () => {
 
         if (chatHistory.length > 0) {
           setMessages(chatHistory);
-          setShowGuideButton(false); // 채팅 기록이 있으면 가이드 버튼 숨김
+          setShowGuideButton(false);
         }
       } else {
         console.log('채팅 기록이 없습니다.');
-        // 채팅 기록이 없는 경우 기본 메시지만 표시
         setMessages([{
           message: formattedFirstChat,
           isMe: false,
@@ -113,7 +112,6 @@ export const ChatPage = () => {
       }]);
     }
   };
-
 
   const handleSendMessage = async (message: string) => {
     if (!message.trim() || isNaN(chatRoomId)) return;
@@ -194,6 +192,44 @@ export const ChatPage = () => {
     }
   };
 
+  const handleComplete = async () => {
+    try {
+      if (!chatRoomId) {
+        throw new Error('유효하지 않은 채팅방 ID입니다.');
+      }
+
+      try {
+        console.log('chatRoomId for getSummary:', chatRoomId);
+
+        const response = await getSummary(chatRoomId);
+        console.log('요약 응답:', response);
+
+        if (!response) {
+          throw new Error('채팅 기록 요약에 실패했습니다.');
+        }
+
+        navigate('/record-complete', {
+          state: {
+            chatRoomId,
+            summary: response.content,
+            title: response.title // 제목 데이터도 함께 전달
+          }
+        });
+
+      } catch (error: any) {
+        if (error.message === '경험 기록의 내용이 충분하지 않습니다.') {
+          alert('경험을 더 자세히 설명해주세요.');
+        } else {
+          alert('채팅 기록 요약에 실패했습니다. 다시 시도해주세요.');
+        }
+      }
+    } catch (error) {
+      console.error('채팅 기록 저장 실패:', error);
+      alert('채팅 기록 저장에 실패했습니다. 다시 시도해주세요.');
+    }
+  };
+
+
   const currentDate = new Date().toISOString().split('T')[0].replace(/-/g, '.');
 
   return (
@@ -206,7 +242,7 @@ export const ChatPage = () => {
           rightButtonText="완료하기"
           onClickBackground={() => setIsModalOpen(false)}
           onClickLeft={() => setIsModalOpen(false)}
-          onClickRight={() => navigate('/record-complete')}
+          onClickRight={handleComplete}
         />
       )}
 
