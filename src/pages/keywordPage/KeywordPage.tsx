@@ -3,7 +3,6 @@ import { RecordBottomSheet } from '@components/common/bottomSheet/RecordBottomSh
 import { KeywordHeader } from '@/components/keyword/header/KeywordHeader';
 import { SideBar } from '@/components/common/sideBar/SideBar';
 import { KeywordSkill } from '@/components/keyword/keywordSkill/KeywordSkill';
-import { FloatingButton } from '@/components/common/button/FloatingButton';
 import { SkillList } from '@/components/report/skill/SkillList';
 import { SkillGraph } from '@/components/report/skill/SkillGraph';
 
@@ -32,14 +31,13 @@ export const KeywordPage = () => {
         onClickSideBar={toggleSideBar}
       />
       {currentTabBar === '역량 키워드' ? (
-        <KeywordSkill />
+        <KeywordSkill onClick={toggleBottomSheet} />
       ) : (
         <>
           <SkillGraph />
           <SkillList />
         </>
       )}
-      <FloatingButton onClick={toggleBottomSheet} />
       {openBottom && <RecordBottomSheet onClick={toggleBottomSheet} />}
       {openSideBar && <SideBar onClick={toggleSideBar} />}
     </div>

@@ -77,6 +77,10 @@ export const Router = createBrowserRouter([
         element: <ChatPage />,
       },
       {
+        path: 'review-chat/:id',
+        element: <ChatPage />,
+      },
+      {
         path: 'record-complete',
         element: <RecordCompletePage />,
       },
