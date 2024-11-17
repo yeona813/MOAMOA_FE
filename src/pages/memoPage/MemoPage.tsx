@@ -76,17 +76,16 @@ export const MemoPage = () => {
     saveTempMemo();
   };
 
-  const handleChangeCategory = (folder: FolderType | '새 폴더 추가하기') => {
-    if (folder === '새 폴더 추가하기') {
+  const handleChangeCategory = (category: string, folder?: FolderType) => {
+    if (!folder) {
       setIsBottomSheetOpen(true);
-    } else {
-      setTempMemo((prev) => ({
-        ...prev,
-        category: folder.title,
-        folderId: folder.folderId,
-      }));
-      saveTempMemo();
+      return;
     }
+    setTempMemo(prev => ({
+      ...prev,
+      category,
+      folderId: folder.folderId
+    }));
   };
 
   const handleChangeMemo = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -177,10 +176,13 @@ export const MemoPage = () => {
               key={folder.folderId}
               children={folder.title}
               isSelected={tempMemo.category === folder.title}
-              onClick={() => handleChangeCategory(folder)}
+              onClick={() => handleChangeCategory(folder.title)}
             />
           ))}
-          <CategoryChip onClick={() => handleChangeCategory('새 폴더 추가하기')} isSelected={false}>
+          <CategoryChip
+            onClick={() => handleChangeCategory('', undefined)}
+            isSelected={false}
+          >
             <img src={FolderIcon} alt="changeFolder" />
           </CategoryChip>
         </S.CategoryContainer>
@@ -224,7 +226,6 @@ export const MemoPage = () => {
       {isBottomSheetOpen && (
         <FolderBottomSheet
           onClick={() => setIsBottomSheetOpen(false)}
-          // onClickButton={handleBottomSheetComplete}
         />
       )}
     </S.Container>

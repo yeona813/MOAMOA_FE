@@ -73,7 +73,7 @@ export const Router = createBrowserRouter([
         element: <ReportPage />,
       },
       {
-        path: 'chat',
+        path: 'chat/:id',
         element: <ChatPage />,
       },
       {
