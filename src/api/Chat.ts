@@ -88,6 +88,21 @@ export const getChat = async (chatRoomId: number): Promise<ChatHistoryResponse['
   }
 };
 
+/** [3.4] 채팅 삭제 */
+export const deleteChat = async (chatRoomId: number) => {
+  try {
+    const response = await api.delete(`/api/records/chat/${chatRoomId}`);
+    if (response.data.is_success) {
+      console.log('채팅 삭제 성공:', response.data);
+      return response.data;
+    }
+    throw new Error('채팅 삭제 실패');
+  } catch (error) {
+    console.error('채팅 삭제 실패:', error);
+    throw error;
+  }
+};
+
 /** [3.5] 채팅 경험 요약하기*/
 export const getSummary = async (chatRoomId: number) => {
   try {

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { ChatBubble } from '@components/chat/ChatBubble';
 import { ChatBox } from '@components/chat/ChatBox';
 import { GuideButton } from '@components/chat/GuideButton';
@@ -8,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './ChatPage.Style';
 import ToastMessage from '@/components/chat/ToastMessage';
 import { LoadingDots } from '@components/chat/LodingDots';
-import { postAiChat, postTmpChat, checkTmpChat, getChat, getSummary } from '@/api/Chat';
+import { postAiChat, postTmpChat, checkTmpChat, getChat, getSummary, deleteChat } from '@/api/Chat';
 
 interface Message {
   message: string;
@@ -19,8 +20,8 @@ interface Message {
 export const ChatPage = () => {
   const firstChat = localStorage.getItem('firstChat') || '안녕하세요! 경험을 작성해주세요.';
   const formattedFirstChat = firstChat.replace(/\n/g, '<br>');
-  const chatRoomId = Number(localStorage.getItem('chatRoomId'));
-
+  const { id } = useParams();
+  const [chatRoomId, setChatRoomId] = useState<number | null>(null);
   const [messages, setMessages] = useState<Message[]>([
     {
       message: formattedFirstChat,
@@ -28,6 +29,16 @@ export const ChatPage = () => {
       isLoading: false,
     },
   ]);
+
+  useEffect(() => {
+    if (id) {
+      setChatRoomId(Number(id));
+    }
+  }, [id]);
+
+  useEffect(() => {
+    console.log('현재 채팅방 ID:', chatRoomId);
+  }, [chatRoomId]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTempSaveModalOpen, setIsTempSaveModalOpen] = useState(false);
@@ -45,19 +56,14 @@ export const ChatPage = () => {
     scrollToBottom();
   }, [messages]);
 
-  // 임시 저장된 채팅 기록 확인 API 호출 추가
   useEffect(() => {
     const fetchTmpChatData = async () => {
       try {
         // 1. 임시 저장된 채팅 기록이 있는지 확인
         const tmpChatData = await checkTmpChat();
 
-        if (tmpChatData.exist && tmpChatData.chatRoomId) {  // chatRoomId 존재 여부 확인 추가
-          console.log("임시 저장된 기록이 있습니다:", tmpChatData);
-
-          localStorage.setItem('chatRoomId', String(tmpChatData.chatRoomId));
-
-          // 2. 임시 저장된 기록이 있으면 모달을 띄워 사용자에게 선택하도록 함
+        if (tmpChatData.exist && tmpChatData.chatRoomId) {
+          setChatRoomId(tmpChatData.chatRoomId);
           setIsLoadTempModalOpen(true);
         } else {
           console.log("임시 저장된 기록이 없습니다.");
@@ -114,7 +120,10 @@ export const ChatPage = () => {
   };
 
   const handleSendMessage = async (message: string) => {
-    if (!message.trim() || isNaN(chatRoomId)) return;
+    if (!message.trim() || chatRoomId === null) {
+      alert('채팅방 ID가 설정되지 않았습니다. 잠시 후 다시 시도해주세요.');
+      return;
+    }
 
     try {
       setShowGuideButton(false);
@@ -140,7 +149,7 @@ export const ChatPage = () => {
   };
 
   const handleGuideButtonClick = async () => {
-    if (isNaN(chatRoomId)) return;
+    if (chatRoomId === null) return;
 
     try {
       setShowGuideButton(false);
@@ -178,17 +187,29 @@ export const ChatPage = () => {
       if (!chatRoomId) {
         throw new Error('유효하지 않은 채팅방 ID입니다.');
       }
-
       await postTmpChat(chatRoomId);
       setShowToast(true);
       console.log("임시 저장 요청 성공");
-      setTimeout(() => {
-        navigate(-1);
-      }, 1000);
+      navigate('/home');
     } catch (error) {
       console.error("임시 저장 요청 실패:", error);
       alert('임시 저장에 실패했습니다.');
       navigate(-1);
+    }
+  };
+
+  const handleDeleteChat = async () => {
+    try {
+      console.log('삭제할 채팅방 ID:', chatRoomId);
+      if (chatRoomId === null) {
+        throw new Error('유효하지 않은 채팅방 ID입니다.');
+      }
+      await deleteChat(chatRoomId);
+      console.log('채팅 삭제 성공');
+      navigate('/home');
+    } catch (error) {
+      console.error('채팅 삭제 실패:', error);
+      alert('채팅 삭제에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
@@ -212,7 +233,7 @@ export const ChatPage = () => {
           state: {
             chatRoomId,
             summary: response.content,
-            title: response.title // 제목 데이터도 함께 전달
+            title: response.title
           }
         });
 
@@ -278,7 +299,7 @@ export const ChatPage = () => {
           text="대화를 임시 저장할까요?"
           leftButtonText="나가기"
           rightButtonText="저장하기"
-          onClickLeft={() => navigate(-1)}
+          onClickLeft={handleDeleteChat}
           onClickRight={handleSaveAndExit}
         />
       )}

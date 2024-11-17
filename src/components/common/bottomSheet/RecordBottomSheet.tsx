@@ -31,8 +31,6 @@ export const RecordBottomSheet = ({ onClick }: RecordBottomSheetProps) => {
       try {
         onClick();
         const chatData = await postChat();
-        console.log('Received chatData:', chatData);
-
         if (chatData?.chatRoomId) {
           const { chatRoomId } = chatData;
           navigate(`/chat/${chatRoomId}`);
