@@ -9,7 +9,12 @@ export const SheetItem = styled.div`
   color: ${({ theme }) => theme.colors.gray900};
   border-radius: 0.75rem;
   border: 1px solid ${({ theme }) => theme.colors.gray50};
+  background-color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
+
+  ${(props) => props.theme.breakpoints.min} {
+    gap: 1.25rem;
+  }
 `;
 
 // 이 부분 아이콘이나 뭐 추가될 예정

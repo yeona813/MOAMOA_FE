@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { ChatBubble } from '@components/chat/ChatBubble';
 import { ChatBox } from '@components/chat/ChatBox';
 import { GuideButton } from '@components/chat/GuideButton';
@@ -8,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './ChatPage.Style';
 import ToastMessage from '@/components/chat/ToastMessage';
 import { LoadingDots } from '@components/chat/LodingDots';
+import { postAiChat, postTmpChat, checkTmpChat, getChat, getSummary, deleteChat, postChat } from '@/api/Chat';
+
 interface Message {
   message: string;
   isMe: boolean;
@@ -15,21 +18,23 @@ interface Message {
 }
 
 export const ChatPage = () => {
+  const firstChat = localStorage.getItem('firstChat') || '안녕하세요! 경험을 작성해주세요.';
+  const formattedFirstChat = firstChat.replace(/\n/g, '<br>');
+  const { id } = useParams();
+  const [chatRoomId, setChatRoomId] = useState<number | null>(null);
+  const [tmpChatRoomId, setTmpChatRoomId] = useState<number | null>(null);
   const [messages, setMessages] = useState<Message[]>([
     {
-      message: `안녕하세요! 코코님 🩷\n오늘은 어떤 경험을 했나요?\n저와 함께 정리해보아요!`,
+      message: formattedFirstChat,
       isMe: false,
       isLoading: false,
     },
   ]);
-  const [isModalOpen, setIsModalOpen] = useState(false); // 완료 모달 상태
-  const [isTempSaveModalOpen, setIsTempSaveModalOpen] = useState(false); // 뒤로 가기 시 임시 저장 모달 상태
-  const [isLoadTempModalOpen, setIsLoadTempModalOpen] = useState(false); // 페이지 로드시 임시 저장 데이터 불러오기 모달 상태
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTempSaveModalOpen, setIsTempSaveModalOpen] = useState(false);
+  const [isLoadTempModalOpen, setIsLoadTempModalOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const [tempChat, setTempChat] = useState<Message[]>([
-    { message: '나는 큐시즘이라는 IT 연합 동아리에서 지금 디자이너를 맡고 있어. 우리는 AI 역량 분석 앱을 만들고 있어. 근데 오늘 이제 회의를 했거든. ', isMe: true },
-    { message: '김코코님이 말씀해주신 경험의 당시 상황을 더 자세히 말해주세요!', isMe: false },
-  ]);
+  const [showGuideButton, setShowGuideButton] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
@@ -41,120 +46,270 @@ export const ChatPage = () => {
     scrollToBottom();
   }, [messages]);
 
-  // 페이지 접속 시 임시 저장 데이터 불러오기 모달을 띄우기
+  // URL 파라미터로부터 채팅방 ID 설정
   useEffect(() => {
-    if (tempChat.length > 0) {
-      setIsLoadTempModalOpen(true);
+    if (id) {
+      setChatRoomId(Number(id));
+    } else {
+      handleNewChat();
     }
-  }, []);
+  }, [id]);
 
-  const handleSendMessage = (message: string) => {
-    if (!message.trim()) return;
+  // 채팅 기록 조회
+  useEffect(() => {
+    if (chatRoomId !== null) {
+      fetchChatHistory(chatRoomId);
+    }
+  }, [chatRoomId]);
 
-    setMessages((prev) => [...prev, { message, isMe: true, isLoading: false }]);
+  // 임시 저장된 채팅 기록 조회
+  useEffect(() => {
+    const fetchTmpChatData = async () => {
+      try {
+        // review-chat 경로로 접근한 경우에만 임시저장 확인하지 않음
+        if (window.location.pathname.includes('review-chat')) return;
 
-    // AI 응답 시뮬레이션 (실제로는 API 호출로 대체)
-    setMessages((prev) => [
-      ...prev,
-      {
-        message: '',
-        isMe: false,
-        isLoading: true, // 서버 응답이 올 때까지 로딩 상태로 표시
-      },
-    ]);
+        // 임시 저장된 채팅 기록이 있는지 확인
+        const tmpChatData = await checkTmpChat();
+        if (tmpChatData.exist && tmpChatData.chatRoomId) {
+          setTmpChatRoomId(tmpChatData.chatRoomId);
+          setIsLoadTempModalOpen(true);
+        }
+      } catch (error) {
+        console.error("임시 저장된 기록을 조회하는 중 오류가 발생했습니다:", error);
+      }
+    };
 
-    // 서버 응답 시뮬레이션
-    setTimeout(() => {
-      setMessages((prev) => {
-        // 기존 메시지에서 마지막 메시지만 수정
-        const updatedMessages = [...prev];
-        updatedMessages[updatedMessages.length - 1] = {
-          message: '더 자세히 설명해주실 수 있나요?', // AI 응답 메시지
+    fetchTmpChatData();
+  }, [id]);
+
+  const fetchChatHistory = async (chatRoomId: number | null) => {
+    try {
+      if (!chatRoomId) {
+        throw new Error('유효하지 않은 채팅방 ID입니다.');
+      }
+
+      if (window.location.pathname.includes('review-chat')) {
+        setShowGuideButton(false);
+      }
+      const response = await getChat(chatRoomId);
+
+      if (response?.chats && response.chats.length > 0) {  // 채팅 기록이 있는 경우만 체크
+        // 채팅 기록이 있는 경우
+        const chatHistory = response.chats.map(chat => ({
+          message: chat.content,
+          isMe: (chat.author === 'user') ? true : false,
+          isLoading: false
+        }));
+        setMessages(chatHistory);
+      } else {
+        // 채팅 기록이 없는 경우
+        setMessages([{
+          message: formattedFirstChat,
           isMe: false,
-          isLoading: false, // 로딩 상태 종료
-        };
-        return updatedMessages;
-      });
-    }, 1500); // 1.5초 후 응답
+          isLoading: false,
+        }]);
+        setShowGuideButton(true);  // 채팅 기록이 없으면 가이드 버튼 보이기
+      }
+    } catch (error) {
+      // 에러 발생 시 기본 메시지 표시
+      setMessages([{
+        message: formattedFirstChat,
+        isMe: false,
+        isLoading: false,
+      }]);
+      setShowGuideButton(true);
+    }
   };
 
-  // 임시 저장 모달에서 "새로 작성하기" 선택 시
-  const handleNewChat = () => {
-    setTempChat([]); // 임시 저장 데이터 초기화
-    setIsLoadTempModalOpen(false); // 모달 닫기
+  const handleSendMessage = async (message: string) => {
+    if (!message.trim() || chatRoomId === null) {
+      alert('채팅방 ID가 설정되지 않았습니다. 잠시 후 다시 시도해주세요.');
+      return;
+    }
+
+    try {
+      setShowGuideButton(false);
+      setMessages(prev => [...prev, { message, isMe: true, isLoading: false }]);
+      setMessages(prev => [...prev, { message: '', isMe: false, isLoading: true }]);
+
+      // 가이드가 아닌 일반 메시지 요청
+      const response = await postAiChat(chatRoomId, { content: message });
+      const aiResponse = response?.chats?.[0]?.content || '응답을 불러오지 못했습니다.';
+
+      setMessages(prev => [
+        ...prev.slice(0, -1),
+        { message: aiResponse, isMe: false, isLoading: false }
+      ]);
+    } catch (error) {
+      setMessages(prev => [
+        ...prev.slice(0, -1),
+        { message: '메시지 전송에 실패했습니다.', isMe: false, isLoading: false }
+      ]);
+    }
   };
 
-  // 임시 저장 모달에서 "이어서 작성하기" 선택 시
-  const handleContinueChat = () => {
-    setMessages([...messages, ...tempChat]); // 임시 저장된 데이터를 현재 메시지로 불러오기
-    setTempChat([]); // 임시 저장 데이터 초기화
-    setIsLoadTempModalOpen(false); // 모달 닫기
+  const handleGuideButtonClick = async () => {
+    if (chatRoomId === null) return;
+
+    try {
+      setShowGuideButton(false);
+
+      setMessages(prev => [...prev, { message: '', isMe: false, isLoading: true }]);
+      const response = await postAiChat(chatRoomId, { guide: true, content: '' });
+      const guideResponse = response?.chats?.map((chat: { content: string }) => chat.content).join('<br>') || '가이드 응답을 불러오지 못했습니다.';
+
+      setMessages(prev => [
+        ...prev.slice(0, -1),
+        { message: guideResponse, isMe: false, isLoading: false }
+      ]);
+    } catch (error) {
+      setMessages(prev => [
+        ...prev.slice(0, -1),
+        { message: '가이드 요청에 실패했습니다.', isMe: false, isLoading: false }
+      ]);
+    }
   };
 
-  // 탭바 뒤로 가기 버튼 클릭 시 임시 저장 모달 열기
   const handleTemporarySave = () => {
+    const pathname = window.location.pathname;
+    if (pathname.includes('review-chat')) {
+      navigate(-1);
+      return;
+    }
     if (messages.length > 1) {
-      // 환영 메시지 외에 채팅이 있는지 확인
       setIsTempSaveModalOpen(true);
     } else {
-      navigate(-1); // 작성된 메시지가 없으면 바로 나가기
+      navigate(-1);
     }
   };
 
-  // 뒤로 가기 임시 저장 모달에서 "저장하기" 선택 시
-  const handleSaveAndExit = () => {
-    setTempChat(messages); // 현재 메시지를 임시 저장
-    setIsTempSaveModalOpen(false); // 모달 닫기
-    setShowToast(true);
-    setTimeout(() => {
+  const handleSaveAndExit = async () => {
+    try {
+      if (!chatRoomId) {
+        throw new Error('유효하지 않은 채팅방 ID입니다.');
+      }
+      // 1. 기존 임시저장 채팅이 있는지 확인
+      const tmpChatData = await checkTmpChat();
+      // 2. 기존 임시저장 채팅이 있고, 현재 채팅방과 다른 경우 삭제
+      if (tmpChatData.exist && tmpChatData.chatRoomId && typeof tmpChatData.chatRoomId === 'number' && tmpChatData.chatRoomId !== chatRoomId) {
+        await deleteChat(tmpChatData.chatRoomId);
+      }
+      // 3. 현재 채팅 임시저장
+      await postTmpChat(chatRoomId);
+      setShowToast(true);
+      navigate('/home');
+    } catch (error) {
       navigate(-1);
-      setTimeout(() => {
-        setShowToast(false);
-      }, 500);
-    }, 1500);
+    }
   };
 
-  // 완료 버튼 클릭 시 모달 열기
-  const handleComplete = () => {
-    setIsModalOpen(true);
+  const handleDeleteChat = async () => {
+    try {
+      if (chatRoomId === null) {
+        throw new Error('유효하지 않은 채팅방 ID입니다.');
+      }
+      await deleteChat(chatRoomId);
+      navigate('/home');
+    } catch (error) {
+      throw error;
+    }
   };
 
-  // 완료하기 버튼 클릭 시 실행할 모달 함수
-  const handleCompleteConfirm = () => {
-    setIsModalOpen(false);
-    navigate('/record-complete');
+  const handleComplete = async () => {
+    try {
+      if (!chatRoomId) throw new Error('유효하지 않은 채팅방 ID입니다.');
+
+      try {
+        const response = await getSummary(chatRoomId);
+        if (response) {
+          navigate('/record-complete', {
+            state: { chatRoomId, summary: response.content, title: response.title },
+          });
+          return; // 성공 시 종료
+        }
+      } catch (error: any) {
+
+        if (
+          error.message.includes('제목은 50자 이내여야 합니다') ||
+          error.message.includes('경험 요약 내용은 500자 이내여야 합니다') ||
+          error.message.includes('채팅 경험 요약 파싱 중 오류가 발생했습니다')
+        ) {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          const retryResponse = await getSummary(chatRoomId);
+
+          if (retryResponse) {
+            navigate('/record-complete', {
+              state: { chatRoomId, summary: retryResponse.content, title: retryResponse.title },
+            });
+            return;
+          }
+        } else if (error.message.includes('경험 기록의 내용이 충분하지 않습니다')) {
+          alert('경험 기록의 내용이 충분하지 않습니다. 내용을 더 자세히 작성해주세요.');
+          return; // 더 이상 재요청하지 않고 종료
+        } else {
+          throw error;
+        }
+      }
+    } catch (error) {
+      alert('완료 처리 중 오류가 발생했습니다. 다시 시도해주세요.'); // 빼도 됨
+    }
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const handleNewChat = async () => {
+    try {
+      if (chatRoomId !== null) {
+        await deleteChat(chatRoomId);
+      }
+      // 새로운 채팅방 생성
+      const newChatData = await postChat();
+      if (newChatData?.chatRoomId) {
+        setChatRoomId(newChatData.chatRoomId);
+      }
+      setIsLoadTempModalOpen(false);
+      // 새로 작성하기를 선택한 경우 기본 메시지로 초기화
+      setMessages([{
+        message: formattedFirstChat,
+        isMe: false,
+        isLoading: false,
+      }]);
+      setShowGuideButton(true);
+    } catch (error) {
+      throw error;
+    }
+  }
 
-  const closeTempSaveModal = () => {
-    setIsTempSaveModalOpen(false);
-    navigate(-1);
-  };
+  // 임시저장 채팅 계속하기 선택 시
+  const handleContinueChat = async () => {
+    try {
+      setIsLoadTempModalOpen(false);
+      if (tmpChatRoomId !== null) {
+        setChatRoomId(tmpChatRoomId); // 현재 채팅방 ID 업데이트
+        await fetchChatHistory(tmpChatRoomId);
+      }
+    } catch (error) {
+    }
+  }
 
   const currentDate = new Date().toISOString().split('T')[0].replace(/-/g, '.');
 
   return (
     <>
-      <TabBar rightText="완료하기" onClickBackIcon={handleTemporarySave} onClick={handleComplete} isDisabled={messages.length === 0} />
-      {/* 경험 기록 완료 모달 */}
+      <TabBar rightText="완료하기" onClickBackIcon={handleTemporarySave} onClick={() => setIsModalOpen(true)} isDisabled={messages.length === 0} />
       {isModalOpen && (
         <DetailModal
-          text="경험 기록을 완료할까요?"
+          text="기록을 완료할까요?"
           leftButtonText="돌아가기"
           rightButtonText="완료하기"
-          onClickBackground={closeModal}
-          onClickLeft={closeModal}
-          onClickRight={handleCompleteConfirm}
+          onClickBackground={() => setIsModalOpen(false)}
+          onClickLeft={() => setIsModalOpen(false)}
+          onClickRight={handleComplete}
         />
       )}
 
-      {/* 페이지 접속 시 임시 저장 데이터 불러오기 모달 */}
       {isLoadTempModalOpen && (
         <DetailModal
-          text={`최근 작성 내역이 있어요\n이어서 작성하시겠어요?`}
+          text="최근 작성 내역이 있어요 이어서 작성하시겠어요?"
           leftButtonText="새로 작성하기"
           rightButtonText="이어서 작성하기"
           onClickLeft={handleNewChat}
@@ -162,20 +317,17 @@ export const ChatPage = () => {
         />
       )}
 
-      {/* 뒤로 가기 시 임시 저장 여부를 묻는 모달 */}
       {isTempSaveModalOpen && (
         <DetailModal
-          text={`작성 중인 대화를\n임시 저장할까요?`}
+          text="대화를 임시 저장할까요?"
           leftButtonText="나가기"
           rightButtonText="저장하기"
-          onClickLeft={closeTempSaveModal}
+          onClickLeft={handleDeleteChat}
           onClickRight={handleSaveAndExit}
         />
       )}
 
-      {showToast && (
-        <ToastMessage text="경험이 임시저장 되었어요" onClose={() => setShowToast(false)} />
-      )}
+      {showToast && <ToastMessage text="경험이 임시저장 되었어요" onClose={() => setShowToast(false)} />}
 
       <S.ChatContainer>
         <S.DateContainer>{currentDate}</S.DateContainer>
@@ -184,7 +336,7 @@ export const ChatPage = () => {
         ))}
         <div ref={messagesEndRef} />
         <S.InputContainer>
-          <GuideButton text="🙋‍ 경험을 어떻게 말해야 할지 모르겠어요." onClick={() => { }} />
+          {showGuideButton && <GuideButton text="🤔 경험을 어떻게 말해야 할지 모르겠어요" onClick={handleGuideButtonClick} />}
           <ChatBox onSubmit={handleSendMessage} />
         </S.InputContainer>
       </S.ChatContainer>

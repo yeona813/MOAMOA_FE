@@ -37,7 +37,7 @@ export const Content = () => {
           더보기
         </S.Plus>
       </S.TextContainer>
-      <S.ListContainer>
+      <S.ListContainer $isEmpty={listData.length === 0}>
         {listData.length === 0 ? (
           <Empty />
         ) : (

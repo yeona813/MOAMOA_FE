@@ -1,22 +1,33 @@
+import { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
-import { dummySkills } from './SkillData';
 import * as S from './SkillGraph.Style';
 import { useTheme } from 'styled-components';
-
-const chartData = dummySkills.map(skill => ({
-  name: skill.keyword,
-  value: skill.count,
-  percent: skill.percent
-}));
+import { getGraph } from '@/api/Graph';
+import { SkillData } from '@/types/SkillData';
 
 export const SkillGraph = () => {
   const theme = useTheme();
+  const [chartData, setChartData] = useState<SkillData[]>([]);
+
+  useEffect(() => {
+    const fetchGraphData = async () => {
+      const data = await getGraph();
+      if (data) {
+        setChartData(data.map((skill: any) => ({
+          name: skill.keyword,
+          value: skill.count,
+          percent: skill.percent
+        })));
+      }
+    };
+    fetchGraphData();
+  }, []);
 
   const getChartColor = (percent: number) => {
-    if (percent > 40) return theme.colors.blue200;
-    if (percent > 29) return theme.colors.blue100;
-    if (percent > 10) return theme.colors.yellow200;
-    if (percent > 5) return theme.colors.yellow50;
+    if (percent > 20) return theme.colors.blue200;
+    if (percent > 10) return theme.colors.blue100;
+    if (percent > 5) return theme.colors.yellow200;
+    if (percent > 2) return theme.colors.yellow50;
     return theme.colors.gray25;
   };
 
