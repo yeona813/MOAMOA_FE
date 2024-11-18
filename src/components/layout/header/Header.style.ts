@@ -12,7 +12,7 @@ export const Icon = styled.img`
   height: 2rem;
   cursor: pointer;
 
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     display: none;
   }
 `;

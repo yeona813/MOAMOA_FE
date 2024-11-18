@@ -4,6 +4,7 @@ import { Content } from '@components/home/content/Content';
 import { RecordBottomSheet } from '@components/common/bottomSheet/RecordBottomSheet';
 import { SideBar } from '@/components/common/sideBar/SideBar';
 import { FloatingButton } from '@/components/common/button/FloatingButton';
+import * as S from './HomePage.Style';
 
 export const HomePage = () => {
   const [openBottom, setOpenBottom] = useState(false);
@@ -18,12 +19,12 @@ export const HomePage = () => {
   };
 
   return (
-    <>
+    <S.Container>
       <HomeHeader onClickSideBar={toggleSideBar} />
       <Content />
       <FloatingButton onClick={toggleBottomSheet} />
       {openBottom && <RecordBottomSheet onClick={toggleBottomSheet} />}
       {openSideBar && <SideBar onClick={toggleSideBar} />}
-    </>
+    </S.Container>
   );
 };

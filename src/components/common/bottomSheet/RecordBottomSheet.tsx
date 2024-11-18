@@ -1,14 +1,12 @@
-import { useNavigate } from 'react-router-dom';
 import { SheetItem, SheetItemProps } from '../../home/sheetItem/SheetItem';
 import { BottomSheet } from './BottomSheet';
 import * as S from './RecordBottomSheet.Style';
 import CloseIcon from '@icons/CloseIcon.svg';
-import { postChat } from '@/api/Chat';
 
 const SHEET_ITEMS: SheetItemProps[] = [
   {
     title: '메모 기록',
-    subTitle: '간편하고 빠르게',
+    subTitle: '빠르고 간편하게',
     color: 'yellow',
   },
   {
@@ -23,19 +21,6 @@ interface RecordBottomSheetProps {
 }
 
 export const RecordBottomSheet = ({ onClick }: RecordBottomSheetProps) => {
-  const navigate = useNavigate();
-
-  const handleMemoClick = () => {
-    navigate('/memo');
-  };
-
-  const handleChatClick = async () => {
-    const response = await postChat();
-    if (response.chatRoomId) {
-      navigate(`/chat/${response.chatRoomId}`);
-    }
-  };
-
   return (
     <BottomSheet onClick={onClick}>
       <S.Header>
@@ -44,13 +29,7 @@ export const RecordBottomSheet = ({ onClick }: RecordBottomSheetProps) => {
       </S.Header>
       <S.SheetContent>
         {SHEET_ITEMS.map((item, index) => (
-          <SheetItem
-            key={index}
-            title={item.title}
-            subTitle={item.subTitle}
-            color={item.color}
-            onClick={item.title === '메모 기록' ? handleMemoClick : handleChatClick}
-          />
+          <SheetItem key={index} title={item.title} subTitle={item.subTitle} color={item.color} />
         ))}
       </S.SheetContent>
     </BottomSheet>
