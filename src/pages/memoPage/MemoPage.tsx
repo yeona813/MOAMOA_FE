@@ -59,7 +59,6 @@ export const MemoPage = () => {
           setShowTempDataModal(true);
         }
       } catch (error) {
-        console.error('임시 저장된 메모 조회 실패:', error);
       }
     };
     fetchTempMemo(); // 페이지 로드 시 임시 메모 조회
@@ -111,7 +110,7 @@ export const MemoPage = () => {
       const response = await postRecord({
         title: tempMemo.title || getFormattedDate(),
         content: tempMemo.memo,
-        folderId: tempMemo.folderId || 1, // 임시 폴더 아이디, 선택된 폴더 아이디로 변경 필요!
+        folderId: tempMemo.folderId,
         recordType: 'MEMO',
       });
       if (response) {
@@ -123,7 +122,7 @@ export const MemoPage = () => {
         return;
       }
     } catch (error: any) {
-      console.error('postTempMemo 실패:', error);
+      throw error;
     }
   }
 
@@ -133,7 +132,7 @@ export const MemoPage = () => {
       setShowModal(false);
       navigate('/');
     } catch (error) {
-      console.error('메모 임시 저장 실패:', error);
+      throw error;
     }
   };
 
