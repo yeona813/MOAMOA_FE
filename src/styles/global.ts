@@ -24,10 +24,10 @@ export const GlobalStyle = createGlobalStyle`
     src: url(/font/Pretendard-Bold.woff) format('woff');
   }
   @font-face {
-    font-family: 'Montserrat';
+    font-family: 'MontserratAlternates';
     font-weight: 700;
     font-style: normal;
-    src: url(/font/MontserratAlternates-Bold.ttf) format('ttf');
+    src: url(/font/MontserratAlternates-Bold.woff) format('woff');
   }
 
   h1 {
