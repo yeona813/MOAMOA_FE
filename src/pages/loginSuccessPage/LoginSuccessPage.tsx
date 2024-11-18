@@ -13,11 +13,11 @@ export const LoginSuccessPage = () => {
   return (
     <S.Container>
       <S.ContentWrapper>
-        <Logo>co:record</Logo>
+        <Logo>MOAMOA</Logo>
         <S.WelcomeMessage>
           회원가입 완료!
           <br />
-          코어레코드에 오신 것을
+          모아모아에 오신 것을
           <br />
           환영합니다.
         </S.WelcomeMessage>

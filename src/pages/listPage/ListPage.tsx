@@ -4,7 +4,6 @@ import { Content } from '@components/list/content/Content';
 import * as S from './ListPage.Style';
 import { RecordBottomSheet } from '@components/common/bottomSheet/RecordBottomSheet';
 import { SideBar } from '@/components/common/sideBar/SideBar';
-import { FloatingButton } from '@/components/common/button/FloatingButton';
 import { getFolderLists, getFolders } from '@/api/Folder';
 import { FolderListProps, ListProps } from '@/types/Folder';
 
@@ -114,10 +113,9 @@ export const ListPage = () => {
         onClickSideBar={handleToggleSideBar}
       />
       <S.Content>
-        <Content listData={listData} />
+        <Content listData={listData} onClick={handleToggleBottomSheet} />
         <div ref={observerRef} style={{ height: '20px' }} />
       </S.Content>
-      <FloatingButton onClick={handleToggleBottomSheet} />
       {openBottom && <RecordBottomSheet onClick={handleToggleBottomSheet} />}
       {openSideBar && <SideBar onClick={handleToggleSideBar} />}
     </S.ListPage>

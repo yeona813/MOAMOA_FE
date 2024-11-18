@@ -11,6 +11,10 @@ export const Icon = styled.img`
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+
+  ${(props) => props.theme.breakpoints.min} {
+    display: none;
+  }
 `;
 
 export const Title = styled.h6`

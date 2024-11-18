@@ -1,47 +1,73 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { CategoryChip } from '@/components/common/chip/CategoryChip';
 import { Button } from '@/components/common/button/Button';
 import { FolderBottomSheet } from '@/components/common/bottomSheet/FolderBottomSheet';
 import * as S from './RecordCompletePage.Style';
 import { getFormattedDate } from '@/utils/dateUtils';
 import FolderIcon from '@icons/FolderIcon.svg';
-
-const categoryData = [
-  '큐시즘 서비스 기획',
-  '밋업 프로젝트',
-  '뤼튼',
-  '멍냥부리',
-  '새 폴더 추가하기',
-  '카테고리 수정하기',
-  '카테고리 삭제하기',
-  '카테고리 복사하기',
-  '카테고리 이름 변경하기',
-  '사과',
-  '바나나',
-  '딸기',
-  '포도',
-  '라임',
-  '레몬',
-  '자몽',
-  '라임',
-  '레몬',
-  '자몽',
-  '라임',
-  '레몬',
-  '자몽',
-];
+import { getFolders } from '@/api/Folder';
+import { FolderListProps } from '@/types/Folder';
+import { postRecord } from '@/api/Record';
 
 export const RecordCompletePage = () => {
-  const [recordSummary] = useState(
-    '경쟁 서비스 기능, 사용자 인터페이스(UI), 요금제 등을 분석하고 글로벌 시장에서 주요 플레이어들의 특징을 파악한 점은 서비스 기획 직무에서 필수적인 시장 분석 능력을 잘 보여줍니다.',
-  );
+  const [folders, setFolders] = useState<FolderListProps[]>([]);
   const [title, setTitle] = useState(getFormattedDate());
-  const [content, setContent] = useState(recordSummary);
+  const [content, setContent] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const { state } = useLocation();
   const navigate = useNavigate();
   const nickname = localStorage.getItem('nickname');
+
+  useEffect(() => {
+    if (state?.summary) {
+      setContent(state.summary);
+    }
+    if (state?.title) {
+      setTitle(state.title || getFormattedDate());
+    }
+  }, [state]);
+
+  useEffect(() => {
+    if (!isBottomSheetOpen) {
+      const fetchFolders = async () => {
+        const folderList = await getFolders();
+        if (folderList) {
+          setFolders(folderList);
+        }
+      };
+      fetchFolders();
+    }
+  }, [isBottomSheetOpen]);
+
+  const handleSaveButton = async () => {
+    try {
+      if (!state?.chatRoomId) {
+        throw new Error('채팅방 ID가 없습니다.');
+      }
+      if (!selectedCategory) {
+        throw new Error('카테고리를 선택해주세요.');
+      }
+
+      const folderId = folders.find(folder => folder.title === selectedCategory)?.folderId;
+      if (!folderId) {
+        throw new Error('유효하지 않은 폴더입니다.');
+      }
+      const response = await postRecord({
+        title,
+        content,
+        folderId,
+        recordType: 'CHAT',
+        chatRoomId: state.chatRoomId
+      });
+      if (response?.is_success) {
+        navigate('/home');
+      }
+    } catch (error) {
+      alert('기록 저장에 실패했습니다. 다시 시도해주세요.');
+    }
+  };
 
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -51,8 +77,8 @@ export const RecordCompletePage = () => {
     setContent(e.target.value);
   };
 
-  const handleChangeCategory = (category: string) => {
-    if (category === '새 폴더 추가하기') {
+  const handleChangeCategory = (category: string, isAddFolder = false) => {
+    if (isAddFolder) {
       setIsBottomSheetOpen(true);
     } else {
       setSelectedCategory(category);
@@ -63,21 +89,14 @@ export const RecordCompletePage = () => {
     e.preventDefault();
   };
 
-  const handleSaveButton = () => {
-    // 저장 로직 구현
-    navigate('/home');
-  };
-
-  const isSaveDisabled = !title || !content || !selectedCategory;
+  const isSaveDisabled = !state?.title || !state?.summary || !selectedCategory;
 
   return (
     <S.Container>
       <S.HeaderContainer>
         <S.Title>경험 기록이 완료되었어요!</S.Title>
         <S.SubTitle>
-          {nickname}님의 경험을 모아서
-          <br />
-          한눈에 보기 쉽게 요약해드렸어요
+          {nickname}님의 경험을 보기 쉽게 요약했어요
         </S.SubTitle>
       </S.HeaderContainer>
 
@@ -92,17 +111,20 @@ export const RecordCompletePage = () => {
         <S.TextArea value={content} onChange={handleChangeContent} />
         <S.Line />
 
-        <S.Label>경험의 카테고리를 선택해주세요.</S.Label>
+        <S.Label>경험 폴더를 선택해주세요.</S.Label>
         <S.CategoryContainer>
-          {categoryData.map((category) => (
+          {folders.map((folder) => (
             <CategoryChip
-              key={category}
-              children={category}
-              isSelected={selectedCategory === category}
-              onClick={() => handleChangeCategory(category)}
+              key={folder.folderId}
+              children={folder.title}
+              isSelected={selectedCategory === folder.title}
+              onClick={() => handleChangeCategory(folder.title)}
             />
           ))}
-          <CategoryChip onClick={() => handleChangeCategory('새 폴더 추가하기')} isSelected={false}>
+          <CategoryChip
+            onClick={() => handleChangeCategory('', true)}
+            isSelected={false}
+          >
             <img src={FolderIcon} alt="changeFolder" />
           </CategoryChip>
         </S.CategoryContainer>
@@ -119,7 +141,11 @@ export const RecordCompletePage = () => {
         </S.ButtonWrapper>
       </S.Form>
 
-      {isBottomSheetOpen && <FolderBottomSheet onClick={() => setIsBottomSheetOpen(false)} />}
+      {isBottomSheetOpen && (
+        <FolderBottomSheet
+          onClick={() => setIsBottomSheetOpen(false)}
+        />
+      )}
     </S.Container>
   );
 };

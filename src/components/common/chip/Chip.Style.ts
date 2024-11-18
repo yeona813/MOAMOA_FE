@@ -9,4 +9,9 @@ export const Chip = styled.div<{ size: string; $color?: boolean }>`
   font-size: ${(props) => (props.size === 'large' ? '0.875rem' : '0.75rem')};
   font-weight: ${(props) => (props.size === 'large' ? '600' : '400')};
   line-height: 145%;
+
+  ${(props) => props.theme.breakpoints.min} {
+    font-size: ${(props) =>
+      props.size === 'large' ? '1.5rem' : '1rem'}; //여기 바꿔야함 large일 때!
+  }
 `;
