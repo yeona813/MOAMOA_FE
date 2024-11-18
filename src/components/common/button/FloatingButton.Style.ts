@@ -13,6 +13,10 @@ export const Button = styled.button`
   box-shadow: 0px 0px 8px 0px rgba(251, 247, 195, 0.6) inset;
   border-radius: 6.1875rem;
   border: none;
+
+  @media screen and (min-width: 1280px) {
+    display: none;
+  }
 `;
 
 export const Icon = styled.img`
