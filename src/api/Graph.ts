@@ -8,6 +8,7 @@ export async function getGraph() {
     } else {
     }
   } catch (error) {
+    console.error(error);
     throw error;
   }
 }

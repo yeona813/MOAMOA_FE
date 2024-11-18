@@ -33,6 +33,7 @@ export const MemoPage = () => {
   const [showTempDataModal, setShowTempDataModal] = useState(false);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [contentWarning, setContentWarning] = useState<string>('');
 
   useEffect(() => {
     // 폴더 조회
@@ -59,7 +60,6 @@ export const MemoPage = () => {
           setShowTempDataModal(true);
         }
       } catch (error) {
-        console.error('임시 저장된 메모 조회 실패:', error);
       }
     };
     fetchTempMemo(); // 페이지 로드 시 임시 메모 조회
@@ -104,6 +104,12 @@ export const MemoPage = () => {
   const handleChangeMemo = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newMemo = e.target.value;
     setTempMemo((prev) => ({ ...prev, memo: newMemo }));
+
+    if (newMemo.length < 50) {
+      setContentWarning('50자 이상 입력해주세요.');
+    } else {
+      setContentWarning('');
+    }
   };
 
   const handleSaveButton = async () => {
@@ -111,7 +117,7 @@ export const MemoPage = () => {
       const response = await postRecord({
         title: tempMemo.title || getFormattedDate(),
         content: tempMemo.memo,
-        folderId: tempMemo.folderId || 1, // 임시 폴더 아이디, 선택된 폴더 아이디로 변경 필요!
+        folderId: tempMemo.folderId,
         recordType: 'MEMO',
       });
       if (response) {
@@ -123,7 +129,7 @@ export const MemoPage = () => {
         return;
       }
     } catch (error: any) {
-      console.error('postTempMemo 실패:', error);
+      throw error;
     }
   }
 
@@ -133,7 +139,7 @@ export const MemoPage = () => {
       setShowModal(false);
       navigate('/');
     } catch (error) {
-      console.error('메모 임시 저장 실패:', error);
+      throw error;
     }
   };
 
@@ -160,11 +166,8 @@ export const MemoPage = () => {
         <S.BackButton onClick={handleBackButton} type="button">
           <img src={BackIcon} alt="뒤로가기" />
         </S.BackButton>
-        <S.Title>
-          오늘은 무슨 경험을 하셨나요?
-          <br />
-          자유롭게 기록해주세요!
-        </S.Title>
+        <S.Title>간편하고 빠르게</S.Title>
+        <S.SubTitle>메모기록</S.SubTitle>
       </S.HeaderContainer>
 
       <S.Form onSubmit={handleSubmit}>
@@ -176,14 +179,17 @@ export const MemoPage = () => {
         />
         <S.Line />
         <S.Content
-          placeholder={`어떤 상황에서 무엇을 했나요? 결과는 어땠나요?\n일단 기록해 보세요!\n음성으로 입력하거나 오타를 내도 괜찮아요.\n모아모아가 알아서 정리해드려요.`}
+          placeholder={`어떤 상황에서 무엇을 했나요? 결과는 어땠나요?\n\n일단 기록해 보세요!\n음성으로 입력하거나 오타를 내도 괜찮아요.\n모아모아가 알아서 정리해드려요.`}
           value={tempMemo.memo}
           onChange={handleChangeMemo}
           maxLength={500}
         />
-        <S.Count>{tempMemo.memo.length}/500</S.Count>
+        <S.WarningCountContainer>
+          {contentWarning && <S.Warning>{contentWarning}</S.Warning>}
+          <S.Count>{tempMemo.memo.length}/500</S.Count>
+        </S.WarningCountContainer>
         <S.Line />
-        <S.Label>경험의 카테고리를 선택해주세요.</S.Label>
+        <S.Label>경험 폴더를 선택해주세요.</S.Label>
         <S.CategoryContainer>
           {folders.map((folder) => (
             <CategoryChip

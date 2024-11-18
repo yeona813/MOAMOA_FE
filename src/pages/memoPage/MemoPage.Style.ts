@@ -31,9 +31,17 @@ export const BackButton = styled.button`
   left: 1.25rem;
 `;
 
-export const Title = styled.h4`
+export const Title = styled.p`
+  font-size: 1.25rem;
+  font-weight: 200;
   line-height: 135%;
   margin-top: 125px;
+  margin-left: 1.25rem;
+  white-space: pre-wrap;
+`;
+
+export const SubTitle = styled.h4`
+  line-height: 135%;
   margin-left: 1.25rem;
   white-space: pre-wrap;
 `;
@@ -98,13 +106,30 @@ export const Content = styled.textarea`
   }
 `;
 
+export const WarningCountContainer = styled.div`
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  position: relative;
+`;
+
+export const Warning = styled.p`
+  width: 100%;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 130%;
+  color: #ff4d4d;
+  margin-left: 0.625rem;
+`;
+
 export const Count = styled.p`
-  font-size: 0.75rem;
+  width: 3.125rem;
+  font-size: 0.625rem;
   font-weight: 400;
   line-height: 130%;
   color: ${({ theme }) => theme.colors.gray500};
-  width: 95%;
-  align-self: flex-end;
 `;
 
 export const ButtonWrapper = styled.div`
