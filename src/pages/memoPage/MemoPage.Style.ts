@@ -31,9 +31,17 @@ export const BackButton = styled.button`
   left: 1.25rem;
 `;
 
-export const Title = styled.h4`
+export const Title = styled.p`
+  font-size: 1.25rem;
+  font-weight: 200;
   line-height: 135%;
   margin-top: 125px;
+  margin-left: 1.25rem;
+  white-space: pre-wrap;
+`;
+
+export const SubTitle = styled.h4`
+  line-height: 135%;
   margin-left: 1.25rem;
   white-space: pre-wrap;
 `;

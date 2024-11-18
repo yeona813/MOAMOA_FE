@@ -8,12 +8,9 @@ export const OauthPage = () => {
 
   return (
     <S.Container>
-      <S.Logo>co:record</S.Logo>
+      <S.Logo>MOAMOA</S.Logo>
       <S.Subtitle>
-        차곡차곡 쌓여가는
-        <br />
-        나의 하나뿐인 커리어 기록
-        <br />
+        차곡차곡 모아보는 경험 기록
       </S.Subtitle>
       <S.ButtonWrapper>
         <LoginButton onClick={handleOauth} />

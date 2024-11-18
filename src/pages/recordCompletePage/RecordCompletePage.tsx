@@ -21,8 +21,6 @@ export const RecordCompletePage = () => {
   const nickname = localStorage.getItem('nickname');
 
   useEffect(() => {
-    console.log('받은 state 데이터:', state);
-
     if (state?.summary) {
       setContent(state.summary);
     }
@@ -56,14 +54,6 @@ export const RecordCompletePage = () => {
       if (!folderId) {
         throw new Error('유효하지 않은 폴더입니다.');
       }
-      // 요청 데이터 로그
-      console.log('전송할 데이터:', {
-        title,
-        content,
-        folderId,
-        recordType: 'CHAT',
-        chatRoomId: state.chatRoomId
-      });
       const response = await postRecord({
         title,
         content,
@@ -106,9 +96,7 @@ export const RecordCompletePage = () => {
       <S.HeaderContainer>
         <S.Title>경험 기록이 완료되었어요!</S.Title>
         <S.SubTitle>
-          {nickname}님의 경험을 모아서
-          <br />
-          한눈에 보기 쉽게 요약해드렸어요
+          {nickname}님의 경험을 보기 쉽게 요약했어요
         </S.SubTitle>
       </S.HeaderContainer>
 
@@ -123,7 +111,7 @@ export const RecordCompletePage = () => {
         <S.TextArea value={content} onChange={handleChangeContent} />
         <S.Line />
 
-        <S.Label>경험의 카테고리를 선택해주세요.</S.Label>
+        <S.Label>경험 폴더를 선택해주세요.</S.Label>
         <S.CategoryContainer>
           {folders.map((folder) => (
             <CategoryChip

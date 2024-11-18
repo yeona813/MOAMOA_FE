@@ -166,11 +166,8 @@ export const MemoPage = () => {
         <S.BackButton onClick={handleBackButton} type="button">
           <img src={BackIcon} alt="뒤로가기" />
         </S.BackButton>
-        <S.Title>
-          오늘은 무슨 경험을 하셨나요?
-          <br />
-          자유롭게 기록해주세요!
-        </S.Title>
+        <S.Title>간편하고 빠르게</S.Title>
+        <S.SubTitle>메모기록</S.SubTitle>
       </S.HeaderContainer>
 
       <S.Form onSubmit={handleSubmit}>
