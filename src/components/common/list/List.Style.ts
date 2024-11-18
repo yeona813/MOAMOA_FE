@@ -4,7 +4,7 @@ export const List = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 0.375rem;
+  justify-content: space-between;
   color: ${({ theme }) => theme.colors.gray900};
   padding: 1rem;
   border-radius: 0.5rem;
@@ -19,6 +19,10 @@ export const ChipContainer = styled.div`
 
 export const Title = styled.h4`
   line-height: 140%;
+
+  @media screen and (min-width: 1280px) {
+    line-height: 135%;
+  }
 `;
 
 export const DateText = styled.p`
