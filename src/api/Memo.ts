@@ -10,6 +10,7 @@ export const getMemo = async (recordId: number) => {
       return null;
     }
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };
@@ -24,6 +25,7 @@ export const getTempMemo = async () => {
       return null;
     }
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };
@@ -41,6 +43,7 @@ export const postTempMemo = async (title: string, content: string) => {
       return null;
     }
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };

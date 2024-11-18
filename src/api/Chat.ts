@@ -17,6 +17,7 @@ export const postChat = async (): Promise<ChatRequest['data']> => {
     }
     throw new Error('is_success가 false입니다.');
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };
@@ -45,6 +46,7 @@ export const postAiChat = async (chatRoomId: number, data: ChatMessageRequest) =
     }
     throw new Error('is_success가 false입니다.');
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };
@@ -73,6 +75,7 @@ export const getChat = async (chatRoomId: number): Promise<ChatHistoryResponse['
     }
     throw new Error(`채팅 메시지 조회 실패: ${response.data.message}`);
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };
@@ -85,6 +88,7 @@ export const deleteChat = async (chatRoomId: number) => {
       return response.data;
     }
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };
@@ -112,6 +116,7 @@ export const getSummary = async (chatRoomId: number) => {
 
     return response.data.data;
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };
@@ -140,6 +145,7 @@ export const checkTmpChat = async (): Promise<CheckTmpChatResponse['data']> => {
       throw new Error('임시 저장된 기록 조회 실패: 성공 응답이 아닙니다.');
     }
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };
@@ -159,6 +165,7 @@ export const postTmpChat = async (chatRoomId: number) => {
       throw new Error('임시 저장 실패: 성공 응답이 아닙니다.');
     }
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };
