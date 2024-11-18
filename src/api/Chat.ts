@@ -13,12 +13,10 @@ export const postChat = async (): Promise<ChatRequest['data']> => {
   try {
     const response = await api.post<ChatRequest>('/api/records/chat');
     if (response.data.is_success) {
-      console.log('채팅방 생성 성공:', response.data);
       return response.data.data;
     }
     throw new Error('is_success가 false입니다.');
   } catch (error) {
-    console.error('채팅방 생성 실패:', error);
     throw error;
   }
 };
@@ -40,18 +38,13 @@ export const postAiChat = async (chatRoomId: number, data: ChatMessageRequest) =
       : {
         content: data.content
       };
-
-    console.log("Request Body:", requestBody);
-
     const response = await api.post(`/api/records/chat/${chatRoomId}`, requestBody);
 
     if (response.data.is_success) {
-      console.log('AI 응답:', response.data.data);
       return response.data.data;
     }
     throw new Error('is_success가 false입니다.');
   } catch (error) {
-    console.error('AI 채팅 메시지 전송 실패:', error);
     throw error;
   }
 };
@@ -74,16 +67,12 @@ interface ChatHistoryResponse {
 
 export const getChat = async (chatRoomId: number): Promise<ChatHistoryResponse['data']> => {
   try {
-    console.log('채팅 기록 조회 요청:', chatRoomId);
     const response = await api.get<ChatHistoryResponse>(`/api/records/chat/${chatRoomId}`);
-    console.log('채팅 기록 조회 응답:', response.data);
-
     if (response.data.is_success) {
       return response.data.data;
     }
     throw new Error(`채팅 메시지 조회 실패: ${response.data.message}`);
   } catch (error) {
-    console.error('채팅 메시지 조회 실패:', error);
     throw error;
   }
 };
@@ -93,12 +82,9 @@ export const deleteChat = async (chatRoomId: number) => {
   try {
     const response = await api.delete(`/api/records/chat/${chatRoomId}`);
     if (response.data.is_success) {
-      console.log('채팅 삭제 성공:', response.data);
       return response.data;
     }
-    throw new Error('채팅 삭제 실패');
   } catch (error) {
-    console.error('채팅 삭제 실패:', error);
     throw error;
   }
 };
@@ -126,11 +112,9 @@ export const getSummary = async (chatRoomId: number) => {
 
     return response.data.data;
   } catch (error) {
-    console.error('채팅 경험 요약 실패:', error);
     throw error;
   }
 };
-
 
 /** [3.6] 채팅 임시 저장 유무 조회 */
 
@@ -151,13 +135,11 @@ export const checkTmpChat = async (): Promise<CheckTmpChatResponse['data']> => {
     const response = await api.get<CheckTmpChatResponse>('/api/records/chat/tmp');
 
     if (response.data.is_success) {
-      console.log('임시 저장된 채팅 기록 조회 성공:', response.data);
       return response.data.data;
     } else {
       throw new Error('임시 저장된 기록 조회 실패: 성공 응답이 아닙니다.');
     }
   } catch (error) {
-    console.error('임시 저장된 채팅 기록 조회 실패:', error);
     throw error;
   }
 };
@@ -169,25 +151,14 @@ export const postTmpChat = async (chatRoomId: number) => {
     if (!chatRoomId || isNaN(chatRoomId)) {
       throw new Error('유효하지 않은 채팅방 ID입니다.');
     }
-
-    // 요청 URL과 데이터 로깅
-    console.log('임시 저장 요청:', {
-      url: `/api/records/chat/${chatRoomId}/tmp`,
-      chatRoomId
-    });
     const response = await api.post(`/api/records/chat/${chatRoomId}/tmp`);
 
-    // 응답 로깅
-    console.log('임시 저장 응답:', response.data);
-
     if (response.data.is_success) {
-      console.log('임시 저장 성공:', response.data);
       return response.data;
     } else {
       throw new Error('임시 저장 실패: 성공 응답이 아닙니다.');
     }
   } catch (error) {
-    console.error('임시 저장 실패:', error);
     throw error;
   }
 };
