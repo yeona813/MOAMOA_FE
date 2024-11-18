@@ -10,6 +10,10 @@ export const List = styled.section`
   border-radius: 0.5rem;
   background-color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
+
+  ${(props) => props.theme.breakpoints.min} {
+    height: 8.8125rem;
+  }
 `;
 
 export const ChipContainer = styled.div`
