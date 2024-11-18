@@ -33,6 +33,7 @@ export const MemoPage = () => {
   const [showTempDataModal, setShowTempDataModal] = useState(false);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [contentWarning, setContentWarning] = useState<string>('');
 
   useEffect(() => {
     // 폴더 조회
@@ -103,6 +104,12 @@ export const MemoPage = () => {
   const handleChangeMemo = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newMemo = e.target.value;
     setTempMemo((prev) => ({ ...prev, memo: newMemo }));
+
+    if (newMemo.length < 50) {
+      setContentWarning('50자 이상 입력해주세요.');
+    } else {
+      setContentWarning('');
+    }
   };
 
   const handleSaveButton = async () => {
@@ -180,7 +187,10 @@ export const MemoPage = () => {
           onChange={handleChangeMemo}
           maxLength={500}
         />
-        <S.Count>{tempMemo.memo.length}/500</S.Count>
+        <S.WarningCountContainer>
+          {contentWarning && <S.Warning>{contentWarning}</S.Warning>}
+          <S.Count>{tempMemo.memo.length}/500</S.Count>
+        </S.WarningCountContainer>
         <S.Line />
         <S.Label>경험의 카테고리를 선택해주세요.</S.Label>
         <S.CategoryContainer>
