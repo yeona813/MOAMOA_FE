@@ -182,7 +182,7 @@ export const MemoPage = () => {
         />
         <S.Line />
         <S.Content
-          placeholder={`어떤 상황에서 무엇을 했나요? 결과는 어땠나요?\n일단 기록해 보세요!\n음성으로 입력하거나 오타를 내도 괜찮아요.\n모아모아가 알아서 정리해드려요.`}
+          placeholder={`어떤 상황에서 무엇을 했나요? 결과는 어땠나요?\n\n일단 기록해 보세요!\n음성으로 입력하거나 오타를 내도 괜찮아요.\n모아모아가 알아서 정리해드려요.`}
           value={tempMemo.memo}
           onChange={handleChangeMemo}
           maxLength={500}
@@ -192,7 +192,7 @@ export const MemoPage = () => {
           <S.Count>{tempMemo.memo.length}/500</S.Count>
         </S.WarningCountContainer>
         <S.Line />
-        <S.Label>경험의 카테고리를 선택해주세요.</S.Label>
+        <S.Label>경험 폴더를 선택해주세요.</S.Label>
         <S.CategoryContainer>
           {folders.map((folder) => (
             <CategoryChip
