@@ -19,7 +19,7 @@ export const SideBar = styled.div`
   padding: 1.25rem;
   background-color: ${({ theme }) => theme.colors.white};
 
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     width: 14.875rem;
     padding: 1.25rem 3.125rem 0rem 2.5rem;
     gap: 2.5rem;
@@ -33,7 +33,7 @@ export const Title = styled.span`
   font-size: 1.3125rem;
   font-weight: 700;
 
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     font-size: 1.625rem;
   }
 `;
@@ -43,7 +43,7 @@ export const ItemContainer = styled.div`
   flex-direction: column;
   gap: 1.375rem;
 
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     gap: 1.75rem;
   }
 `;
@@ -53,7 +53,7 @@ export const Item = styled.div`
   align-items: center;
   gap: 0.5rem;
 
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     gap: 0.625rem;
   }
 `;
@@ -62,7 +62,7 @@ export const Icon = styled.div`
   width: 1rem;
   height: 1rem;
 
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     width: 1.375rem;
     height: 1.375rem;
   }
@@ -73,7 +73,7 @@ export const Text = styled.span<{ $isActive: boolean }>`
   font-weight: 700;
   color: ${(props) => (props.$isActive ? props.theme.colors.gray700 : props.theme.colors.gray300)};
 
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     font-size: 1.125rem;
   }
 `;

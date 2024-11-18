@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     display: flex;
     flex-direction: column;
     background-color: ${({ theme }) => theme.colors.gray25};

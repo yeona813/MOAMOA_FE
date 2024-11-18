@@ -11,7 +11,7 @@ export const Content = styled.div`
   border-radius: 1.25rem 1.25rem 0rem 0rem;
   color: ${({ theme }) => theme.colors.gray900};
 
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     padding: 0rem;
     border-radius: 0rem;
     gap: 0.75rem;
@@ -28,7 +28,7 @@ export const TextContainer = styled.div`
 export const Text = styled.h5`
   line-height: 140%;
 
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     font-size: 1.25rem;
   }
 `;
@@ -38,7 +38,7 @@ export const Plus = styled.p`
   line-height: 145%;
   cursor: pointer;
 
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     font-size: 1.125rem;
   }
 `;
@@ -57,7 +57,7 @@ export const ListContainer = styled.div<{ $isEmpty: boolean }>`
     display: none;
   }
 
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     ${(props) =>
       !props.$isEmpty &&
       `

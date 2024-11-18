@@ -14,7 +14,7 @@ export const Button = styled.button`
   border-radius: 6.1875rem;
   border: none;
 
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     display: none;
   }
 `;

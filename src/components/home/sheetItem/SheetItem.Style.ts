@@ -11,7 +11,8 @@ export const SheetItem = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.gray50};
   background-color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
-  @media screen and (min-width: 1280px) {
+
+  ${(props) => props.theme.breakpoints.min} {
     gap: 1.25rem;
   }
 `;

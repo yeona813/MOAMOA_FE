@@ -14,7 +14,7 @@ export const ContentWrapper = styled.div`
 `;
 
 export const SideBar = styled.div`
-  @media screen and (max-width: 1280px) {
+  ${(props) => props.theme.breakpoints.max} {
     display: none;
   }
 `;

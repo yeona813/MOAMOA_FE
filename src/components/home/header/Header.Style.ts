@@ -8,7 +8,7 @@ export const Header = styled.header`
   padding: 0 1.25rem 1.25rem;
   color: ${({ theme }) => theme.colors.gray900};
 
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     height: 100%;
     padding: 0rem;
   }
@@ -18,7 +18,7 @@ export const Title = styled.h3`
   margin-top: 3.75rem;
   line-height: 135%;
 
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     margin-top: 0rem;
     font-size: 1.625rem;
   }
@@ -26,7 +26,8 @@ export const Title = styled.h3`
 
 export const SheetContainer = styled.div`
   display: none;
-  @media screen and (min-width: 1280px) {
+
+  ${(props) => props.theme.breakpoints.min} {
     display: flex;
     gap: 1.25rem;
     margin-top: 1.25rem;

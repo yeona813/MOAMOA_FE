@@ -45,7 +45,7 @@ export const theme = {
     montserratBold: "'Montserrat', sans-serif",
   },
   breakpoints: {
-    small: '@media (max-width: 639px)',
-    large: '@media (min-width: 1048px)',
+    min: '@media (min-width: 1048px)',
+    max: '@media (max-width : 1048px)',
   },
 };

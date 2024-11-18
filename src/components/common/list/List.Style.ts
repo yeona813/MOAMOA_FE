@@ -20,7 +20,7 @@ export const ChipContainer = styled.div`
 export const Title = styled.h4`
   line-height: 140%;
 
-  @media screen and (min-width: 1280px) {
+  ${(props) => props.theme.breakpoints.min} {
     line-height: 135%;
   }
 `;
