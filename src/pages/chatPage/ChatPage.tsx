@@ -43,7 +43,9 @@ export const ChatPage = () => {
   };
 
   useEffect(() => {
-    scrollToBottom();
+    if (messages.length > 1) { // 배포 후 모바일에서 확인 필요
+      scrollToBottom();
+    }
   }, [messages]);
 
   // URL 파라미터로부터 채팅방 ID 설정
