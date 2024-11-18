@@ -8,7 +8,7 @@ import { TabBar } from '@components/layout/tabBar/TabBar';
 import { registerUser } from '../../api/Oauth';
 import { useNicknameValidation } from '../../hooks/useNicknameValidation';
 
-const statusOptions = ['대학생', '대학원생', '취업준비생', '인턴', '재직중'];
+const statusOptions = ['대학생', '대학원생', '취업 준비생', '인턴', '재직 중'];
 
 export const SignUpPage = () => {
   const [status, setStatus] = useState('');
@@ -29,7 +29,7 @@ export const SignUpPage = () => {
       const apiResponse = await registerUser(token, nickname, status);
       if (apiResponse.is_success) {
         if (apiResponse.data.nickname) {
-          localStorage.setItem('nickname', apiResponse.data.nickname); // 로컬 스토리지에 엑세스 토큰 저장
+          localStorage.setItem('nickname', apiResponse.data.nickname);
           navigate('/login-success');
         }
       }
