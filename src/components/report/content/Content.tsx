@@ -3,6 +3,8 @@ import * as S from './Content.Style';
 import { Skill } from '../skill/Skill';
 import { Comment } from '../comment/Comment';
 import { SkillProps } from '@/types/Analysis';
+import { getMemo } from '@/api/Memo';
+import { getChat } from '@/api/Chat';
 
 interface ContentProps {
   data: SkillProps;
@@ -12,11 +14,27 @@ export const Content = ({ data }: ContentProps) => {
   const navigate = useNavigate();
   const nickname = localStorage.getItem('nickname');
 
-  const goToChatPage = () => {
-    if (data.recordType === 'CHAT') {
-      navigate(`/review-chat/${data.chatRoomId}`);
-    } else {
-      navigate(`memo`); // 수정해야 함
+  const goToPage = async () => {
+    try {
+      if (data.recordType === 'CHAT') {
+        const response = await getChat(data.chatRoomId as number);
+        if (response) {
+          navigate(`/review-chat/${data.chatRoomId}`);
+        }
+        else {
+          throw new Error('채팅 데이터를 불러오는데 실패했습니다.');
+        }
+      } else {
+        const response = await getMemo(data.recordId);
+        if (response) {
+          // 메모 데이터를 MemoPage로 전달
+          navigate(`/review-memo/${data.recordId}`, { state: { memoData: response } });
+        } else {
+          throw new Error('메모 데이터를 불러오는데 실패했습니다.');
+        }
+      }
+    } catch (error) {
+      throw error;
     }
   };
 
@@ -30,7 +48,7 @@ export const Content = ({ data }: ContentProps) => {
       <S.MiddleContent>
         <S.MiddleHead>
           <S.Title>{nickname}님의 핵심 역량</S.Title> {/* 유저 이름 */}
-          <S.ChatText onClick={goToChatPage}>
+          <S.ChatText onClick={goToPage}>
             {data.recordType === 'CHAT' ? '채팅' : '메모'} 다시보기
           </S.ChatText>
         </S.MiddleHead>

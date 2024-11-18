@@ -81,6 +81,10 @@ export const Router = createBrowserRouter([
         element: <ChatPage />,
       },
       {
+        path: 'review-memo/:id',
+        element: <MemoPage />,
+      },
+      {
         path: 'record-complete',
         element: <RecordCompletePage />,
       },

@@ -1,5 +1,5 @@
 import { ChangeEvent, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { DetailModal } from '@components/common/modal/DetailModal';
 import * as S from './MemoPage.Style';
 import { getFormattedDate } from '@/utils/dateUtils';
@@ -8,8 +8,11 @@ import { FolderBottomSheet } from '@/components/common/bottomSheet/FolderBottomS
 import BackIcon from '@icons/ArrowIcon.svg';
 import FolderIcon from '@icons/FolderIcon.svg';
 import { CategoryChip } from '@/components/common/chip/CategoryChip';
+import { FolderListProps } from '@/types/Folder';
 import { postRecord } from '@/api/Record';
 import { getFolders } from '@/api/Folder';
+import { getTempMemo, postTempMemo } from '@/api/Memo';
+import ToastMessage from '@/components/chat/ToastMessage';
 
 interface FolderType {
   folderId: number;
@@ -18,7 +21,8 @@ interface FolderType {
 
 export const MemoPage = () => {
   const navigate = useNavigate();
-  const [folderList, setFolderList] = useState<FolderType[]>([]);
+  const location = useLocation();
+  const [folders, setFolders] = useState<FolderListProps[]>([]);
   const [tempMemo, setTempMemo] = useState({
     title: '',
     category: '',
@@ -28,42 +32,52 @@ export const MemoPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [showTempDataModal, setShowTempDataModal] = useState(false);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
-  // 폴더 목록 가져오기
   useEffect(() => {
-    const fetchFolders = async () => {
-      const response = await getFolders();
-      if (response) {
-        setFolderList(response);
+    // 폴더 조회
+    if (!isBottomSheetOpen) {
+      const fetchFolders = async () => {
+        const folderList = await getFolders();
+        if (folderList) {
+          setFolders(folderList);
+        }
+      };
+      fetchFolders();
+    };
+    // 임시 저장된 메모 조회
+    const fetchTempMemo = async () => {
+      try {
+        const tempMemoData = await getTempMemo();
+        if (tempMemoData.isExist) {
+          setTempMemo({
+            title: tempMemoData.title || '',
+            category: '',
+            folderId: 0,
+            memo: tempMemoData.content || '',
+          });
+          setShowTempDataModal(true);
+        }
+      } catch (error) {
+        console.error('임시 저장된 메모 조회 실패:', error);
       }
     };
-    fetchFolders();
-  }, [isBottomSheetOpen]);
+    fetchTempMemo(); // 페이지 로드 시 임시 메모 조회
 
-  useEffect(() => {
-    const savedMemo = localStorage.getItem('tempMemo');
-    if (savedMemo) {
-      setTempMemo(JSON.parse(savedMemo));
-      setShowTempDataModal(true);
+    // 메모 기록 세부 조회
+    if (location.state?.memoData) {
+      const memoData = location.state.memoData;
+      setTempMemo({
+        title: memoData.title || '',
+        category: '',
+        folderId: memoData.folderId || 0,
+        memo: memoData.content || '',
+      });
     }
-  }, []);
-
-  const saveTempMemo = () => {
-    const titleToSave = tempMemo.title || getFormattedDate();
-    if (tempMemo.title && tempMemo.memo) {
-      localStorage.setItem(
-        'tempMemo',
-        JSON.stringify({
-          ...tempMemo,
-          title: titleToSave,
-        }),
-      );
-    }
-  };
+  }, [isBottomSheetOpen, location.state]);
 
   const handleBackButton = () => {
     if ((tempMemo.title || getFormattedDate()) && tempMemo.memo) {
-      saveTempMemo();
       setShowModal(true);
     } else {
       navigate(-1);
@@ -73,7 +87,6 @@ export const MemoPage = () => {
   const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
     setTempMemo((prev) => ({ ...prev, title: newTitle }));
-    saveTempMemo();
   };
 
   const handleChangeCategory = (category: string, folder?: FolderType) => {
@@ -91,7 +104,6 @@ export const MemoPage = () => {
   const handleChangeMemo = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newMemo = e.target.value;
     setTempMemo((prev) => ({ ...prev, memo: newMemo }));
-    saveTempMemo();
   };
 
   const handleSaveButton = async () => {
@@ -106,26 +118,32 @@ export const MemoPage = () => {
         clearTempMemo();
         navigate('/');
       }
-    } catch (error) {
-      console.error('메모 기록 실패', error);
+      if (!tempMemo.memo) {
+        alert('내용을 입력해주세요.');
+        return;
+      }
+    } catch (error: any) {
+      console.error('postTempMemo 실패:', error);
     }
-  };
+  }
 
-  const restoreTempMemo = () => {
-    if (tempMemo) {
-      setTempMemo(tempMemo);
+  const saveTempMemo = async () => {
+    try {
+      await postTempMemo(tempMemo.title || getFormattedDate(), tempMemo.memo);
+      setShowModal(false);
+      navigate('/');
+    } catch (error) {
+      console.error('메모 임시 저장 실패:', error);
     }
-    setShowModal(false);
   };
 
   const clearTempMemo = () => {
-    localStorage.removeItem('tempMemo');
+    setTempMemo({ title: '', category: '', folderId: 0, memo: '' });
     setShowModal(false);
     navigate('/');
   };
 
   const handleNewMemo = () => {
-    localStorage.removeItem('tempMemo');
     setTempMemo({ title: '', category: '', folderId: 0, memo: '' });
     setShowTempDataModal(false);
   };
@@ -135,10 +153,6 @@ export const MemoPage = () => {
   };
 
   const isSaveDisabled = !tempMemo.memo;
-
-  // function handleBottomSheetComplete(): void {
-  //   setIsBottomSheetOpen(false);
-  // }
 
   return (
     <S.Container>
@@ -162,7 +176,7 @@ export const MemoPage = () => {
         />
         <S.Line />
         <S.Content
-          placeholder="경험 당시의 상황, 행동, 문제, 결과 등을 기록해주세요."
+          placeholder={`어떤 상황에서 무엇을 했나요? 결과는 어땠나요?\n일단 기록해 보세요!\n음성으로 입력하거나 오타를 내도 괜찮아요.\n모아모아가 알아서 정리해드려요.`}
           value={tempMemo.memo}
           onChange={handleChangeMemo}
           maxLength={500}
@@ -171,12 +185,12 @@ export const MemoPage = () => {
         <S.Line />
         <S.Label>경험의 카테고리를 선택해주세요.</S.Label>
         <S.CategoryContainer>
-          {folderList.map((folder) => (
+          {folders.map((folder) => (
             <CategoryChip
               key={folder.folderId}
               children={folder.title}
               isSelected={tempMemo.category === folder.title}
-              onClick={() => handleChangeCategory(folder.title)}
+              onClick={() => handleChangeCategory(folder.title, folder)}
             />
           ))}
           <CategoryChip
@@ -197,18 +211,6 @@ export const MemoPage = () => {
           </Button>
         </S.ButtonWrapper>
       </S.Form>
-
-      {showModal && (
-        <DetailModal
-          text="작성 중인 내용을 임시 저장할까요?"
-          description="새로 작성하면 기존 기록은 삭제돼요."
-          leftButtonText="나가기"
-          rightButtonText="저장하기"
-          onClickBackground={() => setShowModal(false)}
-          onClickLeft={clearTempMemo}
-          onClickRight={restoreTempMemo}
-        />
-      )}
       {showTempDataModal && (
         <DetailModal
           text={`최근 작성 내용이 있어요\n이어서 작성하시겠어요?`}
@@ -218,11 +220,22 @@ export const MemoPage = () => {
           onClickBackground={() => setShowTempDataModal(false)}
           onClickLeft={handleNewMemo}
           onClickRight={() => {
-            restoreTempMemo();
             setShowTempDataModal(false);
           }}
         />
       )}
+      {showModal && (
+        <DetailModal
+          text="작성 중인 내용을 임시 저장할까요?"
+          description="새로 작성하면 기존 기록은 삭제돼요."
+          leftButtonText="나가기"
+          rightButtonText="저장하기"
+          onClickBackground={() => setShowModal(false)}
+          onClickLeft={clearTempMemo}
+          onClickRight={saveTempMemo}
+        />
+      )}
+      {showToast && <ToastMessage text="경험이 임시저장 되었어요" onClose={() => setShowToast(false)} />}
       {isBottomSheetOpen && (
         <FolderBottomSheet
           onClick={() => setIsBottomSheetOpen(false)}
