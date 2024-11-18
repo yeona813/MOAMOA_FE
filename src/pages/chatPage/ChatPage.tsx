@@ -22,6 +22,7 @@ export const ChatPage = () => {
   const formattedFirstChat = firstChat.replace(/\n/g, '<br>');
   const { id } = useParams();
   const [chatRoomId, setChatRoomId] = useState<number | null>(null);
+  const [tmpChatRoomId, setTmpChatRoomId] = useState<number | null>(null);
   const [messages, setMessages] = useState<Message[]>([
     {
       message: formattedFirstChat,
@@ -29,17 +30,6 @@ export const ChatPage = () => {
       isLoading: false,
     },
   ]);
-
-  useEffect(() => {
-    if (id) {
-      setChatRoomId(Number(id));
-    }
-  }, [id]);
-
-  useEffect(() => {
-    console.log('현재 채팅방 ID:', chatRoomId);
-  }, [chatRoomId]);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTempSaveModalOpen, setIsTempSaveModalOpen] = useState(false);
   const [isLoadTempModalOpen, setIsLoadTempModalOpen] = useState(false);
@@ -56,17 +46,34 @@ export const ChatPage = () => {
     scrollToBottom();
   }, [messages]);
 
+  // URL 파라미터로부터 채팅방 ID 설정
+  useEffect(() => {
+    if (id) {
+      setChatRoomId(Number(id));
+    } else {
+      handleNewChat();
+    }
+  }, [id]);
+
+  // 채팅 기록 조회
+  useEffect(() => {
+    if (chatRoomId !== null) {
+      fetchChatHistory(chatRoomId);
+    }
+  }, [chatRoomId]);
+
+  // 임시 저장된 채팅 기록 조회
   useEffect(() => {
     const fetchTmpChatData = async () => {
       try {
-        // 1. 임시 저장된 채팅 기록이 있는지 확인
-        const tmpChatData = await checkTmpChat();
+        // review-chat 경로로 접근한 경우에만 임시저장 확인하지 않음
+        if (window.location.pathname.includes('review-chat')) return;
 
+        // 임시 저장된 채팅 기록이 있는지 확인
+        const tmpChatData = await checkTmpChat();
         if (tmpChatData.exist && tmpChatData.chatRoomId) {
-          setChatRoomId(tmpChatData.chatRoomId);
+          setTmpChatRoomId(tmpChatData.chatRoomId);
           setIsLoadTempModalOpen(true);
-        } else {
-          console.log("임시 저장된 기록이 없습니다.");
         }
       } catch (error) {
         console.error("임시 저장된 기록을 조회하는 중 오류가 발생했습니다:", error);
@@ -74,7 +81,7 @@ export const ChatPage = () => {
     };
 
     fetchTmpChatData();
-  }, []);
+  }, [id]);
 
   const fetchChatHistory = async (chatRoomId: number | null) => {
     try {
@@ -101,12 +108,7 @@ export const ChatPage = () => {
           setShowGuideButton(false);
         }
       } else {
-        console.log('채팅 기록이 없습니다.');
-        setMessages([{
-          message: formattedFirstChat,
-          isMe: false,
-          isLoading: false,
-        }]);
+        setMessages([{ message: '채팅 기록을 불러오지 못했습니다.', isMe: false }]);
       }
     } catch (error) {
       console.error('채팅 기록을 불러오는데 실패했습니다:', error);
@@ -172,6 +174,18 @@ export const ChatPage = () => {
   };
 
   const handleTemporarySave = () => {
+    const pathname = window.location.pathname;
+    // URL 파라미터(id)가 있는 경우 (리뷰 모드) 바로 뒤로가기
+    // if (id) {
+    //   navigate(-1);
+    //   return;
+    // }
+    // review-chat 경로로 접근한 경우 (리뷰 모드)
+    if (pathname.includes('review-chat')) {
+      navigate(-1);
+      return;
+    }
+
     if (messages.length > 1) {
       setIsTempSaveModalOpen(true);
     } else {
@@ -187,6 +201,14 @@ export const ChatPage = () => {
       if (!chatRoomId) {
         throw new Error('유효하지 않은 채팅방 ID입니다.');
       }
+      // 1. 기존 임시저장 채팅이 있는지 확인
+      const tmpChatData = await checkTmpChat();
+      // 2. 기존 임시저장 채팅이 있고, 현재 채팅방과 다른 경우 삭제
+      if (tmpChatData.exist && tmpChatData.chatRoomId && typeof tmpChatData.chatRoomId === 'number' && tmpChatData.chatRoomId !== chatRoomId) {
+        await deleteChat(tmpChatData.chatRoomId);
+        console.log('기존 임시저장 채팅 삭제 성공');
+      }
+      // 3. 현재 채팅 임시저장
       await postTmpChat(chatRoomId);
       setShowToast(true);
       console.log("임시 저장 요청 성공");
@@ -213,39 +235,84 @@ export const ChatPage = () => {
     }
   };
 
+  // const handleComplete = async () => {
+  //   try {
+  //     if (!chatRoomId) {
+  //       throw new Error('유효하지 않은 채팅방 ID입니다.');
+  //     }
+  //     try {
+
+  //       const response = await getSummary(chatRoomId);
+  //       console.log('요약 응답:', response);
+
+  //       if (!response) {
+  //         throw new Error('채팅 기록 요약에 실패했습니다.');
+  //       }
+
+  //       navigate('/record-complete', {
+  //         state: {
+  //           chatRoomId,
+  //           summary: response.content,
+  //           title: response.title
+  //         }
+  //       });
+
+  //     } catch (error: any) {
+  //       if (error.message === '경험 기록의 내용이 충분하지 않습니다.') {
+  //         alert('경험을 더 자세히 설명해주세요.');
+  //       } else {
+  //         alert('채팅 기록 요약에 실패했습니다. 다시 시도해주세요.');
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error('채팅 기록 저장 실패:', error);
+  //     alert('채팅 기록 저장에 실패했습니다. 다시 시도해주세요.');
+  //   }
+  // };
   const handleComplete = async () => {
     try {
-      if (!chatRoomId) {
-        throw new Error('유효하지 않은 채팅방 ID입니다.');
-      }
-      try {
-        console.log('chatRoomId for getSummary:', chatRoomId);
+      if (!chatRoomId) throw new Error('유효하지 않은 채팅방 ID입니다.');
 
+      try {
         const response = await getSummary(chatRoomId);
         console.log('요약 응답:', response);
 
-        if (!response) {
-          throw new Error('채팅 기록 요약에 실패했습니다.');
+        if (response) {
+          navigate('/record-complete', {
+            state: { chatRoomId, summary: response.content, title: response.title },
+          });
+          return; // 성공 시 종료
         }
-
-        navigate('/record-complete', {
-          state: {
-            chatRoomId,
-            summary: response.content,
-            title: response.title
-          }
-        });
-
       } catch (error: any) {
-        if (error.message === '경험 기록의 내용이 충분하지 않습니다.') {
-          alert('경험을 더 자세히 설명해주세요.');
+        console.error('요약 요청 실패:', error);
+
+        if (
+          error.message.includes('제목은 50자 이내여야 합니다') ||
+          error.message.includes('경험 요약 내용은 500자 이내여야 합니다') ||
+          error.message.includes('채팅 경험 요약 파싱 중 오류가 발생했습니다')
+        ) {
+          console.warn('재요청 가능한 에러 발생. 재요청을 진행합니다.');
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+
+          const retryResponse = await getSummary(chatRoomId);
+          console.log('재요청 응답:', retryResponse);
+
+          if (retryResponse) {
+            navigate('/record-complete', {
+              state: { chatRoomId, summary: retryResponse.content, title: retryResponse.title },
+            });
+            return;
+          }
+        } else if (error.message.includes('경험 기록의 내용이 충분하지 않습니다')) {
+          alert('경험 기록의 내용이 충분하지 않습니다. 내용을 더 자세히 작성해주세요.');
+          return; // 더 이상 재요청하지 않고 종료
         } else {
-          alert('채팅 기록 요약에 실패했습니다. 다시 시도해주세요.');
+          throw error;
         }
       }
     } catch (error) {
-      console.error('채팅 기록 저장 실패:', error);
-      alert('채팅 기록 저장에 실패했습니다. 다시 시도해주세요.');
+      console.error('완료 처리 중 실패:', error);
+      alert('완료 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
     }
   };
 
@@ -273,14 +340,14 @@ export const ChatPage = () => {
     }
   }
 
+  // 임시저장 채팅 계속하기 선택 시
   const handleContinueChat = async () => {
     try {
       setIsLoadTempModalOpen(false);
-      if (chatRoomId !== null) {
-        console.log('저장된 채팅방 ID로 기록 불러오기 시도:', chatRoomId);
-        await fetchChatHistory(chatRoomId);
-      } else {
-        console.error('유효하지 않은 채팅방 ID입니다.');
+      if (tmpChatRoomId !== null) {
+        console.log('저장된 채팅방 ID로 임시 저장 기록 불러오기 시도:', tmpChatRoomId);
+        setChatRoomId(tmpChatRoomId); // 현재 채팅방 ID 업데이트
+        await fetchChatHistory(tmpChatRoomId);
       }
     } catch (error) {
       console.error('채팅 기록 불러오기 실패:', error);

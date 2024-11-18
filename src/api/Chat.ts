@@ -103,31 +103,25 @@ export const deleteChat = async (chatRoomId: number) => {
   }
 };
 
-/** [3.5] 채팅 경험 요약하기*/
+/** [3.5] 채팅 경험 요약하기 */
 export const getSummary = async (chatRoomId: number) => {
   try {
     const response = await api.get(`/api/records/chat/${chatRoomId}/summary`);
 
-    // 성공 응답이지만 데이터가 없는 경우
     if (!response.data.is_success) {
-      if (response.data.code === 'E0305_NO_RECORD') {
-        throw new Error('경험 기록의 내용이 충분하지 않습니다.');
+      switch (response.data.code) {
+        case 'E0305_OVERFLOW_SUMMARY_TITLE':
+          throw new Error('제목은 50자 이내여야 합니다. ' + response.data.message);
+        case 'E0305_OVERFLOW_SUMMARY_CONTENT':
+          throw new Error('경험 요약 내용은 500자 이내여야 합니다. ' + response.data.message);
+        case 'E0305_INVALID_CHAT_SUMMARY':
+          throw new Error('채팅 경험 요약 파싱 중 오류가 발생했습니다. ' + response.data.message);
+        case 'E0305_NO_RECORD':
+          alert('경험 기록의 내용이 충분하지 않습니다. 내용을 더 자세히 작성해주세요.');
+          throw new Error('경험 기록의 내용이 부족합니다.'); // 내부 로직용 에러
+        default:
+          throw new Error(response.data.message || '요약 처리 중 알 수 없는 오류가 발생했습니다.');
       }
-
-      // 요약 관련 에러인 경우 재시도
-      if (response.data.code.includes('E0305_')) {
-        // 최대 3번까지 재시도
-        for (let i = 0; i < 2; i++) {
-          const retryResponse = await api.get(`/api/records/chat/${chatRoomId}/summary`);
-          if (retryResponse.data.is_success) {
-            return retryResponse.data.data;
-          }
-          // 1초 대기 후 재시도
-          await new Promise(resolve => setTimeout(resolve, 1000));
-        }
-      }
-
-      throw new Error(response.data.message);
     }
 
     return response.data.data;
@@ -136,6 +130,7 @@ export const getSummary = async (chatRoomId: number) => {
     throw error;
   }
 };
+
 
 /** [3.6] 채팅 임시 저장 유무 조회 */
 
