@@ -8,9 +8,9 @@ interface SettingItemProps {
 
 export const SettingItem = ({ children, onClick }: SettingItemProps) => {
   return (
-    <S.Item>
+    <S.Item onClick={onClick}>
       <S.Text>{children}</S.Text>
-      <S.Icon src={RightArrowIcon} alt="rightArrow" onClick={onClick} />
+      <S.Icon src={RightArrowIcon} alt="rightArrow" />
     </S.Item>
   );
 };
