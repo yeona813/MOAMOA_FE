@@ -37,14 +37,16 @@ export const Profile = () => {
           내 프로필 수정하기
         </S.Button>
       </S.Profile>
-      <S.DIV /> {/* 임시 작업 */}
-      <S.Record
-        onClick={() => {
-          navigate('/list');
-        }}
-      >
-        {user.nickname}경험을 {user.recordCount}개 모았어요
-      </S.Record>
+      <S.Detail>
+        <S.DIV /> {/* 임시 작업 */}
+        <S.Record
+          onClick={() => {
+            navigate('/list');
+          }}
+        >
+          {user.nickname}님의 경험을 {user.recordCount}개 모았어요
+        </S.Record>
+      </S.Detail>
     </S.Container>
   );
 };

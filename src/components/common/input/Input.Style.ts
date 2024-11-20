@@ -24,6 +24,12 @@ export const Input = styled.input<{ $isError: boolean }>`
     outline: none;
     border: 1px solid ${({ $isError, theme }) => ($isError ? '#f00' : theme.colors.gray50)};
   }
+
+  ${(props) => props.theme.breakpoints.min} {
+    max-width: 30.625rem;
+    padding: 0.75rem;
+    font-size: 1.125rem;
+  }
 `;
 
 export const ErrorMessage = styled.p`
