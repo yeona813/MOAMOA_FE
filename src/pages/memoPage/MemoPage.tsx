@@ -34,6 +34,7 @@ export const MemoPage = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [contentWarning, setContentWarning] = useState<string>('');
+  const [titleWarning, setTitleWarning] = useState<string>('');
 
   useEffect(() => {
     // 폴더 조회
@@ -88,6 +89,12 @@ export const MemoPage = () => {
   const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
     setTempMemo((prev) => ({ ...prev, title: newTitle }));
+
+    if (newTitle.length > 50) {
+      setTitleWarning('50자 이하로 입력해주세요.');
+    } else {
+      setTitleWarning('');
+    }
   };
 
   const handleChangeCategory = (category: string, folder?: FolderType) => {
@@ -108,7 +115,7 @@ export const MemoPage = () => {
 
     if (newMemo.length < 30) {
       setContentWarning('30자 이상 입력해주세요.');
-
+      return;
     } else {
       setContentWarning('');
     }
@@ -177,8 +184,12 @@ export const MemoPage = () => {
           placeholder={getFormattedDate()}
           value={tempMemo.title}
           onChange={handleChangeTitle}
-          isError={false}
+          maxLength={51}
+          isError={!!titleWarning}
         />
+        <S.WarningCountContainer>
+          {titleWarning && <S.Warning>{titleWarning}</S.Warning>}
+        </S.WarningCountContainer>
         <S.Line />
         <S.Content
           placeholder={`어떤 상황에서 무엇을 했나요? 결과는 어땠나요?\n\n일단 기록해 보세요!\n음성으로 입력하거나 오타를 내도 괜찮아요.\n모아모아가 알아서 정리해드려요.`}
