@@ -3,8 +3,8 @@ import { RecordBottomSheet } from '@components/common/bottomSheet/RecordBottomSh
 import { KeywordHeader } from '@/components/keyword/header/KeywordHeader';
 import { SideBar } from '@/components/common/sideBar/SideBar';
 import { KeywordSkill } from '@/components/keyword/keywordSkill/KeywordSkill';
-import { SkillList } from '@/components/report/skill/SkillList';
-import { SkillGraph } from '@/components/report/skill/SkillGraph';
+import { SkillList } from '@/components/keyword/skill/SkillList';
+import { SkillGraph } from '@/components/keyword/skill/SkillGraph';
 
 export const KeywordPage = () => {
   const [openBottom, setOpenBottom] = useState(false);
