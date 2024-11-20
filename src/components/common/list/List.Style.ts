@@ -23,6 +23,11 @@ export const ChipContainer = styled.div`
 
 export const Title = styled.h4`
   line-height: 140%;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
 
   ${(props) => props.theme.breakpoints.min} {
     line-height: 135%;
