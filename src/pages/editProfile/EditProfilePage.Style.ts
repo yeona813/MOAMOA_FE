@@ -24,7 +24,7 @@ export const Content = styled.div`
   }
 `;
 
-export const Title = styled.h3`
+export const Title = styled.h2`
   line-height: 135%;
 
   ${(props) => props.theme.breakpoints.max} {
