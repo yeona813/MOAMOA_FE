@@ -111,7 +111,6 @@ export const WarningCountContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.5rem;
   position: relative;
 `;
 
