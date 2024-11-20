@@ -24,3 +24,9 @@ export const SheetContent = styled.div`
   font-size: 0.875rem;
   line-height: 145%;
 `;
+
+export const ButtonContainer = styled.div`
+  ${(props) => props.theme.breakpoints.min} {
+    /* margin-top: 13.6875rem; */
+  }
+`;

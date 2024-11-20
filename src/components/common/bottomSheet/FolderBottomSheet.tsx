@@ -5,6 +5,8 @@ import { BottomSheet } from './BottomSheet';
 import * as S from './FolderBottomSheet.Style';
 import CloseIcon from '@icons/CloseIcon.svg';
 import { postNewFolder } from '@/api/Folder';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { Modal } from '../modal/Modal';
 
 interface FolderBottomSheetProps {
   onClick: () => void;
@@ -18,6 +20,8 @@ interface FolderBottomSheetProps {
 export const FolderBottomSheet = ({ onClick }: FolderBottomSheetProps) => {
   const [folderName, setFolderName] = useState('');
   const [isError, setIsError] = useState(false);
+
+  const isMobile = useMediaQuery('(max-width: 1280px)');
 
   const changeFolderName = (e: ChangeEvent<HTMLInputElement>) => {
     setFolderName(e.target.value);
@@ -34,8 +38,9 @@ export const FolderBottomSheet = ({ onClick }: FolderBottomSheetProps) => {
       onClick();
     }
   };
-  return (
-    <BottomSheet onClick={onClick}>
+
+  const Content = (
+    <>
       <S.Header>
         <S.Title>새 폴더 추가하기</S.Title>
         <S.Icon src={CloseIcon} alt="closeIcon" onClick={onClick} />
@@ -57,6 +62,18 @@ export const FolderBottomSheet = ({ onClick }: FolderBottomSheetProps) => {
           완료
         </Button>
       </S.SheetContent>
-    </BottomSheet>
+    </>
+  );
+
+  return (
+    <>
+      {isMobile ? (
+        <BottomSheet onClick={onClick}>{Content}</BottomSheet>
+      ) : (
+        <Modal onClick={onClick} isPC={true}>
+          {Content}
+        </Modal>
+      )}
+    </>
   );
 };
