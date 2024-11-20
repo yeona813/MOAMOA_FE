@@ -24,3 +24,12 @@ export const SheetContent = styled.div`
   font-size: 0.875rem;
   line-height: 145%;
 `;
+
+export const Content = styled.div`
+  ${(props) => props.theme.breakpoints.min} {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 24rem;
+  }
+`;

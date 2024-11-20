@@ -7,7 +7,7 @@ import { ReportPopUp } from '@/components/common/popup/reportPopup/ReportPopUp';
 import { AbilityProps, AnalysisProps, SkillProps } from '@/types/Analysis';
 import { deleteAnaylsis, getAnalysis, patchAnalysis } from '@/api/Analysis';
 import { useNavigate, useParams } from 'react-router-dom';
-import { FolderChangeBottomSheet } from '@/components/common/bottomSheet/FolderChangeBottomSheet';
+import { FolderPopUp } from '@/components/common/popup/FolderChangePopUp';
 import EditIcon from '@icons/EditIcon.svg';
 import KebabIcon from '@icons/KebabIcon.svg';
 import * as S from './ReportPage.Style';
@@ -154,7 +154,7 @@ export const ReportPage = () => {
         />
       )}
       {openChangeBottom && analysisId && (
-        <FolderChangeBottomSheet analysisId={analysisId} onClick={toggleChangeFoler} />
+        <FolderPopUp analysisId={analysisId} onClick={toggleChangeFoler} />
       )}
     </>
   );
