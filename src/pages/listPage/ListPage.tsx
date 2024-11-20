@@ -112,7 +112,7 @@ export const ListPage = () => {
         onClick={handleSelectFolder}
         onClickSideBar={handleToggleSideBar}
       />
-      <S.Content>
+      <S.Content $isEmpty={listData.length === 0}>
         <Content listData={listData} onClick={handleToggleBottomSheet} />
         <div ref={observerRef} style={{ height: '20px' }} />
       </S.Content>
