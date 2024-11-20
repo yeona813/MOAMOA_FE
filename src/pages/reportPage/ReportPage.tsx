@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { TabBar } from '@components/layout/tabBar/TabBar';
 import { Content } from '@components/report/content/Content';
-import { EditBottomSheet } from '@components/common/bottomSheet/EditBottomSheet';
+import { EditPopUp } from '@/components/common/popup/EditPopUp';
 import { BasicModal } from '@components/common/modal/BasicModal';
 import { ReportPopUp } from '@/components/common/popup/reportPopup/ReportPopUp';
 import { AbilityProps, AnalysisProps, SkillProps } from '@/types/Analysis';
@@ -128,7 +128,7 @@ export const ReportPage = () => {
       </S.PcHeader>
       {data && <Content data={data} />}
       {openBottom && (
-        <EditBottomSheet
+        <EditPopUp
           onClick={toggleBottomSheet}
           onClickDelete={toggleModal}
           onClickChange={toggleChangeFoler}
