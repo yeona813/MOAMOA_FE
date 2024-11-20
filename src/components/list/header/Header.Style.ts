@@ -14,9 +14,10 @@ export const Header = styled.header`
   ${(props) => props.theme.breakpoints.min} {
     background-color: ${({ theme }) => theme.colors.gray25};
     border: none;
-    padding: 0rem 4.75rem;
+    padding: 3.25rem 4.75rem 0rem;
     height: auto;
     gap: 0;
+    margin-bottom: 2.25rem;
   }
 `;
 

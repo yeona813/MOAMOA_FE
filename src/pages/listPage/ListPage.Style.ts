@@ -2,9 +2,11 @@ import styled from 'styled-components';
 
 export const ListPage = styled.div`
   background-color: ${({ theme }) => theme.colors.gray25};
+  width: 100%;
+  height: 100%;
 `;
 
-export const Content = styled.div`
+export const Content = styled.div<{ $isEmpty: boolean }>`
   width: 100%;
   height: calc(100vh - 11.125rem);
   display: flex;
@@ -21,6 +23,12 @@ export const Content = styled.div`
   }
 
   ${(props) => props.theme.breakpoints.min} {
-    position: static;
+    padding: 0rem 4.75rem;
+    ${(props) =>
+      !props.$isEmpty &&
+      `
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    `}
   }
 `;
