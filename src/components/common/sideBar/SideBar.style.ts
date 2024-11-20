@@ -48,10 +48,35 @@ export const ItemContainer = styled.div`
   }
 `;
 
-export const Item = styled.div`
+export const Item = styled.div<{ $isActive: boolean }>`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  cursor: pointer;
+
+  svg {
+    fill: ${(props) => (props.$isActive ? props.theme.colors.gray700 : props.theme.colors.gray300)};
+    stroke: ${(props) =>
+      props.$isActive ? props.theme.colors.gray700 : props.theme.colors.gray300};
+    transition:
+      fill 0.3s ease,
+      stroke 0.3s ease;
+  }
+
+  span {
+    color: ${(props) =>
+      props.$isActive ? props.theme.colors.gray700 : props.theme.colors.gray300};
+    transition: color 0.3s ease;
+  }
+
+  &:hover svg {
+    fill: ${({ theme }) => theme.colors.gray900};
+    stroke: ${({ theme }) => theme.colors.gray900};
+  }
+
+  &:hover span {
+    color: ${({ theme }) => theme.colors.gray900};
+  }
 
   ${(props) => props.theme.breakpoints.min} {
     gap: 0.625rem;
@@ -59,12 +84,17 @@ export const Item = styled.div`
 `;
 
 export const Icon = styled.div`
-  width: 1rem;
-  height: 1rem;
+  svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
 
   ${(props) => props.theme.breakpoints.min} {
-    width: 1.375rem;
-    height: 1.375rem;
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
   }
 `;
 
@@ -72,6 +102,10 @@ export const Text = styled.span<{ $isActive: boolean }>`
   font-size: 0.875rem;
   font-weight: 700;
   color: ${(props) => (props.$isActive ? props.theme.colors.gray700 : props.theme.colors.gray300)};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.gray900};
+  }
 
   ${(props) => props.theme.breakpoints.min} {
     font-size: 1.125rem;

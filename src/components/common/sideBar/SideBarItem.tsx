@@ -43,18 +43,13 @@ export const SideBarItem = () => {
         <S.Title>MOAMOA</S.Title>
         <S.ItemContainer>
           {SIDEBAR_ITEMS.map((item) => {
-            const IconComponent = item.icon;
             const isActive = location.pathname === item.path;
 
             return (
-              <S.Item key={item.name} onClick={() => goToUrl(item.path)}>
-                <S.Icon
-                  as={IconComponent}
-                  style={{
-                    fill: isActive ? '#333538' : '#989AA0',
-                    stroke: isActive ? '#333538' : '#989AA0',
-                  }}
-                />
+              <S.Item key={item.name} onClick={() => goToUrl(item.path)} $isActive={isActive}>
+                <S.Icon>
+                  <item.icon />
+                </S.Icon>
                 <S.Text $isActive={isActive}>{item.name}</S.Text>
               </S.Item>
             );
