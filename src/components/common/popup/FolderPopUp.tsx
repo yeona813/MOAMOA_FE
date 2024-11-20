@@ -1,12 +1,14 @@
 import { ChangeEvent, useState } from 'react';
 import { Button } from '../button/Button';
 import { Input } from '../input/Input';
-import { BottomSheet } from './BottomSheet';
-import * as S from './FolderBottomSheet.Style';
+import { BottomSheet } from '../bottomSheet/BottomSheet';
+import * as S from './FolderPopUp.Style';
 import CloseIcon from '@icons/CloseIcon.svg';
 import { postNewFolder } from '@/api/Folder';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { Modal } from '../modal/Modal';
 
-interface FolderBottomSheetProps {
+interface FolderPopUpProps {
   onClick: () => void;
 }
 
@@ -15,9 +17,11 @@ interface FolderBottomSheetProps {
  * @param onClick - BottomSheet 열고 닫는 함수
  * @returns
  */
-export const FolderBottomSheet = ({ onClick }: FolderBottomSheetProps) => {
+export const FolderPopUp = ({ onClick }: FolderPopUpProps) => {
   const [folderName, setFolderName] = useState('');
   const [isError, setIsError] = useState(false);
+
+  const isMobile = useMediaQuery('(max-width: 1280px)');
 
   const changeFolderName = (e: ChangeEvent<HTMLInputElement>) => {
     setFolderName(e.target.value);
@@ -34,8 +38,9 @@ export const FolderBottomSheet = ({ onClick }: FolderBottomSheetProps) => {
       onClick();
     }
   };
-  return (
-    <BottomSheet onClick={onClick}>
+
+  const Content = (
+    <>
       <S.Header>
         <S.Title>새 폴더 추가하기</S.Title>
         <S.Icon src={CloseIcon} alt="closeIcon" onClick={onClick} />
@@ -57,6 +62,18 @@ export const FolderBottomSheet = ({ onClick }: FolderBottomSheetProps) => {
           완료
         </Button>
       </S.SheetContent>
-    </BottomSheet>
+    </>
+  );
+
+  return (
+    <>
+      {isMobile ? (
+        <BottomSheet onClick={onClick}>{Content}</BottomSheet>
+      ) : (
+        <Modal onClick={onClick} isPC={true}>
+          {Content}
+        </Modal>
+      )}
+    </>
   );
 };

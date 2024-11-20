@@ -38,10 +38,10 @@ export const ListHeader = ({
       <Header onClick={onClickSideBar} />
       <S.Title>{nickname}님의 경험 모아보기</S.Title>
       <S.FolderContainer>
-        <S.FolderIcon onClick={goToFolderPage}>
-          <S.Icon src={FolderIcon} alt="FolderIcon" />
-        </S.FolderIcon>
         <S.ChipContainer>
+          <S.FolderIcon onClick={goToFolderPage}>
+            <S.Icon src={FolderIcon} alt="FolderIcon" />
+          </S.FolderIcon>
           <CategoryChip isSelected={selectFolder === 'all'} onClick={() => onClick('all')}>
             전체
           </CategoryChip>
