@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Folder } from '@components/folder/Folder';
 import { TabBar } from '@components/layout/tabBar/TabBar';
 import * as S from './FolderPage.Style';
-import { FolderBottomSheet } from '@components/common/bottomSheet/FolderBottomSheet';
+import { FolderPopUp } from '@components/common/popup/FolderPopUp';
 import { DetailModal } from '@components/common/modal/DetailModal';
 import DeleteIcon from '@icons/DeleteIcon.svg';
 import PlusIcon from '@icons/PlusIcon.svg';
@@ -111,7 +111,7 @@ export const FolderPage = () => {
             </S.FolderContainer>
           ))}
       </S.Content>
-      {openBottom && <FolderBottomSheet onClick={toggleBottomSheet} />}
+      {openBottom && <FolderPopUp onClick={toggleBottomSheet} />}
       {openModal && (
         <DetailModal
           text="폴더를 삭제 하시겠어요?"

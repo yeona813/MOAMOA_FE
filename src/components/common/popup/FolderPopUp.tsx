@@ -1,14 +1,14 @@
 import { ChangeEvent, useState } from 'react';
 import { Button } from '../button/Button';
 import { Input } from '../input/Input';
-import { BottomSheet } from './BottomSheet';
-import * as S from './FolderBottomSheet.Style';
+import { BottomSheet } from '../bottomSheet/BottomSheet';
+import * as S from './FolderPopUp.Style';
 import CloseIcon from '@icons/CloseIcon.svg';
 import { postNewFolder } from '@/api/Folder';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { Modal } from '../modal/Modal';
 
-interface FolderBottomSheetProps {
+interface FolderPopUpProps {
   onClick: () => void;
 }
 
@@ -17,7 +17,7 @@ interface FolderBottomSheetProps {
  * @param onClick - BottomSheet 열고 닫는 함수
  * @returns
  */
-export const FolderBottomSheet = ({ onClick }: FolderBottomSheetProps) => {
+export const FolderPopUp = ({ onClick }: FolderPopUpProps) => {
   const [folderName, setFolderName] = useState('');
   const [isError, setIsError] = useState(false);
 
