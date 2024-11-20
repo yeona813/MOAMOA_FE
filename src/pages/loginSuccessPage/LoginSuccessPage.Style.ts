@@ -16,7 +16,7 @@ export const Container = styled.section`
 `;
 
 export const Logo = styled.p`
-  font-family: ${(props) => props.theme.fonts.montserratBold};
+  font-family: ${(props) => props.theme.fonts.montserratAlternatesBold};
   font-size: 2rem;
   font-weight: 700;
   top: 17.25rem;
