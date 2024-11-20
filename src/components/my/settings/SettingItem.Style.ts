@@ -7,16 +7,16 @@ export const Item = styled.div`
   width: 100%;
 `;
 
-export const TextContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  font-weight: 500;
-`;
-
 export const Text = styled.span`
   font-size: 0.875rem;
+  font-weight: 500;
   color: #070707;
+
+  ${(props) => props.theme.breakpoints.min} {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 145%;
+  }
 `;
 
 export const Icon = styled.img`
