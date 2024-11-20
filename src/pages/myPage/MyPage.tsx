@@ -57,10 +57,11 @@ export const MyPage = () => {
   };
 
   return (
-    <>
-      <S.Header>
+    <S.Container>
+      <S.MobileHeader>
         <Header onClick={toggleSideBar} title="마이페이지" />
-      </S.Header>
+      </S.MobileHeader>
+      <S.PcHeader>마이페이지</S.PcHeader>
       <S.Content>
         <Profile />
         <Settings onClickLogout={toggleLogout} onClickDeleteId={toggleDeleteId} />
@@ -91,6 +92,6 @@ export const MyPage = () => {
       )}
       {confirmDelete && <ConfirmModal onClick={toggleConfirmDelete} />}
       {openSideBar && <SideBar onClick={toggleSideBar} />}
-    </>
+    </S.Container>
   );
 };

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { CategoryChip } from '@/components/common/chip/CategoryChip';
 import { Button } from '@/components/common/button/Button';
-import { FolderBottomSheet } from '@/components/common/bottomSheet/FolderBottomSheet';
+import { FolderPopUp } from '@/components/common/popup/FolderPopUp';
 import * as S from './RecordCompletePage.Style';
 import { getFormattedDate } from '@/utils/dateUtils';
 import FolderIcon from '@icons/FolderIcon.svg';
@@ -50,7 +50,7 @@ export const RecordCompletePage = () => {
         throw new Error('카테고리를 선택해주세요.');
       }
 
-      const folderId = folders.find(folder => folder.title === selectedCategory)?.folderId;
+      const folderId = folders.find((folder) => folder.title === selectedCategory)?.folderId;
       if (!folderId) {
         throw new Error('유효하지 않은 폴더입니다.');
       }
@@ -59,13 +59,14 @@ export const RecordCompletePage = () => {
         content,
         folderId,
         recordType: 'CHAT',
-        chatRoomId: state.chatRoomId
+        chatRoomId: state.chatRoomId,
       });
       if (response?.is_success) {
         navigate('/home');
       }
     } catch (error) {
       alert('기록 저장에 실패했습니다. 다시 시도해주세요.');
+      console.error(error);
     }
   };
 
@@ -95,9 +96,7 @@ export const RecordCompletePage = () => {
     <S.Container>
       <S.HeaderContainer>
         <S.Title>경험 기록이 완료되었어요!</S.Title>
-        <S.SubTitle>
-          {nickname}님의 경험을 보기 쉽게 요약했어요
-        </S.SubTitle>
+        <S.SubTitle>{nickname}님의 경험을 보기 쉽게 요약했어요</S.SubTitle>
       </S.HeaderContainer>
 
       <S.Form onSubmit={handleSubmit}>
@@ -121,10 +120,7 @@ export const RecordCompletePage = () => {
               onClick={() => handleChangeCategory(folder.title)}
             />
           ))}
-          <CategoryChip
-            onClick={() => handleChangeCategory('', true)}
-            isSelected={false}
-          >
+          <CategoryChip onClick={() => handleChangeCategory('', true)} isSelected={false}>
             <img src={FolderIcon} alt="changeFolder" />
           </CategoryChip>
         </S.CategoryContainer>
@@ -141,11 +137,7 @@ export const RecordCompletePage = () => {
         </S.ButtonWrapper>
       </S.Form>
 
-      {isBottomSheetOpen && (
-        <FolderBottomSheet
-          onClick={() => setIsBottomSheetOpen(false)}
-        />
-      )}
+      {isBottomSheetOpen && <FolderPopUp onClick={() => setIsBottomSheetOpen(false)} />}
     </S.Container>
   );
 };

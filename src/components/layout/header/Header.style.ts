@@ -5,6 +5,10 @@ export const Header = styled.header`
   width: 100%;
   height: 3.75rem;
   padding: 0.875rem 0rem;
+
+  ${(props) => props.theme.breakpoints.min} {
+    height: auto;
+  }
 `;
 
 export const Icon = styled.img`

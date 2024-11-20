@@ -4,7 +4,7 @@ import { DetailModal } from '@components/common/modal/DetailModal';
 import * as S from './MemoPage.Style';
 import { getFormattedDate } from '@/utils/dateUtils';
 import { Button } from '@/components/common/button/Button';
-import { FolderBottomSheet } from '@/components/common/bottomSheet/FolderBottomSheet';
+import { FolderPopUp } from '@/components/common/popup/FolderPopUp';
 import BackIcon from '@icons/ArrowIcon.svg';
 import FolderIcon from '@icons/FolderIcon.svg';
 import { CategoryChip } from '@/components/common/chip/CategoryChip';
@@ -45,7 +45,7 @@ export const MemoPage = () => {
         }
       };
       fetchFolders();
-    };
+    }
     // 임시 저장된 메모 조회
     const fetchTempMemo = async () => {
       try {
@@ -60,6 +60,7 @@ export const MemoPage = () => {
           setShowTempDataModal(true);
         }
       } catch (error) {
+        console.error(error);
       }
     };
     fetchTempMemo(); // 페이지 로드 시 임시 메모 조회
@@ -94,10 +95,10 @@ export const MemoPage = () => {
       setIsBottomSheetOpen(true);
       return;
     }
-    setTempMemo(prev => ({
+    setTempMemo((prev) => ({
       ...prev,
       category,
-      folderId: folder.folderId
+      folderId: folder.folderId,
     }));
   };
 
@@ -128,10 +129,10 @@ export const MemoPage = () => {
         alert('내용을 입력해주세요.');
         return;
       }
-    } catch (error: any) {
-      throw error;
+    } catch (error) {
+      console.error(error);
     }
-  }
+  };
 
   const saveTempMemo = async () => {
     try {
@@ -139,7 +140,7 @@ export const MemoPage = () => {
       setShowModal(false);
       navigate('/');
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   };
 
@@ -199,10 +200,7 @@ export const MemoPage = () => {
               onClick={() => handleChangeCategory(folder.title, folder)}
             />
           ))}
-          <CategoryChip
-            onClick={() => handleChangeCategory('', undefined)}
-            isSelected={false}
-          >
+          <CategoryChip onClick={() => handleChangeCategory('', undefined)} isSelected={false}>
             <img src={FolderIcon} alt="changeFolder" />
           </CategoryChip>
         </S.CategoryContainer>
@@ -241,12 +239,10 @@ export const MemoPage = () => {
           onClickRight={saveTempMemo}
         />
       )}
-      {showToast && <ToastMessage text="경험이 임시저장 되었어요" onClose={() => setShowToast(false)} />}
-      {isBottomSheetOpen && (
-        <FolderBottomSheet
-          onClick={() => setIsBottomSheetOpen(false)}
-        />
+      {showToast && (
+        <ToastMessage text="경험이 임시저장 되었어요" onClose={() => setShowToast(false)} />
       )}
+      {isBottomSheetOpen && <FolderPopUp onClick={() => setIsBottomSheetOpen(false)} />}
     </S.Container>
   );
 };

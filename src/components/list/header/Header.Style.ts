@@ -48,6 +48,7 @@ export const FolderIcon = styled.div`
   border-radius: 6.1875rem;
   border: 1px solid ${({ theme }) => theme.colors.gray50};
   cursor: pointer;
+  flex-shrink: 0;
 
   ${(props) => props.theme.breakpoints.min} {
     width: 2.5rem;
