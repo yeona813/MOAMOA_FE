@@ -157,13 +157,17 @@ export const ChatPage = () => {
     try {
       setShowGuideButton(false);
 
+      setMessages(prev => [...prev, { message: '어떤 경험을 말해야 할지 모르겠어요.', isMe: true, isLoading: false }]);
       setMessages(prev => [...prev, { message: '', isMe: false, isLoading: true }]);
       const response = await postAiChat(chatRoomId, { guide: true, content: '' });
       const guideResponse = response?.chats?.map((chat: { content: string }) => chat.content).join('<br>') || '가이드 응답을 불러오지 못했습니다.';
 
+      const [firstPart, secondPart] = guideResponse.split('<br>');
+
       setMessages(prev => [
         ...prev.slice(0, -1),
-        { message: guideResponse, isMe: false, isLoading: false }
+        { message: firstPart, isMe: false, isLoading: false },
+        { message: secondPart, isMe: false, isLoading: false }
       ]);
     } catch (error) {
       setMessages(prev => [
@@ -263,7 +267,6 @@ export const ChatPage = () => {
       alert('완료 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
     }
   };
-
 
   const handleNewChat = async () => {
     try {
