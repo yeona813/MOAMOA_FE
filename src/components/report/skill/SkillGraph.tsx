@@ -16,7 +16,7 @@ export const SkillGraph = () => {
         setChartData(data.map((skill: any) => ({
           name: skill.keyword,
           value: skill.count,
-          percent: skill.percent
+          percent: skill.percent,
         })));
       }
     };
@@ -31,13 +31,47 @@ export const SkillGraph = () => {
     return theme.colors.gray25;
   };
 
-  const renderCustomizedLabel = ({ cx, cy, midAngle, outerRadius, name }: any) => {
+  const renderCustomizedLabel = ({ cx, cy, midAngle, outerRadius, name, fill }: any) => {
     const RADIAN = Math.PI / 180;
-    const radius = outerRadius + 30;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-    return <S.Label x={x} y={y}>{name}</S.Label>;
+    const lineStartRadius = outerRadius;
+    const xLineStart = cx + lineStartRadius * Math.cos(-midAngle * RADIAN);
+    const yLineStart = cy + lineStartRadius * Math.sin(-midAngle * RADIAN);
+
+    const lineEndRadius = outerRadius + 15;
+    const xLineEnd = cx + lineEndRadius * Math.cos(-midAngle * RADIAN);
+    const yLineEnd = cy + lineEndRadius * Math.sin(-midAngle * RADIAN);
+
+    const textOffset = 10;
+    const xText = xLineEnd + (xLineEnd > cx ? textOffset : -textOffset);
+    const yText = yLineEnd;
+    const textAnchor = xLineEnd > cx ? "start" : "end";
+
+    return (
+      <>
+        <line
+          x1={xLineStart}
+          y1={yLineStart}
+          x2={xLineEnd}
+          y2={yLineEnd}
+          stroke={fill}
+          strokeWidth={2}
+        />
+        <text
+          x={xText}
+          y={yText}
+          textAnchor={textAnchor}
+          dominantBaseline="middle"
+          style={{
+            fontSize: "1rem",
+            fontWeight: "600",
+            fill: theme.colors.gray700,
+          }}
+        >
+          {name}
+        </text>
+      </>
+    );
   };
 
   return (
@@ -47,6 +81,7 @@ export const SkillGraph = () => {
           data={chartData}
           innerRadius={S.CHART_STYLES.innerRadius}
           outerRadius={S.CHART_STYLES.outerRadius}
+          cornerRadius={S.CHART_STYLES.cornerRadius}
           paddingAngle={S.CHART_STYLES.paddingAngle}
           {...S.CHART_STYLES.pieProps}
           label={renderCustomizedLabel}
