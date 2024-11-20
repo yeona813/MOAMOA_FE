@@ -34,11 +34,12 @@ export const FolderIcon = styled.div`
   border-radius: 6.1875rem;
   border: 1px solid ${({ theme }) => theme.colors.gray50};
   cursor: pointer;
+  flex-shrink: 0;
 `;
 
 export const Icon = styled.img`
-  width: 0.9375rem;
-  height: 0.9375rem;
+  width: 1rem;
+  height: 1rem;
 `;
 
 export const ChipContainer = styled.div`
