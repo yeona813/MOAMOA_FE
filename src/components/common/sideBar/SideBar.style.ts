@@ -103,10 +103,6 @@ export const Text = styled.span<{ $isActive: boolean }>`
   font-weight: 700;
   color: ${(props) => (props.$isActive ? props.theme.colors.gray700 : props.theme.colors.gray300)};
 
-  &:hover {
-    color: ${({ theme }) => theme.colors.gray900};
-  }
-
   ${(props) => props.theme.breakpoints.min} {
     font-size: 1.125rem;
   }
