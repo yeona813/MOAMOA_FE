@@ -51,7 +51,7 @@ export const SignUpPage = () => {
               value={nickname}
               onChange={onChangeNickname}
               required
-              maxLength={10}
+              maxLength={11}
               isError={isError}
               errorMessage={errorMessage}
             />
