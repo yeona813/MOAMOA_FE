@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RecordBottomSheet } from '@components/common/bottomSheet/RecordBottomSheet';
 import { KeywordHeader } from '@/components/keyword/header/KeywordHeader';
 import { SideBar } from '@/components/common/sideBar/SideBar';
@@ -10,6 +10,7 @@ export const KeywordPage = () => {
   const [openBottom, setOpenBottom] = useState(false);
   const [openSideBar, setOpenSideBar] = useState(false);
   const [currentTabBar, setCurrentTabBar] = useState('역량 키워드');
+  const [selectedKeyword, setSelectedKeyword] = useState<string | undefined>(undefined);
 
   const toggleBottomSheet = () => {
     setOpenBottom((prev) => !prev);
@@ -23,6 +24,14 @@ export const KeywordPage = () => {
     setCurrentTabBar(item);
   };
 
+  useEffect(() => {
+    console.log(selectedKeyword);
+  }, [selectedKeyword]);
+
+  const handleClickSkillList = () => {
+    setCurrentTabBar('역량 키워드');
+  };
+
   return (
     <div>
       <KeywordHeader
@@ -31,11 +40,15 @@ export const KeywordPage = () => {
         onClickSideBar={toggleSideBar}
       />
       {currentTabBar === '역량 키워드' ? (
-        <KeywordSkill onClick={toggleBottomSheet} />
+        <KeywordSkill
+          onClick={toggleBottomSheet}
+          selectedKeyword={selectedKeyword}
+          setSelectedKeyword={setSelectedKeyword}
+        />
       ) : (
         <>
           <SkillGraph />
-          <SkillList />
+          <SkillList onClick={handleClickSkillList} setSelectedKeyword={setSelectedKeyword} />
         </>
       )}
       {openBottom && <RecordBottomSheet onClick={toggleBottomSheet} />}

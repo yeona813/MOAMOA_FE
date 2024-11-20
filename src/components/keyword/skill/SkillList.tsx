@@ -3,18 +3,25 @@ import { getGraph } from '@/api/Graph';
 import { SkillData } from '@/types/SkillData';
 import { useState, useEffect } from 'react';
 
-export const SkillList = () => {
+interface SkillListProps {
+  onClick: () => void;
+  setSelectedKeyword: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+
+export const SkillList = ({ onClick, setSelectedKeyword }: SkillListProps) => {
   const [chartData, setChartData] = useState<SkillData[]>([]);
 
   useEffect(() => {
     const fetchGraphData = async () => {
       const data = await getGraph();
       if (data) {
-        setChartData(data.map((skill: any) => ({
-          keyword: skill.keyword,
-          count: skill.count,
-          percent: skill.percent
-        })));
+        setChartData(
+          data.map((skill: any) => ({
+            keyword: skill.keyword,
+            count: skill.count,
+            percent: skill.percent,
+          })),
+        );
       }
     };
     fetchGraphData();
@@ -24,7 +31,14 @@ export const SkillList = () => {
     <S.Container>
       <S.Line />
       {chartData.map((skill) => (
-        <S.ListItem key={skill.keyword} $percent={skill.percent}>
+        <S.ListItem
+          key={skill.keyword}
+          $percent={skill.percent}
+          onClick={() => {
+            setSelectedKeyword(skill.keyword);
+            onClick();
+          }}
+        >
           <S.TitleWrapper>
             <S.Title>{skill.keyword}</S.Title>
             <S.Percent>{skill.percent}%</S.Percent>
