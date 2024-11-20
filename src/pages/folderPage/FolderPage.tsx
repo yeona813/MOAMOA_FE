@@ -60,8 +60,18 @@ export const FolderPage = () => {
   };
 
   return (
-    <div>
-      <TabBar centerText="경험 폴더 관리" rightText="편집" onClick={handleEdit} />
+    <S.Cotainer>
+      <S.MobileHeader>
+        <TabBar
+          centerText="경험 폴더 관리"
+          rightText={isEditing ? '완료' : '편집'}
+          onClick={handleEdit}
+        />
+      </S.MobileHeader>
+      <S.PcHeader>
+        폴더 관리
+        <S.Edit onClick={handleEdit}>{isEditing ? '완료' : '편집'}</S.Edit>
+      </S.PcHeader>
       <S.Content>
         {!isEditing && (
           <Folder type="plus" onClick={toggleBottomSheet}>
@@ -113,6 +123,6 @@ export const FolderPage = () => {
           onClickRight={() => handleDeleteFolder(selectedFolderId)}
         />
       )}
-    </div>
+    </S.Cotainer>
   );
 };
