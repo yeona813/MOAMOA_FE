@@ -1,11 +1,13 @@
-import { BottomSheet } from '../BottomSheet';
+import { BottomSheet } from '../../bottomSheet/BottomSheet';
 import { Textarea } from './Textarea';
-import * as S from './ReportBottomSheet.Style';
+import * as S from './ReportPopUp.Style';
 import CloseIcon from '@icons/CloseIcon.svg';
 import { Chip } from '../../chip/Chip';
 import { AnalysisProps } from '@/types/Analysis';
+import { Modal } from '../../modal/Modal';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
-interface ReportBottomSheet {
+interface ReportPopUpProps {
   onClick: () => void;
   onClickStore: () => void;
   data: AnalysisProps | null;
@@ -13,15 +15,17 @@ interface ReportBottomSheet {
   onAbilityChange: (index: number, value: string) => void;
 }
 
-export const ReportBottomSheet = ({
+export const ReportPopUp = ({
   onClick,
   onClickStore,
   data,
   onChange,
   onAbilityChange,
-}: ReportBottomSheet) => {
-  return (
-    <BottomSheet onClick={onClick}>
+}: ReportPopUpProps) => {
+  const isMobile = useMediaQuery('(max-width: 1280px)');
+
+  const Content = (
+    <>
       <S.Header>
         <S.Icon src={CloseIcon} alt="모달 닫기" onClick={onClick} />
         <S.Title>AI 역량 분석 편집</S.Title>
@@ -50,6 +54,18 @@ export const ReportBottomSheet = ({
             </S.Keyword>
           ))}
       </S.ContentContainer>
-    </BottomSheet>
+    </>
+  );
+
+  return (
+    <>
+      {isMobile ? (
+        <BottomSheet onClick={onClick}>{Content}</BottomSheet>
+      ) : (
+        <Modal onClick={onClick} isPC={true}>
+          {Content}
+        </Modal>
+      )}
+    </>
   );
 };

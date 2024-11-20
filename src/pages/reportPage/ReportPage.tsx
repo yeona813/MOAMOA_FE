@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { TabBar } from '@components/layout/tabBar/TabBar';
 import { Content } from '@components/report/content/Content';
-import { EditBottomSheet } from '@components/common/bottomSheet/EditBottomSheet';
+import { EditPopUp } from '@/components/common/popup/EditPopUp';
 import { BasicModal } from '@components/common/modal/BasicModal';
-import { ReportBottomSheet } from '@/components/common/bottomSheet/reportBottomSheet/ReportBottomSheet';
+import { ReportPopUp } from '@/components/common/popup/reportPopup/ReportPopUp';
 import { AbilityProps, AnalysisProps, SkillProps } from '@/types/Analysis';
 import { deleteAnaylsis, getAnalysis, patchAnalysis } from '@/api/Analysis';
 import { useNavigate, useParams } from 'react-router-dom';
-import { FolderChangeBottomSheet } from '@/components/common/bottomSheet/FolderChangeBottomSheet';
+import { FolderPopUp } from '@/components/common/popup/FolderChangePopUp';
+import EditIcon from '@icons/EditIcon.svg';
+import KebabIcon from '@icons/KebabIcon.svg';
+import * as S from './ReportPage.Style';
 
 export const ReportPage = () => {
   const { id } = useParams<{ id?: string }>();
@@ -108,22 +111,31 @@ export const ReportPage = () => {
 
   return (
     <>
-      <TabBar
-        centerText="AI 역량 분석"
-        onClick={toggleBottomSheet}
-        isEditable={true}
-        onClickEditIcon={toggleEditBottomSheet}
-      />
+      <S.MobileHeader>
+        <TabBar
+          centerText="AI 역량 분석"
+          onClick={toggleBottomSheet}
+          isEditable={true}
+          onClickEditIcon={toggleEditBottomSheet}
+        />
+      </S.MobileHeader>
+      <S.PcHeader>
+        AI 역량 분석
+        <S.IconContainer>
+          <S.Icon src={EditIcon} alt="편집" onClick={toggleEditBottomSheet} />
+          <S.Icon src={KebabIcon} alt="케밥" onClick={toggleBottomSheet} />
+        </S.IconContainer>
+      </S.PcHeader>
       {data && <Content data={data} />}
       {openBottom && (
-        <EditBottomSheet
+        <EditPopUp
           onClick={toggleBottomSheet}
           onClickDelete={toggleModal}
           onClickChange={toggleChangeFoler}
         />
       )}
       {openEditBottom && data && (
-        <ReportBottomSheet
+        <ReportPopUp
           onClick={toggleEditBottomSheet}
           onClickStore={handleSubmit}
           data={newData}
@@ -142,7 +154,7 @@ export const ReportPage = () => {
         />
       )}
       {openChangeBottom && analysisId && (
-        <FolderChangeBottomSheet analysisId={analysisId} onClick={toggleChangeFoler} />
+        <FolderPopUp analysisId={analysisId} onClick={toggleChangeFoler} />
       )}
     </>
   );

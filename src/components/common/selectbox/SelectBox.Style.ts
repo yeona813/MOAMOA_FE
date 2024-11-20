@@ -51,10 +51,18 @@ export const Option = styled.div`
   gap: 0.625rem;
   border-radius: 0.5rem;
   border: 1px solid ${({ theme }) => theme.colors.blue200};
+  max-height: 15rem;
+  padding: 0.75rem 0.875rem;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   ${(props) => props.theme.breakpoints.min} {
     max-width: 30.625rem;
-    padding: 0.75rem 0.875rem;
   }
 `;
 
