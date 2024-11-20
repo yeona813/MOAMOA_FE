@@ -29,9 +29,9 @@ export const Content = ({ listData, onClick }: ContentProps) => {
       ) : (
         <>
           <Empty />
-          <FloatingButton onClick={onClick} />
         </>
       )}
+      <FloatingButton onClick={onClick} />
     </>
   );
 };

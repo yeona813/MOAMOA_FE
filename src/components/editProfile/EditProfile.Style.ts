@@ -14,4 +14,8 @@ export const Edit = styled.div`
 
 export const Title = styled.h5`
   line-height: 140%;
+
+  ${(props) => props.theme.breakpoints.min} {
+    font-size: 1.25rem;
+  }
 `;
