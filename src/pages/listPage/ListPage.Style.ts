@@ -5,9 +5,6 @@ export const ListPage = styled.div`
 `;
 
 export const Content = styled.div`
-  position: absolute;
-  top: 11.125rem;
-  left: 0;
   width: 100%;
   height: calc(100vh - 11.125rem);
   display: flex;
@@ -21,5 +18,9 @@ export const Content = styled.div`
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  ${(props) => props.theme.breakpoints.min} {
+    position: static;
   }
 `;
