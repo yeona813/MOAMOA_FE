@@ -13,6 +13,11 @@ export const KeywordList = styled.div`
 
 export const Title = styled.h6`
   line-height: 145%;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
 
   ${(props) => props.theme.breakpoints.min} {
     font-size: 1.125rem;
