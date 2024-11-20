@@ -5,7 +5,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-    padding: 5rem 12.3125rem 0rem;
+    padding: 5rem 15rem 0rem 4.75rem;
   }
 `;
 

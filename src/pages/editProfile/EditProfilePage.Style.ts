@@ -19,7 +19,7 @@ export const Content = styled.div`
     justify-content: flex-start;
     gap: 2.8125rem;
     margin-top: 5rem;
-    padding: 0rem 9.7rem;
+    padding: 0rem 4.75rem;
     height: auto;
   }
 `;
