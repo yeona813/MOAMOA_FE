@@ -106,8 +106,9 @@ export const MemoPage = () => {
     const newMemo = e.target.value;
     setTempMemo((prev) => ({ ...prev, memo: newMemo }));
 
-    if (newMemo.length < 50) {
-      setContentWarning('50자 이상 입력해주세요.');
+    if (newMemo.length < 30) {
+      setContentWarning('30자 이상 입력해주세요.');
+
     } else {
       setContentWarning('');
     }
@@ -159,7 +160,7 @@ export const MemoPage = () => {
     e.preventDefault();
   };
 
-  const isSaveDisabled = !tempMemo.memo;
+  const isSaveDisabled = !tempMemo.memo || tempMemo.memo.length < 30;
 
   return (
     <S.Container>
