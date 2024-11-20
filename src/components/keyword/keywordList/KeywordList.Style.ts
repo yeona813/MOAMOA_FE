@@ -13,6 +13,10 @@ export const KeywordList = styled.div`
 
 export const Title = styled.h6`
   line-height: 145%;
+
+  ${(props) => props.theme.breakpoints.min} {
+    font-size: 1.125rem;
+  }
 `;
 
 export const Description = styled.p`
@@ -22,9 +26,17 @@ export const Description = styled.p`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  ${(props) => props.theme.breakpoints.min} {
+    font-size: 0.875rem;
+  }
 `;
 
 export const Date = styled.p`
   font-size: 0.6875rem;
   line-height: 145%;
+
+  ${(props) => props.theme.breakpoints.min} {
+    font-size: 0.875rem;
+  }
 `;

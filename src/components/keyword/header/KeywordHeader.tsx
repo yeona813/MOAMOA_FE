@@ -29,10 +29,10 @@ export const KeywordHeader = ({
           역량 키워드
         </S.Item>
         <S.Item
-          $isSelected={currentTabBar === '내 역량 분석'}
-          onClick={() => onClickTabBar('내 역량 분석')}
+          $isSelected={currentTabBar === '역량 그래프'}
+          onClick={() => onClickTabBar('역량 그래프')}
         >
-          내 역량 분석
+          역량 그래프
         </S.Item>
       </S.TabBar>
     </S.Header>

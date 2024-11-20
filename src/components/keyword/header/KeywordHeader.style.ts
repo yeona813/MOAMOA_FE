@@ -1,17 +1,18 @@
 import styled from 'styled-components';
 
 export const Header = styled.header`
-  position: fixed;
-  top: 0;
-  left: 0;
   display: flex;
   flex-direction: column;
   padding: 0rem 1.25rem;
   gap: 1rem;
-  z-index: 10;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray50};
+
+  ${(props) => props.theme.breakpoints.min} {
+    background-color: ${({ theme }) => theme.colors.gray25};
+    padding: 3.25rem 4.75rem 0rem;
+  }
 `;
 
 export const Content = styled.div`
@@ -22,6 +23,11 @@ export const Content = styled.div`
   font-size: 1.25rem;
   font-weight: 600;
   line-height: 135%;
+
+  ${(props) => props.theme.breakpoints.min} {
+    font-size: 1.75rem;
+    line-height: 140%;
+  }
 `;
 
 // 바뀔 부분
@@ -49,4 +55,9 @@ export const Item = styled.div<{ $isSelected: boolean }>`
   padding: 0.5rem 0rem;
   border-bottom: ${({ $isSelected, theme }) =>
     $isSelected ? `2px solid ${theme.colors.gray700}` : 'none'};
+
+  ${(props) => props.theme.breakpoints.min} {
+    font-size: 1.25rem;
+    line-height: 135%;
+  }
 `;
