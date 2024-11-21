@@ -9,6 +9,9 @@ export const KeywordList = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.gray900};
   border-radius: 0.5rem;
+  ${(props) => props.theme.breakpoints.min} {
+    max-width: 23.0625rem;
+  }
 `;
 
 export const Title = styled.h6`
