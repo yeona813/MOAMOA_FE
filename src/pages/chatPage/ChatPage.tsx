@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './ChatPage.Style';
 import ToastMessage from '@/components/chat/ToastMessage';
 import { LoadingDots } from '@components/chat/LodingDots';
-import { postAiChat, postTmpChat, checkTmpChat, getChat, getSummary, deleteChat, postChat, CustomError } from '@/api/Chat';
+import { postAiChat, postTmpChat, checkTmpChat, getChat, getSummary, deleteChat, postChat } from '@/api/Chat';
 
 interface Message {
   message: string;
@@ -236,35 +236,35 @@ export const ChatPage = () => {
           return;
         }
       } catch (error: any) {
-        if (error instanceof CustomError) {
-          switch (error.code) {
-            case 'E0305_OVERFLOW_SUMMARY_TITLE':
-            case 'E0305_OVERFLOW_SUMMARY_CONTENT':
-            case 'E0305_INVALID_CHAT_SUMMARY':
-              // 1초 대기 후 재시도
-              await new Promise((resolve) => setTimeout(resolve, 1000));
-              const retryResponse = await getSummary(chatRoomId);
 
-              if (retryResponse) {
-                navigate('/record-complete', {
-                  state: { chatRoomId, summary: retryResponse.content, title: retryResponse.title },
-                });
-                return;
-              }
-              break;
-            case 'E0305_NO_RECORD':
-              // 내용 부족 에러: 알림 후 종료
-              alert('경험 기록의 내용이 충분하지 않습니다. 내용을 더 자세히 작성해주세요.');
+        // Axios 에러에서 서버 응답 코드 확인
+        const errorCode = error.response?.data?.code || error.code;
+
+        switch (errorCode) {
+          case 'E0305_OVERFLOW_SUMMARY_TITLE':
+          case 'E0305_OVERFLOW_SUMMARY_CONTENT':
+          case 'E0305_INVALID_CHAT_SUMMARY':
+            // 1초 대기 후 재시도
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            const retryResponse = await getSummary(chatRoomId);
+
+            if (retryResponse) {
+              navigate('/record-complete', {
+                state: { chatRoomId, summary: retryResponse.content, title: retryResponse.title },
+              });
               return;
-            default:
-              throw error; // 예상하지 못한 에러
-          }
-        } else {
-          throw error; // CustomError가 아닌 다른 에러
+            }
+            break;
+          case 'E0305_NO_RECORD':
+            // 내용 부족 에러: 알림 후 종료
+            alert('경험 기록의 내용이 충분하지 않습니다. 내용을 더 자세히 작성해주세요.');
+            return;
+          default:
+            throw error; // 예상하지 못한 에러
         }
       }
     } catch (error) {
-      console.error(error); // 디버깅용 로그
+      console.error(error);
       alert('완료 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
     }
   };
