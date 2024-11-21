@@ -11,18 +11,20 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { Modal } from '../modal/Modal';
 
 interface FolderPopUpProps {
-  analysisId: number;
+  recordId: number;
+  intialfolderName: string;
   onClick: () => void;
 }
 
 /**
  *
- * @param analysisId - analysisId
+ * @param recordId - recordId
+ * @param intialfolderName - 기존 folderName
  * @param onClick - BottomSheet 열고 닫는 함수
  * @returns
  */
-export const FolderPopUp = ({ analysisId, onClick }: FolderPopUpProps) => {
-  const [folderName, setFolderName] = useState('');
+export const FolderPopUp = ({ recordId, intialfolderName, onClick }: FolderPopUpProps) => {
+  const [folderName, setFolderName] = useState(intialfolderName);
   const [folderList, setFolderList] = useState<FolderListProps[]>([]);
 
   const isMobile = useMediaQuery('(max-width: 1280px)');
@@ -46,7 +48,7 @@ export const FolderPopUp = ({ analysisId, onClick }: FolderPopUpProps) => {
     if (folderName) {
       try {
         const response = await patchFolder({
-          recordId: analysisId,
+          recordId: recordId,
           folder: folderName,
         });
 
