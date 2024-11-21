@@ -136,6 +136,7 @@ export const MemoPage = () => {
         recordType: 'MEMO',
       });
       if (response) {
+        console.log('postRecord 첫 번째 요청 성공');
         clearTempMemo();
         navigate('/');
       }
@@ -143,8 +144,32 @@ export const MemoPage = () => {
         alert('내용을 입력해주세요.');
         return;
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      console.error(`CustomError 발생: ${error.code}, ${error.message}`);
+      switch (error.code) {
+        case 'E0500_OVERFLOW_COMMENT':
+        case 'E0500_OVERFLOW_KEYWORD_CONTENT':
+        case 'E500_INVALID_ANALYSIS':
+          console.log('재시도 준비 중');
+          // 1초 대기 후 재시도
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          console.log('재시도 시작');
+          const retryResponse = await postRecord({
+            title: tempMemo.title || getFormattedDate(),
+            content: tempMemo.memo,
+            folderId: tempMemo.folderId,
+            recordType: 'MEMO',
+          });
+          if (retryResponse) {
+            console.log('postRecord 재요청 성공');
+            clearTempMemo();
+            navigate('/');
+          }
+          break;
+        default:
+          alert('기록 저장 중 오류가 발생했습니다.');
+          console.error(error);
+      }
     }
   };
 
@@ -195,7 +220,6 @@ export const MemoPage = () => {
         />
         <S.WarningCountContainer>
           {titleWarning && <S.Warning>{titleWarning}</S.Warning>}
-          <S.Count>{tempMemo.title.length}/50</S.Count>
         </S.WarningCountContainer>
         <S.Line />
         <S.Content
