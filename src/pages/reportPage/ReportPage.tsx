@@ -72,7 +72,7 @@ export const ReportPage = () => {
     if (analysisId === undefined) return;
     const response = await deleteAnaylsis(analysisId);
     if (response.is_success) {
-      navigate('/home');
+      navigate(-1);
     }
   };
 
@@ -88,6 +88,7 @@ export const ReportPage = () => {
 
       if (response.is_success) {
         toggleEditBottomSheet();
+        toggleShowToast();
       }
     }
   };
