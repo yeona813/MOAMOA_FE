@@ -90,7 +90,7 @@ export const MemoPage = () => {
     const newTitle = e.target.value;
     setTempMemo((prev) => ({ ...prev, title: newTitle }));
 
-    if (newTitle.length > 50) {
+    if (newTitle.length > 49) {
       setTitleWarning('50자 이하로 입력해주세요.');
     } else {
       setTitleWarning('');
@@ -184,11 +184,12 @@ export const MemoPage = () => {
           placeholder={getFormattedDate()}
           value={tempMemo.title}
           onChange={handleChangeTitle}
-          maxLength={51}
+          maxLength={49}
           isError={!!titleWarning}
         />
         <S.WarningCountContainer>
           {titleWarning && <S.Warning>{titleWarning}</S.Warning>}
+          <S.Count>{tempMemo.title.length}/50</S.Count>
         </S.WarningCountContainer>
         <S.Line />
         <S.Content
