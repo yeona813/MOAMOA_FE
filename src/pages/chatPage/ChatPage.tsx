@@ -18,6 +18,8 @@ interface Message {
 }
 
 export const ChatPage = () => {
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
   const firstChat = localStorage.getItem('firstChat') || '안녕하세요! 경험을 작성해주세요.';
   const formattedFirstChat = firstChat.replace(/\n/g, '<br>');
   const { id } = useParams();
@@ -35,8 +37,7 @@ export const ChatPage = () => {
   const [isLoadTempModalOpen, setIsLoadTempModalOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [showGuideButton, setShowGuideButton] = useState(true);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
+  const isReviewMode = window.location.pathname.includes('review-chat');
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -307,7 +308,7 @@ export const ChatPage = () => {
 
   return (
     <>
-      <TabBar rightText="완료하기" onClickBackIcon={handleTemporarySave} onClick={() => setIsModalOpen(true)} isDisabled={messages.length === 0} />
+      <TabBar rightText={isReviewMode ? "" : "완료하기"} onClickBackIcon={handleTemporarySave} onClick={() => setIsModalOpen(true)} isDisabled={messages.length === 0} />
       {isModalOpen && (
         <DetailModal
           text="기록을 완료할까요?"
@@ -349,7 +350,7 @@ export const ChatPage = () => {
         <div ref={messagesEndRef} />
         <S.InputContainer>
           {showGuideButton && <GuideButton text="🤔 경험을 어떻게 말해야 할지 모르겠어요" onClick={handleGuideButtonClick} />}
-          <ChatBox onSubmit={handleSendMessage} />
+          <ChatBox onSubmit={handleSendMessage} isReviewMode={isReviewMode} />
         </S.InputContainer>
       </S.ChatContainer>
     </>
