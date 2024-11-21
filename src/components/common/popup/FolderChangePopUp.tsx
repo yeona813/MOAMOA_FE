@@ -12,6 +12,7 @@ import { Modal } from '../modal/Modal';
 
 interface FolderPopUpProps {
   recordId: number;
+  intialfolderName: string;
   onClick: () => void;
 }
 
@@ -21,8 +22,8 @@ interface FolderPopUpProps {
  * @param onClick - BottomSheet 열고 닫는 함수
  * @returns
  */
-export const FolderPopUp = ({ recordId, onClick }: FolderPopUpProps) => {
-  const [folderName, setFolderName] = useState('');
+export const FolderPopUp = ({ recordId, intialfolderName, onClick }: FolderPopUpProps) => {
+  const [folderName, setFolderName] = useState(intialfolderName);
   const [folderList, setFolderList] = useState<FolderListProps[]>([]);
 
   const isMobile = useMediaQuery('(max-width: 1280px)');
