@@ -7,10 +7,11 @@ import { ReportPopUp } from '@/components/common/popup/reportPopup/ReportPopUp';
 import { AbilityProps, AnalysisProps, SkillProps } from '@/types/Analysis';
 import { deleteAnaylsis, getAnalysis, patchAnalysis } from '@/api/Analysis';
 import { useNavigate, useParams } from 'react-router-dom';
-import { FolderPopUp } from '@/components/common/popup/FolderChangePopUp';
+import { FolderChangePopUp } from '@/components/common/popup/FolderChangePopUp';
 import EditIcon from '@icons/EditIcon.svg';
 import KebabIcon from '@icons/KebabIcon.svg';
 import * as S from './ReportPage.Style';
+import ToastMessage from '@/components/chat/ToastMessage';
 
 export const ReportPage = () => {
   const { id } = useParams<{ id?: string }>();
@@ -20,6 +21,7 @@ export const ReportPage = () => {
   const [openEditBottom, setOpenEditBottom] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openChangeBottom, setOpenChangeBottom] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   const navigate = useNavigate();
 
   const analysisId = id ? parseInt(id, 10) : undefined;
@@ -109,6 +111,10 @@ export const ReportPage = () => {
     setOpenChangeBottom((prev) => !prev);
   };
 
+  const toggleShowToast = () => {
+    setShowToast((prev) => !prev);
+  };
+
   return (
     <>
       <S.MobileHeader>
@@ -154,8 +160,13 @@ export const ReportPage = () => {
         />
       )}
       {openChangeBottom && analysisId && (
-        <FolderPopUp analysisId={analysisId} onClick={toggleChangeFoler} />
+        <FolderChangePopUp
+          analysisId={analysisId}
+          onClick={toggleChangeFoler}
+          showToast={toggleShowToast}
+        />
       )}
+      {showToast && <ToastMessage text="변경 내용이 저장되었어요! " onClose={toggleShowToast} />}
     </>
   );
 };
