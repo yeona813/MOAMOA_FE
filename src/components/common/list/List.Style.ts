@@ -12,6 +12,7 @@ export const List = styled.section`
   cursor: pointer;
 
   ${(props) => props.theme.breakpoints.min} {
+    max-width: 23.0625rem;
     height: 8.8125rem;
   }
 `;

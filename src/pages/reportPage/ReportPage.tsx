@@ -160,10 +160,11 @@ export const ReportPage = () => {
           onClickRight={handleDeleteUser}
         />
       )}
-      {openChangeBottom && analysisId && (
+      {openChangeBottom && data && (
         <FolderChangePopUp
-          analysisId={analysisId}
+          recordId={data.recordId}
           onClick={toggleChangeFoler}
+          intialfolderName={data.folderName}
           showToast={toggleShowToast}
         />
       )}
