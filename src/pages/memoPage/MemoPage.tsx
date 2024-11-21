@@ -35,6 +35,7 @@ export const MemoPage = () => {
   const [showToast, setShowToast] = useState(false);
   const [contentWarning, setContentWarning] = useState<string>('');
   const [titleWarning, setTitleWarning] = useState<string>('');
+  const isReviewMode = window.location.pathname.includes('review-memo');
 
   useEffect(() => {
     // 폴더 조회
@@ -50,6 +51,9 @@ export const MemoPage = () => {
     // 임시 저장된 메모 조회
     const fetchTempMemo = async () => {
       try {
+        // review-memo 경로로 접근한 경우에는 임시저장 확인하지 않음
+        if (isReviewMode) return;
+
         const tempMemoData = await getTempMemo();
         if (tempMemoData.isExist) {
           setTempMemo({
@@ -79,7 +83,9 @@ export const MemoPage = () => {
   }, [isBottomSheetOpen, location.state]);
 
   const handleBackButton = () => {
-    if ((tempMemo.title || getFormattedDate()) && tempMemo.memo) {
+    if (isReviewMode) {
+      navigate(-1);
+    } else if ((tempMemo.title || getFormattedDate()) && tempMemo.memo) {
       setShowModal(true);
     } else {
       navigate(-1);
@@ -184,7 +190,7 @@ export const MemoPage = () => {
           placeholder={getFormattedDate()}
           value={tempMemo.title}
           onChange={handleChangeTitle}
-          maxLength={49}
+          maxLength={50}
           isError={!!titleWarning}
         />
         <S.WarningCountContainer>
@@ -193,6 +199,7 @@ export const MemoPage = () => {
         </S.WarningCountContainer>
         <S.Line />
         <S.Content
+          $isReviewMode={isReviewMode}
           placeholder={`어떤 상황에서 무엇을 했나요? 결과는 어땠나요?\n\n일단 기록해 보세요!\n음성으로 입력하거나 오타를 내도 괜찮아요.\n모아모아가 알아서 정리해드려요.`}
           value={tempMemo.memo}
           onChange={handleChangeMemo}
@@ -203,29 +210,36 @@ export const MemoPage = () => {
           <S.Count>{tempMemo.memo.length}/500</S.Count>
         </S.WarningCountContainer>
         <S.Line />
-        <S.Label>경험 폴더를 선택해주세요.</S.Label>
+        <S.Label $isReviewMode={isReviewMode}>경험 폴더를 선택해주세요.</S.Label>
         <S.CategoryContainer>
-          {folders.map((folder) => (
-            <CategoryChip
-              key={folder.folderId}
-              children={folder.title}
-              isSelected={tempMemo.category === folder.title}
-              onClick={() => handleChangeCategory(folder.title, folder)}
-            />
-          ))}
-          <CategoryChip onClick={() => handleChangeCategory('', undefined)} isSelected={false}>
-            <img src={FolderIcon} alt="changeFolder" />
-          </CategoryChip>
+          <S.CategoryContainer>
+            {!isReviewMode &&
+              folders.map((folder) => (
+                <CategoryChip
+                  key={folder.folderId}
+                  children={folder.title}
+                  isSelected={tempMemo.category === folder.title}
+                  onClick={() => handleChangeCategory(folder.title, folder)}
+                />
+              ))}
+            {!isReviewMode && (
+              <CategoryChip onClick={() => handleChangeCategory('', undefined)} isSelected={false}>
+                <img src={FolderIcon} alt="changeFolder" />
+              </CategoryChip>
+            )}
+          </S.CategoryContainer>
         </S.CategoryContainer>
         <S.ButtonWrapper>
-          <Button
-            type="button"
-            onClick={handleSaveButton}
-            styleType={'basic'}
-            disabled={isSaveDisabled}
-          >
-            저장하기
-          </Button>
+          {!isReviewMode && (
+            <Button
+              type="button"
+              onClick={handleSaveButton}
+              styleType={'basic'}
+              disabled={isSaveDisabled}
+            >
+              저장하기
+            </Button>
+          )}
         </S.ButtonWrapper>
       </S.Form>
       {showTempDataModal && (
@@ -241,7 +255,7 @@ export const MemoPage = () => {
           }}
         />
       )}
-      {showModal && (
+      {showModal && !isReviewMode && (
         <DetailModal
           text="작성 중인 내용을 임시 저장할까요?"
           description="새로 작성하면 기존 기록은 삭제돼요."

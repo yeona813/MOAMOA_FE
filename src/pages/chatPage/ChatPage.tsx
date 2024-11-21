@@ -70,7 +70,7 @@ export const ChatPage = () => {
     const fetchTmpChatData = async () => {
       try {
         // review-chat 경로로 접근한 경우에만 임시저장 확인하지 않음
-        if (window.location.pathname.includes('review-chat')) return;
+        if (isReviewMode) return;
 
         // 임시 저장된 채팅 기록이 있는지 확인
         const tmpChatData = await checkTmpChat();

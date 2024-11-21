@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { Input as OriginalInput } from '@components/common/input/Input';
 
+interface ReviewModeProps {
+  $isReviewMode: boolean;
+}
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,12 +50,13 @@ export const SubTitle = styled.h4`
   white-space: pre-wrap;
 `;
 
-export const Label = styled.p`
+export const Label = styled.p<ReviewModeProps>`
   color: ${({ theme }) => theme.colors.gray900};
   font-size: 1rem;
   font-weight: 400;
   line-height: 145%;
   margin-left: 0.5rem;
+  ${({ $isReviewMode }) => $isReviewMode && 'display: none;'}
 `;
 
 export const Form = styled.form`
@@ -80,13 +85,13 @@ export const Line = styled.div`
   margin-bottom: 0.625rem;
 `;
 
-export const Content = styled.textarea`
+export const Content = styled.textarea<ReviewModeProps>`
   font-family: 'Pretendard';
   font-size: 1rem;
   font-weight: 400;
   line-height: 145%;
   width: 95%;
-  min-height: 10rem;
+  min-height: ${({ $isReviewMode }) => ($isReviewMode ? '15rem' : '10rem')};
   border: none;
   outline: none;
   padding: 0.5rem;
