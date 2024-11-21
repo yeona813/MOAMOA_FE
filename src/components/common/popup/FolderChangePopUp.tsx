@@ -19,6 +19,7 @@ interface FolderPopUpProps {
 /**
  *
  * @param recordId - recordId
+ * @param intialfolderName - 기존 folderName
  * @param onClick - BottomSheet 열고 닫는 함수
  * @returns
  */
