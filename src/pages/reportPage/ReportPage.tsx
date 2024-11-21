@@ -7,10 +7,11 @@ import { ReportPopUp } from '@/components/common/popup/reportPopup/ReportPopUp';
 import { AbilityProps, AnalysisProps, SkillProps } from '@/types/Analysis';
 import { deleteAnaylsis, getAnalysis, patchAnalysis } from '@/api/Analysis';
 import { useNavigate, useParams } from 'react-router-dom';
-import { FolderPopUp } from '@/components/common/popup/FolderChangePopUp';
+import { FolderChangePopUp } from '@/components/common/popup/FolderChangePopUp';
 import EditIcon from '@icons/EditIcon.svg';
 import KebabIcon from '@icons/KebabIcon.svg';
 import * as S from './ReportPage.Style';
+import ToastMessage from '@/components/chat/ToastMessage';
 
 export const ReportPage = () => {
   const { id } = useParams<{ id?: string }>();
@@ -20,6 +21,7 @@ export const ReportPage = () => {
   const [openEditBottom, setOpenEditBottom] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openChangeBottom, setOpenChangeBottom] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   const navigate = useNavigate();
 
   const analysisId = id ? parseInt(id, 10) : undefined;
@@ -70,7 +72,7 @@ export const ReportPage = () => {
     if (analysisId === undefined) return;
     const response = await deleteAnaylsis(analysisId);
     if (response.is_success) {
-      navigate('/home');
+      navigate(-1);
     }
   };
 
@@ -86,6 +88,7 @@ export const ReportPage = () => {
 
       if (response.is_success) {
         toggleEditBottomSheet();
+        toggleShowToast();
       }
     }
   };
@@ -107,6 +110,10 @@ export const ReportPage = () => {
   const toggleChangeFoler = () => {
     setOpenBottom(false);
     setOpenChangeBottom((prev) => !prev);
+  };
+
+  const toggleShowToast = () => {
+    setShowToast((prev) => !prev);
   };
 
   return (
@@ -154,12 +161,14 @@ export const ReportPage = () => {
         />
       )}
       {openChangeBottom && data && (
-        <FolderPopUp
+        <FolderChangePopUp
           recordId={data.recordId}
           onClick={toggleChangeFoler}
           intialfolderName={data.folderName}
+          showToast={toggleShowToast}
         />
       )}
+      {showToast && <ToastMessage text="변경 내용이 저장되었어요! " onClose={toggleShowToast} />}
     </>
   );
 };

@@ -14,6 +14,7 @@ interface FolderPopUpProps {
   recordId: number;
   intialfolderName: string;
   onClick: () => void;
+  showToast: () => void;
 }
 
 /**
@@ -21,9 +22,15 @@ interface FolderPopUpProps {
  * @param recordId - recordId
  * @param intialfolderName - 기존 folderName
  * @param onClick - BottomSheet 열고 닫는 함수
+ * @param showToast - 저장 완료 후 toast 보여주는 함수
  * @returns
  */
-export const FolderPopUp = ({ recordId, intialfolderName, onClick }: FolderPopUpProps) => {
+export const FolderChangePopUp = ({
+  recordId,
+  intialfolderName,
+  onClick,
+  showToast,
+}: FolderPopUpProps) => {
   const [folderName, setFolderName] = useState(intialfolderName);
   const [folderList, setFolderList] = useState<FolderListProps[]>([]);
 
@@ -52,8 +59,9 @@ export const FolderPopUp = ({ recordId, intialfolderName, onClick }: FolderPopUp
           folder: folderName,
         });
 
-        if (response?.is_success) {
+        if (response.is_success) {
           onClick();
+          showToast();
         }
       } catch (error) {
         console.error('폴더 변경 실패:', error);
@@ -61,37 +69,29 @@ export const FolderPopUp = ({ recordId, intialfolderName, onClick }: FolderPopUp
     }
   };
 
+  const Content = (
+    <>
+      <S.Header>
+        <S.Title>경험 폴더 변경하기</S.Title>
+        <S.Icon src={CloseIcon} alt="closeIcon" onClick={onClick} />
+      </S.Header>
+      <S.SheetContent>
+        저장할 폴더를 선택해주세요
+        <SelectBox select={folderName} onChange={changeSelect} selectData={folderList} />
+        <Button styleType="basic" disabled={!folderName} onClick={handleSubmit}>
+          완료
+        </Button>
+      </S.SheetContent>
+    </>
+  );
+
   return (
     <>
       {isMobile ? (
-        <BottomSheet onClick={onClick}>
-          <S.Header>
-            <S.Title>경험 폴더 변경하기</S.Title>
-            <S.Icon src={CloseIcon} alt="closeIcon" onClick={onClick} />
-          </S.Header>
-          <S.SheetContent>
-            저장할 폴더를 선택해주세요
-            <SelectBox select={folderName} onChange={changeSelect} selectData={folderList} />
-            <Button styleType="basic" disabled={!folderName} onClick={handleSubmit}>
-              완료
-            </Button>
-          </S.SheetContent>
-        </BottomSheet>
+        <BottomSheet onClick={onClick}>{Content}</BottomSheet>
       ) : (
         <Modal onClick={onClick} isPC={true}>
-          <S.Header>
-            <S.Title>경험 폴더 변경하기</S.Title>
-            <S.Icon src={CloseIcon} alt="closeIcon" onClick={onClick} />
-          </S.Header>
-          <S.SheetContent>
-            저장할 폴더를 선택해주세요
-            <S.Content>
-              <SelectBox select={folderName} onChange={changeSelect} selectData={folderList} />
-              <Button styleType="basic" disabled={!folderName} onClick={handleSubmit}>
-                완료
-              </Button>
-            </S.Content>
-          </S.SheetContent>
+          {Content}
         </Modal>
       )}
     </>
