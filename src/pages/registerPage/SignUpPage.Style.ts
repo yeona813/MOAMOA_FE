@@ -1,5 +1,21 @@
 import styled from 'styled-components';
 
+export const PageContainer = styled.div<{ isPC: boolean }>`
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+`;
+
+export const ContentWrapper = styled.div`
+  flex-grow: 1;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -8,12 +24,13 @@ export const Container = styled.div`
   width: 100%;
   position: relative;
   overflow: hidden;
+  max-width: 500px;
 `;
 
 export const Title = styled.p`
   font-size: 1.25rem;
   font-weight: 700;
-  margin: 1.4625rem 0 2.5rem 0;
+  margin: 4rem 0 2.5rem 0;
   text-align: left;
   width: 100%;
 `;
@@ -21,7 +38,7 @@ export const Title = styled.p`
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.625rem;  
+  gap: 0.625rem;
   width: 100%;
 `;
 
