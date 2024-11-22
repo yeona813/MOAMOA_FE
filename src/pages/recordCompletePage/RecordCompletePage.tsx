@@ -9,6 +9,7 @@ import FolderIcon from '@icons/FolderIcon.svg';
 import { getFolders } from '@/api/Folder';
 import { FolderListProps } from '@/types/Folder';
 import { postRecord } from '@/api/Record';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export const RecordCompletePage = () => {
   const [folders, setFolders] = useState<FolderListProps[]>([]);
@@ -19,6 +20,7 @@ export const RecordCompletePage = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const nickname = localStorage.getItem('nickname');
+  const isPC = useMediaQuery('(min-width: 768px)');
 
   useEffect(() => {
     if (state?.summary) {
@@ -125,15 +127,15 @@ export const RecordCompletePage = () => {
         <S.SubTitle>{nickname}님의 경험을 보기 쉽게 요약했어요</S.SubTitle>
       </S.HeaderContainer>
 
-      <S.Form onSubmit={handleSubmit}>
-        <S.Input
+      <S.Form onSubmit={handleSubmit} $isPC={isPC}>
+        <S.InputTitle
           placeholder={getFormattedDate()}
           value={title}
           onChange={handleChangeTitle}
           isError={false}
         />
         <S.Line />
-        <S.TextArea value={content} onChange={handleChangeContent} />
+        <S.TextArea value={content} onChange={handleChangeContent} $isPC={isPC} />
         <S.Line />
 
         <S.Label>경험 폴더를 선택해주세요.</S.Label>
@@ -151,7 +153,7 @@ export const RecordCompletePage = () => {
           </CategoryChip>
         </S.CategoryContainer>
 
-        <S.ButtonWrapper>
+        <S.ButtonWrapper $isPC={isPC}>
           <Button
             type="submit"
             onClick={handleSaveButton}

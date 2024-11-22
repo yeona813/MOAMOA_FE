@@ -33,7 +33,7 @@ export const Form = styled.form<ReviewModeProps>`
   gap: 0.625rem;
   width: ${({ $isPC }) => ($isPC ? '80%' : '100%')};
   padding: 0 1.25rem;
-  position: relative; /* ButtonWrapper의 기준이 됨 */
+  position: relative;
 `;
 
 export const ContentWrapper = styled.div`
@@ -145,7 +145,7 @@ export const Count = styled.p`
 `;
 
 export const ButtonWrapper = styled.div<ReviewModeProps>`
-  width: ${({ $isPC }) => ($isPC ? '176px' : '100%')}; /* PC에서는 고정 너비 */
+  width: ${({ $isPC }) => ($isPC ? '176px' : '100%')};
   margin-top: ${({ $isPC }) => ($isPC ? '5rem' : '2rem')};
   margin-bottom: 1.25rem;
   margin-left: ${({ $isPC }) => ($isPC ? 'auto' : '0')};
