@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const Container = styled.section`
+interface ContainerProps {
+  isPC: boolean;
+}
+
+export const Container = styled.section<ContainerProps>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -42,14 +46,15 @@ export const ColoredSquare = styled.div`
   width: 12.5rem;
   height: 12.5rem;
   background-color: ${({ theme }) => theme.colors.blue200};
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: 2rem 0;
 `;
 
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 30.375rem;
+  margin: 0 auto;
   margin-bottom: 4.8125rem;
 `;
