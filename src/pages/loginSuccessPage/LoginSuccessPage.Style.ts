@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-interface ContainerProps {
-  isPC: boolean;
-}
-
-export const Container = styled.section<ContainerProps>`
+export const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
