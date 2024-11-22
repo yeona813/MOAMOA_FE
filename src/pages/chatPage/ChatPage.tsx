@@ -11,6 +11,7 @@ import ToastMessage from '@/components/chat/ToastMessage';
 import { LoadingDots } from '@components/chat/LodingDots';
 import { LoadingScreen } from '@components/common/loading/LoadingScreen';
 import { postAiChat, postTmpChat, checkTmpChat, getChat, getSummary, deleteChat, postChat } from '@/api/Chat';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface Message {
   message: string;
@@ -40,6 +41,7 @@ export const ChatPage = () => {
   const [showGuideButton, setShowGuideButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const isReviewMode = window.location.pathname.includes('review-chat');
+  const isPC = useMediaQuery('(min-width: 768px)');
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -351,19 +353,19 @@ export const ChatPage = () => {
 
           {showToast && <ToastMessage text="경험이 임시저장 되었어요" onClose={() => setShowToast(false)} />}
 
-          <S.ChatContainer>
+          <S.ChatContainer $isPC={isPC}>
             <S.DateContainer>{currentDate}</S.DateContainer>
             {messages.map((msg, index) => (
-              <ChatBubble key={index} message={msg.isLoading ? <LoadingDots /> : msg.message} isMe={msg.isMe} isLoading={msg.isLoading} />
+              <ChatBubble key={index} message={msg.isLoading ? <LoadingDots /> : msg.message} isMe={msg.isMe} isLoading={msg.isLoading} $isPC={isPC} />
             ))}
             <div ref={messagesEndRef} />
-            <S.InputContainer>
+            <S.InputContainer $isPC={isPC}>
               {showGuideButton && <GuideButton text="🤔 경험을 어떻게 말해야 할지 모르겠어요" onClick={handleGuideButtonClick} />}
-              <ChatBox onSubmit={handleSendMessage} isReviewMode={isReviewMode} />
+              <ChatBox onSubmit={handleSendMessage} isReviewMode={isReviewMode} $isPC={isPC} />
             </S.InputContainer>
           </S.ChatContainer>
         </>
       )}
     </>
   );
-};
+}

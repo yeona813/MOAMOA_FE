@@ -1,3 +1,41 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="16" cy="16" r="14" fill="#7086FF"/>
+<svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="38" height="38" fill="#393939"/>
+<g id="pc_&#236;&#181;&#156;&#236;&#162;&#133;">
+<path d="M-5488 -6628C-5488 -6629.1 -5487.1 -6630 -5486 -6630H33583C33584.1 -6630 33585 -6629.1 33585 -6628V4433C33585 4434.1 33584.1 4435 33583 4435H-5486C-5487.1 4435 -5488 4434.1 -5488 4433V-6628Z" fill="black"/>
+<path d="M-5486 -6629H33583V-6631H-5486V-6629ZM33584 -6628V4433H33586V-6628H33584ZM33583 4434H-5486V4436H33583V4434ZM-5487 4433V-6628H-5489V4433H-5487ZM-5486 4434C-5486.55 4434 -5487 4433.55 -5487 4433H-5489C-5489 4434.66 -5487.66 4436 -5486 4436V4434ZM33584 4433C33584 4433.55 33583.6 4434 33583 4434V4436C33584.7 4436 33586 4434.66 33586 4433H33584ZM33583 -6629C33583.6 -6629 33584 -6628.55 33584 -6628H33586C33586 -6629.66 33584.7 -6631 33583 -6631V-6629ZM-5486 -6631C-5487.66 -6631 -5489 -6629.66 -5489 -6628H-5487C-5487 -6628.55 -5486.55 -6629 -5486 -6629V-6631Z" fill="white" fill-opacity="0.1"/>
+<g id="Desktop - 1521">
+<rect width="1440" height="960" transform="translate(-334 -157)" fill="white"/>
+<rect width="1440" height="960" transform="translate(-334 -157)" fill="url(#paint0_linear_538_3649)" fill-opacity="0.2"/>
+<g id="Frame 2087327266">
+<g id="Chat_ai">
+<g id="Frame 2087327302">
+<path id="Ellipse 4938" d="M35 19C35 27.8366 27.8366 35 19 35C10.1634 35 3 27.8366 3 19C3 10.1634 10.1634 3 19 3C27.8366 3 35 10.1634 35 19Z" fill="#D6DCFF"/>
+<g id="Ellipse 4939" style="mix-blend-mode:color-burn" filter="url(#filter0_f_538_3649)">
+<path d="M32.0912 19.0003C32.0912 26.2304 26.2301 32.0915 19.0001 32.0915C11.77 32.0915 5.90894 26.2304 5.90894 19.0003C5.90894 11.7703 11.77 5.90918 19.0001 5.90918C26.2301 5.90918 32.0912 11.7703 32.0912 19.0003Z" fill="url(#paint1_linear_538_3649)"/>
+</g>
+<g id="Group 2085665339">
+<circle id="Ellipse 4953" cx="15.5167" cy="15.7225" r="1.22936" fill="#333538"/>
+<circle id="Ellipse 4954" cx="22.4838" cy="15.7225" r="1.22936" fill="#333538"/>
+<path id="Vector 10973" d="M17.5667 18.1807C18.0129 18.7991 19.2113 19.665 20.4352 18.1807" stroke="#333538" stroke-width="1.15556" stroke-linecap="round"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_538_3649" x="0.575602" y="0.575846" width="36.849" height="36.8493" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="2.66667" result="effect1_foregroundBlur_538_3649"/>
+</filter>
+<linearGradient id="paint0_linear_538_3649" x1="720" y1="0" x2="720" y2="960" gradientUnits="userSpaceOnUse">
+<stop stop-color="white" stop-opacity="0"/>
+<stop offset="1" stop-color="#A3B1FF"/>
+</linearGradient>
+<linearGradient id="paint1_linear_538_3649" x1="13.9025" y1="0.514601" x2="25.0121" y2="29.825" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#4C62DE"/>
+</linearGradient>
+</defs>
 </svg>
