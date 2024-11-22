@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getTokensWithTmpToken } from '../../api/Oauth';
+import { LoadingScreen } from '@components/common/loading/LoadingScreen';
 
 export const SigningIn = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export const SigningIn = () => {
 
         if (apiResponse.is_success) {
           if (apiResponse.data.nickname) {
-            localStorage.setItem('nickname', apiResponse.data.nickname); // 로컬 스토리지에 엑세스 토큰 저장
+            localStorage.setItem('nickname', apiResponse.data.nickname);
             navigate('/home');
           }
         }
@@ -32,5 +33,5 @@ export const SigningIn = () => {
     fetchData();
   }, [token, navigate]);
 
-  return <div>로그인 중</div>;
+  return <LoadingScreen showLabel={false} />;
 };
