@@ -14,6 +14,8 @@ import { getFolders } from '@/api/Folder';
 import { getTempMemo, postTempMemo } from '@/api/Memo';
 import ToastMessage from '@/components/chat/ToastMessage';
 import { LoadingScreen } from '@/components/common/loading/LoadingScreen';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+
 interface FolderType {
   folderId: number;
   title: string;
@@ -36,6 +38,7 @@ export const MemoPage = () => {
   const [contentWarning, setContentWarning] = useState<string>('');
   const [titleWarning, setTitleWarning] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
+  const isPC = useMediaQuery('(min-width: 768px)');
   const isReviewMode = window.location.pathname.includes('review-memo');
 
   useEffect(() => {
@@ -178,6 +181,10 @@ export const MemoPage = () => {
   };
 
   const saveTempMemo = async () => {
+    if (tempMemo.memo.length < 30) {
+      alert('내용은 최소 30자 이상 입력해야 임시 저장할 수 있습니다.');
+      return;
+    }
     try {
       await postTempMemo(tempMemo.title || getFormattedDate(), tempMemo.memo);
       setShowModal(false);
@@ -209,7 +216,8 @@ export const MemoPage = () => {
       {isLoading ? (
         <LoadingScreen />
       ) : (
-        <S.Container>
+        <S.Container $isReviewMode={isReviewMode} $isPC={isPC}>
+
           <S.HeaderContainer>
             <S.BackButton onClick={handleBackButton} type="button">
               <img src={BackIcon} alt="뒤로가기" />
@@ -218,31 +226,38 @@ export const MemoPage = () => {
             <S.SubTitle>메모기록</S.SubTitle>
           </S.HeaderContainer>
 
-          <S.Form onSubmit={handleSubmit}>
-            <S.Input
-              placeholder={getFormattedDate()}
-              value={tempMemo.title}
-              onChange={handleChangeTitle}
-              maxLength={50}
-              isError={!!titleWarning}
-            />
-            <S.WarningCountContainer>
-              {titleWarning && <S.Warning>{titleWarning}</S.Warning>}
-            </S.WarningCountContainer>
-            <S.Line />
-            <S.Content
-              $isReviewMode={isReviewMode}
-              placeholder={`어떤 상황에서 무엇을 했나요? 결과는 어땠나요?\n\n일단 기록해 보세요!\n음성으로 입력하거나 오타를 내도 괜찮아요.\n모아모아가 알아서 정리해드려요.`}
-              value={tempMemo.memo}
-              onChange={handleChangeMemo}
-              maxLength={500}
-            />
-            <S.WarningCountContainer>
-              {contentWarning && <S.Warning>{contentWarning}</S.Warning>}
-              <S.Count>{tempMemo.memo.length}/500</S.Count>
-            </S.WarningCountContainer>
-            <S.Line />
-            <S.Label $isReviewMode={isReviewMode}>경험 폴더를 선택해주세요.</S.Label>
+          <S.Form onSubmit={handleSubmit} $isReviewMode={isReviewMode} $isPC={isPC}>
+
+            <S.ContentWrapper>
+              <S.InputTitle
+                placeholder={getFormattedDate()}
+                value={tempMemo.title}
+                onChange={handleChangeTitle}
+                maxLength={50}
+                isError={!!titleWarning}
+                disabled={isReviewMode}
+              />
+              <S.WarningCountContainer>
+                {titleWarning && <S.Warning>{titleWarning}</S.Warning>}
+              </S.WarningCountContainer>
+              <S.Line />
+              <S.Content
+                $isPC={isPC}
+                $isReviewMode={isReviewMode}
+                placeholder={`어떤 상황에서 무엇을 했나요? 결과는 어땠나요?\n\n일단 기록해 보세요!\n음성으로 입력하거나 오타를 내도 괜찮아요.\n모아모아가 알아서 정리해드려요.`}
+                value={tempMemo.memo}
+                onChange={handleChangeMemo}
+                maxLength={500}
+                disabled={isReviewMode}
+              />
+              <S.WarningCountContainer>
+                {contentWarning && <S.Warning>{contentWarning}</S.Warning>}
+                <S.Count>{tempMemo.memo.length}/500</S.Count>
+              </S.WarningCountContainer>
+              <S.Line />
+            </S.ContentWrapper>
+
+            <S.Label $isReviewMode={isReviewMode} $isPC={isPC}>경험 폴더를 선택해주세요</S.Label>
             <S.CategoryContainer>
               <S.CategoryContainer>
                 {!isReviewMode &&
@@ -261,8 +276,8 @@ export const MemoPage = () => {
                 )}
               </S.CategoryContainer>
             </S.CategoryContainer>
-            <S.ButtonWrapper>
-              {!isReviewMode && (
+            {!isReviewMode && (
+              <S.ButtonWrapper $isReviewMode={isReviewMode} $isPC={isPC}>
                 <Button
                   type="button"
                   onClick={handleSaveButton}
@@ -271,9 +286,10 @@ export const MemoPage = () => {
                 >
                   저장하기
                 </Button>
-              )}
-            </S.ButtonWrapper>
+              </S.ButtonWrapper>
+            )}
           </S.Form>
+
           {showTempDataModal && (
             <DetailModal
               text={`최근 작성 내용이 있어요\n이어서 작성하시겠어요?`}
