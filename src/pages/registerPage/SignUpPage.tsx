@@ -40,13 +40,13 @@ export const SignUpPage = () => {
   };
 
   return (
-    <S.PageContainer isPC={isPC}>
+    <S.PageContainer $isPC={isPC}>
       {!isPC && <TabBar leftText="회원가입" />}
       <S.ContentWrapper>
-        <S.Container>
+        <S.Container $isPC={isPC}>
           <S.Title>추가 정보 작성</S.Title>
           <S.Form onSubmit={handleSubmit}>
-            <S.InputWrapper>
+            <S.InputWrapper $isPC={isPC}>
               <S.Label>닉네임</S.Label>
               <Input
                 placeholder="10자 이내로 입력해주세요."
@@ -58,7 +58,7 @@ export const SignUpPage = () => {
                 errorMessage={errorMessage}
               />
             </S.InputWrapper>
-            <S.InputWrapper>
+            <S.InputWrapper $isPC={isPC}>
               <S.Label>현소속</S.Label>
               <SelectBox select={status} onChange={setStatus} statusData={statusOptions} placeholder="선택하기" />
             </S.InputWrapper>
