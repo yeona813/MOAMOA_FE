@@ -6,7 +6,6 @@ export const GraphContainer = styled.div`
   align-items: center;
   width: 100%;
   padding: 1.25rem;
-  margin-top: 12.5rem;
   position: relative;
 `;
 
