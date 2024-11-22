@@ -12,7 +12,7 @@ export const ChatBubbleWrapper = styled.div<ChatBubbleProps>`
 `;
 
 export const Bubble = styled.div<ChatBubbleProps>`
-  max-width: 15.75rem;
+  max-width: ${({ $isMe }) => ($isMe ? '15.75rem' : '14.5rem')};
   padding: 0.75rem 1rem;
   border-radius: ${({ $isMe }) => ($isMe ? '1.25rem 0 1.25rem 1.25rem' : '0 1.25rem 1.25rem 1.25rem')};
   background-color: ${({ $isMe }) => ($isMe ? theme.colors.blue50 : theme.colors.white)};
