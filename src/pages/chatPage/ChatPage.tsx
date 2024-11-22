@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './ChatPage.Style';
 import ToastMessage from '@/components/chat/ToastMessage';
 import { LoadingDots } from '@components/chat/LodingDots';
-import { postAiChat, postTmpChat, checkTmpChat, getChat, getSummary, deleteChat, postChat, CustomError } from '@/api/Chat';
+import { postAiChat, postTmpChat, checkTmpChat, getChat, getSummary, deleteChat, postChat } from '@/api/Chat';
 
 interface Message {
   message: string;
@@ -18,6 +18,8 @@ interface Message {
 }
 
 export const ChatPage = () => {
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
   const firstChat = localStorage.getItem('firstChat') || '안녕하세요! 경험을 작성해주세요.';
   const formattedFirstChat = firstChat.replace(/\n/g, '<br>');
   const { id } = useParams();
@@ -35,8 +37,7 @@ export const ChatPage = () => {
   const [isLoadTempModalOpen, setIsLoadTempModalOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [showGuideButton, setShowGuideButton] = useState(true);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
+  const isReviewMode = window.location.pathname.includes('review-chat');
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -69,7 +70,7 @@ export const ChatPage = () => {
     const fetchTmpChatData = async () => {
       try {
         // review-chat 경로로 접근한 경우에만 임시저장 확인하지 않음
-        if (window.location.pathname.includes('review-chat')) return;
+        if (isReviewMode) return;
 
         // 임시 저장된 채팅 기록이 있는지 확인
         const tmpChatData = await checkTmpChat();
@@ -235,35 +236,35 @@ export const ChatPage = () => {
           return;
         }
       } catch (error: any) {
-        if (error instanceof CustomError) {
-          switch (error.code) {
-            case 'E0305_OVERFLOW_SUMMARY_TITLE':
-            case 'E0305_OVERFLOW_SUMMARY_CONTENT':
-            case 'E0305_INVALID_CHAT_SUMMARY':
-              // 1초 대기 후 재시도
-              await new Promise((resolve) => setTimeout(resolve, 1000));
-              const retryResponse = await getSummary(chatRoomId);
 
-              if (retryResponse) {
-                navigate('/record-complete', {
-                  state: { chatRoomId, summary: retryResponse.content, title: retryResponse.title },
-                });
-                return;
-              }
-              break;
-            case 'E0305_NO_RECORD':
-              // 내용 부족 에러: 알림 후 종료
-              alert('경험 기록의 내용이 충분하지 않습니다. 내용을 더 자세히 작성해주세요.');
+        // Axios 에러에서 서버 응답 코드 확인
+        const errorCode = error.response?.data?.code || error.code;
+
+        switch (errorCode) {
+          case 'E0305_OVERFLOW_SUMMARY_TITLE':
+          case 'E0305_OVERFLOW_SUMMARY_CONTENT':
+          case 'E0305_INVALID_CHAT_SUMMARY':
+            // 1초 대기 후 재시도
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            const retryResponse = await getSummary(chatRoomId);
+
+            if (retryResponse) {
+              navigate('/record-complete', {
+                state: { chatRoomId, summary: retryResponse.content, title: retryResponse.title },
+              });
               return;
-            default:
-              throw error; // 예상하지 못한 에러
-          }
-        } else {
-          throw error; // CustomError가 아닌 다른 에러
+            }
+            break;
+          case 'E0305_NO_RECORD':
+            // 내용 부족 에러: 알림 후 종료
+            alert('경험 기록의 내용이 충분하지 않습니다. 내용을 더 자세히 작성해주세요.');
+            return;
+          default:
+            throw error; // 예상하지 못한 에러
         }
       }
     } catch (error) {
-      console.error(error); // 디버깅용 로그
+      console.error(error);
       alert('완료 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
     }
   };
@@ -307,7 +308,7 @@ export const ChatPage = () => {
 
   return (
     <>
-      <TabBar rightText="완료하기" onClickBackIcon={handleTemporarySave} onClick={() => setIsModalOpen(true)} isDisabled={messages.length === 0} />
+      <TabBar rightText={isReviewMode ? "" : "완료하기"} onClickBackIcon={handleTemporarySave} onClick={() => setIsModalOpen(true)} isDisabled={messages.length === 0} />
       {isModalOpen && (
         <DetailModal
           text="기록을 완료할까요?"
@@ -349,7 +350,7 @@ export const ChatPage = () => {
         <div ref={messagesEndRef} />
         <S.InputContainer>
           {showGuideButton && <GuideButton text="🤔 경험을 어떻게 말해야 할지 모르겠어요" onClick={handleGuideButtonClick} />}
-          <ChatBox onSubmit={handleSendMessage} />
+          <ChatBox onSubmit={handleSendMessage} isReviewMode={isReviewMode} />
         </S.InputContainer>
       </S.ChatContainer>
     </>

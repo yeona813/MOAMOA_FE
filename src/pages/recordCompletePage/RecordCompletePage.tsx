@@ -54,18 +54,44 @@ export const RecordCompletePage = () => {
       if (!folderId) {
         throw new Error('유효하지 않은 폴더입니다.');
       }
-      const response = await postRecord({
-        title,
-        content,
-        folderId,
-        recordType: 'CHAT',
-        chatRoomId: state.chatRoomId,
-      });
-      if (response?.is_success) {
-        navigate('/home');
+
+      try {
+        const response = await postRecord({
+          title,
+          content,
+          folderId,
+          recordType: 'CHAT',
+          chatRoomId: state.chatRoomId,
+        });
+        if (response?.is_success) {
+          navigate('/home');
+          return true;
+        }
+      } catch (error: any) {
+        switch (error.code) {
+          case 'E0500_OVERFLOW_COMMENT':
+          case 'E0500_OVERFLOW_KEYWORD_CONTENT':
+          case 'E500_INVALID_ANALYSIS':
+            // 1초 대기 후 재시도
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            const retryResponse = await postRecord({
+              title,
+              content,
+              folderId,
+              recordType: 'CHAT',
+              chatRoomId: state.chatRoomId,
+            });
+            if (retryResponse?.is_success) {
+              navigate('/home');
+              return;
+            }
+            break;
+          default:
+            throw error; // 예상하지 못한 에러
+        }
       }
     } catch (error) {
-      alert('기록 저장에 실패했습니다. 다시 시도해주세요.');
+      alert('기록 저장 중 오류가 발생했습니다.');
       console.error(error);
     }
   };
