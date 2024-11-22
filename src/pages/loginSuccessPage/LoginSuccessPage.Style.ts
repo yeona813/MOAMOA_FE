@@ -4,8 +4,9 @@ export const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   min-height: 100vh;
-  padding: 10.625rem 2rem 1.25rem;
+  padding: 15rem 2rem 1.25rem;
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 1) 0%,
@@ -34,14 +35,13 @@ export const ContentWrapper = styled.div`
 export const WelcomeMessage = styled.p`
   font-size: 0.875rem;
   font-weight: 400;
-  margin-bottom: 0.875rem;
+  margin-bottom: 2rem;
   line-height: 1.26875rem;
 `;
 
-export const ColoredSquare = styled.div`
-  width: 12.5rem;
-  height: 12.5rem;
-  background-color: ${({ theme }) => theme.colors.blue200};
+export const LogoImage = styled.img`
+  width: 11.25rem;
+  height: 11.25rem;
   margin: 2rem 0;
 `;
 
