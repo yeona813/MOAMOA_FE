@@ -29,8 +29,8 @@ export const Bubble = styled.div<ChatBubbleProps>`
   margin-bottom: 0.625rem;
 `;
 
-export const Message = styled.p`
-  font-size: 0.875rem;
+export const Message = styled.p<ChatBubbleProps>`
+  font-size: ${({ $isPC }) => ($isPC ? '1.125rem' : '0.875rem')};
   font-weight: 400;
   line-height: 1.25rem;
   white-space: pre-line;

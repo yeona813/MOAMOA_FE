@@ -18,9 +18,9 @@ export const ChatBubble = ({ message, isMe, isLoading, $isPC }: ChatBubbleProps)
           <LoadingDots />
         ) : (
           typeof message === 'string' ? (
-            <S.Message dangerouslySetInnerHTML={{ __html: message }} />
+            <S.Message $isMe={isMe} $isPC={$isPC} dangerouslySetInnerHTML={{ __html: message }} />
           ) : (
-            <S.Message>{message}</S.Message>
+            <S.Message $isMe={isMe} $isPC={$isPC}>{message}</S.Message>
           )
         )}
       </S.Bubble>
