@@ -13,7 +13,7 @@ import { postRecord } from '@/api/Record';
 import { getFolders } from '@/api/Folder';
 import { getTempMemo, postTempMemo } from '@/api/Memo';
 import ToastMessage from '@/components/chat/ToastMessage';
-
+import { LoadingScreen } from '@/components/common/loading/LoadingScreen';
 interface FolderType {
   folderId: number;
   title: string;
@@ -35,6 +35,7 @@ export const MemoPage = () => {
   const [showToast, setShowToast] = useState(false);
   const [contentWarning, setContentWarning] = useState<string>('');
   const [titleWarning, setTitleWarning] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
   const isReviewMode = window.location.pathname.includes('review-memo');
 
   useEffect(() => {
@@ -129,6 +130,7 @@ export const MemoPage = () => {
 
   const handleSaveButton = async () => {
     try {
+      setIsLoading(true);
       const response = await postRecord({
         title: tempMemo.title || getFormattedDate(),
         content: tempMemo.memo,
@@ -170,6 +172,8 @@ export const MemoPage = () => {
           alert('기록 저장 중 오류가 발생했습니다.');
           console.error(error);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -201,99 +205,105 @@ export const MemoPage = () => {
   const isSaveDisabled = !tempMemo.memo || tempMemo.memo.length < 30 || tempMemo.folderId === 0;
 
   return (
-    <S.Container>
-      <S.HeaderContainer>
-        <S.BackButton onClick={handleBackButton} type="button">
-          <img src={BackIcon} alt="뒤로가기" />
-        </S.BackButton>
-        <S.Title>간편하고 빠르게</S.Title>
-        <S.SubTitle>메모기록</S.SubTitle>
-      </S.HeaderContainer>
+    <>
+      {isLoading ? (
+        <LoadingScreen />
+      ) : (
+        <S.Container>
+          <S.HeaderContainer>
+            <S.BackButton onClick={handleBackButton} type="button">
+              <img src={BackIcon} alt="뒤로가기" />
+            </S.BackButton>
+            <S.Title>간편하고 빠르게</S.Title>
+            <S.SubTitle>메모기록</S.SubTitle>
+          </S.HeaderContainer>
 
-      <S.Form onSubmit={handleSubmit}>
-        <S.Input
-          placeholder={getFormattedDate()}
-          value={tempMemo.title}
-          onChange={handleChangeTitle}
-          maxLength={50}
-          isError={!!titleWarning}
-        />
-        <S.WarningCountContainer>
-          {titleWarning && <S.Warning>{titleWarning}</S.Warning>}
-        </S.WarningCountContainer>
-        <S.Line />
-        <S.Content
-          $isReviewMode={isReviewMode}
-          placeholder={`어떤 상황에서 무엇을 했나요? 결과는 어땠나요?\n\n일단 기록해 보세요!\n음성으로 입력하거나 오타를 내도 괜찮아요.\n모아모아가 알아서 정리해드려요.`}
-          value={tempMemo.memo}
-          onChange={handleChangeMemo}
-          maxLength={500}
-        />
-        <S.WarningCountContainer>
-          {contentWarning && <S.Warning>{contentWarning}</S.Warning>}
-          <S.Count>{tempMemo.memo.length}/500</S.Count>
-        </S.WarningCountContainer>
-        <S.Line />
-        <S.Label $isReviewMode={isReviewMode}>경험 폴더를 선택해주세요.</S.Label>
-        <S.CategoryContainer>
-          <S.CategoryContainer>
-            {!isReviewMode &&
-              folders.map((folder) => (
-                <CategoryChip
-                  key={folder.folderId}
-                  children={folder.title}
-                  isSelected={tempMemo.category === folder.title}
-                  onClick={() => handleChangeCategory(folder.title, folder)}
-                />
-              ))}
-            {!isReviewMode && (
-              <CategoryChip onClick={() => handleChangeCategory('', undefined)} isSelected={false}>
-                <img src={FolderIcon} alt="changeFolder" />
-              </CategoryChip>
-            )}
-          </S.CategoryContainer>
-        </S.CategoryContainer>
-        <S.ButtonWrapper>
-          {!isReviewMode && (
-            <Button
-              type="button"
-              onClick={handleSaveButton}
-              styleType={'basic'}
-              disabled={isSaveDisabled}
-            >
-              저장하기
-            </Button>
+          <S.Form onSubmit={handleSubmit}>
+            <S.Input
+              placeholder={getFormattedDate()}
+              value={tempMemo.title}
+              onChange={handleChangeTitle}
+              maxLength={50}
+              isError={!!titleWarning}
+            />
+            <S.WarningCountContainer>
+              {titleWarning && <S.Warning>{titleWarning}</S.Warning>}
+            </S.WarningCountContainer>
+            <S.Line />
+            <S.Content
+              $isReviewMode={isReviewMode}
+              placeholder={`어떤 상황에서 무엇을 했나요? 결과는 어땠나요?\n\n일단 기록해 보세요!\n음성으로 입력하거나 오타를 내도 괜찮아요.\n모아모아가 알아서 정리해드려요.`}
+              value={tempMemo.memo}
+              onChange={handleChangeMemo}
+              maxLength={500}
+            />
+            <S.WarningCountContainer>
+              {contentWarning && <S.Warning>{contentWarning}</S.Warning>}
+              <S.Count>{tempMemo.memo.length}/500</S.Count>
+            </S.WarningCountContainer>
+            <S.Line />
+            <S.Label $isReviewMode={isReviewMode}>경험 폴더를 선택해주세요.</S.Label>
+            <S.CategoryContainer>
+              <S.CategoryContainer>
+                {!isReviewMode &&
+                  folders.map((folder) => (
+                    <CategoryChip
+                      key={folder.folderId}
+                      children={folder.title}
+                      isSelected={tempMemo.category === folder.title}
+                      onClick={() => handleChangeCategory(folder.title, folder)}
+                    />
+                  ))}
+                {!isReviewMode && (
+                  <CategoryChip onClick={() => handleChangeCategory('', undefined)} isSelected={false}>
+                    <img src={FolderIcon} alt="changeFolder" />
+                  </CategoryChip>
+                )}
+              </S.CategoryContainer>
+            </S.CategoryContainer>
+            <S.ButtonWrapper>
+              {!isReviewMode && (
+                <Button
+                  type="button"
+                  onClick={handleSaveButton}
+                  styleType={'basic'}
+                  disabled={isSaveDisabled}
+                >
+                  저장하기
+                </Button>
+              )}
+            </S.ButtonWrapper>
+          </S.Form>
+          {showTempDataModal && (
+            <DetailModal
+              text={`최근 작성 내용이 있어요\n이어서 작성하시겠어요?`}
+              description="새로 작성하면 기존 기록은 모두 삭제돼요."
+              leftButtonText="새로 작성하기"
+              rightButtonText="이어서 작성하기"
+              onClickBackground={() => setShowTempDataModal(false)}
+              onClickLeft={handleNewMemo}
+              onClickRight={() => {
+                setShowTempDataModal(false);
+              }}
+            />
           )}
-        </S.ButtonWrapper>
-      </S.Form>
-      {showTempDataModal && (
-        <DetailModal
-          text={`최근 작성 내용이 있어요\n이어서 작성하시겠어요?`}
-          description="새로 작성하면 기존 기록은 모두 삭제돼요."
-          leftButtonText="새로 작성하기"
-          rightButtonText="이어서 작성하기"
-          onClickBackground={() => setShowTempDataModal(false)}
-          onClickLeft={handleNewMemo}
-          onClickRight={() => {
-            setShowTempDataModal(false);
-          }}
-        />
+          {showModal && !isReviewMode && (
+            <DetailModal
+              text="작성 중인 내용을 임시 저장할까요?"
+              description="새로 작성하면 기존 기록은 삭제돼요."
+              leftButtonText="나가기"
+              rightButtonText="저장하기"
+              onClickBackground={() => setShowModal(false)}
+              onClickLeft={clearTempMemo}
+              onClickRight={saveTempMemo}
+            />
+          )}
+          {showToast && (
+            <ToastMessage text="경험이 임시저장 되었어요" onClose={() => setShowToast(false)} />
+          )}
+          {isBottomSheetOpen && <FolderPopUp onClick={() => setIsBottomSheetOpen(false)} />}
+        </S.Container>
       )}
-      {showModal && !isReviewMode && (
-        <DetailModal
-          text="작성 중인 내용을 임시 저장할까요?"
-          description="새로 작성하면 기존 기록은 삭제돼요."
-          leftButtonText="나가기"
-          rightButtonText="저장하기"
-          onClickBackground={() => setShowModal(false)}
-          onClickLeft={clearTempMemo}
-          onClickRight={saveTempMemo}
-        />
-      )}
-      {showToast && (
-        <ToastMessage text="경험이 임시저장 되었어요" onClose={() => setShowToast(false)} />
-      )}
-      {isBottomSheetOpen && <FolderPopUp onClick={() => setIsBottomSheetOpen(false)} />}
-    </S.Container>
+    </>
   );
 };
