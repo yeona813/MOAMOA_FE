@@ -80,6 +80,7 @@ export const InputTitle = styled(OriginalInput)`
   width: 100%;
   margin-bottom: 0rem;
   border: none;
+  background-color: ${({ disabled }) => (disabled ? 'white' : 'inherit')};
   &:focus {
     border: none;
   }
@@ -107,6 +108,7 @@ export const Content = styled.textarea<ReviewModeProps>`
   overflow-y: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  background-color: ${({ disabled }) => (disabled ? 'white' : 'inherit')};
 
   &::-webkit-scrollbar {
     display: none;

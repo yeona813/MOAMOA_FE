@@ -209,7 +209,7 @@ export const MemoPage = () => {
     e.preventDefault();
   };
 
-  const isSaveDisabled = !tempMemo.memo || tempMemo.memo.length < 30 || (tempMemo.folderId === 0 && !isReviewMode);
+  const isSaveDisabled = !tempMemo.memo || tempMemo.memo.length < 30 || tempMemo.folderId === 0;
 
   return (
     <>
@@ -235,6 +235,7 @@ export const MemoPage = () => {
                 onChange={handleChangeTitle}
                 maxLength={50}
                 isError={!!titleWarning}
+                disabled={isReviewMode}
               />
               <S.WarningCountContainer>
                 {titleWarning && <S.Warning>{titleWarning}</S.Warning>}
@@ -247,6 +248,7 @@ export const MemoPage = () => {
                 value={tempMemo.memo}
                 onChange={handleChangeMemo}
                 maxLength={500}
+                disabled={isReviewMode}
               />
               <S.WarningCountContainer>
                 {contentWarning && <S.Warning>{contentWarning}</S.Warning>}
@@ -274,16 +276,18 @@ export const MemoPage = () => {
                 )}
               </S.CategoryContainer>
             </S.CategoryContainer>
-            <S.ButtonWrapper $isReviewMode={isReviewMode} $isPC={isPC}>
-              <Button
-                type="button"
-                onClick={handleSaveButton}
-                styleType={'basic'}
-                disabled={isSaveDisabled}
-              >
-                저장하기
-              </Button>
-            </S.ButtonWrapper>
+            {!isReviewMode && (
+              <S.ButtonWrapper $isReviewMode={isReviewMode} $isPC={isPC}>
+                <Button
+                  type="button"
+                  onClick={handleSaveButton}
+                  styleType={'basic'}
+                  disabled={isSaveDisabled}
+                >
+                  저장하기
+                </Button>
+              </S.ButtonWrapper>
+            )}
           </S.Form>
 
           {showTempDataModal && (
