@@ -6,8 +6,8 @@ import { SelectBox } from '@components/common/selectbox/SelectBox';
 import { Button } from '@components/common/button/Button';
 import { TabBar } from '@components/layout/tabBar/TabBar';
 import { registerUser } from '../../api/Oauth';
-import { useNicknameValidation } from '../../hooks/useNicknameValidation';
-import { useMediaQuery } from '../../hooks/useMediaQuery';
+import { useNicknameValidation } from '@/hooks/useNicknameValidation';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 const statusOptions = ['대학생', '대학원생', '취업 준비생', '인턴', '재직 중'];
 
