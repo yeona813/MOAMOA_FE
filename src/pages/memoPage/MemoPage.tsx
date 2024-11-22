@@ -181,6 +181,10 @@ export const MemoPage = () => {
   };
 
   const saveTempMemo = async () => {
+    if (tempMemo.memo.length < 30) {
+      alert('내용은 최소 30자 이상 입력해야 임시 저장할 수 있습니다.');
+      return;
+    }
     try {
       await postTempMemo(tempMemo.title || getFormattedDate(), tempMemo.memo);
       setShowModal(false);
@@ -205,7 +209,7 @@ export const MemoPage = () => {
     e.preventDefault();
   };
 
-  const isSaveDisabled = !tempMemo.memo || tempMemo.memo.length < 30 || tempMemo.folderId === 0;
+  const isSaveDisabled = !tempMemo.memo || tempMemo.memo.length < 30 || (tempMemo.folderId === 0 && !isReviewMode);
 
   return (
     <>
