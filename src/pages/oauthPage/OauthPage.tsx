@@ -12,6 +12,7 @@ export const OauthPage = () => {
       <S.Subtitle>
         차곡차곡 모아보는 경험 기록
       </S.Subtitle>
+      <S.LogoImage src="/images/LogoImage.png" alt="logo" />
       <S.ButtonWrapper>
         <LoginButton onClick={handleOauth} />
       </S.ButtonWrapper>

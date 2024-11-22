@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 
-export const ChatBoxContainer = styled.div`
+interface ChatBoxContainerProps {
+  $isPC: boolean;
+}
+
+export const ChatBoxContainer = styled.div<ChatBoxContainerProps>`
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.white};
+  border-radius: ${({ $isPC }) => ($isPC ? '1.25rem' : '0')};
 `;
 
 export const ChatBoxForm = styled.form`

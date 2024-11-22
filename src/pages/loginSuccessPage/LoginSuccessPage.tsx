@@ -16,11 +16,9 @@ export const LoginSuccessPage = () => {
         <S.WelcomeMessage>
           회원가입 완료!
           <br />
-          모아모아에 오신 것을
-          <br />
-          환영합니다.
+          모아모아에 오신 것을 환영합니다.
         </S.WelcomeMessage>
-        <S.ColoredSquare />
+        <S.LogoImage src="/images/LogoImage.png" alt="logo" />
       </S.ContentWrapper>
       <S.ButtonWrapper>
         <Button styleType="basic" onClick={handleStart}>

@@ -5,9 +5,10 @@ import * as S from './ChatBox.Style';
 interface ChatBoxProps {
   onSubmit: (message: string) => void;
   isReviewMode: boolean;
+  $isPC: boolean;
 }
 
-export const ChatBox = ({ onSubmit, isReviewMode }: ChatBoxProps) => {
+export const ChatBox = ({ onSubmit, isReviewMode, $isPC }: ChatBoxProps) => {
   const [message, setMessage] = useState('');
 
   const handleSend = (event: React.FormEvent<HTMLFormElement>) => {
@@ -21,7 +22,7 @@ export const ChatBox = ({ onSubmit, isReviewMode }: ChatBoxProps) => {
   const hasMessage = message.trim().length > 0;
 
   return (
-    <S.ChatBoxContainer>
+    <S.ChatBoxContainer $isPC={$isPC}>
       <S.ChatBoxForm onSubmit={handleSend}>
         <S.ChatBoxInput
           type="text"
