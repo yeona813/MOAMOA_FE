@@ -14,6 +14,7 @@ interface ReportPopUpProps {
   data: AnalysisProps | null;
   onChange: (key: keyof AnalysisProps, value: string) => void;
   onAbilityChange: (index: number, value: string) => void;
+  hasChanges: boolean;
 }
 
 export const ReportPopUp = ({
@@ -22,6 +23,7 @@ export const ReportPopUp = ({
   data,
   onChange,
   onAbilityChange,
+  hasChanges,
 }: ReportPopUpProps) => {
   const isMobile = useMediaQuery('(max-width: 1280px)');
   const [error, setError] = useState(false);
@@ -39,7 +41,9 @@ export const ReportPopUp = ({
       <S.Header>
         <S.Icon src={CloseIcon} alt="모달 닫기" onClick={onClick} />
         <S.Title>AI 역량 분석 편집</S.Title>
-        <S.StoreText onClick={onClickStore}>저장</S.StoreText>
+        <S.StoreText $hasChanges={hasChanges} onClick={onClickStore}>
+          저장
+        </S.StoreText>
       </S.Header>
       <S.ContentContainer>
         <S.Error>

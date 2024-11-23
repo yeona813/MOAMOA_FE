@@ -22,6 +22,8 @@ export const ReportPage = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [openChangeBottom, setOpenChangeBottom] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [hasChanges, setHasChanges] = useState(false);
+
   const navigate = useNavigate();
 
   const analysisId = id ? parseInt(id, 10) : undefined;
@@ -54,6 +56,7 @@ export const ReportPage = () => {
   const handleDataChange = (key: keyof AnalysisProps, value: string) => {
     if (newData) {
       setNewData({ ...newData, [key]: value });
+      setHasChanges(true);
     }
   };
 
@@ -152,6 +155,7 @@ export const ReportPage = () => {
           data={newData}
           onChange={handleDataChange}
           onAbilityChange={handleAbilityChange}
+          hasChanges={hasChanges}
         />
       )}
       {openDelete && (

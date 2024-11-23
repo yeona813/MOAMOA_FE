@@ -8,12 +8,8 @@ export const Header = styled.header`
   line-height: 140%;
 `;
 
-export const StoreText = styled.h6`
-  color: ${({ theme }) => theme.colors.gray300};
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.blue500};
-  }
+export const StoreText = styled.h6<{ $hasChanges: boolean }>`
+  color: ${({ $hasChanges, theme }) => ($hasChanges ? theme.colors.blue500 : theme.colors.gray300)};
 `;
 
 export const Icon = styled.img`
