@@ -169,11 +169,20 @@ export const ChatPage = () => {
 
       const [firstPart, secondPart] = guideResponse.split('<br>');
 
-      setMessages(prev => [
-        ...prev.slice(0, -1),
-        { message: firstPart, isMe: false, isLoading: false },
-        { message: secondPart, isMe: false, isLoading: false }
-      ]);
+      setTimeout(() => {
+        setMessages(prev => [
+          ...prev.slice(0, -1), // 로딩 메시지 제거
+          { message: firstPart, isMe: false, isLoading: false }
+        ]);
+
+        setTimeout(() => {
+          setMessages(prev => [
+            ...prev,
+            { message: secondPart, isMe: false, isLoading: false }
+          ]);
+        }, 800);
+      }, 400);
+
     } catch {
       setMessages(prev => [
         ...prev.slice(0, -1),
@@ -345,7 +354,13 @@ export const ChatPage = () => {
             <S.ContentContainer>
               <S.DateContainer>{currentDate}</S.DateContainer>
               {messages.map((msg, index) => (
-                <ChatBubble key={index} message={msg.isLoading ? <LoadingDots /> : msg.message} isMe={msg.isMe} isLoading={msg.isLoading} $isPC={isPC} />
+                <ChatBubble
+                  key={`${msg.message}-${index}`}
+                  message={msg.isLoading ? <LoadingDots /> : msg.message}
+                  isMe={msg.isMe}
+                  isLoading={msg.isLoading}
+                  $isPC={isPC}
+                />
               ))}
               <div ref={messagesEndRef} />
               <S.InputContainer $isPC={isPC}>
