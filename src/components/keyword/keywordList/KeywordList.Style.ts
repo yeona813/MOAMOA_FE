@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const KeywordList = styled.div`
@@ -6,8 +7,8 @@ export const KeywordList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  background-color: ${({ theme }) => theme.colors.white};
-  color: ${({ theme }) => theme.colors.gray900};
+  background-color: ${Colors.white};
+  color: ${Colors.gray900};
   border-radius: 0.5rem;
 `;
 

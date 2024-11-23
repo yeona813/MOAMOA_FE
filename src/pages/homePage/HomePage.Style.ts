@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -5,7 +6,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     min-height: 100%;
-    background-color: ${({ theme }) => theme.colors.gray25};
+    background-color: ${Colors.gray25};
     gap: 1.875rem;
     padding: 0rem 4.75rem 1.25rem;
   }

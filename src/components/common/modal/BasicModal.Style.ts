@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Content = styled.div`
@@ -9,7 +10,7 @@ export const Content = styled.div`
 
 export const Text = styled.h5`
   line-height: 140%;
-  color: ${({ theme }) => theme.colors.gray700};
+  color: ${Colors.gray700};
 `;
 
 export const ButtonContainer = styled.div`

@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled, { css } from 'styled-components';
 
 export const Folder = styled.section<{ $type: 'folder' | 'plus' }>`
@@ -7,16 +8,16 @@ export const Folder = styled.section<{ $type: 'folder' | 'plus' }>`
   justify-content: center;
   align-items: center;
   border-radius: 6.25rem;
-  color: ${({ theme }) => theme.colors.gray800};
+  color: ${Colors.gray800};
 
-  ${({ $type, theme }) =>
+  ${({ $type }) =>
     $type === 'folder'
       ? css`
-          background-color: ${theme.colors.blue50};
+          background-color: ${Colors.blue50};
         `
       : css`
           flex-shrink: 0;
           cursor: pointer;
-          background-color: ${theme.colors.blue100};
+          background-color: ${Colors.blue100};
         `}
 `;

@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 interface ListItemProps {
@@ -17,7 +18,7 @@ export const Container = styled.div`
 export const Line = styled.div`
   width: 100%;
   height: 0.0625rem;
-  background-color: ${({ theme }) => theme.colors.gray50};
+  background-color: ${Colors.gray50};
   margin-bottom: 2rem;
 `;
 
@@ -30,12 +31,12 @@ export const ListItem = styled.div<ListItemProps>`
   height: 3rem;
   border-radius: 0.75rem;
   padding: 0.8125rem 1rem;
-  background-color: ${({ theme, $percent }) => {
-    if ($percent > 20) return theme.colors.blue200;
-    if ($percent > 10) return theme.colors.blue100;
-    if ($percent > 5) return theme.colors.yellow200;
-    if ($percent > 2) return theme.colors.yellow50;
-    else return theme.colors.gray25;
+  background-color: ${({ $percent }) => {
+    if ($percent > 20) return Colors.blue200;
+    if ($percent > 10) return Colors.blue100;
+    if ($percent > 5) return Colors.yellow200;
+    if ($percent > 2) return Colors.yellow50;
+    else return Colors.gray25;
   }};
 `;
 
@@ -46,21 +47,21 @@ export const TitleWrapper = styled.div`
 `;
 
 export const Title = styled.h6`
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
   line-height: 1.4rem;
 `;
 
 export const Percent = styled.p`
   font-size: 1rem;
   font-weight: 400;
-  color: ${({ theme }) => theme.colors.gray700};
+  color: ${Colors.gray700};
   line-height: 1.45rem;
 `;
 
 export const Count = styled.p`
   font-size: 1rem;
   font-weight: 400;
-  color: ${({ theme }) => theme.colors.gray600};
+  color: ${Colors.gray600};
   line-height: 1.45rem;
   margin: 0;
 `;
@@ -72,9 +73,9 @@ export const CountCircle = styled.div<ListItemProps>`
   display: flex;
   justify-content: center;
   padding: 0.125rem 0.375rem;
-    background-color: ${({ theme, $percent }) => {
-    if ($percent > 40) return theme.colors.blue100;
-    if ($percent > 29) return theme.colors.blue50;
-    else return theme.colors.white;
+  background-color: ${({ $percent }) => {
+    if ($percent > 40) return Colors.blue100;
+    if ($percent > 29) return Colors.blue50;
+    else return Colors.white;
   }};
 `;

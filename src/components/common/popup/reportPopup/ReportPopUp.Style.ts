@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Header = styled.header`
@@ -9,7 +10,7 @@ export const Header = styled.header`
 `;
 
 export const StoreText = styled.h6<{ $hasChanges: boolean }>`
-  color: ${({ $hasChanges, theme }) => ($hasChanges ? theme.colors.blue500 : theme.colors.gray300)};
+  color: ${({ $hasChanges }) => ($hasChanges ? Colors.blue500 : Colors.gray300)};
 `;
 
 export const Icon = styled.img`
@@ -19,7 +20,7 @@ export const Icon = styled.img`
 `;
 
 export const Title = styled.h6`
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
   line-height: 140%;
 `;
 
@@ -57,7 +58,7 @@ export const Error = styled.div`
 
 export const ErrorMessage = styled.p`
   margin-bottom: -0.25rem;
-  color: #f00;
+  color: ${Colors.red};
   font-size: 0.75rem;
   line-height: 130%;
 `;

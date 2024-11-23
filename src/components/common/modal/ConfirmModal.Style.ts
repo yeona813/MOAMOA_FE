@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Content = styled.div`
@@ -5,7 +6,7 @@ export const Content = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1.0625rem;
-  color: ${({ theme }) => theme.colors.gray700};
+  color: ${Colors.gray700};
 `;
 
 export const Text = styled.span`
@@ -26,8 +27,7 @@ export const IconContainer = styled.div<{ $isCheck: boolean }>`
   width: 1.125rem;
   height: 1.125rem;
   border-radius: 0.125rem;
-  background-color: ${(props) =>
-    props.$isCheck ? props.theme.colors.blue500 : props.theme.colors.gray50};
+  background-color: ${({ $isCheck }) => ($isCheck ? Colors.blue500 : Colors.gray50)};
   cursor: pointer;
 `;
 

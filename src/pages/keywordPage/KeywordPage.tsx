@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { RecordBottomSheet } from '@components/common/bottomSheet/RecordBottomSheet';
 import { KeywordHeader } from '@/components/keyword/header/KeywordHeader';
 import { SideBar } from '@/components/common/sideBar/SideBar';
@@ -23,10 +23,6 @@ export const KeywordPage = () => {
   const handleTabBar = (item: string) => {
     setCurrentTabBar(item);
   };
-
-  useEffect(() => {
-    console.log(selectedKeyword);
-  }, [selectedKeyword]);
 
   const handleClickSkillList = () => {
     setCurrentTabBar('역량 키워드');

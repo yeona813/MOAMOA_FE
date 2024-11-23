@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Header = styled.header`
@@ -7,7 +8,7 @@ export const Header = styled.header`
 `;
 
 export const Title = styled.h5`
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
 `;
 
 export const Icon = styled.img`

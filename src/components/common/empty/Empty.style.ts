@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const EmptyContainer = styled.div`
@@ -6,7 +7,7 @@ export const EmptyContainer = styled.div`
   align-items: center;
   padding-top: 6.5625rem;
   gap: 1.25rem;
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
   text-align: center;
   line-height: 145%;
 `;

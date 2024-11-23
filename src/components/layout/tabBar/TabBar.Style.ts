@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 interface TextProps {
@@ -14,8 +15,8 @@ export const TabBar = styled.nav`
   height: 3.375rem;
   width: 100%;
   padding: 0rem 1.25rem;
-  background-color: ${({ theme }) => theme.colors.white};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray50};
+  background-color: ${Colors.white};
+  border-bottom: 1px solid ${Colors.gray50};
   z-index: 1000;
 `;
 
@@ -34,14 +35,14 @@ export const CenterText = styled.h6`
   top: 1rem;
   left: 50%;
   transform: translateX(-50%);
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
   line-height: 140%;
 `;
 
 export const Text = styled.p<TextProps>`
   font-size: 0.875rem;
   line-height: 145%;
-  color: ${({ $isDisabled, theme }) => ($isDisabled ? theme.colors.gray300 : theme.colors.gray700)};
+  color: ${({ $isDisabled }) => ($isDisabled ? Colors.gray300 : Colors.gray700)};
   cursor: pointer;
 `;
 

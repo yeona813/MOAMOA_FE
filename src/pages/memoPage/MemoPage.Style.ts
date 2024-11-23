@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Input as OriginalInput } from '@components/common/input/Input';
+import { Colors } from '@/styles/colors';
 
 interface ReviewModeProps {
   $isReviewMode: boolean;
@@ -69,7 +70,7 @@ export const SubTitle = styled.h4`
 `;
 
 export const Label = styled.p<ReviewModeProps>`
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
   font-size: 1rem;
   font-weight: 600;
   line-height: 145%;
@@ -80,7 +81,7 @@ export const InputTitle = styled(OriginalInput)`
   width: 100%;
   margin-bottom: 0rem;
   border: none;
-  background-color: ${({ disabled }) => (disabled ? 'white' : 'inherit')};
+  background-color: ${({ disabled }) => (disabled ? Colors.white : 'inherit')};
   &:focus {
     border: none;
   }
@@ -88,7 +89,7 @@ export const InputTitle = styled(OriginalInput)`
 
 export const Line = styled.div`
   width: 100%;
-  border: 0.0625rem solid ${({ theme }) => theme.colors.gray50};
+  border: 0.0625rem solid ${Colors.gray50};
   align-self: center;
   margin-bottom: 0.625rem;
 `;
@@ -114,7 +115,7 @@ export const Content = styled.textarea<ReviewModeProps>`
     display: none;
   }
   &::placeholder {
-    color: ${({ theme }) => theme.colors.gray200};
+    color: ${Colors.gray200};
     font-size: 1rem;
     font-weight: 400;
     line-height: 145%;
@@ -143,7 +144,7 @@ export const Count = styled.p`
   font-size: 0.625rem;
   font-weight: 400;
   line-height: 130%;
-  color: ${({ theme }) => theme.colors.gray500};
+  color: ${Colors.gray500};
 `;
 
 export const ButtonWrapper = styled.div<ReviewModeProps>`

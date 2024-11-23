@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 interface ChatContainerProps {
@@ -24,7 +25,7 @@ export const DateContainer = styled.div`
   margin-bottom: 0.7rem;
   font-size: 0.75rem;
   font-weight: 400;
-  color: ${({ theme }) => theme.colors.gray700};
+  color: ${Colors.gray700};
   line-height: 145%;
 `;
 

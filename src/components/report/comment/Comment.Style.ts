@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Comment = styled.div`
@@ -45,7 +46,7 @@ export const Description = styled.div`
   width: 100%;
   padding: 0.75rem 1rem;
   border-radius: 0rem 1.25rem 1.25rem;
-  border: 1px solid ${({ theme }) => theme.colors.gray50};
+  border: 1px solid ${Colors.gray50};
   font-size: 1rem;
   line-height: 145%;
 

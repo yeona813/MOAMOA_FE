@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled, { css } from 'styled-components';
 
 interface ButtonProps {
@@ -26,8 +27,8 @@ const BUTTON_STYLES = {
   `,
   popupLeft: css`
     ${popupCommonStyles};
-    background-color: ${(props) => props.theme.colors.gray50};
-    color: ${(props) => props.theme.colors.gray800};
+    background-color: ${Colors.gray50};
+    color: ${Colors.gray800};
   `,
 };
 
@@ -36,8 +37,7 @@ export const Container = styled.button<ButtonProps>`
   gap: 0.25rem;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) =>
-    props.disabled ? props.theme.colors.gray50 : props.theme.colors.blue400};
+  background-color: ${(props) => (props.disabled ? Colors.gray50 : Colors.blue400)};
   border: none;
   color: #fefef3;
   outline: none;

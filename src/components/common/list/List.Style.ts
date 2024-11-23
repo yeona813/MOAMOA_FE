@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const List = styled.section`
@@ -5,10 +6,10 @@ export const List = styled.section`
   flex-direction: column;
   width: 100%;
   justify-content: space-between;
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
   padding: 1rem;
   border-radius: 0.5rem;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${Colors.white};
   cursor: pointer;
 
   ${(props) => props.theme.breakpoints.min} {
