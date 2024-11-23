@@ -25,7 +25,7 @@ export const ReportPopUp = ({
   onAbilityChange,
   hasChanges,
 }: ReportPopUpProps) => {
-  const isMobile = useMediaQuery('(max-width: 1280px)');
+  const isMobile = useMediaQuery('(max-width: 1048px)');
   const [error, setError] = useState(false);
 
   const handleTitleError = (value: string) => {
