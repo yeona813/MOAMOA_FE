@@ -15,6 +15,7 @@ export const Content = styled.div`
     padding: 0rem;
     border-radius: 0rem;
     gap: 0.75rem;
+    height: auto;
   }
 `;
 

@@ -5,16 +5,30 @@ export const Comment = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1.25rem;
+
+  ${(props) => props.theme.breakpoints.min} {
+    gap: 1.5rem;
+  }
 `;
 
 export const Title = styled.h6`
   line-height: 140%;
+
+  ${(props) => props.theme.breakpoints.min} {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 135%;
+  }
 `;
 
 export const Container = styled.div`
   display: flex;
   width: 100%;
   gap: 0.3125rem;
+
+  ${(props) => props.theme.breakpoints.min} {
+    gap: 1.625rem;
+  }
 `;
 
 export const Div = styled.div`
@@ -22,6 +36,11 @@ export const Div = styled.div`
   height: 2rem;
   border-radius: 100%;
   background-color: ${({ theme }) => theme.colors.blue50};
+
+  ${(props) => props.theme.breakpoints.min} {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
 `;
 
 export const Description = styled.div`
@@ -31,4 +50,8 @@ export const Description = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.gray50};
   font-size: 1rem;
   line-height: 145%;
+
+  ${(props) => props.theme.breakpoints.min} {
+    font-size: 1.125rem;
+  }
 `;

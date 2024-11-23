@@ -6,13 +6,14 @@ interface ModalProps {
   children: React.ReactNode;
   onClick: () => void;
   isIcon?: boolean;
+  isPC?: boolean;
 }
 
-export const Modal = ({ children, onClick, isIcon }: ModalProps) => {
+export const Modal = ({ children, onClick, isIcon, isPC }: ModalProps) => {
   return (
     <Portal>
       <S.Background onClick={onClick}>
-        <S.Modal onClick={(e) => e.stopPropagation()}>
+        <S.Modal $isPC={isPC} onClick={(e) => e.stopPropagation()}>
           {isIcon && <S.Icon src={CloseIcon} alt="closeIcon" onClick={onClick} />}
           {children}
         </S.Modal>

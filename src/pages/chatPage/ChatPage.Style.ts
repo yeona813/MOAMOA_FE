@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 
-export const ChatContainer = styled.div`
+interface ChatContainerProps {
+  $isPC: boolean;
+}
+
+export const ChatContainer = styled.div<ChatContainerProps>`
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 2rem);
+  height: 100vh;
   padding: 1rem;
   overflow-y: auto;
-    background: linear-gradient(
+  background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 1) 0%,
     rgba(255, 255, 255, 0) 50%,
@@ -24,10 +28,13 @@ export const DateContainer = styled.div`
   line-height: 145%;
 `;
 
-export const InputContainer = styled.div`
+export const InputContainer = styled.div<ChatContainerProps>`
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  width: 100%
+  width: 100%;
+  max-width: ${({ $isPC }) => ($isPC ? '47.75rem' : '100%')};
+  margin: 0 auto;
+  margin-bottom: ${({ $isPC }) => ($isPC ? '1.25rem' : '0')};
 `;

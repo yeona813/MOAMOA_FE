@@ -10,13 +10,18 @@ import { FloatingButton } from '@/components/common/button/FloatingButton';
 
 interface KeywordSkilProps {
   onClick: () => void;
+  selectedKeyword: string | undefined;
+  setSelectedKeyword: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
-export const KeywordSkill = ({ onClick }: KeywordSkilProps) => {
+export const KeywordSkill = ({
+  onClick,
+  selectedKeyword,
+  setSelectedKeyword,
+}: KeywordSkilProps) => {
   const navigate = useNavigate();
   const [keywordList, setKeywordList] = useState<string[]>([]);
   const [recordList, setRecordList] = useState<KeywordSkillProps[]>([]);
-  const [selectedKeyword, setSelectedKeyword] = useState<string | undefined>(undefined);
   const [lastRecordId, setLastRecordId] = useState(0);
   const [hasNext, setHasNext] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
@@ -53,13 +58,16 @@ export const KeywordSkill = ({ onClick }: KeywordSkilProps) => {
     const keywordResponse = await getKeywordList();
     if (keywordResponse.length > 0) {
       setKeywordList(keywordResponse);
-      setSelectedKeyword(keywordResponse[0]);
+      if (!selectedKeyword) {
+        setSelectedKeyword(keywordResponse[0]);
+      }
     }
   };
 
   // 초기 데이터 로드
   useEffect(() => {
     fetchKeywordList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

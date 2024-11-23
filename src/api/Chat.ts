@@ -97,23 +97,6 @@ export const deleteChat = async (chatRoomId: number) => {
 export const getSummary = async (chatRoomId: number) => {
   try {
     const response = await api.get(`/api/records/chat/${chatRoomId}/summary`);
-
-    if (!response.data.is_success) {
-      switch (response.data.code) {
-        case 'E0305_OVERFLOW_SUMMARY_TITLE':
-          throw new Error('제목은 50자 이내여야 합니다. ' + response.data.message);
-        case 'E0305_OVERFLOW_SUMMARY_CONTENT':
-          throw new Error('경험 요약 내용은 500자 이내여야 합니다. ' + response.data.message);
-        case 'E0305_INVALID_CHAT_SUMMARY':
-          throw new Error('채팅 경험 요약 파싱 중 오류가 발생했습니다. ' + response.data.message);
-        case 'E0305_NO_RECORD':
-          alert('경험 기록의 내용이 충분하지 않습니다. 내용을 더 자세히 작성해주세요.');
-          throw new Error('경험 기록의 내용이 부족합니다.'); // 내부 로직용 에러
-        default:
-          throw new Error(response.data.message || '요약 처리 중 알 수 없는 오류가 발생했습니다.');
-      }
-    }
-
     return response.data.data;
   } catch (error) {
     console.error(error);

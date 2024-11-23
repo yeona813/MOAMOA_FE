@@ -1,6 +1,20 @@
 import styled from 'styled-components';
 import { Input as OriginalInput } from '@/components/common/input/Input';
 
+interface RecordCompletePageProps {
+  $isPC: boolean;
+}
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+`;
+
 export const HeaderContainer = styled.div`
   width: 100%;
   height: 12.6875rem;
@@ -8,13 +22,6 @@ export const HeaderContainer = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
-  flex-direction: column;
-`;
-
-export const Container = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
   flex-direction: column;
 `;
 
@@ -31,18 +38,23 @@ export const SubTitle = styled.h6`
   white-space: pre-line;
 `;
 
-export const TextArea = styled.textarea`
-  font-family: 'Pretendard';
-  width: 100%;
-  min-height: 200px;
-  padding: 1rem;
-  border: none;
-  resize: none;
-  font-size: 1rem;
+export const Form = styled.form<RecordCompletePageProps>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.625rem;
+  width: ${({ $isPC }) => ($isPC ? '80%' : '100%')};
+  padding: 0 1.25rem;
+  position: relative;
+`;
+
+export const InputTitle = styled(OriginalInput)`
+  width: 95%;
+  margin-bottom: 0rem;
   font-weight: 400;
-  line-height: 1.5;
+  border: none;
   &:focus {
-    outline: none;
+    border: none;
   }
 `;
 
@@ -53,6 +65,27 @@ export const Line = styled.div`
   margin-bottom: 0.625rem;
 `;
 
+export const TextArea = styled.textarea<RecordCompletePageProps>`
+  font-family: 'Pretendard';
+  font-size: ${({ $isPC }) => ($isPC ? '1.125rem' : '1rem')};
+  font-weight: 400;
+  line-height: 145%;
+  width: 95%;
+  min-height: ${({ $isPC }) => ($isPC ? '15rem' : '10rem')};
+  height: ${({ $isPC }) => ($isPC ? '20rem' : '100%')};
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  resize: none;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 export const Label = styled.p`
   color: ${({ theme }) => theme.colors.gray900};
   font-size: 1rem;
@@ -61,40 +94,18 @@ export const Label = styled.p`
   margin-left: 0.5rem;
 `;
 
-export const ButtonWrapper = styled.div`
-  position: fixed;
-  bottom: 1.25rem;
-  left: 1.25rem;
-  right: 1.25rem;
-  width: calc(100% - 2.5rem);
-`;
-
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
-  width: 100%;
-  padding: 0 1.25rem;
-  padding-bottom: 5rem;
-  position: relative;
-  margin-top: 1rem;
-`;
-
-export const Input = styled(OriginalInput)`
-  width: 95%;
-  margin-bottom: 0rem;
-  font-weight: 400;
-  border: none;
-  &:focus {
-    border: none;
-  }
-`;
-
 export const CategoryContainer = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 0.625rem;
+`;
+
+export const ButtonWrapper = styled.div<RecordCompletePageProps>`
+  width: ${({ $isPC }) => ($isPC ? '176px' : '100%')};
+  margin-top: ${({ $isPC }) => ($isPC ? '5rem' : '2rem')};
+  margin-bottom: 1.25rem;
+  margin-left: ${({ $isPC }) => ($isPC ? 'auto' : '0')};
 `;
 
 export const Icon = styled.svg`
