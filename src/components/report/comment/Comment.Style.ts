@@ -31,11 +31,9 @@ export const Container = styled.div`
   }
 `;
 
-export const Div = styled.div`
+export const Icon = styled.img`
   width: 2rem;
   height: 2rem;
-  border-radius: 100%;
-  background-color: ${({ theme }) => theme.colors.blue50};
 
   ${(props) => props.theme.breakpoints.min} {
     width: 4.5rem;
