@@ -69,11 +69,12 @@ export const RecordCompletePage = () => {
           navigate('/home');
           return true;
         }
-      } catch (error: any) {
-        switch (error.code) {
+      } catch (error) {
+        const errorCode = (error as { code: string }).code;
+        switch (errorCode) {
           case 'E0500_OVERFLOW_COMMENT':
           case 'E0500_OVERFLOW_KEYWORD_CONTENT':
-          case 'E500_INVALID_ANALYSIS':
+          case 'E500_INVALID_ANALYSIS': {
             // 1초 대기 후 재시도
             await new Promise((resolve) => setTimeout(resolve, 1000));
             const retryResponse = await postRecord({
@@ -88,6 +89,7 @@ export const RecordCompletePage = () => {
               return;
             }
             break;
+          }
           default:
             throw error; // 예상하지 못한 에러
         }

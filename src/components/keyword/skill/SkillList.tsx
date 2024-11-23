@@ -16,7 +16,7 @@ export const SkillList = ({ onClick, setSelectedKeyword }: SkillListProps) => {
       const data = await getGraph();
       if (data) {
         setChartData(
-          data.map((skill: any) => ({
+          data.map((skill: SkillData) => ({
             keyword: skill.keyword,
             count: skill.count,
             percent: skill.percent,

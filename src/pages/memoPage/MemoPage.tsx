@@ -84,7 +84,7 @@ export const MemoPage = () => {
         memo: memoData.content || '',
       });
     }
-  }, [isBottomSheetOpen, location.state]);
+  }, [isBottomSheetOpen, location.state, isReviewMode]);
 
   const handleBackButton = () => {
     if (isReviewMode) {
@@ -149,12 +149,12 @@ export const MemoPage = () => {
         alert('내용을 입력해주세요.');
         return;
       }
-    } catch (error: any) {
-      console.error(`CustomError 발생: ${error.code}, ${error.message}`);
-      switch (error.code) {
+    } catch (error) {
+      const errorCode = (error as { code: string }).code;
+      switch (errorCode) {
         case 'E0500_OVERFLOW_COMMENT':
         case 'E0500_OVERFLOW_KEYWORD_CONTENT':
-        case 'E500_INVALID_ANALYSIS':
+        case 'E500_INVALID_ANALYSIS': {
           console.log('재시도 준비 중');
           // 1초 대기 후 재시도
           await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -171,6 +171,7 @@ export const MemoPage = () => {
             navigate('/');
           }
           break;
+        }
         default:
           alert('기록 저장 중 오류가 발생했습니다.');
           console.error(error);
