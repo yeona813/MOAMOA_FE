@@ -29,6 +29,13 @@ export const GlobalStyle = createGlobalStyle`
     font-style: normal;
     src: url(/font/MontserratAlternates-Bold.woff) format('woff');
   }
+  @font-face {
+    font-family: 'MontserratAlternates';
+    font-weight: 800;
+    font-style: normal;
+    src: url(/font/MontserratAlternates-ExtraBold.woff) format('woff');
+  }
+
 
   h1 {
     font-size: ${theme.fontSize.h1};
