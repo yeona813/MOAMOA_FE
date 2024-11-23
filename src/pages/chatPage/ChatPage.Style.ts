@@ -10,6 +10,7 @@ export const ChatContainer = styled.div<ChatContainerProps>`
   flex-direction: column;
   height: 100vh;
   padding: 1rem;
+  padding-bottom: 3.5rem;
   overflow-y: auto;
   background: linear-gradient(
     to bottom,
@@ -17,6 +18,10 @@ export const ChatContainer = styled.div<ChatContainerProps>`
     rgba(255, 255, 255, 0) 50%,
     rgba(164, 176, 255, 0.2) 100%
   );
+
+  ${(props) => props.theme.breakpoints.min} {
+      padding-bottom: 5rem;
+  }
 `;
 
 export const DateContainer = styled.div`
