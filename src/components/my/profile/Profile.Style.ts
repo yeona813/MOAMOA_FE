@@ -86,15 +86,13 @@ export const Detail = styled.div`
   }
 `;
 
-export const DIV = styled.div`
-  display: flex;
+export const Image = styled.img`
   width: 100%;
-  height: 6.75rem;
-  background-color: ${({ theme }) => theme.colors.blue50};
+  height: 7.25rem;
 
   ${(props) => props.theme.breakpoints.min} {
     width: 24.625rem;
-    height: 6.875rem;
+    height: 6.75rem;
   }
 `;
 
