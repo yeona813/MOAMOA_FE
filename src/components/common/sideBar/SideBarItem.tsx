@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const SIDEBAR_ITEMS = [
   {
-    name: '홈',
+    name: '홈(기록하기)',
     path: '/home',
     icon: HomeIcon,
   },
