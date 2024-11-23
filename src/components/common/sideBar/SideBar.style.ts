@@ -29,9 +29,9 @@ export const SideBar = styled.div`
 `;
 
 export const Title = styled.span`
-  font-family: 'Montserrat';
+  font-family: 'MontserratAlternates';
   font-size: 1.3125rem;
-  font-weight: 700;
+  font-weight: 800;
 
   ${(props) => props.theme.breakpoints.min} {
     font-size: 1.625rem;
