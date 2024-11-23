@@ -7,10 +7,6 @@ import { useNicknameValidation } from '../../hooks/useNicknameValidation';
 import { patchUserInfo } from '@/api/My';
 import { useNavigate } from 'react-router-dom';
 
-//@TODO
-// 1. 닉네임 에러처리
-// 2. 백엔드 요청
-
 export const EditProfilePage = () => {
   const [submit, setSubmit] = useState(true);
   const [select, setSelect] = useState('');
@@ -32,6 +28,7 @@ export const EditProfilePage = () => {
   const handleSubmit = async () => {
     const response = await patchUserInfo({ nickname, status: select });
     if (response.is_success) {
+      localStorage.setItem('nickname', nickname);
       navigate('/my', { state: { alertMessage: '변경 내용이 저장되었어요!' } });
     }
   };
