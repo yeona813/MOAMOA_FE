@@ -1,17 +1,19 @@
 import { Header } from '@/components/layout/header/Header';
 import * as S from './Header.Style';
 import { SheetItem, SheetItemProps } from '../sheetItem/SheetItem';
+import Memo from '@icons/MemoIcon.svg';
+import Chat from '@icons/ChatIcon.svg';
 
 const SHEET_ITEMS: SheetItemProps[] = [
   {
     title: '메모 기록',
     subTitle: '빠르고 간편하게',
-    color: 'yellow',
+    icon: Memo,
   },
   {
     title: 'AI 채팅 기록',
     subTitle: 'AI 대화로 쉽게',
-    color: 'blue',
+    icon: Chat,
   },
 ];
 
@@ -35,7 +37,7 @@ export const HomeHeader = ({ onClickSideBar }: HomeHeaderProps) => {
       </S.Title>
       <S.SheetContainer>
         {SHEET_ITEMS.map((item, index) => (
-          <SheetItem key={index} title={item.title} subTitle={item.subTitle} color={item.color} />
+          <SheetItem key={index} title={item.title} subTitle={item.subTitle} icon={item.icon} />
         ))}
       </S.SheetContainer>
     </S.Header>

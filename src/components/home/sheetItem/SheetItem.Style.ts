@@ -13,16 +13,24 @@ export const SheetItem = styled.div`
   cursor: pointer;
 
   ${(props) => props.theme.breakpoints.min} {
-    gap: 1.25rem;
+    gap: 0rem;
+    padding-top: 0rem;
   }
 `;
 
-// 이 부분 아이콘이나 뭐 추가될 예정
-export const DIV = styled.div<{ color: 'blue' | 'yellow' }>`
-  width: 4.375rem;
-  height: 4.375rem;
-  background-color: ${({ theme, color }) =>
-    color === 'blue' ? theme.colors.blue100 : theme.colors.yellow100};
+export const IconContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+export const Icon = styled.img`
+  width: 5.625rem;
+  height: 5.625rem;
+
+  ${(props) => props.theme.breakpoints.min} {
+    width: 7.5rem;
+    height: 7.5rem;
+  }
 `;
 
 export const TextContainer = styled.div`
