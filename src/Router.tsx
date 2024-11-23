@@ -14,6 +14,7 @@ import { KeywordPage } from './pages/keywordPage/KeywordPage';
 import { ReportPage } from './pages/reportPage/ReportPage';
 import { ChatPage } from './pages/chatPage/ChatPage';
 import { RecordCompletePage } from './pages/recordCompletePage/RecordCompletePage';
+import { OnboardingPage } from './pages/onboardingPage/OnboardingPage';
 
 export const Router = createBrowserRouter([
   {
@@ -87,6 +88,10 @@ export const Router = createBrowserRouter([
       {
         path: 'record-complete',
         element: <RecordCompletePage />,
+      },
+      {
+        path: 'onboarding',
+        element: <OnboardingPage />,
       },
     ],
   },
