@@ -8,7 +8,7 @@ export const ListPage = styled.div`
 
 export const Content = styled.div<{ $isEmpty: boolean }>`
   width: 100%;
-  height: calc(100vh - 11.125rem);
+  max-height: calc(100vh - 11.125rem);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;

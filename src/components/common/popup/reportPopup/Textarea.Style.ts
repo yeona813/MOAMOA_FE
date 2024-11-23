@@ -13,8 +13,8 @@ export const Textarea = styled.textarea<{ $isTitle: boolean }>`
   color: ${({ theme }) => theme.colors.gray900};
   font-family: 'Pretendard';
   min-height: ${({ $isTitle }) => ($isTitle ? '5rem' : '7.25rem')};
-  height: auto; /* 높이를 내용에 맞게 조정 */
-  overflow-y: hidden; /* 스크롤바 제거 */
+  height: auto;
+  overflow-y: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
 

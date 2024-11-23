@@ -3,10 +3,13 @@ import styled from 'styled-components';
 export const Header = styled.header`
   display: flex;
   justify-content: space-between;
-  color: ${({ theme }) => theme.colors.gray300};
   font-size: 1rem;
   font-weight: 600;
   line-height: 140%;
+`;
+
+export const StoreText = styled.h6<{ $hasChanges: boolean }>`
+  color: ${({ $hasChanges, theme }) => ($hasChanges ? theme.colors.blue500 : theme.colors.gray300)};
 `;
 
 export const Icon = styled.img`
@@ -44,4 +47,17 @@ export const Keyword = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+`;
+
+export const Error = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+`;
+
+export const ErrorMessage = styled.p`
+  margin-bottom: -0.25rem;
+  color: #f00;
+  font-size: 0.75rem;
+  line-height: 130%;
 `;
