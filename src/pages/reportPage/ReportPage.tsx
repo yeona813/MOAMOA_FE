@@ -77,6 +77,10 @@ export const ReportPage = () => {
   };
 
   const handleSubmit = async () => {
+    if (newData?.title && newData.title.length > 50) {
+      return;
+    }
+
     if (analysisId && newData) {
       const { title, content, abilityMap } = newData;
       const response = await patchAnalysis({
