@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { theme } from '../../styles/theme';
+import { Colors } from '@/styles/colors';
 
 interface ChatBubbleProps {
   $isMe: boolean;
@@ -14,18 +14,13 @@ export const ChatBubbleWrapper = styled.div<ChatBubbleProps>`
 
 export const Bubble = styled.div<ChatBubbleProps>`
   max-width: ${({ $isMe, $isPC }) =>
-    $isMe && $isPC
-      ? '27rem'
-      : !$isMe && $isPC
-        ? '24.875rem'
-        : $isMe
-          ? '15.75rem'
-          : '14.5rem'};
+    $isMe && $isPC ? '27rem' : !$isMe && $isPC ? '24.875rem' : $isMe ? '15.75rem' : '14.5rem'};
   padding: 0.75rem 1rem;
-  border-radius: ${({ $isMe }) => ($isMe ? '1.25rem 0 1.25rem 1.25rem' : '0 1.25rem 1.25rem 1.25rem')};
-  background-color: ${({ $isMe }) => ($isMe ? theme.colors.blue50 : theme.colors.white)};
+  border-radius: ${({ $isMe }) =>
+    $isMe ? '1.25rem 0 1.25rem 1.25rem' : '0 1.25rem 1.25rem 1.25rem'};
+  background-color: ${({ $isMe }) => ($isMe ? Colors.blue50 : Colors.white)};
   gap: 0.625rem;
-  border: 1px solid ${({ $isMe }) => ($isMe ? theme.colors.blue100 : theme.colors.gray50)};
+  border: 1px solid ${({ $isMe }) => ($isMe ? Colors.blue100 : Colors.gray50)};
   margin-bottom: 0.625rem;
 `;
 
@@ -36,7 +31,7 @@ export const Message = styled.p<ChatBubbleProps>`
   white-space: pre-line;
 `;
 
-export const ProfileIcon = styled.img` 
+export const ProfileIcon = styled.img`
   width: 2rem;
   height: 2rem;
   border-radius: 50%;

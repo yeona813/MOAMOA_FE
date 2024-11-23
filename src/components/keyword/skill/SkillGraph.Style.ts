@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const GraphContainer = styled.div`
@@ -12,7 +13,7 @@ export const GraphContainer = styled.div`
 export const Label = styled.text`
   font-size: 0.875rem;
   font-weight: 500;
-  fill: ${({ theme }) => theme.colors.gray400};
+  fill: ${Colors.gray400};
   text-anchor: middle;
   dominant-baseline: middle;
 `;
@@ -25,9 +26,9 @@ export const CHART_STYLES = {
   cornerRadius: 5,
   paddingAngle: 2,
   pieProps: {
-    cx: "50%",
-    cy: "50%",
-    fill: "#8884d8",
-    dataKey: "value"
-  }
+    cx: '50%',
+    cy: '50%',
+    fill: '#8884d8',
+    dataKey: 'value',
+  },
 };

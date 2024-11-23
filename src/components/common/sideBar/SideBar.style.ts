@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Background = styled.div`
@@ -17,14 +18,14 @@ export const SideBar = styled.div`
   width: 80%;
   height: 100vh;
   padding: 1.25rem;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${Colors.white};
 
   ${(props) => props.theme.breakpoints.min} {
     width: 14.875rem;
     padding: 1.25rem 3.125rem 0rem 2.5rem;
     gap: 2.5rem;
     border-radius: 0rem 1.25rem 1.25rem 0rem;
-    border: 1px solid ${({ theme }) => theme.colors.gray50};
+    border: 1px solid ${Colors.gray50};
   }
 `;
 
@@ -55,27 +56,25 @@ export const Item = styled.div<{ $isActive: boolean }>`
   cursor: pointer;
 
   svg {
-    fill: ${(props) => (props.$isActive ? props.theme.colors.gray700 : props.theme.colors.gray300)};
-    stroke: ${(props) =>
-      props.$isActive ? props.theme.colors.gray700 : props.theme.colors.gray300};
+    fill: ${(props) => (props.$isActive ? Colors.gray700 : Colors.gray300)};
+    stroke: ${(props) => (props.$isActive ? Colors.gray700 : Colors.gray300)};
     transition:
       fill 0.3s ease,
       stroke 0.3s ease;
   }
 
   span {
-    color: ${(props) =>
-      props.$isActive ? props.theme.colors.gray700 : props.theme.colors.gray300};
+    color: ${(props) => (props.$isActive ? Colors.gray700 : Colors.gray300)};
     transition: color 0.3s ease;
   }
 
   &:hover svg {
-    fill: ${({ theme }) => theme.colors.gray900};
-    stroke: ${({ theme }) => theme.colors.gray900};
+    fill: ${Colors.gray900};
+    stroke: ${Colors.gray900};
   }
 
   &:hover span {
-    color: ${({ theme }) => theme.colors.gray900};
+    color: ${Colors.gray900};
   }
 
   ${(props) => props.theme.breakpoints.min} {
@@ -101,7 +100,7 @@ export const Icon = styled.div`
 export const Text = styled.span<{ $isActive: boolean }>`
   font-size: 0.875rem;
   font-weight: 700;
-  color: ${(props) => (props.$isActive ? props.theme.colors.gray700 : props.theme.colors.gray300)};
+  color: ${(props) => (props.$isActive ? Colors.gray700 : Colors.gray300)};
 
   ${(props) => props.theme.breakpoints.min} {
     font-size: 1.125rem;

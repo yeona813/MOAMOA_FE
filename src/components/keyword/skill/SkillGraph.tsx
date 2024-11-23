@@ -1,34 +1,35 @@
 import { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
 import * as S from './SkillGraph.Style';
-import { useTheme } from 'styled-components';
 import { getGraph } from '@/api/Graph';
 import { SkillData } from '@/types/SkillData';
+import { Colors } from '@/styles/colors';
 
 export const SkillGraph = () => {
-  const theme = useTheme();
   const [chartData, setChartData] = useState<SkillData[]>([]);
 
   useEffect(() => {
     const fetchGraphData = async () => {
       const data = await getGraph();
       if (data) {
-        setChartData(data.map((skill: any) => ({
-          name: skill.keyword,
-          value: skill.count,
-          percent: skill.percent,
-        })));
+        setChartData(
+          data.map((skill: any) => ({
+            name: skill.keyword,
+            value: skill.count,
+            percent: skill.percent,
+          })),
+        );
       }
     };
     fetchGraphData();
   }, []);
 
   const getChartColor = (percent: number) => {
-    if (percent > 20) return theme.colors.blue200;
-    if (percent > 10) return theme.colors.blue100;
-    if (percent > 5) return theme.colors.yellow200;
-    if (percent > 2) return theme.colors.yellow50;
-    return theme.colors.gray25;
+    if (percent > 20) return Colors.blue200;
+    if (percent > 10) return Colors.blue100;
+    if (percent > 5) return Colors.yellow200;
+    if (percent > 2) return Colors.yellow50;
+    return Colors.gray25;
   };
 
   const renderCustomizedLabel = ({ cx, cy, midAngle, outerRadius, name, fill }: any) => {
@@ -45,7 +46,7 @@ export const SkillGraph = () => {
     const textOffset = 10;
     const xText = xLineEnd + (xLineEnd > cx ? textOffset : -textOffset);
     const yText = yLineEnd;
-    const textAnchor = xLineEnd > cx ? "start" : "end";
+    const textAnchor = xLineEnd > cx ? 'start' : 'end';
 
     return (
       <>
@@ -63,9 +64,9 @@ export const SkillGraph = () => {
           textAnchor={textAnchor}
           dominantBaseline="middle"
           style={{
-            fontSize: "1rem",
-            fontWeight: "600",
-            fill: theme.colors.gray700,
+            fontSize: '1rem',
+            fontWeight: '600',
+            fill: Colors.gray700,
           }}
         >
           {name}
@@ -88,10 +89,7 @@ export const SkillGraph = () => {
           labelLine={false}
         >
           {chartData.map((entry, index) => (
-            <Cell
-              key={`cell-${index}`}
-              fill={getChartColor(entry.percent)}
-            />
+            <Cell key={`cell-${index}`} fill={getChartColor(entry.percent)} />
           ))}
         </Pie>
       </PieChart>

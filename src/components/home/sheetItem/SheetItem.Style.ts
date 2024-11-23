@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const SheetItem = styled.div`
@@ -6,10 +7,10 @@ export const SheetItem = styled.div`
   width: 100%;
   padding: 1.375rem 1.125rem 1rem 1rem;
   gap: 2.8125rem;
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
   border-radius: 0.75rem;
-  border: 1px solid ${({ theme }) => theme.colors.gray50};
-  background-color: ${({ theme }) => theme.colors.white};
+  border: 1px solid ${Colors.gray50};
+  background-color: ${Colors.white};
   cursor: pointer;
 
   ${(props) => props.theme.breakpoints.min} {

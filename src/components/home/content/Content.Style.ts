@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Content = styled.div`
@@ -7,9 +8,9 @@ export const Content = styled.div`
   flex-direction: column;
   gap: 1.5rem;
   padding: 1rem 1.25rem 1.25rem;
-  background-color: ${({ theme }) => theme.colors.gray25};
+  background-color: ${Colors.gray25};
   border-radius: 1.25rem 1.25rem 0rem 0rem;
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
 
   ${(props) => props.theme.breakpoints.min} {
     padding: 0rem;

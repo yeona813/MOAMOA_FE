@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Cotainer = styled.div`
@@ -26,8 +27,8 @@ export const Chips = styled.div`
   width: fit-content;
   padding: 0.125rem 0.375rem;
   border-radius: 0.25rem;
-  background-color: ${({ theme }) => theme.colors.yellow200};
-  color: ${({ theme }) => theme.colors.gray900};
+  background-color: ${Colors.yellow200};
+  color: ${Colors.gray900};
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 145%;
@@ -43,12 +44,12 @@ export const TextContainer = styled.div`
 
 export const Text = styled.h4`
   line-height: 135%;
-  color: ${({ theme }) => theme.colors.gray600};
+  color: ${Colors.gray600};
 `;
 
 export const Highlight = styled.h4`
   line-height: 135%;
-  color: ${({ theme }) => theme.colors.blue400};
+  color: ${Colors.blue400};
 `;
 
 export const AfterText = styled.div`

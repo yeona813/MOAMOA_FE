@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Content = styled.div`
@@ -5,7 +6,7 @@ export const Content = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 0.875rem;
-  color: ${({ theme }) => theme.colors.gray700};
+  color: ${Colors.gray700};
 `;
 
 export const Text = styled.h5`

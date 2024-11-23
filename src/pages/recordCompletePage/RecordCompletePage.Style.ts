@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Input as OriginalInput } from '@/components/common/input/Input';
+import { Colors } from '@/styles/colors';
 
 interface RecordCompletePageProps {
   $isPC: boolean;
@@ -60,7 +61,7 @@ export const InputTitle = styled(OriginalInput)`
 
 export const Line = styled.div`
   width: 95%;
-  border: 0.0625rem solid ${({ theme }) => theme.colors.gray50};
+  border: 0.0625rem solid ${Colors.gray50};
   align-self: center;
   margin-bottom: 0.625rem;
 `;
@@ -87,7 +88,7 @@ export const TextArea = styled.textarea<RecordCompletePageProps>`
 `;
 
 export const Label = styled.p`
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
   font-size: 1rem;
   font-weight: 400;
   line-height: 145%;
