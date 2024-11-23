@@ -342,15 +342,17 @@ export const ChatPage = () => {
           {showToast && <ToastMessage text="경험이 임시저장 되었어요" onClose={() => setShowToast(false)} />}
 
           <S.ChatContainer $isPC={isPC}>
-            <S.DateContainer>{currentDate}</S.DateContainer>
-            {messages.map((msg, index) => (
-              <ChatBubble key={index} message={msg.isLoading ? <LoadingDots /> : msg.message} isMe={msg.isMe} isLoading={msg.isLoading} $isPC={isPC} />
-            ))}
-            <div ref={messagesEndRef} />
-            <S.InputContainer $isPC={isPC}>
-              {showGuideButton && <GuideButton text="🤔 경험을 어떻게 말해야 할지 모르겠어요" onClick={handleGuideButtonClick} />}
-              <ChatBox onSubmit={handleSendMessage} isReviewMode={isReviewMode} $isPC={isPC} />
-            </S.InputContainer>
+            <S.ContentContainer>
+              <S.DateContainer>{currentDate}</S.DateContainer>
+              {messages.map((msg, index) => (
+                <ChatBubble key={index} message={msg.isLoading ? <LoadingDots /> : msg.message} isMe={msg.isMe} isLoading={msg.isLoading} $isPC={isPC} />
+              ))}
+              <div ref={messagesEndRef} />
+              <S.InputContainer $isPC={isPC}>
+                {showGuideButton && <GuideButton text="🤔 경험을 어떻게 말해야 할지 모르겠어요" onClick={handleGuideButtonClick} />}
+                <ChatBox onSubmit={handleSendMessage} isReviewMode={isReviewMode} $isPC={isPC} />
+              </S.InputContainer>
+            </S.ContentContainer>
           </S.ChatContainer>
         </>
       )}

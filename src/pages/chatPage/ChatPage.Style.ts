@@ -20,8 +20,16 @@ export const ChatContainer = styled.div<ChatContainerProps>`
   );
 
   ${(props) => props.theme.breakpoints.min} {
-      padding-bottom: 5rem;
+    padding-bottom: 5rem;
   }
+`;
+
+export const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 47.875rem;
+  width: 100%;
+  align-self: center;
 `;
 
 export const DateContainer = styled.div`
