@@ -5,6 +5,10 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   cursor: pointer;
+
+  ${(props) => props.theme.breakpoints.min} {
+    gap: 0.625rem;
+  }
 `;
 
 export const SelectBox = styled.div<{ open: boolean }>`
@@ -19,6 +23,14 @@ export const SelectBox = styled.div<{ open: boolean }>`
   color: ${({ theme }) => theme.colors.gray900};
   font-size: 1rem;
   line-height: 145%;
+
+  ${(props) => props.theme.breakpoints.min} {
+    gap: 0.625rem;
+    max-width: 30.625rem;
+    height: 3.125rem;
+    padding: 0.75rem;
+    font-size: 1.125rem;
+  }
 `;
 
 export const SelectText = styled.span<{ $hasValue: boolean }>`
@@ -28,7 +40,7 @@ export const SelectText = styled.span<{ $hasValue: boolean }>`
 export const Icon = styled.img`
   position: absolute;
   top: 0.75rem;
-  right: 0.5rem;
+  right: 0.75rem;
 `;
 
 export const Option = styled.div`
@@ -39,9 +51,26 @@ export const Option = styled.div`
   gap: 0.625rem;
   border-radius: 0.5rem;
   border: 1px solid ${({ theme }) => theme.colors.blue200};
+  max-height: 15rem;
+  padding: 0.75rem 0.875rem;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  ${(props) => props.theme.breakpoints.min} {
+    max-width: 30.625rem;
+  }
 `;
 
 export const Text = styled.div`
   font-size: 1rem;
   line-height: 145%;
+
+  ${(props) => props.theme.breakpoints.min} {
+    font-size: 1.125rem;
+  }
 `;

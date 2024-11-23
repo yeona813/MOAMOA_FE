@@ -3,6 +3,7 @@ import { theme } from '../../styles/theme';
 
 interface ChatBubbleProps {
   $isMe: boolean;
+  $isPC?: boolean;
 }
 
 export const ChatBubbleWrapper = styled.div<ChatBubbleProps>`
@@ -12,7 +13,14 @@ export const ChatBubbleWrapper = styled.div<ChatBubbleProps>`
 `;
 
 export const Bubble = styled.div<ChatBubbleProps>`
-  max-width: 15.75rem;
+  max-width: ${({ $isMe, $isPC }) =>
+    $isMe && $isPC
+      ? '27rem'
+      : !$isMe && $isPC
+        ? '24.875rem'
+        : $isMe
+          ? '15.75rem'
+          : '14.5rem'};
   padding: 0.75rem 1rem;
   border-radius: ${({ $isMe }) => ($isMe ? '1.25rem 0 1.25rem 1.25rem' : '0 1.25rem 1.25rem 1.25rem')};
   background-color: ${({ $isMe }) => ($isMe ? theme.colors.blue50 : theme.colors.white)};
@@ -21,8 +29,8 @@ export const Bubble = styled.div<ChatBubbleProps>`
   margin-bottom: 0.625rem;
 `;
 
-export const Message = styled.p`
-  font-size: 0.875rem;
+export const Message = styled.p<ChatBubbleProps>`
+  font-size: ${({ $isPC }) => ($isPC ? '1.125rem' : '0.875rem')};
   font-weight: 400;
   line-height: 1.25rem;
   white-space: pre-line;

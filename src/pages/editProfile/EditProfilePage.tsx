@@ -40,8 +40,12 @@ export const EditProfilePage = () => {
 
   return (
     <div>
-      <TabBar centerText="프로필 수정" />
+      <S.TabBarContainer>
+        <TabBar centerText="프로필 수정" />
+      </S.TabBarContainer>
+
       <S.Content>
+        <S.Title>프로필 수정</S.Title>
         <EditProfile
           nickname={nickname}
           onChangeNickname={onChangeNickname}

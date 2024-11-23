@@ -2,12 +2,11 @@ import styled from 'styled-components';
 
 export const ListPage = styled.div`
   background-color: ${({ theme }) => theme.colors.gray25};
+  width: 100%;
+  height: 100%;
 `;
 
-export const Content = styled.div`
-  position: absolute;
-  top: 11.125rem;
-  left: 0;
+export const Content = styled.div<{ $isEmpty: boolean }>`
   width: 100%;
   height: calc(100vh - 11.125rem);
   display: flex;
@@ -21,5 +20,15 @@ export const Content = styled.div`
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  ${(props) => props.theme.breakpoints.min} {
+    padding: 0rem 4.75rem;
+    ${(props) =>
+      !props.$isEmpty &&
+      `
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    `}
   }
 `;

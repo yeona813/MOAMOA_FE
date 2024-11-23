@@ -12,6 +12,6 @@ export const Chip = styled.div<{ size: string; $color?: boolean }>`
 
   ${(props) => props.theme.breakpoints.min} {
     font-size: ${(props) =>
-      props.size === 'large' ? '1.5rem' : '1rem'}; //여기 바꿔야함 large일 때!
+      props.size === 'large' ? '0.875rem' : '1rem'}; //여기 바꿔야함 large일 때!
   }
 `;

@@ -9,7 +9,9 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './ChatPage.Style';
 import ToastMessage from '@/components/chat/ToastMessage';
 import { LoadingDots } from '@components/chat/LodingDots';
+import { LoadingScreen } from '@components/common/loading/LoadingScreen';
 import { postAiChat, postTmpChat, checkTmpChat, getChat, getSummary, deleteChat, postChat } from '@/api/Chat';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface Message {
   message: string;
@@ -18,6 +20,8 @@ interface Message {
 }
 
 export const ChatPage = () => {
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
   const firstChat = localStorage.getItem('firstChat') || '안녕하세요! 경험을 작성해주세요.';
   const formattedFirstChat = firstChat.replace(/\n/g, '<br>');
   const { id } = useParams();
@@ -35,15 +39,18 @@ export const ChatPage = () => {
   const [isLoadTempModalOpen, setIsLoadTempModalOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [showGuideButton, setShowGuideButton] = useState(true);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const isReviewMode = window.location.pathname.includes('review-chat');
+  const isPC = useMediaQuery('(min-width: 768px)');
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
-    scrollToBottom();
+    if (messages.length > 1) { // 배포 후 모바일에서 확인 필요
+      scrollToBottom();
+    }
   }, [messages]);
 
   // URL 파라미터로부터 채팅방 ID 설정
@@ -67,7 +74,7 @@ export const ChatPage = () => {
     const fetchTmpChatData = async () => {
       try {
         // review-chat 경로로 접근한 경우에만 임시저장 확인하지 않음
-        if (window.location.pathname.includes('review-chat')) return;
+        if (isReviewMode) return;
 
         // 임시 저장된 채팅 기록이 있는지 확인
         const tmpChatData = await checkTmpChat();
@@ -155,13 +162,17 @@ export const ChatPage = () => {
     try {
       setShowGuideButton(false);
 
+      setMessages(prev => [...prev, { message: '어떤 경험을 말해야 할지 모르겠어요.', isMe: true, isLoading: false }]);
       setMessages(prev => [...prev, { message: '', isMe: false, isLoading: true }]);
       const response = await postAiChat(chatRoomId, { guide: true, content: '' });
       const guideResponse = response?.chats?.map((chat: { content: string }) => chat.content).join('<br>') || '가이드 응답을 불러오지 못했습니다.';
 
+      const [firstPart, secondPart] = guideResponse.split('<br>');
+
       setMessages(prev => [
         ...prev.slice(0, -1),
-        { message: guideResponse, isMe: false, isLoading: false }
+        { message: firstPart, isMe: false, isLoading: false },
+        { message: secondPart, isMe: false, isLoading: false }
       ]);
     } catch (error) {
       setMessages(prev => [
@@ -218,6 +229,7 @@ export const ChatPage = () => {
 
   const handleComplete = async () => {
     try {
+      setIsLoading(true);
       if (!chatRoomId) throw new Error('유효하지 않은 채팅방 ID입니다.');
 
       try {
@@ -226,33 +238,41 @@ export const ChatPage = () => {
           navigate('/record-complete', {
             state: { chatRoomId, summary: response.content, title: response.title },
           });
-          return; // 성공 시 종료
+          return;
         }
       } catch (error: any) {
 
-        if (
-          error.message.includes('제목은 50자 이내여야 합니다') ||
-          error.message.includes('경험 요약 내용은 500자 이내여야 합니다') ||
-          error.message.includes('채팅 경험 요약 파싱 중 오류가 발생했습니다')
-        ) {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          const retryResponse = await getSummary(chatRoomId);
+        // Axios 에러에서 서버 응답 코드 확인
+        const errorCode = error.response?.data?.code || error.code;
 
-          if (retryResponse) {
-            navigate('/record-complete', {
-              state: { chatRoomId, summary: retryResponse.content, title: retryResponse.title },
-            });
+        switch (errorCode) {
+          case 'E0305_OVERFLOW_SUMMARY_TITLE':
+          case 'E0305_OVERFLOW_SUMMARY_CONTENT':
+          case 'E0305_INVALID_CHAT_SUMMARY':
+            // 1초 대기 후 재시도
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            const retryResponse = await getSummary(chatRoomId);
+
+            if (retryResponse) {
+              navigate('/record-complete', {
+                state: { chatRoomId, summary: retryResponse.content, title: retryResponse.title },
+              });
+              return;
+            }
+            break;
+          case 'E0305_NO_RECORD':
+            // 내용 부족 에러: 알림 후 종료
+            alert('경험 기록의 내용이 충분하지 않습니다. 내용을 더 자세히 작성해주세요.');
             return;
-          }
-        } else if (error.message.includes('경험 기록의 내용이 충분하지 않습니다')) {
-          alert('경험 기록의 내용이 충분하지 않습니다. 내용을 더 자세히 작성해주세요.');
-          return; // 더 이상 재요청하지 않고 종료
-        } else {
-          throw error;
+          default:
+            throw error; // 예상하지 못한 에러
         }
       }
     } catch (error) {
-      alert('완료 처리 중 오류가 발생했습니다. 다시 시도해주세요.'); // 빼도 됨
+      console.error(error);
+      alert('완료 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -295,51 +315,57 @@ export const ChatPage = () => {
 
   return (
     <>
-      <TabBar rightText="완료하기" onClickBackIcon={handleTemporarySave} onClick={() => setIsModalOpen(true)} isDisabled={messages.length === 0} />
-      {isModalOpen && (
-        <DetailModal
-          text="기록을 완료할까요?"
-          leftButtonText="돌아가기"
-          rightButtonText="완료하기"
-          onClickBackground={() => setIsModalOpen(false)}
-          onClickLeft={() => setIsModalOpen(false)}
-          onClickRight={handleComplete}
-        />
+      {isLoading ? (
+        <LoadingScreen />
+      ) : (
+        <>
+          <TabBar rightText={isReviewMode ? "" : "완료하기"} onClickBackIcon={handleTemporarySave} onClick={() => setIsModalOpen(true)} isDisabled={messages.length === 0} />
+          {isModalOpen && (
+            <DetailModal
+              text="기록을 완료할까요?"
+              leftButtonText="돌아가기"
+              rightButtonText="완료하기"
+              onClickBackground={() => setIsModalOpen(false)}
+              onClickLeft={() => setIsModalOpen(false)}
+              onClickRight={handleComplete}
+            />
+          )}
+
+          {isLoadTempModalOpen && (
+            <DetailModal
+              text="최근 작성 내역이 있어요 이어서 작성하시겠어요?"
+              leftButtonText="새로 작성하기"
+              rightButtonText="이어서 작성하기"
+              onClickLeft={handleNewChat}
+              onClickRight={handleContinueChat}
+            />
+          )}
+
+          {isTempSaveModalOpen && (
+            <DetailModal
+              text="대화를 임시 저장할까요?"
+              leftButtonText="나가기"
+              rightButtonText="저장하기"
+              onClickLeft={handleDeleteChat}
+              onClickRight={handleSaveAndExit}
+            />
+          )}
+
+          {showToast && <ToastMessage text="경험이 임시저장 되었어요" onClose={() => setShowToast(false)} />}
+
+          <S.ChatContainer $isPC={isPC}>
+            <S.DateContainer>{currentDate}</S.DateContainer>
+            {messages.map((msg, index) => (
+              <ChatBubble key={index} message={msg.isLoading ? <LoadingDots /> : msg.message} isMe={msg.isMe} isLoading={msg.isLoading} $isPC={isPC} />
+            ))}
+            <div ref={messagesEndRef} />
+            <S.InputContainer $isPC={isPC}>
+              {showGuideButton && <GuideButton text="🤔 경험을 어떻게 말해야 할지 모르겠어요" onClick={handleGuideButtonClick} />}
+              <ChatBox onSubmit={handleSendMessage} isReviewMode={isReviewMode} $isPC={isPC} />
+            </S.InputContainer>
+          </S.ChatContainer>
+        </>
       )}
-
-      {isLoadTempModalOpen && (
-        <DetailModal
-          text="최근 작성 내역이 있어요 이어서 작성하시겠어요?"
-          leftButtonText="새로 작성하기"
-          rightButtonText="이어서 작성하기"
-          onClickLeft={handleNewChat}
-          onClickRight={handleContinueChat}
-        />
-      )}
-
-      {isTempSaveModalOpen && (
-        <DetailModal
-          text="대화를 임시 저장할까요?"
-          leftButtonText="나가기"
-          rightButtonText="저장하기"
-          onClickLeft={handleDeleteChat}
-          onClickRight={handleSaveAndExit}
-        />
-      )}
-
-      {showToast && <ToastMessage text="경험이 임시저장 되었어요" onClose={() => setShowToast(false)} />}
-
-      <S.ChatContainer>
-        <S.DateContainer>{currentDate}</S.DateContainer>
-        {messages.map((msg, index) => (
-          <ChatBubble key={index} message={msg.isLoading ? <LoadingDots /> : msg.message} isMe={msg.isMe} isLoading={msg.isLoading} />
-        ))}
-        <div ref={messagesEndRef} />
-        <S.InputContainer>
-          {showGuideButton && <GuideButton text="🤔 경험을 어떻게 말해야 할지 모르겠어요" onClick={handleGuideButtonClick} />}
-          <ChatBox onSubmit={handleSendMessage} />
-        </S.InputContainer>
-      </S.ChatContainer>
     </>
   );
-};
+}

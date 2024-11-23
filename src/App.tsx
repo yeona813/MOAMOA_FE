@@ -10,7 +10,7 @@ export const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const hideSideBarPath = ['/oauth', '/login', '/register', '/login-success']; // router 확정되면 추후 수정
+  const hideSideBarPath = ['/oauth', '/login', '/register', '/login-success', '/chat']; // router 확정되면 추후 수정
 
   useEffect(() => {
     const unprotectedPaths = ['/oauth', '/login', '/register', '/login-success'];

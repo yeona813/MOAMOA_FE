@@ -7,6 +7,7 @@ export interface SkillProps {
   analysisId: number;
   chatRoomId: number | null;
   recordId: number;
+  folderName: string;
   recordType: string;
   recordTitle: string;
   recordContent: string;

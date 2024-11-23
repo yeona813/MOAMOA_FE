@@ -20,8 +20,7 @@ export const Content = ({ data }: ContentProps) => {
         const response = await getChat(data.chatRoomId as number);
         if (response) {
           navigate(`/review-chat/${data.chatRoomId}`);
-        }
-        else {
+        } else {
           throw new Error('채팅 데이터를 불러오는데 실패했습니다.');
         }
       } else {
@@ -34,7 +33,7 @@ export const Content = ({ data }: ContentProps) => {
         }
       }
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   };
 

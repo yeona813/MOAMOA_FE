@@ -7,6 +7,7 @@ interface ListItemProps {
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
   height: 100%;
   padding: 0.75rem 1rem;

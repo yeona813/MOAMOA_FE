@@ -1,5 +1,39 @@
 import styled from 'styled-components';
 
+export const Cotainer = styled.div`
+  ${(props) => props.theme.breakpoints.min} {
+    display: flex;
+    flex-direction: column;
+    padding: 5rem 4.75rem;
+    gap: 3.75rem;
+  }
+`;
+
+export const MobileHeader = styled.header`
+  ${(props) => props.theme.breakpoints.min} {
+    display: none;
+  }
+`;
+
+export const PcHeader = styled.header`
+  ${(props) => props.theme.breakpoints.min} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 140%;
+  }
+`;
+
+export const Edit = styled.h5`
+  ${(props) => props.theme.breakpoints.min} {
+    line-height: 145%;
+    color: ${({ theme }) => theme.colors.gray500};
+  }
+`;
+
 export const Content = styled.div`
   position: absolute;
   top: 3.375rem;
@@ -16,6 +50,15 @@ export const Content = styled.div`
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  ${(props) => props.theme.breakpoints.min} {
+    position: static;
+    padding: 0;
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.625rem 1.25rem;
   }
 `;
 

@@ -4,9 +4,11 @@ import * as S from './ChatBox.Style';
 
 interface ChatBoxProps {
   onSubmit: (message: string) => void;
+  isReviewMode: boolean;
+  $isPC: boolean;
 }
 
-export const ChatBox = ({ onSubmit }: ChatBoxProps) => {
+export const ChatBox = ({ onSubmit, isReviewMode, $isPC }: ChatBoxProps) => {
   const [message, setMessage] = useState('');
 
   const handleSend = (event: React.FormEvent<HTMLFormElement>) => {
@@ -20,15 +22,16 @@ export const ChatBox = ({ onSubmit }: ChatBoxProps) => {
   const hasMessage = message.trim().length > 0;
 
   return (
-    <S.ChatBoxContainer>
+    <S.ChatBoxContainer $isPC={$isPC}>
       <S.ChatBoxForm onSubmit={handleSend}>
         <S.ChatBoxInput
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="내용을 입력해 주세요"
+          placeholder={isReviewMode ? '채팅을 입력할 수 없습니다.' : '내용을 입력해 주세요'}
+          disabled={isReviewMode}
         />
-        <S.ChatBoxButton type="submit" $hasMessage={hasMessage}>
+        <S.ChatBoxButton type="submit" $hasMessage={hasMessage} disabled={isReviewMode}>
           <img src={UpArrowIcon} alt="Send" />
         </S.ChatBoxButton>
       </S.ChatBoxForm>

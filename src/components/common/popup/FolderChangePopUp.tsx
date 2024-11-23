@@ -1,27 +1,40 @@
 import { useEffect, useState } from 'react';
 import { Button } from '../button/Button';
-import { BottomSheet } from './BottomSheet';
-import * as S from './FolderBottomSheet.Style';
+import { BottomSheet } from '../bottomSheet/BottomSheet';
+import * as S from './FolderChangePopUp.Style';
 import { SelectBox } from '../selectbox/SelectBox';
 import CloseIcon from '@icons/CloseIcon.svg';
 import { getFolders } from '@/api/Folder';
 import { FolderListProps } from '@/types/Folder';
 import { patchFolder } from '@/api/Analysis';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { Modal } from '../modal/Modal';
 
-interface FolderBottomSheetProps {
-  analysisId: number;
+interface FolderPopUpProps {
+  recordId: number;
+  intialfolderName: string;
   onClick: () => void;
+  showToast: () => void;
 }
 
 /**
  *
- * @param analysisId - analysisId
+ * @param recordId - recordId
+ * @param intialfolderName - 기존 folderName
  * @param onClick - BottomSheet 열고 닫는 함수
+ * @param showToast - 저장 완료 후 toast 보여주는 함수
  * @returns
  */
-export const FolderChangeBottomSheet = ({ analysisId, onClick }: FolderBottomSheetProps) => {
-  const [folderName, setFolderName] = useState('');
+export const FolderChangePopUp = ({
+  recordId,
+  intialfolderName,
+  onClick,
+  showToast,
+}: FolderPopUpProps) => {
+  const [folderName, setFolderName] = useState(intialfolderName);
   const [folderList, setFolderList] = useState<FolderListProps[]>([]);
+
+  const isMobile = useMediaQuery('(max-width: 1280px)');
 
   useEffect(() => {
     const fetchFolderList = async () => {
@@ -42,12 +55,13 @@ export const FolderChangeBottomSheet = ({ analysisId, onClick }: FolderBottomShe
     if (folderName) {
       try {
         const response = await patchFolder({
-          recordId: analysisId,
+          recordId: recordId,
           folder: folderName,
         });
 
-        if (response?.is_success) {
+        if (response.is_success) {
           onClick();
+          showToast();
         }
       } catch (error) {
         console.error('폴더 변경 실패:', error);
@@ -55,8 +69,8 @@ export const FolderChangeBottomSheet = ({ analysisId, onClick }: FolderBottomShe
     }
   };
 
-  return (
-    <BottomSheet onClick={onClick}>
+  const Content = (
+    <>
       <S.Header>
         <S.Title>경험 폴더 변경하기</S.Title>
         <S.Icon src={CloseIcon} alt="closeIcon" onClick={onClick} />
@@ -68,6 +82,18 @@ export const FolderChangeBottomSheet = ({ analysisId, onClick }: FolderBottomShe
           완료
         </Button>
       </S.SheetContent>
-    </BottomSheet>
+    </>
+  );
+
+  return (
+    <>
+      {isMobile ? (
+        <BottomSheet onClick={onClick}>{Content}</BottomSheet>
+      ) : (
+        <Modal onClick={onClick} isPC={true}>
+          {Content}
+        </Modal>
+      )}
+    </>
   );
 };

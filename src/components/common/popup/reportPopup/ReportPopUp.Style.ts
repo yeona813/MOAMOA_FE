@@ -33,12 +33,11 @@ export const ContentContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-`;
 
-export const Record = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  ${(props) => props.theme.breakpoints.min} {
+    max-height: 25rem;
+    height: 100%;
+  }
 `;
 
 export const Keyword = styled.div`

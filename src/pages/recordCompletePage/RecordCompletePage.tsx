@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { CategoryChip } from '@/components/common/chip/CategoryChip';
 import { Button } from '@/components/common/button/Button';
-import { FolderBottomSheet } from '@/components/common/bottomSheet/FolderBottomSheet';
+import { FolderPopUp } from '@/components/common/popup/FolderPopUp';
 import * as S from './RecordCompletePage.Style';
 import { getFormattedDate } from '@/utils/dateUtils';
 import FolderIcon from '@icons/FolderIcon.svg';
 import { getFolders } from '@/api/Folder';
 import { FolderListProps } from '@/types/Folder';
 import { postRecord } from '@/api/Record';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export const RecordCompletePage = () => {
   const [folders, setFolders] = useState<FolderListProps[]>([]);
@@ -19,6 +20,7 @@ export const RecordCompletePage = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const nickname = localStorage.getItem('nickname');
+  const isPC = useMediaQuery('(min-width: 768px)');
 
   useEffect(() => {
     if (state?.summary) {
@@ -50,22 +52,49 @@ export const RecordCompletePage = () => {
         throw new Error('카테고리를 선택해주세요.');
       }
 
-      const folderId = folders.find(folder => folder.title === selectedCategory)?.folderId;
+      const folderId = folders.find((folder) => folder.title === selectedCategory)?.folderId;
       if (!folderId) {
         throw new Error('유효하지 않은 폴더입니다.');
       }
-      const response = await postRecord({
-        title,
-        content,
-        folderId,
-        recordType: 'CHAT',
-        chatRoomId: state.chatRoomId
-      });
-      if (response?.is_success) {
-        navigate('/home');
+
+      try {
+        const response = await postRecord({
+          title,
+          content,
+          folderId,
+          recordType: 'CHAT',
+          chatRoomId: state.chatRoomId,
+        });
+        if (response?.is_success) {
+          navigate('/home');
+          return true;
+        }
+      } catch (error: any) {
+        switch (error.code) {
+          case 'E0500_OVERFLOW_COMMENT':
+          case 'E0500_OVERFLOW_KEYWORD_CONTENT':
+          case 'E500_INVALID_ANALYSIS':
+            // 1초 대기 후 재시도
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            const retryResponse = await postRecord({
+              title,
+              content,
+              folderId,
+              recordType: 'CHAT',
+              chatRoomId: state.chatRoomId,
+            });
+            if (retryResponse?.is_success) {
+              navigate('/home');
+              return;
+            }
+            break;
+          default:
+            throw error; // 예상하지 못한 에러
+        }
       }
     } catch (error) {
-      alert('기록 저장에 실패했습니다. 다시 시도해주세요.');
+      alert('기록 저장 중 오류가 발생했습니다.');
+      console.error(error);
     }
   };
 
@@ -95,20 +124,18 @@ export const RecordCompletePage = () => {
     <S.Container>
       <S.HeaderContainer>
         <S.Title>경험 기록이 완료되었어요!</S.Title>
-        <S.SubTitle>
-          {nickname}님의 경험을 보기 쉽게 요약했어요
-        </S.SubTitle>
+        <S.SubTitle>{nickname}님의 경험을 보기 쉽게 요약했어요</S.SubTitle>
       </S.HeaderContainer>
 
-      <S.Form onSubmit={handleSubmit}>
-        <S.Input
+      <S.Form onSubmit={handleSubmit} $isPC={isPC}>
+        <S.InputTitle
           placeholder={getFormattedDate()}
           value={title}
           onChange={handleChangeTitle}
           isError={false}
         />
         <S.Line />
-        <S.TextArea value={content} onChange={handleChangeContent} />
+        <S.TextArea value={content} onChange={handleChangeContent} $isPC={isPC} />
         <S.Line />
 
         <S.Label>경험 폴더를 선택해주세요.</S.Label>
@@ -121,15 +148,12 @@ export const RecordCompletePage = () => {
               onClick={() => handleChangeCategory(folder.title)}
             />
           ))}
-          <CategoryChip
-            onClick={() => handleChangeCategory('', true)}
-            isSelected={false}
-          >
+          <CategoryChip onClick={() => handleChangeCategory('', true)} isSelected={false}>
             <img src={FolderIcon} alt="changeFolder" />
           </CategoryChip>
         </S.CategoryContainer>
 
-        <S.ButtonWrapper>
+        <S.ButtonWrapper $isPC={isPC}>
           <Button
             type="submit"
             onClick={handleSaveButton}
@@ -141,11 +165,7 @@ export const RecordCompletePage = () => {
         </S.ButtonWrapper>
       </S.Form>
 
-      {isBottomSheetOpen && (
-        <FolderBottomSheet
-          onClick={() => setIsBottomSheetOpen(false)}
-        />
-      )}
+      {isBottomSheetOpen && <FolderPopUp onClick={() => setIsBottomSheetOpen(false)} />}
     </S.Container>
   );
 };

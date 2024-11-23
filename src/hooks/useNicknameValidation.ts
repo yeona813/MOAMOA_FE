@@ -11,7 +11,7 @@ export const useNicknameValidation = () => {
     let errorMessage = '';
     if (nicknameReg.test(value)) {
       errorMessage = '특수문자는 입력이 불가능해요';
-    } else if (value.length < 2 || value.length > 10) {
+    } else if (value.length > 10) {
       errorMessage = '10자 이내의 닉네임을 입력해주세요';
     }
     setError({
