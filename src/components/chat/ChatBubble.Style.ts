@@ -42,12 +42,12 @@ export const Bubble = styled.div<ChatBubbleProps>`
 export const Message = styled.p<ChatBubbleProps>`
   font-size: 1rem;
   font-weight: 400;
-  line-height: 143.75%;
+  line-height: 145%;
   white-space: pre-line;
 
   ${(props) => props.theme.breakpoints.min} {
     font-size: 1.125rem;
-    line-height: 163.125%;
+    line-height: 165%;
   }
 `;
 
