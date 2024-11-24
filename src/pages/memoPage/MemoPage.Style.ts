@@ -7,24 +7,64 @@ interface ReviewModeProps {
   $isPC: boolean;
 }
 
+export const PageContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+`;
+
 export const Container = styled.div<ReviewModeProps>`
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
   position: relative;
-  width: 100%;
   height: 100%;
   align-items: center;
+  width: ${({ $isPC }) => ($isPC ? '60%' : '100%')};
+  margin: 0 auto; // 중앙 정렬
 `;
 
 export const HeaderContainer = styled.div`
-  width: 100%;
   height: 14.5rem;
   background-image: url('/images/HeaderImage.png');
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  ${(props) => props.theme.breakpoints.min} {
+    background-image: none;
+    margin-top: 2rem;
+  }
+`;
+
+export const HeaderIcon = styled.div`
+${(props) => props.theme.breakpoints.min} {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+
+  img {
+    width: 200px;
+    height: 100px;
+  }
+}
+`;
+
+export const TitleContainer = styled.div`
+  display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  ${(props) => props.theme.breakpoints.min} {
+    margin-bottom: 1.25rem;
+  }
 `;
 
 export const Form = styled.form<ReviewModeProps>`
@@ -32,7 +72,7 @@ export const Form = styled.form<ReviewModeProps>`
   flex-direction: column;
   justify-content: center;
   gap: 0.625rem;
-  width: ${({ $isPC }) => ($isPC ? '80%' : '100%')};
+  width: 100%;
   padding: 0 1.25rem;
   position: relative;
 `;
@@ -141,10 +181,14 @@ export const Warning = styled.p`
 
 export const Count = styled.p`
   width: 3.125rem;
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 400;
   line-height: 130%;
   color: ${Colors.gray500};
+
+  ${(props) => props.theme.breakpoints.min} {
+    font-size: 0.875rem;
+  }
 `;
 
 export const ButtonWrapper = styled.div<ReviewModeProps>`
