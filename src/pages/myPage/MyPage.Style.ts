@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -10,11 +11,11 @@ export const Container = styled.div`
 `;
 
 export const MobileHeader = styled.div`
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${Colors.white};
   width: 100%;
   padding: 0rem 1.25rem;
   height: 3.75rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray100};
+  border-bottom: 1px solid ${Colors.gray100};
 
   ${(props) => props.theme.breakpoints.min} {
     display: none;
@@ -35,7 +36,7 @@ export const Content = styled.div`
   ${(props) => props.theme.breakpoints.min} {
     display: flex;
     flex-direction: column;
-    background-color: ${({ theme }) => theme.colors.white};
+    background-color: ${Colors.white};
     height: auto;
     gap: 5rem;
   }

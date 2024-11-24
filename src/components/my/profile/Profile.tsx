@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './Profile.Style';
 import { useEffect, useState } from 'react';
 import { getUsers } from '@/api/My';
+import ProfileImage from '/images/ProfileImage.png';
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ export const Profile = () => {
         </S.Button>
       </S.Profile>
       <S.Detail>
-        <S.DIV /> {/* 임시 작업 */}
+        <S.Image src={ProfileImage} alt="프로필 이미지" />
         <S.Record
           onClick={() => {
             navigate('/list');

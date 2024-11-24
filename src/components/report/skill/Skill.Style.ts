@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Skill = styled.div<{ $color?: boolean }>`
@@ -7,10 +8,9 @@ export const Skill = styled.div<{ $color?: boolean }>`
   gap: 0.5rem;
   width: 100%;
   padding: 1rem 0.75rem;
-  background-color: ${({ $color, theme }) =>
-    $color ? theme.colors.yellow50 : theme.colors.blue50};
+  background-color: ${({ $color }) => ($color ? Colors.yellow50 : Colors.blue50)};
   border-radius: 0.5rem;
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
 
   ${(props) => props.theme.breakpoints.min} {
     flex-direction: row;
@@ -33,8 +33,7 @@ export const Keyword = styled.h6`
 export const Line = styled.div<{ $color?: boolean }>`
   width: 90%;
   height: 1px;
-  background-color: ${({ $color, theme }) =>
-    $color ? theme.colors.yellow300 : theme.colors.blue100};
+  background-color: ${({ $color }) => ($color ? Colors.yellow300 : Colors.blue100)};
 
   ${(props) => props.theme.breakpoints.min} {
     width: 1px;

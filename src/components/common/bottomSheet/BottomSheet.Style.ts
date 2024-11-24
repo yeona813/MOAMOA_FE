@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Background = styled.div`
@@ -18,6 +19,6 @@ export const BottomSheet = styled.div`
   height: fit-content;
   padding: 1.25rem;
   border-radius: 1.25rem 1.25rem 0rem 0rem;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${Colors.white};
   z-index: 100;
 `;

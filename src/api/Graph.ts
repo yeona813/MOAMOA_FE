@@ -5,7 +5,6 @@ export async function getGraph() {
     const response = await api.get('/api/keyword/graph');
     if (response.data.is_success) {
       return response.data.data.keywordGraph;
-    } else {
     }
   } catch (error) {
     console.error(error);

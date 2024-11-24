@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Container = styled.section`
@@ -5,7 +6,7 @@ export const Container = styled.section`
   flex-direction: column;
   gap: 1.25rem;
   padding: 1.375rem 1.9375rem 2.25rem;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${Colors.white};
 
   ${(props) => props.theme.breakpoints.min} {
     display: flex;
@@ -86,15 +87,13 @@ export const Detail = styled.div`
   }
 `;
 
-export const DIV = styled.div`
-  display: flex;
+export const Image = styled.img`
   width: 100%;
-  height: 6.75rem;
-  background-color: ${({ theme }) => theme.colors.blue50};
+  height: 7.25rem;
 
   ${(props) => props.theme.breakpoints.min} {
     width: 24.625rem;
-    height: 6.875rem;
+    height: 6.75rem;
   }
 `;
 
@@ -104,10 +103,10 @@ export const Record = styled.div`
   height: 3.5rem;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.blue400};
+  background-color: ${Colors.blue400};
   box-shadow: 0px 0px 8px 0px rgba(255, 248, 152, 0.6) inset;
   border-radius: 1rem;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${Colors.white};
   font-size: 1rem;
   font-weight: 600;
   line-height: 140%;

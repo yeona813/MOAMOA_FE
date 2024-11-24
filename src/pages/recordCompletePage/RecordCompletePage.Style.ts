@@ -1,28 +1,69 @@
 import styled from 'styled-components';
 import { Input as OriginalInput } from '@/components/common/input/Input';
+import { Colors } from '@/styles/colors';
 
 interface RecordCompletePageProps {
   $isPC: boolean;
 }
 
-export const Container = styled.div`
+export const PageContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+`;
+
+export const Container = styled.div<RecordCompletePageProps>`
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
   position: relative;
-  width: 100%;
   height: 100%;
   align-items: center;
+  width: ${({ $isPC }) => ($isPC ? '60%' : '100%')};
+  margin: 0 auto;
 `;
 
 export const HeaderContainer = styled.div`
-  width: 100%;
-  height: 12.6875rem;
+  height: 14.5rem;
   background-image: url('/images/HeaderImage.png');
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  ${(props) => props.theme.breakpoints.min} {
+    background-image: none;
+    margin-top: 2rem;
+  }
+`;
+
+export const HeaderIcon = styled.div`
+${(props) => props.theme.breakpoints.min} {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+
+  img {
+    width: 200px;
+    height: 100px;
+  }
+}
+`;
+
+export const TitleContainer = styled.div`
+  display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  ${(props) => props.theme.breakpoints.min} {
+    margin-bottom: 1.25rem;
+  }
 `;
 
 export const Title = styled.h4`
@@ -43,7 +84,7 @@ export const Form = styled.form<RecordCompletePageProps>`
   flex-direction: column;
   justify-content: center;
   gap: 0.625rem;
-  width: ${({ $isPC }) => ($isPC ? '80%' : '100%')};
+  width: 100%;
   padding: 0 1.25rem;
   position: relative;
 `;
@@ -56,11 +97,14 @@ export const InputTitle = styled(OriginalInput)`
   &:focus {
     border: none;
   }
+  ${(props) => props.theme.breakpoints.min} {
+    margin-left: 1rem;
+  }
 `;
 
 export const Line = styled.div`
   width: 95%;
-  border: 0.0625rem solid ${({ theme }) => theme.colors.gray50};
+  border: 0.0625rem solid ${Colors.gray50};
   align-self: center;
   margin-bottom: 0.625rem;
 `;
@@ -84,14 +128,21 @@ export const TextArea = styled.textarea<RecordCompletePageProps>`
   &::-webkit-scrollbar {
     display: none;
   }
+  ${(props) => props.theme.breakpoints.min} {
+    margin-left: 1rem;
+  }
 `;
 
 export const Label = styled.p`
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
   font-size: 1rem;
   font-weight: 400;
   line-height: 145%;
   margin-left: 0.5rem;
+  ${(props) => props.theme.breakpoints.min} {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 export const CategoryContainer = styled.div`
@@ -99,6 +150,9 @@ export const CategoryContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 0.625rem;
+  ${(props) => props.theme.breakpoints.min} {
+    margin-left: 1.5rem;
+  }
 `;
 
 export const ButtonWrapper = styled.div<RecordCompletePageProps>`

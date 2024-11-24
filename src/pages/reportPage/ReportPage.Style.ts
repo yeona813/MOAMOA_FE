@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const MobileHeader = styled.header`
@@ -12,7 +13,7 @@ export const PcHeader = styled.header`
     justify-content: space-between;
     align-items: center;
     padding: 5rem 4.75rem 0rem;
-    color: ${({ theme }) => theme.colors.gray900};
+    color: ${Colors.gray900};
     font-size: 1.75rem;
     font-weight: 600;
     line-height: 140%;

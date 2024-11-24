@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Cotainer = styled.div`
@@ -30,7 +31,7 @@ export const PcHeader = styled.header`
 export const Edit = styled.h5`
   ${(props) => props.theme.breakpoints.min} {
     line-height: 145%;
-    color: ${({ theme }) => theme.colors.gray500};
+    color: ${Colors.gray500};
   }
 `;
 
@@ -81,6 +82,6 @@ export const Input = styled.input`
   text-align: center;
   font-size: 1rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.colors.gray800};
-  background-color: ${({ theme }) => theme.colors.blue50};
+  color: ${Colors.gray800};
+  background-color: ${Colors.blue50};
 `;

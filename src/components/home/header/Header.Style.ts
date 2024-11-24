@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Header = styled.header`
@@ -6,11 +7,16 @@ export const Header = styled.header`
   width: 100%;
   height: 14.5rem;
   padding: 0 1.25rem 1.25rem;
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
+  background-image: url('/images/HomeImage.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   ${(props) => props.theme.breakpoints.min} {
     height: 100%;
     padding: 0rem;
+    background: none;
   }
 `;
 

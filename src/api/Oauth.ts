@@ -18,7 +18,6 @@ export async function registerUser(registerToken: string, nickName: string, stat
         },
       },
     );
-    console.log('User registration successful:', response.data);
     return response.data;
   } catch (error) {
     console.error('User registration failed:', error);

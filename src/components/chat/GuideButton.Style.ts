@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const GuideButtonContainer = styled.div`
@@ -11,9 +12,9 @@ export const GuideButton = styled.button`
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 0.75rem;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${Colors.white};
   border-radius: 6.1875rem;
-  border: 1px solid ${({ theme }) => theme.colors.gray50};
+  border: 1px solid ${Colors.gray50};
   max-width: 18.75rem;
   margin-bottom: 0.625rem;
   margin-left: 0.625rem;
@@ -21,7 +22,7 @@ export const GuideButton = styled.button`
 
 export const GuideText = styled.p`
   font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
   font-weight: 400;
   margin: 0;
   line-height: 1.25rem;

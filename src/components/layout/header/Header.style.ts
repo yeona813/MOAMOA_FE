@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Header = styled.header`
@@ -27,5 +28,5 @@ export const Title = styled.h6`
   left: 50%;
   transform: translateX(-50%);
   line-height: 140%;
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
 `;

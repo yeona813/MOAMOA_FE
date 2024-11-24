@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -7,8 +8,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  background-color: ${({ theme }) => theme.colors.gray25};
-  color: ${({ theme }) => theme.colors.gray900};
+  background-color: ${Colors.gray25};
+  color: ${Colors.gray900};
 
   ${(props) => props.theme.breakpoints.min} {
     padding: 1.25rem 4.75rem;
