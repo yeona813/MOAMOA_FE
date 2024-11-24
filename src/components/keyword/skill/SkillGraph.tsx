@@ -13,7 +13,7 @@ export const SkillGraph = () => {
       const data = await getGraph();
       if (data) {
         setChartData(
-          data.map((skill: any) => ({
+          data.map((skill: SkillData) => ({
             name: skill.keyword,
             value: skill.count,
             percent: skill.percent,
@@ -32,7 +32,7 @@ export const SkillGraph = () => {
     return Colors.gray25;
   };
 
-  const renderCustomizedLabel = ({ cx, cy, midAngle, outerRadius, name, fill }: any) => {
+  const renderCustomizedLabel = ({ cx, cy, midAngle, outerRadius, name, fill }: { cx: number; cy: number; midAngle: number; outerRadius: number; name: string; fill: string }) => {
     const RADIAN = Math.PI / 180;
 
     const lineStartRadius = outerRadius;
