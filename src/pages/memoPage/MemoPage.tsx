@@ -39,7 +39,7 @@ export const MemoPage = () => {
   const [contentWarning, setContentWarning] = useState<string>('');
   const [titleWarning, setTitleWarning] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
-  const isPC = useMediaQuery('(min-width: 768px)');
+  const isPC = useMediaQuery('(min-width: 1048px)');
   const isReviewMode = window.location.pathname.includes('review-memo');
 
   useEffect(() => {

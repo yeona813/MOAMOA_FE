@@ -22,7 +22,7 @@ export const RecordCompletePage = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const nickname = localStorage.getItem('nickname');
-  const isPC = useMediaQuery('(min-width: 768px)');
+  const isPC = useMediaQuery('(min-width: 1048px)');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

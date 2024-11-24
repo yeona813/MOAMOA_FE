@@ -136,12 +136,12 @@ export const Line = styled.div`
 
 export const Content = styled.textarea<ReviewModeProps>`
   font-family: 'Pretendard';
-  font-size: ${({ $isPC }) => ($isPC ? '1.125rem' : '1rem')};
+  font-size: 1rem;
   font-weight: 400;
   line-height: 145%;
   width: 95%;
   min-height: ${({ $isReviewMode }) => ($isReviewMode ? '15rem' : '10rem')};
-  height: ${({ $isPC }) => ($isPC ? '20rem' : '100%')};
+  height: 100%;
   border: none;
   outline: none;
   padding: 0.5rem;
@@ -159,6 +159,11 @@ export const Content = styled.textarea<ReviewModeProps>`
     font-size: 1rem;
     font-weight: 400;
     line-height: 145%;
+  }
+
+  ${(props) => props.theme.breakpoints.min} {
+    font-size: 1.125rem;
+    height: 20rem;
   }
 `;
 
@@ -192,10 +197,15 @@ export const Count = styled.p`
 `;
 
 export const ButtonWrapper = styled.div<ReviewModeProps>`
-  width: ${({ $isPC }) => ($isPC ? '176px' : '100%')};
-  margin-top: ${({ $isPC }) => ($isPC ? '5rem' : '2rem')};
+  width: 100%;
+  margin-top: 2rem;
   margin-bottom: 1.25rem;
-  margin-left: ${({ $isPC }) => ($isPC ? 'auto' : '0')};
+  margin-left: auto;
+
+  ${(props) => props.theme.breakpoints.min} {
+    width: 11rem;
+    margin-top: 5rem;
+  }
 `;
 
 export const CategoryContainer = styled.div`
