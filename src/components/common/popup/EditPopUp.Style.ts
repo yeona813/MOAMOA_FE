@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Header = styled.header`
@@ -35,7 +36,7 @@ export const SheetItem = styled.div<{ $isDelete?: boolean }>`
   display: flex;
   gap: 0.75rem;
   align-items: center;
-  color: ${({ $isDelete }) => ($isDelete ? '#f00' : '#1d1d1d')};
+  color: ${({ $isDelete }) => ($isDelete ? Colors.red : '#1d1d1d')};
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 150%;
@@ -58,9 +59,9 @@ export const PopUp = styled.div`
   right: 4.75rem;
   display: flex;
   flex-direction: column;
-  border: 1px solid ${({ theme }) => theme.colors.gray100};
+  border: 1px solid ${Colors.gray100};
   padding: 1.875rem 3.375rem 1.875rem 2.25rem;
   z-index: 10;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${Colors.white};
   border-radius: 0.75rem;
 `;

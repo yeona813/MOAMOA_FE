@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Comment = styled.div`
@@ -31,11 +32,9 @@ export const Container = styled.div`
   }
 `;
 
-export const Div = styled.div`
+export const Icon = styled.img`
   width: 2rem;
   height: 2rem;
-  border-radius: 100%;
-  background-color: ${({ theme }) => theme.colors.blue50};
 
   ${(props) => props.theme.breakpoints.min} {
     width: 4.5rem;
@@ -47,7 +46,7 @@ export const Description = styled.div`
   width: 100%;
   padding: 0.75rem 1rem;
   border-radius: 0rem 1.25rem 1.25rem;
-  border: 1px solid ${({ theme }) => theme.colors.gray50};
+  border: 1px solid ${Colors.gray50};
   font-size: 1rem;
   line-height: 145%;
 

@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const SheetItem = styled.div`
@@ -6,23 +7,31 @@ export const SheetItem = styled.div`
   width: 100%;
   padding: 1.375rem 1.125rem 1rem 1rem;
   gap: 2.8125rem;
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
   border-radius: 0.75rem;
-  border: 1px solid ${({ theme }) => theme.colors.gray50};
-  background-color: ${({ theme }) => theme.colors.white};
+  border: 1px solid ${Colors.gray50};
+  background-color: ${Colors.white};
   cursor: pointer;
 
   ${(props) => props.theme.breakpoints.min} {
-    gap: 1.25rem;
+    gap: 0rem;
+    padding-top: 0rem;
   }
 `;
 
-// 이 부분 아이콘이나 뭐 추가될 예정
-export const DIV = styled.div<{ color: 'blue' | 'yellow' }>`
-  width: 4.375rem;
-  height: 4.375rem;
-  background-color: ${({ theme, color }) =>
-    color === 'blue' ? theme.colors.blue100 : theme.colors.yellow100};
+export const IconContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+export const Icon = styled.img`
+  width: 5.625rem;
+  height: 5.625rem;
+
+  ${(props) => props.theme.breakpoints.min} {
+    width: 7.5rem;
+    height: 7.5rem;
+  }
 `;
 
 export const TextContainer = styled.div`

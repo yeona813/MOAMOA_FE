@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Header = styled.header`
@@ -7,12 +8,12 @@ export const Header = styled.header`
   width: 100%;
   height: 11.125rem;
   padding: 0rem 0rem 1.25rem 1.5rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray100};
-  background-color: ${({ theme }) => theme.colors.white};
+  border-bottom: 1px solid ${Colors.gray100};
+  background-color: ${Colors.white};
   z-index: 10;
 
   ${(props) => props.theme.breakpoints.min} {
-    background-color: ${({ theme }) => theme.colors.gray25};
+    background-color: ${Colors.gray25};
     border: none;
     padding: 3.25rem 4.75rem 0rem;
     height: auto;
@@ -23,7 +24,7 @@ export const Header = styled.header`
 
 export const Title = styled.h4`
   line-height: 135%;
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
 
   ${(props) => props.theme.breakpoints.min} {
     font-size: 1.75rem;
@@ -47,7 +48,7 @@ export const FolderIcon = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 6.1875rem;
-  border: 1px solid ${({ theme }) => theme.colors.gray50};
+  border: 1px solid ${Colors.gray50};
   cursor: pointer;
   flex-shrink: 0;
 

@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -18,10 +19,10 @@ export const Content = styled.section`
   width: 100%;
   padding: 1.25rem;
   gap: 1.25rem;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${Colors.white};
   border-radius: 1.25rem;
 
   ${(props) => props.theme.breakpoints.min} {
-    border: 1px solid ${({ theme }) => theme.colors.gray100};
+    border: 1px solid ${Colors.gray100};
   }
 `;

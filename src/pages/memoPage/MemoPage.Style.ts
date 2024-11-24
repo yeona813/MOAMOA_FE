@@ -1,29 +1,70 @@
 import styled from 'styled-components';
 import { Input as OriginalInput } from '@components/common/input/Input';
+import { Colors } from '@/styles/colors';
 
 interface ReviewModeProps {
   $isReviewMode: boolean;
   $isPC: boolean;
 }
 
+export const PageContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+`;
+
 export const Container = styled.div<ReviewModeProps>`
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
   position: relative;
-  width: 100%;
   height: 100%;
   align-items: center;
+  width: ${({ $isPC }) => ($isPC ? '60%' : '100%')};
+  margin: 0 auto;
 `;
 
 export const HeaderContainer = styled.div`
-  width: 100%;
   height: 14.5rem;
   background-image: url('/images/HeaderImage.png');
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  ${(props) => props.theme.breakpoints.min} {
+    background-image: none;
+    margin-top: 2rem;
+  }
+`;
+
+export const HeaderIcon = styled.div`
+${(props) => props.theme.breakpoints.min} {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+
+  img {
+    width: 200px;
+    height: 100px;
+  }
+}
+`;
+
+export const TitleContainer = styled.div`
+  display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  ${(props) => props.theme.breakpoints.min} {
+    margin-bottom: 1.25rem;
+  }
 `;
 
 export const Form = styled.form<ReviewModeProps>`
@@ -31,7 +72,7 @@ export const Form = styled.form<ReviewModeProps>`
   flex-direction: column;
   justify-content: center;
   gap: 0.625rem;
-  width: ${({ $isPC }) => ($isPC ? '80%' : '100%')};
+  width: 100%;
   padding: 0 1.25rem;
   position: relative;
 `;
@@ -57,7 +98,7 @@ export const Title = styled.p`
   font-size: 1.25rem;
   font-weight: 200;
   line-height: 135%;
-  margin-top: 125px;
+  margin-top: 7.8125rem;
   margin-left: 1.25rem;
   white-space: pre-wrap;
 `;
@@ -69,7 +110,7 @@ export const SubTitle = styled.h4`
 `;
 
 export const Label = styled.p<ReviewModeProps>`
-  color: ${({ theme }) => theme.colors.gray900};
+  color: ${Colors.gray900};
   font-size: 1rem;
   font-weight: 600;
   line-height: 145%;
@@ -80,7 +121,7 @@ export const InputTitle = styled(OriginalInput)`
   width: 100%;
   margin-bottom: 0rem;
   border: none;
-  background-color: ${({ disabled }) => (disabled ? 'white' : 'inherit')};
+  background-color: ${({ disabled }) => (disabled ? Colors.white : 'inherit')};
   &:focus {
     border: none;
   }
@@ -88,19 +129,19 @@ export const InputTitle = styled(OriginalInput)`
 
 export const Line = styled.div`
   width: 100%;
-  border: 0.0625rem solid ${({ theme }) => theme.colors.gray50};
+  border: 0.0625rem solid ${Colors.gray50};
   align-self: center;
   margin-bottom: 0.625rem;
 `;
 
 export const Content = styled.textarea<ReviewModeProps>`
   font-family: 'Pretendard';
-  font-size: ${({ $isPC }) => ($isPC ? '1.125rem' : '1rem')};
+  font-size: 1rem;
   font-weight: 400;
   line-height: 145%;
   width: 95%;
   min-height: ${({ $isReviewMode }) => ($isReviewMode ? '15rem' : '10rem')};
-  height: ${({ $isPC }) => ($isPC ? '20rem' : '100%')};
+  height: 100%;
   border: none;
   outline: none;
   padding: 0.5rem;
@@ -114,10 +155,15 @@ export const Content = styled.textarea<ReviewModeProps>`
     display: none;
   }
   &::placeholder {
-    color: ${({ theme }) => theme.colors.gray200};
+    color: ${Colors.gray200};
     font-size: 1rem;
     font-weight: 400;
     line-height: 145%;
+  }
+
+  ${(props) => props.theme.breakpoints.min} {
+    font-size: 1.125rem;
+    height: 20rem;
   }
 `;
 
@@ -140,17 +186,26 @@ export const Warning = styled.p`
 
 export const Count = styled.p`
   width: 3.125rem;
-  font-size: 0.625rem;
+  font-size: 0.75rem;
   font-weight: 400;
   line-height: 130%;
-  color: ${({ theme }) => theme.colors.gray500};
+  color: ${Colors.gray500};
+
+  ${(props) => props.theme.breakpoints.min} {
+    font-size: 0.875rem;
+  }
 `;
 
 export const ButtonWrapper = styled.div<ReviewModeProps>`
-  width: ${({ $isPC }) => ($isPC ? '176px' : '100%')};
-  margin-top: ${({ $isPC }) => ($isPC ? '5rem' : '2rem')};
+  width: 100%;
+  margin-top: 2rem;
   margin-bottom: 1.25rem;
-  margin-left: ${({ $isPC }) => ($isPC ? 'auto' : '0')};
+  margin-left: auto;
+
+  ${(props) => props.theme.breakpoints.min} {
+    width: 11rem;
+    margin-top: 5rem;
+  }
 `;
 
 export const CategoryContainer = styled.div`

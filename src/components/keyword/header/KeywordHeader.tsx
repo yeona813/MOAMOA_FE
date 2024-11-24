@@ -19,7 +19,6 @@ export const KeywordHeader = ({
       <Header onClick={onClickSideBar} />
       <S.Content>
         {nickname}님의 경험을 <br /> 키워드로 모아봤어요
-        <S.Div />
       </S.Content>
       <S.TabBar>
         <S.Item

@@ -1,3 +1,4 @@
+import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
 interface ChatBoxContainerProps {
@@ -10,7 +11,7 @@ export const ChatBoxContainer = styled.div<ChatBoxContainerProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${Colors.white};
   border-radius: ${({ $isPC }) => ($isPC ? '1.25rem' : '0')};
 `;
 
@@ -27,7 +28,7 @@ export const ChatBoxForm = styled.form`
 export const ChatBoxInput = styled.input`
   width: 100%;
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.gray25};
+  background-color: ${Colors.gray25};
   border-radius: 0.625rem;
   font-size: 0.875rem;
   font-weight: 400;
@@ -42,7 +43,6 @@ export const ChatBoxButton = styled.button<{ $hasMessage: boolean }>`
   border-radius: 0.75rem;
   border: none;
   padding: 0.5rem 0.483rem;
-  background-color: ${({ theme, $hasMessage }) =>
-    $hasMessage ? theme.colors.gray700 : theme.colors.gray100};
+  background-color: ${({ $hasMessage }) => ($hasMessage ? Colors.gray700 : Colors.gray100)};
   transition: background-color 0.2s ease;
 `;
