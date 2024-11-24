@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { ChatBubble } from '@components/chat/ChatBubble';
 import { ChatBox } from '@components/chat/ChatBox';
@@ -62,13 +62,6 @@ export const ChatPage = () => {
     }
   }, [id]);
 
-  // 채팅 기록 조회
-  useEffect(() => {
-    if (chatRoomId !== null) {
-      fetchChatHistory(chatRoomId);
-    }
-  }, [chatRoomId]);
-
   // 임시 저장된 채팅 기록 조회
   useEffect(() => {
     const fetchTmpChatData = async () => {
@@ -88,9 +81,9 @@ export const ChatPage = () => {
     };
 
     fetchTmpChatData();
-  }, [id]);
+  }, [id, isReviewMode]);
 
-  const fetchChatHistory = async (chatRoomId: number | null) => {
+  const fetchChatHistory = useCallback(async (chatRoomId: number | null) => {
     try {
       if (!chatRoomId) {
         throw new Error('유효하지 않은 채팅방 ID입니다.');
@@ -118,7 +111,7 @@ export const ChatPage = () => {
         }]);
         setShowGuideButton(true);  // 채팅 기록이 없으면 가이드 버튼 보이기
       }
-    } catch (error) {
+    } catch {
       // 에러 발생 시 기본 메시지 표시
       setMessages([{
         message: formattedFirstChat,
@@ -127,7 +120,14 @@ export const ChatPage = () => {
       }]);
       setShowGuideButton(true);
     }
-  };
+  }, [formattedFirstChat]);
+
+  // 채팅 기록 조회
+  useEffect(() => {
+    if (chatRoomId !== null) {
+      fetchChatHistory(chatRoomId);
+    }
+  }, [chatRoomId, fetchChatHistory]);
 
   const handleSendMessage = async (message: string) => {
     if (!message.trim() || chatRoomId === null) {
@@ -148,7 +148,7 @@ export const ChatPage = () => {
         ...prev.slice(0, -1),
         { message: aiResponse, isMe: false, isLoading: false }
       ]);
-    } catch (error) {
+    } catch {
       setMessages(prev => [
         ...prev.slice(0, -1),
         { message: '메시지 전송에 실패했습니다.', isMe: false, isLoading: false }
@@ -169,12 +169,21 @@ export const ChatPage = () => {
 
       const [firstPart, secondPart] = guideResponse.split('<br>');
 
-      setMessages(prev => [
-        ...prev.slice(0, -1),
-        { message: firstPart, isMe: false, isLoading: false },
-        { message: secondPart, isMe: false, isLoading: false }
-      ]);
-    } catch (error) {
+      setTimeout(() => {
+        setMessages(prev => [
+          ...prev.slice(0, -1), // 로딩 메시지 제거
+          { message: firstPart, isMe: false, isLoading: false }
+        ]);
+
+        setTimeout(() => {
+          setMessages(prev => [
+            ...prev,
+            { message: secondPart, isMe: false, isLoading: false }
+          ]);
+        }, 800);
+      }, 400);
+
+    } catch {
       setMessages(prev => [
         ...prev.slice(0, -1),
         { message: '가이드 요청에 실패했습니다.', isMe: false, isLoading: false }
@@ -210,21 +219,17 @@ export const ChatPage = () => {
       await postTmpChat(chatRoomId);
       setShowToast(true);
       navigate('/home');
-    } catch (error) {
+    } catch {
       navigate(-1);
     }
   };
 
   const handleDeleteChat = async () => {
-    try {
-      if (chatRoomId === null) {
-        throw new Error('유효하지 않은 채팅방 ID입니다.');
-      }
-      await deleteChat(chatRoomId);
-      navigate('/home');
-    } catch (error) {
-      throw error;
+    if (chatRoomId === null) {
+      throw new Error('유효하지 않은 채팅방 ID입니다.');
     }
+    await deleteChat(chatRoomId);
+    navigate('/home');
   };
 
   const handleComplete = async () => {
@@ -240,15 +245,13 @@ export const ChatPage = () => {
           });
           return;
         }
-      } catch (error: any) {
-
-        // Axios 에러에서 서버 응답 코드 확인
-        const errorCode = error.response?.data?.code || error.code;
+      } catch (error) {
+        const errorCode = (error as { code: string }).code;
 
         switch (errorCode) {
           case 'E0305_OVERFLOW_SUMMARY_TITLE':
           case 'E0305_OVERFLOW_SUMMARY_CONTENT':
-          case 'E0305_INVALID_CHAT_SUMMARY':
+          case 'E0305_INVALID_CHAT_SUMMARY': {
             // 1초 대기 후 재시도
             await new Promise((resolve) => setTimeout(resolve, 1000));
             const retryResponse = await getSummary(chatRoomId);
@@ -260,6 +263,7 @@ export const ChatPage = () => {
               return;
             }
             break;
+          }
           case 'E0305_NO_RECORD':
             // 내용 부족 에러: 알림 후 종료
             alert('경험 기록의 내용이 충분하지 않습니다. 내용을 더 자세히 작성해주세요.');
@@ -277,37 +281,30 @@ export const ChatPage = () => {
   };
 
   const handleNewChat = async () => {
-    try {
-      if (chatRoomId !== null) {
-        await deleteChat(chatRoomId);
-      }
-      // 새로운 채팅방 생성
-      const newChatData = await postChat();
-      if (newChatData?.chatRoomId) {
-        setChatRoomId(newChatData.chatRoomId);
-      }
-      setIsLoadTempModalOpen(false);
-      // 새로 작성하기를 선택한 경우 기본 메시지로 초기화
-      setMessages([{
-        message: formattedFirstChat,
-        isMe: false,
-        isLoading: false,
-      }]);
-      setShowGuideButton(true);
-    } catch (error) {
-      throw error;
+    if (chatRoomId !== null) {
+      await deleteChat(chatRoomId);
     }
+    // 새로운 채팅방 생성
+    const newChatData = await postChat();
+    if (newChatData?.chatRoomId) {
+      setChatRoomId(newChatData.chatRoomId);
+    }
+    setIsLoadTempModalOpen(false);
+    // 새로 작성하기를 선택한 경우 기본 메시지로 초기화
+    setMessages([{
+      message: formattedFirstChat,
+      isMe: false,
+      isLoading: false,
+    }]);
+    setShowGuideButton(true);
   }
 
   // 임시저장 채팅 계속하기 선택 시
   const handleContinueChat = async () => {
-    try {
-      setIsLoadTempModalOpen(false);
-      if (tmpChatRoomId !== null) {
-        setChatRoomId(tmpChatRoomId); // 현재 채팅방 ID 업데이트
-        await fetchChatHistory(tmpChatRoomId);
-      }
-    } catch (error) {
+    setIsLoadTempModalOpen(false);
+    if (tmpChatRoomId !== null) {
+      setChatRoomId(tmpChatRoomId); // 현재 채팅방 ID 업데이트
+      await fetchChatHistory(tmpChatRoomId);
     }
   }
 
@@ -354,15 +351,23 @@ export const ChatPage = () => {
           {showToast && <ToastMessage text="경험이 임시저장 되었어요" onClose={() => setShowToast(false)} />}
 
           <S.ChatContainer $isPC={isPC}>
-            <S.DateContainer>{currentDate}</S.DateContainer>
-            {messages.map((msg, index) => (
-              <ChatBubble key={index} message={msg.isLoading ? <LoadingDots /> : msg.message} isMe={msg.isMe} isLoading={msg.isLoading} $isPC={isPC} />
-            ))}
-            <div ref={messagesEndRef} />
-            <S.InputContainer $isPC={isPC}>
-              {showGuideButton && <GuideButton text="🤔 경험을 어떻게 말해야 할지 모르겠어요" onClick={handleGuideButtonClick} />}
-              <ChatBox onSubmit={handleSendMessage} isReviewMode={isReviewMode} $isPC={isPC} />
-            </S.InputContainer>
+            <S.ContentContainer>
+              <S.DateContainer>{currentDate}</S.DateContainer>
+              {messages.map((msg, index) => (
+                <ChatBubble
+                  key={`${msg.message}-${index}`}
+                  message={msg.isLoading ? <LoadingDots /> : msg.message}
+                  isMe={msg.isMe}
+                  isLoading={msg.isLoading}
+                  $isPC={isPC}
+                />
+              ))}
+              <div ref={messagesEndRef} />
+              <S.InputContainer $isPC={isPC}>
+                {showGuideButton && <GuideButton text="🤔 경험을 어떻게 말해야 할지 모르겠어요" onClick={handleGuideButtonClick} />}
+                <ChatBox onSubmit={handleSendMessage} isReviewMode={isReviewMode} $isPC={isPC} />
+              </S.InputContainer>
+            </S.ContentContainer>
           </S.ChatContainer>
         </>
       )}

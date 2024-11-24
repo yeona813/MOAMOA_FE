@@ -12,7 +12,7 @@ export const LoadingScreen = ({ showLabel = true }: LoadingScreenProps) => {
       <S.Spinner>
         <img src={spinnerGif} alt="spinner" />
       </S.Spinner>
-      {showLabel && <S.Label>AI가 경험을 분석중이에요</S.Label>}
+      {showLabel && <S.Label>AI 채팅 내용을 요약하고 있어요</S.Label>}
     </S.Container>
   );
 };
