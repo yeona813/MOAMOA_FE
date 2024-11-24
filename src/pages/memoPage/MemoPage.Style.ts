@@ -21,7 +21,7 @@ export const Container = styled.div<ReviewModeProps>`
   height: 100%;
   align-items: center;
   width: ${({ $isPC }) => ($isPC ? '60%' : '100%')};
-  margin: 0 auto; // 중앙 정렬
+  margin: 0 auto;
 `;
 
 export const HeaderContainer = styled.div`
@@ -98,7 +98,7 @@ export const Title = styled.p`
   font-size: 1.25rem;
   font-weight: 200;
   line-height: 135%;
-  margin-top: 125px;
+  margin-top: 7.8125rem;
   margin-left: 1.25rem;
   white-space: pre-wrap;
 `;

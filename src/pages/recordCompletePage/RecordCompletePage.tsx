@@ -6,6 +6,7 @@ import { FolderPopUp } from '@/components/common/popup/FolderPopUp';
 import * as S from './RecordCompletePage.Style';
 import { getFormattedDate } from '@/utils/dateUtils';
 import FolderIcon from '@icons/FolderIcon.svg';
+import RecordCompletePageIcon from '@/assets/icons/MemoPageIcon.png';
 import { getFolders } from '@/api/Folder';
 import { FolderListProps } from '@/types/Folder';
 import { postRecord } from '@/api/Record';
@@ -129,52 +130,61 @@ export const RecordCompletePage = () => {
       {isLoading ? (
         <LoadingScreen />
       ) : (
-        <S.Container>
-          <S.HeaderContainer>
-            <S.Title>경험 기록이 완료되었어요!</S.Title>
-            <S.SubTitle>{nickname}님의 경험을 보기 쉽게 요약했어요</S.SubTitle>
-          </S.HeaderContainer>
+        <S.PageContainer>
+          <S.Container $isPC={isPC}>
+            <S.HeaderContainer>
+              <S.TitleContainer>
+                <S.Title>경험 기록이 완료되었어요!</S.Title>
+                <S.SubTitle>{nickname}님의 경험을 보기 쉽게 요약했어요</S.SubTitle>
+              </S.TitleContainer>
+              {isPC && (
+                <S.HeaderIcon>
+                  <img src={RecordCompletePageIcon} alt="경험 완료 헤더 아이콘" />
+                </S.HeaderIcon>
+              )}
+            </S.HeaderContainer>
 
-          <S.Form onSubmit={handleSubmit} $isPC={isPC}>
-            <S.InputTitle
-              placeholder={getFormattedDate()}
-              value={title}
-              onChange={handleChangeTitle}
-              isError={false}
-            />
-            <S.Line />
-            <S.TextArea value={content} onChange={handleChangeContent} $isPC={isPC} />
-            <S.Line />
+            <S.Form onSubmit={handleSubmit} $isPC={isPC}>
+              <S.InputTitle
+                placeholder={getFormattedDate()}
+                value={title}
+                onChange={handleChangeTitle}
+                isError={false}
+              />
+              <S.Line />
+              <S.TextArea value={content} onChange={handleChangeContent} $isPC={isPC} />
+              <S.Line />
 
-            <S.Label>경험 폴더를 선택해주세요.</S.Label>
-            <S.CategoryContainer>
-              {folders.map((folder) => (
-                <CategoryChip
-                  key={folder.folderId}
-                  children={folder.title}
-                  isSelected={selectedCategory === folder.title}
-                  onClick={() => handleChangeCategory(folder.title)}
-                />
-              ))}
-              <CategoryChip onClick={() => handleChangeCategory('', true)} isSelected={false}>
-                <img src={FolderIcon} alt="changeFolder" />
-              </CategoryChip>
-            </S.CategoryContainer>
+              <S.Label>경험 폴더를 선택해주세요.</S.Label>
+              <S.CategoryContainer>
+                {folders.map((folder) => (
+                  <CategoryChip
+                    key={folder.folderId}
+                    children={folder.title}
+                    isSelected={selectedCategory === folder.title}
+                    onClick={() => handleChangeCategory(folder.title)}
+                  />
+                ))}
+                <CategoryChip onClick={() => handleChangeCategory('', true)} isSelected={false}>
+                  <img src={FolderIcon} alt="changeFolder" />
+                </CategoryChip>
+              </S.CategoryContainer>
 
-            <S.ButtonWrapper $isPC={isPC}>
-              <Button
-                type="submit"
-                onClick={handleSaveButton}
-                styleType="basic"
-                disabled={isSaveDisabled}
-              >
-                저장하기
-              </Button>
-            </S.ButtonWrapper>
-          </S.Form>
+              <S.ButtonWrapper $isPC={isPC}>
+                <Button
+                  type="submit"
+                  onClick={handleSaveButton}
+                  styleType="basic"
+                  disabled={isSaveDisabled}
+                >
+                  저장하기
+                </Button>
+              </S.ButtonWrapper>
+            </S.Form>
 
-          {isBottomSheetOpen && <FolderPopUp onClick={() => setIsBottomSheetOpen(false)} />}
-        </S.Container>
+            {isBottomSheetOpen && <FolderPopUp onClick={() => setIsBottomSheetOpen(false)} />}
+          </S.Container>
+        </S.PageContainer>
       )}
     </>
   );
