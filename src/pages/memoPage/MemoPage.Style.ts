@@ -20,13 +20,13 @@ export const Container = styled.div<ReviewModeProps>`
   position: relative;
   height: 100%;
   align-items: center;
-  width: ${({ $isPC }) => ($isPC ? '60%' : '100%')};
+  width: ${({ $isPC }) => ($isPC ? '70%' : '100%')};
   margin: 0 auto;
 `;
 
 export const HeaderContainer = styled.div`
   height: 14.5rem;
-  background-image: url('/images/HeaderImage.png');
+  background-image: url('/images/MemoHeaderImage.png');
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
