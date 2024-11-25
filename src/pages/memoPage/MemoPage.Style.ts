@@ -123,7 +123,8 @@ export const Label = styled.p<ReviewModeProps>`
 
 export const InputTitle = styled(OriginalInput)`
   width: 100%;
-  mmargin: 0;
+  margin: 0;
+  padding-left: 0;
   padding-bottom: 0;
   border: none;
   background-color: ${({ disabled }) => (disabled ? Colors.white : 'inherit')};

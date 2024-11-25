@@ -123,6 +123,9 @@ export const MemoPage = () => {
 
   const handleChangeMemo = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newMemo = e.target.value;
+    if (newMemo.length > 500) {
+      return;
+    }
     setTempMemo((prev) => ({ ...prev, memo: newMemo }));
 
     if (newMemo.length < 30) {
