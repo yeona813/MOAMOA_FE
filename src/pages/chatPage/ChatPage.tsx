@@ -41,6 +41,7 @@ export const ChatPage = () => {
   const [showToast, setShowToast] = useState(false);
   const [showGuideButton, setShowGuideButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   const isReviewMode = window.location.pathname.includes('review-chat');
   const isPC = useMediaQuery('(min-width: 768px)');
 
@@ -267,6 +268,7 @@ export const ChatPage = () => {
             }
             case 'E0305_NO_RECORD':
               alert('경험 기록의 내용이 충분하지 않습니다. 내용을 더 자세히 작성해주세요.');
+              setIsModalOpen(false);
               return;
             default:
               throw error;
@@ -276,6 +278,8 @@ export const ChatPage = () => {
     } catch (error) {
       console.error(error);
       alert('완료 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
+      setIsError(true);
+      setIsModalOpen(false);
     } finally {
       setIsLoading(false);
     }
@@ -318,7 +322,7 @@ export const ChatPage = () => {
       ) : (
         <>
           <TabBar rightText={isReviewMode ? "" : "완료하기"} onClickBackIcon={handleTemporarySave} onClick={() => setIsModalOpen(true)} isDisabled={messages.length === 0} />
-          {isModalOpen && (
+          {isModalOpen && !isError && (
             <DetailModal
               text="기록을 완료할까요?"
               leftButtonText="돌아가기"
