@@ -20,8 +20,12 @@ export const Container = styled.div<ReviewModeProps>`
   position: relative;
   height: 100%;
   align-items: center;
-  width: ${({ $isPC }) => ($isPC ? '70%' : '100%')};
+  width: 100%;
   margin: 0 auto;
+
+  ${(props) => props.theme.breakpoints.min} {
+    width: 60%;
+  }
 `;
 
 export const HeaderContainer = styled.div`
@@ -119,7 +123,8 @@ export const Label = styled.p<ReviewModeProps>`
 
 export const InputTitle = styled(OriginalInput)`
   width: 100%;
-  margin-bottom: 0rem;
+  mmargin: 0;
+  padding-bottom: 0;
   border: none;
   background-color: ${({ disabled }) => (disabled ? Colors.white : 'inherit')};
   &:focus {

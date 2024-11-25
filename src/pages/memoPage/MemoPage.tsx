@@ -233,11 +233,9 @@ export const MemoPage = () => {
         <S.PageContainer>
           <S.Container $isReviewMode={isReviewMode} $isPC={isPC}>
             <S.HeaderContainer>
-              {!isPC && (
-                <S.BackButton onClick={handleBackButton} type="button">
-                  <img src={BackIcon} alt="뒤로가기" />
-                </S.BackButton>
-              )}
+              <S.BackButton onClick={handleBackButton} type="button">
+                <img src={BackIcon} alt="뒤로가기" />
+              </S.BackButton>
               <S.TitleContainer>
                 <S.Title>간편하고 빠르게</S.Title>
                 <S.SubTitle>메모기록</S.SubTitle>
