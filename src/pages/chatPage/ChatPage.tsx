@@ -12,6 +12,7 @@ import { LoadingDots } from '@components/chat/LodingDots';
 import { LoadingScreen } from '@components/common/loading/LoadingScreen';
 import { postAiChat, postTmpChat, checkTmpChat, getChat, getSummary, deleteChat, postChat } from '@/api/Chat';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { AxiosError } from 'axios';
 
 interface Message {
   message: string;
@@ -40,6 +41,7 @@ export const ChatPage = () => {
   const [showToast, setShowToast] = useState(false);
   const [showGuideButton, setShowGuideButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   const isReviewMode = window.location.pathname.includes('review-chat');
   const isPC = useMediaQuery('(min-width: 768px)');
 
@@ -171,7 +173,7 @@ export const ChatPage = () => {
 
       setTimeout(() => {
         setMessages(prev => [
-          ...prev.slice(0, -1), // 로딩 메시지 제거
+          ...prev.slice(0, -1),
           { message: firstPart, isMe: false, isLoading: false }
         ]);
 
@@ -209,13 +211,13 @@ export const ChatPage = () => {
       if (!chatRoomId) {
         throw new Error('유효하지 않은 채팅방 ID입니다.');
       }
-      // 1. 기존 임시저장 채팅이 있는지 확인
+      // 기존 임시저장 채팅이 있는지 확인
       const tmpChatData = await checkTmpChat();
-      // 2. 기존 임시저장 채팅이 있고, 현재 채팅방과 다른 경우 삭제
+      // 기존 임시저장 채팅이 있고, 현재 채팅방과 다른 경우 삭제
       if (tmpChatData.exist && tmpChatData.chatRoomId && typeof tmpChatData.chatRoomId === 'number' && tmpChatData.chatRoomId !== chatRoomId) {
         await deleteChat(tmpChatData.chatRoomId);
       }
-      // 3. 현재 채팅 임시저장
+      // 현재 채팅 임시저장
       await postTmpChat(chatRoomId);
       setShowToast(true);
       navigate('/home');
@@ -246,35 +248,38 @@ export const ChatPage = () => {
           return;
         }
       } catch (error) {
-        const errorCode = (error as { code: string }).code;
+        if (error instanceof AxiosError) {
+          const errorCode = error.response?.data?.code || 'UNKNOWN_ERROR';
 
-        switch (errorCode) {
-          case 'E0305_OVERFLOW_SUMMARY_TITLE':
-          case 'E0305_OVERFLOW_SUMMARY_CONTENT':
-          case 'E0305_INVALID_CHAT_SUMMARY': {
-            // 1초 대기 후 재시도
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            const retryResponse = await getSummary(chatRoomId);
+          switch (errorCode) {
+            case 'E0305_OVERFLOW_SUMMARY_TITLE':
+            case 'E0305_OVERFLOW_SUMMARY_CONTENT':
+            case 'E0305_INVALID_CHAT_SUMMARY': {
+              await new Promise((resolve) => setTimeout(resolve, 1000));
+              const retryResponse = await getSummary(chatRoomId);
 
-            if (retryResponse) {
-              navigate('/record-complete', {
-                state: { chatRoomId, summary: retryResponse.content, title: retryResponse.title },
-              });
-              return;
+              if (retryResponse) {
+                navigate('/record-complete', {
+                  state: { chatRoomId, summary: retryResponse.content, title: retryResponse.title },
+                });
+                return;
+              }
+              break;
             }
-            break;
+            case 'E0305_NO_RECORD':
+              alert('경험 기록의 내용이 충분하지 않습니다. 내용을 더 자세히 작성해주세요.');
+              setIsModalOpen(false);
+              return;
+            default:
+              throw error;
           }
-          case 'E0305_NO_RECORD':
-            // 내용 부족 에러: 알림 후 종료
-            alert('경험 기록의 내용이 충분하지 않습니다. 내용을 더 자세히 작성해주세요.');
-            return;
-          default:
-            throw error; // 예상하지 못한 에러
         }
       }
     } catch (error) {
       console.error(error);
       alert('완료 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
+      setIsError(true);
+      setIsModalOpen(false);
     } finally {
       setIsLoading(false);
     }
@@ -317,7 +322,7 @@ export const ChatPage = () => {
       ) : (
         <>
           <TabBar rightText={isReviewMode ? "" : "완료하기"} onClickBackIcon={handleTemporarySave} onClick={() => setIsModalOpen(true)} isDisabled={messages.length === 0} />
-          {isModalOpen && (
+          {isModalOpen && !isError && (
             <DetailModal
               text="기록을 완료할까요?"
               leftButtonText="돌아가기"

@@ -30,5 +30,6 @@ export async function postRecord({
     }
   } catch (error) {
     console.error(error);
+    throw error;
   }
 }
