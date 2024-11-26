@@ -27,7 +27,7 @@ export const EditPopUp = ({ onClick, onClickDelete, onClickChange }: EditPopUpPr
     onClickChange,
   };
 
-  const isMobile = useMediaQuery('(max-width: 1048)');
+  const isMobile = useMediaQuery('(max-width: 1048px)');
 
   return (
     <>
