@@ -32,3 +32,9 @@ export const CHART_STYLES = {
     dataKey: 'value',
   },
 };
+
+export const CustomizedLabelStyle = {
+  fontSize: '1rem',
+  fontWeight: '600',
+  fill: Colors.gray700,
+};

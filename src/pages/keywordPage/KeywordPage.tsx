@@ -5,7 +5,7 @@ import { SideBar } from '@/components/common/sideBar/SideBar';
 import { KeywordSkill } from '@/components/keyword/keywordSkill/KeywordSkill';
 import { SkillList } from '@/components/keyword/skill/SkillList';
 import { SkillGraph } from '@/components/keyword/skill/SkillGraph';
-
+import * as S from './KeywordPage.Style';
 export const KeywordPage = () => {
   const [openBottom, setOpenBottom] = useState(false);
   const [openSideBar, setOpenSideBar] = useState(false);
@@ -42,13 +42,16 @@ export const KeywordPage = () => {
           setSelectedKeyword={setSelectedKeyword}
         />
       ) : (
-        <>
-          <SkillGraph />
-          <SkillList onClick={handleClickSkillList} setSelectedKeyword={setSelectedKeyword} />
-        </>
-      )}
+        <S.Container>
+          <S.Content>
+            <SkillGraph />
+            <SkillList onClick={handleClickSkillList} setSelectedKeyword={setSelectedKeyword} />
+          </S.Content>
+        </S.Container>
+      )
+      }
       {openBottom && <RecordBottomSheet onClick={toggleBottomSheet} />}
       {openSideBar && <SideBar onClick={toggleSideBar} />}
-    </div>
+    </div >
   );
 };

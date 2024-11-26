@@ -20,6 +20,11 @@ export const Line = styled.div`
   height: 0.0625rem;
   background-color: ${Colors.gray50};
   margin-bottom: 2rem;
+
+  ${(props) => props.theme.breakpoints.min} {
+    width: 0.0625rem;
+    height: 100%;
+  }
 `;
 
 export const ListItem = styled.div<ListItemProps>`
