@@ -33,6 +33,7 @@ export const Edit = styled.h5`
   ${(props) => props.theme.breakpoints.min} {
     line-height: 145%;
     color: ${Colors.gray500};
+    cursor: pointer;
   }
 `;
 

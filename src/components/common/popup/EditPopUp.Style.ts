@@ -40,6 +40,7 @@ export const SheetItem = styled.div<{ $isDelete?: boolean }>`
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 150%;
+  cursor: pointer;
 
   ${(props) => props.theme.breakpoints.min} {
     font-size: 1.25rem;
