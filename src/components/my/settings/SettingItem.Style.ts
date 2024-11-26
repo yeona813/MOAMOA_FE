@@ -11,6 +11,7 @@ export const Text = styled.span`
   font-size: 0.875rem;
   font-weight: 500;
   color: #070707;
+  cursor: pointer;
 
   ${(props) => props.theme.breakpoints.min} {
     font-size: 1rem;

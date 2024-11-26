@@ -4,8 +4,8 @@ import { TabBar } from '@components/layout/tabBar/TabBar';
 import * as S from './EditProfilePage.Style';
 import { EditProfile } from '@components/editProfile/EditProfile';
 import { useNicknameValidation } from '../../hooks/useNicknameValidation';
-import { patchUserInfo } from '@/api/My';
 import { useNavigate } from 'react-router-dom';
+import { patchUserInfo } from '@/api/My';
 
 export const EditProfilePage = () => {
   const [submit, setSubmit] = useState(true);
@@ -26,9 +26,10 @@ export const EditProfilePage = () => {
   };
 
   const handleSubmit = async () => {
+    localStorage.setItem('nickname', nickname);
+
     const response = await patchUserInfo({ nickname, status: select });
     if (response.is_success) {
-      localStorage.setItem('nickname', nickname);
       navigate('/my', { state: { alertMessage: '변경 내용이 저장되었어요!' } });
     }
   };
