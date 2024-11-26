@@ -33,6 +33,7 @@ export const HeaderContainer = styled.div`
   background-image: url('/images/MemoHeaderImage.png');
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   display: flex;
   width: 100%;
   justify-content: space-between;
