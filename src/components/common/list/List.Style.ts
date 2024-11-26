@@ -20,6 +20,7 @@ export const List = styled.section`
 export const ChipContainer = styled.div`
   display: flex;
   gap: 0.25rem;
+  margin-bottom: 0.375rem;
 `;
 
 export const Title = styled.h4`
@@ -29,6 +30,7 @@ export const Title = styled.h4`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
+  margin-bottom: 0.375rem;
 
   ${(props) => props.theme.breakpoints.min} {
     line-height: 135%;
