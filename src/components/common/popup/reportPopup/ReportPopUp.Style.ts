@@ -11,6 +11,7 @@ export const Header = styled.header`
 
 export const StoreText = styled.h6<{ $hasChanges: boolean }>`
   color: ${({ $hasChanges }) => ($hasChanges ? Colors.blue500 : Colors.gray300)};
+  cursor: ${({ $hasChanges }) => ($hasChanges ? 'pointer' : 'not-allowed')};
 `;
 
 export const Icon = styled.img`

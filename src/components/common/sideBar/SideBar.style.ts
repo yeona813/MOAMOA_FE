@@ -14,10 +14,10 @@ export const Background = styled.div`
 export const SideBar = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
+  gap: 2.75rem;
   width: 80%;
   height: 100vh;
-  padding: 1.25rem;
+  padding: 2rem 0rem 0rem 1.75rem;
   background-color: ${Colors.white};
 
   ${(props) => props.theme.breakpoints.min} {
@@ -33,6 +33,7 @@ export const Title = styled.span`
   font-family: 'MontserratAlternates';
   font-size: 1.3125rem;
   font-weight: 800;
+  line-height: 140%;
 
   ${(props) => props.theme.breakpoints.min} {
     font-size: 1.625rem;
@@ -42,8 +43,7 @@ export const Title = styled.span`
 export const ItemContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.375rem;
-
+  gap: 2rem;
   ${(props) => props.theme.breakpoints.min} {
     gap: 1.75rem;
   }
@@ -52,7 +52,7 @@ export const ItemContainer = styled.div`
 export const Item = styled.div<{ $isActive: boolean }>`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   cursor: pointer;
 
   svg {
@@ -84,8 +84,8 @@ export const Item = styled.div<{ $isActive: boolean }>`
 
 export const Icon = styled.div`
   svg {
-    width: 1rem;
-    height: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
     flex-shrink: 0;
   }
 
@@ -98,8 +98,9 @@ export const Icon = styled.div`
 `;
 
 export const Text = styled.span<{ $isActive: boolean }>`
-  font-size: 0.875rem;
-  font-weight: 700;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 135%;
   color: ${(props) => (props.$isActive ? Colors.gray700 : Colors.gray300)};
 
   ${(props) => props.theme.breakpoints.min} {

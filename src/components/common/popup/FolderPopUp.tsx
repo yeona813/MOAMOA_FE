@@ -21,7 +21,7 @@ export const FolderPopUp = ({ onClick }: FolderPopUpProps) => {
   const [folderName, setFolderName] = useState('');
   const [isError, setIsError] = useState(false);
 
-  const isMobile = useMediaQuery('(max-width: 1048)');
+  const isMobile = useMediaQuery('(max-width: 1048px)');
 
   const changeFolderName = (e: ChangeEvent<HTMLInputElement>) => {
     setFolderName(e.target.value);

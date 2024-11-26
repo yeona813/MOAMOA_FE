@@ -1,8 +1,8 @@
 import { Header } from '@/components/layout/header/Header';
 import * as S from './Header.Style';
 import { SheetItem, SheetItemProps } from '../sheetItem/SheetItem';
-import Memo from '@icons/MemoIcon.svg';
-import Chat from '@icons/ChatIcon.svg';
+import Memo from '/images/MemoImg.png';
+import Chat from '/images/ChatImg.png';
 
 const SHEET_ITEMS: SheetItemProps[] = [
   {

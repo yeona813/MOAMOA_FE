@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react';
 import { Input } from '../common/input/Input';
 import { SelectBox } from '../common/selectbox/SelectBox';
 import * as S from './EditProfile.Style';
+import { getUsers } from '@/api/My';
 
 interface EditProfileProps {
   nickname: string;
@@ -21,12 +23,28 @@ export const EditProfile = ({
   isError,
   errorMessage,
 }: EditProfileProps) => {
+  const [initialData, setInitialData] = useState({ nickname: '', status: '' });
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userData = await getUsers();
+      if (userData) {
+        setInitialData({
+          nickname: userData.nickname,
+          status: userData.status,
+        });
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   return (
     <S.EditProfile>
       <S.Edit>
         <S.Title>닉네임 변경</S.Title>
         <Input
-          placeholder="변경할 닉네임을 입력해주세요"
+          placeholder={initialData.nickname}
           value={nickname}
           onChange={onChangeNickname}
           required
@@ -41,7 +59,7 @@ export const EditProfile = ({
           select={select}
           onChange={onChangeSelect}
           statusData={selectData}
-          placeholder="선택하기"
+          placeholder={initialData.status}
         />
       </S.Edit>
     </S.EditProfile>
