@@ -1,12 +1,18 @@
 import { Button } from '@components/common/button/Button';
 import { useNavigate } from 'react-router-dom';
 import * as S from './LoginSuccessPage.Style';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export const LoginSuccessPage = () => {
   const navigate = useNavigate();
+  const isMobile = useMediaQuery('(max-width: 1048px)');
 
   const handleStart = () => {
-    navigate('/onboarding');
+    if (isMobile) {
+      navigate('/onboarding');
+    } else {
+      navigate('/home');
+    }
   };
 
   return (
