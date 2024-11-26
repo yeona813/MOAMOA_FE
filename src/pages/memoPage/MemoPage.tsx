@@ -16,6 +16,7 @@ import { getTempMemo, postTempMemo } from '@/api/Memo';
 import ToastMessage from '@/components/chat/ToastMessage';
 import { LoadingScreen } from '@/components/common/loading/LoadingScreen';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { AxiosError } from 'axios';
 
 interface FolderType {
   folderId: number;
@@ -122,6 +123,9 @@ export const MemoPage = () => {
 
   const handleChangeMemo = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newMemo = e.target.value;
+    if (newMemo.length > 500) {
+      return;
+    }
     setTempMemo((prev) => ({ ...prev, memo: newMemo }));
 
     if (newMemo.length < 30) {
@@ -135,12 +139,14 @@ export const MemoPage = () => {
   const handleSaveButton = async () => {
     try {
       setIsLoading(true);
+
       const response = await postRecord({
         title: tempMemo.title || getFormattedDate(),
         content: tempMemo.memo,
         folderId: tempMemo.folderId,
         recordType: 'MEMO',
       });
+
       if (response) {
         console.log('postRecord 첫 번째 요청 성공');
         clearTempMemo();
@@ -151,31 +157,40 @@ export const MemoPage = () => {
         return;
       }
     } catch (error) {
-      const errorCode = (error as { code: string }).code;
-      switch (errorCode) {
-        case 'E0500_OVERFLOW_COMMENT':
-        case 'E0500_OVERFLOW_KEYWORD_CONTENT':
-        case 'E500_INVALID_ANALYSIS': {
-          console.log('재시도 준비 중');
-          // 1초 대기 후 재시도
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          console.log('재시도 시작');
-          const retryResponse = await postRecord({
-            title: tempMemo.title || getFormattedDate(),
-            content: tempMemo.memo,
-            folderId: tempMemo.folderId,
-            recordType: 'MEMO',
-          });
-          if (retryResponse) {
-            console.log('postRecord 재요청 성공');
-            clearTempMemo();
-            navigate('/');
+      if (error instanceof AxiosError) {
+        const errorCode = error.response?.data?.code || 'UNKNOWN_ERROR';
+
+        switch (errorCode) {
+          case 'E0500_OVERFLOW_COMMENT':
+          case 'E0500_OVERFLOW_KEYWORD_CONTENT':
+          case 'E500_INVALID_ANALYSIS': {
+            console.log('재시도 준비 중');
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            console.log('재시도 시작');
+            const retryResponse = await postRecord({
+              title: tempMemo.title || getFormattedDate(),
+              content: tempMemo.memo,
+              folderId: tempMemo.folderId,
+              recordType: 'MEMO',
+            });
+            if (retryResponse) {
+              console.log('postRecord 재요청 성공');
+              clearTempMemo();
+              navigate('/');
+            }
+            break;
           }
-          break;
+          case 'E0400_NO_RECORD': {
+            alert('경험 기록의 내용이 충분하지 않습니다.');
+            break;
+          }
+          default:
+            alert('기록 저장 중 오류가 발생했습니다.');
+            console.error(error);
         }
-        default:
-          alert('기록 저장 중 오류가 발생했습니다.');
-          console.error(error);
+      } else {
+        alert('알 수 없는 오류가 발생했습니다.');
+        console.error('AxiosError가 아닌 에러:', error);
       }
     } finally {
       setIsLoading(false);
@@ -221,11 +236,9 @@ export const MemoPage = () => {
         <S.PageContainer>
           <S.Container $isReviewMode={isReviewMode} $isPC={isPC}>
             <S.HeaderContainer>
-              {!isPC && (
-                <S.BackButton onClick={handleBackButton} type="button">
-                  <img src={BackIcon} alt="뒤로가기" />
-                </S.BackButton>
-              )}
+              <S.BackButton onClick={handleBackButton} type="button">
+                <img src={BackIcon} alt="뒤로가기" />
+              </S.BackButton>
               <S.TitleContainer>
                 <S.Title>간편하고 빠르게</S.Title>
                 <S.SubTitle>메모기록</S.SubTitle>
