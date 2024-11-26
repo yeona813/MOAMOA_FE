@@ -307,6 +307,7 @@ export const ChatPage = () => {
   // 임시저장 채팅 계속하기 선택 시
   const handleContinueChat = async () => {
     setIsLoadTempModalOpen(false);
+    setShowGuideButton(false);
     if (tmpChatRoomId !== null) {
       setChatRoomId(tmpChatRoomId); // 현재 채팅방 ID 업데이트
       await fetchChatHistory(tmpChatRoomId);
