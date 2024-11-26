@@ -231,7 +231,7 @@ export const MemoPage = () => {
   return (
     <>
       {isLoading ? (
-        <LoadingScreen />
+        <LoadingScreen labelText="모아모아가 경험을 정리하고 있어요" />
       ) : (
         <S.PageContainer>
           <S.Container $isReviewMode={isReviewMode} $isPC={isPC}>
@@ -276,29 +276,27 @@ export const MemoPage = () => {
                 />
                 <S.WarningCountContainer>
                   {contentWarning && <S.Warning>{contentWarning}</S.Warning>}
-                  <S.Count>{tempMemo.memo.length}/500</S.Count>
+                  {!isReviewMode && <S.Count>{tempMemo.memo.length}/500</S.Count>}
                 </S.WarningCountContainer>
                 <S.Line />
               </S.ContentWrapper>
 
               <S.Label $isReviewMode={isReviewMode} $isPC={isPC}>경험 폴더를 선택해주세요</S.Label>
               <S.CategoryContainer>
-                <S.CategoryContainer>
-                  {!isReviewMode &&
-                    folders.map((folder) => (
-                      <CategoryChip
-                        key={folder.folderId}
-                        children={folder.title}
-                        isSelected={tempMemo.category === folder.title}
-                        onClick={() => handleChangeCategory(folder.title, folder)}
-                      />
-                    ))}
-                  {!isReviewMode && (
-                    <CategoryChip onClick={() => handleChangeCategory('', undefined)} isSelected={false}>
-                      <img src={FolderIcon} alt="changeFolder" />
-                    </CategoryChip>
-                  )}
-                </S.CategoryContainer>
+                {!isReviewMode &&
+                  folders.map((folder) => (
+                    <CategoryChip
+                      key={folder.folderId}
+                      children={folder.title}
+                      isSelected={tempMemo.category === folder.title}
+                      onClick={() => handleChangeCategory(folder.title, folder)}
+                    />
+                  ))}
+                {!isReviewMode && (
+                  <CategoryChip onClick={() => handleChangeCategory('', undefined)} isSelected={false}>
+                    <img src={FolderIcon} alt="changeFolder" />
+                  </CategoryChip>
+                )}
               </S.CategoryContainer>
               {!isReviewMode && (
                 <S.ButtonWrapper $isReviewMode={isReviewMode} $isPC={isPC}>

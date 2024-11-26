@@ -318,7 +318,7 @@ export const ChatPage = () => {
   return (
     <>
       {isLoading ? (
-        <LoadingScreen />
+        <LoadingScreen labelText="AI 채팅 내용을 요약하고 있어요" />
       ) : (
         <>
           <TabBar rightText={isReviewMode ? "" : "완료하기"} onClickBackIcon={handleTemporarySave} onClick={() => setIsModalOpen(true)} isDisabled={messages.length === 0} />

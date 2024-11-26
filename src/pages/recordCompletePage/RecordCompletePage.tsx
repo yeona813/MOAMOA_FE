@@ -128,7 +128,7 @@ export const RecordCompletePage = () => {
   return (
     <>
       {isLoading ? (
-        <LoadingScreen />
+        <LoadingScreen labelText="모아모아가 경험을 정리하고 있어요" />
       ) : (
         <S.PageContainer>
           <S.Container $isPC={isPC}>
