@@ -1,17 +1,23 @@
 import { Colors } from '@/styles/colors';
 import styled from 'styled-components';
 
-export const Container = styled.div`
+interface ContainerProps {
+  $isEmpty: boolean;
+}
+
+export const Container = styled.div<ContainerProps>`
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding-top: 5rem;
   padding-bottom: 5rem;
+  background-color: ${({ $isEmpty }) => $isEmpty ? Colors.gray25 : Colors.white};
   ${(props) => props.theme.breakpoints.min} {
     flex-direction: row;
     background-color: ${Colors.gray25};
     padding-top: 1.5rem;
+    height: calc(100vh - 13.125rem);
   }
 `;
 
@@ -27,4 +33,13 @@ export const Content = styled.div`
     padding: 1rem 1rem 3rem 1rem;
   }
   bottom: 10rem;
+`;
+
+export const EmptyContainer = styled.div`
+  width: 100%;
+  height: calc(100vh - 20rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
 `;
