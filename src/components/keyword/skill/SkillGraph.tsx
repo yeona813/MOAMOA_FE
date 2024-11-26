@@ -25,10 +25,10 @@ export const SkillGraph = () => {
   }, []);
 
   const getChartColor = (percent: number) => {
-    if (percent > 50) return Colors.blue200;
-    if (percent > 33) return Colors.blue100;
-    if (percent > 25) return Colors.yellow200;
-    if (percent > 20) return Colors.yellow50;
+    if (percent > 33) return Colors.blue200;
+    if (percent > 25) return Colors.blue100;
+    if (percent > 20) return Colors.yellow200;
+    if (percent > 10) return Colors.yellow50;
     return Colors.gray25;
   };
 

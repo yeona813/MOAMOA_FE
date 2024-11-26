@@ -37,10 +37,10 @@ export const ListItem = styled.div<ListItemProps>`
   border-radius: 0.75rem;
   padding: 0.8125rem 1rem;
   background-color: ${({ $percent }) => {
-    if ($percent > 20) return Colors.blue200;
-    if ($percent > 10) return Colors.blue100;
-    if ($percent > 5) return Colors.yellow200;
-    if ($percent > 2) return Colors.yellow50;
+    if ($percent > 33) return Colors.blue200;
+    if ($percent > 25) return Colors.blue100;
+    if ($percent > 20) return Colors.yellow200;
+    if ($percent > 10) return Colors.yellow50;
     else return Colors.gray25;
   }};
 `;

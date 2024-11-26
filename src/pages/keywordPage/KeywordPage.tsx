@@ -16,9 +16,8 @@ export const KeywordPage = () => {
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
-    // 그래프 데이터를 가져오는 로직 추가
     const fetchGraphData = async () => {
-      const data = await getGraph(); // getGraph 함수는 API 호출을 통해 데이터를 가져오는 함수
+      const data = await getGraph();
       if (data) {
         setChartData(data);
       }
