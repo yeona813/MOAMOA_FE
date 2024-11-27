@@ -12,7 +12,7 @@ import { CategoryChip } from '@/components/common/chip/CategoryChip';
 import { FolderListProps } from '@/types/Folder';
 import { postRecord } from '@/api/Record';
 import { getFolders } from '@/api/Folder';
-import { getTempMemo, postTempMemo } from '@/api/Memo';
+import { getMemo, getTempMemo, postTempMemo } from '@/api/Memo';
 import ToastMessage from '@/components/chat/ToastMessage';
 import { LoadingScreen } from '@/components/common/loading/LoadingScreen';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -40,10 +40,11 @@ export const MemoPage = () => {
   const [showToast, setShowToast] = useState(false);
   const [contentWarning, setContentWarning] = useState<string>('');
   const [titleWarning, setTitleWarning] = useState<string>('');
+  const [reviewFolder, setReviewFolder] = useState<FolderType | null>(null);
   const [isLoading, setIsLocalLoading] = useState(false);
   const { setIsLoading } = useOutletContext<{ setIsLoading: (loading: boolean) => void }>();
   const isPC = useMediaQuery('(min-width: 1048px)');
-  const isReviewMode = window.location.pathname.includes('review-memo');
+  const isReviewMode = window.location.pathname.startsWith('/review-memo');
 
   useEffect(() => {
     // 폴더 조회
@@ -87,6 +88,22 @@ export const MemoPage = () => {
         folderId: memoData.folderId || 0,
         memo: memoData.content || '',
       });
+
+      // 저장된 폴더 정보 가져오기
+      const fetchMemoFolder = async () => {
+        try {
+          const memoDetails = await getMemo(location.state.memoData.recordId);
+          if (memoDetails) {
+            setReviewFolder({
+              folderId: memoDetails.folderId,
+              title: memoDetails.folder,
+            });
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchMemoFolder();
     }
   }, [isBottomSheetOpen, location.state, isReviewMode]);
 
@@ -286,6 +303,7 @@ export const MemoPage = () => {
               </S.ContentWrapper>
 
               <S.Label $isReviewMode={isReviewMode} $isPC={isPC}>경험 폴더를 선택해주세요</S.Label>
+
               <S.CategoryContainer>
                 {!isReviewMode &&
                   folders.map((folder) => (
@@ -301,7 +319,15 @@ export const MemoPage = () => {
                     <img src={FolderIcon} alt="changeFolder" />
                   </CategoryChip>
                 )}
+                {isReviewMode && reviewFolder && (
+                  <CategoryChip
+                    key={reviewFolder.folderId}
+                    children={reviewFolder.title}
+                    isSelected={true}
+                  />
+                )}
               </S.CategoryContainer>
+
               {!isReviewMode && (
                 <S.ButtonWrapper $isReviewMode={isReviewMode} $isPC={isPC}>
                   <Button

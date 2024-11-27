@@ -125,7 +125,7 @@ export const Label = styled.p<ReviewModeProps>`
 export const InputTitle = styled(OriginalInput)`
   width: 100%;
   margin: 0;
-  font-weight: 300;
+  font-weight: 400;
   padding-left: 0.375rem;
   padding-bottom: 0;
   border: none;
