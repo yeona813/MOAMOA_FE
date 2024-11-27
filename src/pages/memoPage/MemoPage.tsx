@@ -17,6 +17,7 @@ import ToastMessage from '@/components/chat/ToastMessage';
 import { LoadingScreen } from '@/components/common/loading/LoadingScreen';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { AxiosError } from 'axios';
+import { useOutletContext } from 'react-router-dom';
 
 interface FolderType {
   folderId: number;
@@ -39,7 +40,8 @@ export const MemoPage = () => {
   const [showToast, setShowToast] = useState(false);
   const [contentWarning, setContentWarning] = useState<string>('');
   const [titleWarning, setTitleWarning] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLocalLoading] = useState(false);
+  const { setIsLoading } = useOutletContext<{ setIsLoading: (loading: boolean) => void }>();
   const isPC = useMediaQuery('(min-width: 1048px)');
   const isReviewMode = window.location.pathname.includes('review-memo');
 
@@ -138,6 +140,7 @@ export const MemoPage = () => {
 
   const handleSaveButton = async () => {
     try {
+      setIsLocalLoading(true);
       setIsLoading(true);
 
       const response = await postRecord({
@@ -193,6 +196,7 @@ export const MemoPage = () => {
         console.error('AxiosError가 아닌 에러:', error);
       }
     } finally {
+      setIsLocalLoading(false);
       setIsLoading(false);
     }
   };
@@ -283,6 +287,11 @@ export const MemoPage = () => {
 
               <S.Label $isReviewMode={isReviewMode} $isPC={isPC}>경험 폴더를 선택해주세요</S.Label>
               <S.CategoryContainer>
+                {/* {isReviewMode && tempMemo.category && (
+                  <CategoryChip isSelected={true}>
+                    {tempMemo.category}
+                  </CategoryChip>
+                )} */}
                 {!isReviewMode &&
                   folders.map((folder) => (
                     <CategoryChip
