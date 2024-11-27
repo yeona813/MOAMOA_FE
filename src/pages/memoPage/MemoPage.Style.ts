@@ -177,7 +177,7 @@ export const Content = styled.textarea<ReviewModeProps>`
 export const WarningCountContainer = styled.div`
   width: 95%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   position: relative;
 `;
@@ -188,7 +188,6 @@ export const Warning = styled.p`
   font-weight: 400;
   line-height: 130%;
   color: #ff4d4d;
-  margin-left: 0.625rem;
 `;
 
 export const Count = styled.p`

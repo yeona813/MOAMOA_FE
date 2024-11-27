@@ -130,8 +130,8 @@ export const MemoPage = () => {
     }
     setTempMemo((prev) => ({ ...prev, memo: newMemo }));
 
-    if (newMemo.length < 30) {
-      setContentWarning('30자 이상 입력해주세요.');
+    if (newMemo.length < 50) {
+      setContentWarning('50자 이상 입력해주세요.');
       return;
     } else {
       setContentWarning('');
@@ -202,8 +202,8 @@ export const MemoPage = () => {
   };
 
   const saveTempMemo = async () => {
-    if (tempMemo.memo.length < 30) {
-      alert('내용은 최소 30자 이상 입력해야 임시 저장할 수 있습니다.');
+    if (tempMemo.memo.length < 50) {
+      alert('내용은 최소 50자 이상 입력해야 임시 저장할 수 있습니다.');
       return;
     }
     try {
@@ -287,11 +287,6 @@ export const MemoPage = () => {
 
               <S.Label $isReviewMode={isReviewMode} $isPC={isPC}>경험 폴더를 선택해주세요</S.Label>
               <S.CategoryContainer>
-                {/* {isReviewMode && tempMemo.category && (
-                  <CategoryChip isSelected={true}>
-                    {tempMemo.category}
-                  </CategoryChip>
-                )} */}
                 {!isReviewMode &&
                   folders.map((folder) => (
                     <CategoryChip
