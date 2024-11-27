@@ -12,6 +12,7 @@ import EditIcon from '@icons/EditIcon.svg';
 import KebabIcon from '@icons/KebabIcon.svg';
 import * as S from './ReportPage.Style';
 import ToastMessage from '@/components/chat/ToastMessage';
+import { useValidatePathId } from '@/hooks/useValidatePathId';
 
 export const ReportPage = () => {
   const { id } = useParams<{ id?: string }>();
@@ -27,6 +28,8 @@ export const ReportPage = () => {
   const navigate = useNavigate();
 
   const analysisId = id ? parseInt(id, 10) : undefined;
+
+  useValidatePathId();
 
   useEffect(() => {
     const fetchSkill = async () => {

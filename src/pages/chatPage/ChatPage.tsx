@@ -13,6 +13,7 @@ import { LoadingScreen } from '@components/common/loading/LoadingScreen';
 import { postAiChat, postTmpChat, checkTmpChat, getChat, getSummary, deleteChat, postChat } from '@/api/Chat';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { AxiosError } from 'axios';
+import { useValidatePathId } from '@/hooks/useValidatePathId';
 
 interface Message {
   message: string;
@@ -44,6 +45,7 @@ export const ChatPage = () => {
   const [isError, setIsError] = useState(false);
   const isReviewMode = window.location.pathname.startsWith('/review-chat');
   const isPC = useMediaQuery('(min-width: 768px)');
+  useValidatePathId();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });

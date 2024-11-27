@@ -6,7 +6,7 @@ import { getFormattedDate } from '@/utils/dateUtils';
 import { Button } from '@/components/common/button/Button';
 import { FolderPopUp } from '@/components/common/popup/FolderPopUp';
 import BackIcon from '@icons/ArrowIcon.svg';
-import FolderIcon from '@icons/FolderIcon.svg';
+import FolderIcon from '@icons/AddFolderIcon.svg';
 import MemoPageIcon from '@/assets/icons/MemoPageIcon.png';
 import { CategoryChip } from '@/components/common/chip/CategoryChip';
 import { FolderListProps } from '@/types/Folder';
@@ -18,6 +18,7 @@ import { LoadingScreen } from '@/components/common/loading/LoadingScreen';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { AxiosError } from 'axios';
 import { useOutletContext } from 'react-router-dom';
+import { useValidatePathId } from '@/hooks/useValidatePathId';
 
 interface FolderType {
   folderId: number;
@@ -45,6 +46,7 @@ export const MemoPage = () => {
   const { setIsLoading } = useOutletContext<{ setIsLoading: (loading: boolean) => void }>();
   const isPC = useMediaQuery('(min-width: 1048px)');
   const isReviewMode = window.location.pathname.startsWith('/review-memo');
+  useValidatePathId();
 
   useEffect(() => {
     // 폴더 조회
