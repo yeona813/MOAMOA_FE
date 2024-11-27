@@ -6,7 +6,7 @@ export const useNicknameValidation = () => {
 
   const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const nicknameReg = /[!@#$%^&*()_\-+={}:'"\\|,.<>?/~`[\]]/g;
+    const nicknameReg = /[^\p{L}\p{N}\s]/gu;
 
     let errorMessage = '';
     if (nicknameReg.test(value)) {

@@ -30,24 +30,26 @@ export const SkillList = ({ onClick, setSelectedKeyword }: SkillListProps) => {
   return (
     <S.Container>
       <S.Line />
-      {chartData.map((skill) => (
-        <S.ListItem
-          key={skill.keyword}
-          $percent={skill.percent}
-          onClick={() => {
-            setSelectedKeyword(skill.keyword);
-            onClick();
-          }}
-        >
-          <S.TitleWrapper>
-            <S.Title>{skill.keyword}</S.Title>
-            <S.Percent>{skill.percent}%</S.Percent>
-          </S.TitleWrapper>
-          <S.CountCircle $percent={skill.percent}>
-            <S.Count>{skill.count}</S.Count>
-          </S.CountCircle>
-        </S.ListItem>
-      ))}
+      <S.ListItemContainer>
+        {chartData.map((skill) => (
+          <S.ListItem
+            key={skill.keyword}
+            $percent={skill.percent}
+            onClick={() => {
+              setSelectedKeyword(skill.keyword);
+              onClick();
+            }}
+          >
+            <S.TitleWrapper>
+              <S.Title>{skill.keyword}</S.Title>
+              <S.Percent>{skill.percent}%</S.Percent>
+            </S.TitleWrapper>
+            <S.CountCircle $percent={skill.percent}>
+              <S.Count>{skill.count}</S.Count>
+            </S.CountCircle>
+          </S.ListItem>
+        ))}
+      </S.ListItemContainer>
     </S.Container>
   );
 };

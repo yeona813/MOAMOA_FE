@@ -307,6 +307,7 @@ export const ChatPage = () => {
   // 임시저장 채팅 계속하기 선택 시
   const handleContinueChat = async () => {
     setIsLoadTempModalOpen(false);
+    setShowGuideButton(false);
     if (tmpChatRoomId !== null) {
       setChatRoomId(tmpChatRoomId); // 현재 채팅방 ID 업데이트
       await fetchChatHistory(tmpChatRoomId);
@@ -318,7 +319,7 @@ export const ChatPage = () => {
   return (
     <>
       {isLoading ? (
-        <LoadingScreen />
+        <LoadingScreen labelText="AI 채팅 내용을 요약하고 있어요" />
       ) : (
         <>
           <TabBar rightText={isReviewMode ? "" : "완료하기"} onClickBackIcon={handleTemporarySave} onClick={() => setIsModalOpen(true)} isDisabled={messages.length === 0} />

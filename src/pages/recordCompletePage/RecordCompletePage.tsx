@@ -12,7 +12,7 @@ import { FolderListProps } from '@/types/Folder';
 import { postRecord } from '@/api/Record';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { LoadingScreen } from '@/components/common/loading/LoadingScreen';
-
+import { useOutletContext } from 'react-router-dom';
 export const RecordCompletePage = () => {
   const [folders, setFolders] = useState<FolderListProps[]>([]);
   const [title, setTitle] = useState(getFormattedDate());
@@ -23,7 +23,8 @@ export const RecordCompletePage = () => {
   const navigate = useNavigate();
   const nickname = localStorage.getItem('nickname');
   const isPC = useMediaQuery('(min-width: 1048px)');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLocalLoading] = useState(false);
+  const { setIsLoading } = useOutletContext<{ setIsLoading: (loading: boolean) => void }>();
 
   useEffect(() => {
     if (state?.summary) {
@@ -48,6 +49,7 @@ export const RecordCompletePage = () => {
 
   const handleSaveButton = async () => {
     try {
+      setIsLocalLoading(true);
       setIsLoading(true);
       if (!state?.chatRoomId) {
         throw new Error('채팅방 ID가 없습니다.');
@@ -99,6 +101,7 @@ export const RecordCompletePage = () => {
         }
       }
     } finally {
+      setIsLocalLoading(false);
       setIsLoading(false);
     }
   };
@@ -128,7 +131,7 @@ export const RecordCompletePage = () => {
   return (
     <>
       {isLoading ? (
-        <LoadingScreen />
+        <LoadingScreen labelText="모아모아가 경험을 정리하고 있어요" />
       ) : (
         <S.PageContainer>
           <S.Container $isPC={isPC}>
