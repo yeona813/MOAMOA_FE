@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const Header = styled.header`
   display: flex;
   flex-direction: column;
-  padding: 0rem 1.25rem;
+  padding: 0rem 1.25rem 0rem 1.5rem;
   gap: 1rem;
   width: 100%;
   background-color: ${Colors.white};
