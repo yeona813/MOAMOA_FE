@@ -6,7 +6,7 @@ export const GraphContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 1.25rem;
+  padding: 0.5rem;
   position: relative;
 `;
 
@@ -34,7 +34,7 @@ export const CHART_STYLES = {
 };
 
 export const CustomizedLabelStyle = {
-  fontSize: '1rem',
+  fontSize: '0.875rem',
   fontWeight: '600',
   fill: Colors.gray700,
 };

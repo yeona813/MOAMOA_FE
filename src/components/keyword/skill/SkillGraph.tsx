@@ -39,7 +39,7 @@ export const SkillGraph = () => {
     const xLineStart = cx + lineStartRadius * Math.cos(-midAngle * RADIAN);
     const yLineStart = cy + lineStartRadius * Math.sin(-midAngle * RADIAN);
 
-    const lineEndRadius = outerRadius + 15;
+    const lineEndRadius = outerRadius + 10;
     const xLineEnd = cx + lineEndRadius * Math.cos(-midAngle * RADIAN);
     const yLineEnd = cy + lineEndRadius * Math.sin(-midAngle * RADIAN);
 

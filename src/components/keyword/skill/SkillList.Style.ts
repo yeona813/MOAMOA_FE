@@ -13,6 +13,10 @@ export const Container = styled.div`
   height: 100%;
   padding: 0.75rem 1rem;
   margin: 0rem 3rem 0 3rem;
+
+  ${(props) => props.theme.breakpoints.min} {
+    flex-direction: row;
+  }
 `;
 
 export const Line = styled.div`
@@ -22,9 +26,17 @@ export const Line = styled.div`
   margin-bottom: 2rem;
 
   ${(props) => props.theme.breakpoints.min} {
-    width: 0.0625rem;
-    height: 100%;
+    display: none;
   }
+`;
+
+export const ListItemContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 `;
 
 export const ListItem = styled.div<ListItemProps>`

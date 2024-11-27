@@ -6,6 +6,7 @@ interface ContainerProps {
 }
 
 export const Container = styled.div<ContainerProps>`
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -13,6 +14,8 @@ export const Container = styled.div<ContainerProps>`
   padding-top: 5rem;
   padding-bottom: 5rem;
   background-color: ${({ $isEmpty }) => $isEmpty ? Colors.gray25 : Colors.white};
+  overflow-x: hidden;
+
   ${(props) => props.theme.breakpoints.min} {
     flex-direction: row;
     background-color: ${Colors.gray25};
@@ -30,7 +33,7 @@ export const Content = styled.div`
     background-color: ${Colors.white};
     align-items: center;
     border-radius: 20px;
-    padding: 1rem 1rem 3rem 1rem;
+    padding: 1rem 1rem 1rem 1rem;
   }
   bottom: 10rem;
 `;
