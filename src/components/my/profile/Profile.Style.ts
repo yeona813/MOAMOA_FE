@@ -64,6 +64,7 @@ export const SubText = styled.p`
 
 export const Button = styled.button`
   padding: 0.25rem 0.75rem;
+  color: #1d1d1d;
   border: 1px solid #1d1d1d;
   border-radius: 6.25rem;
   background-color: #ffffff;
@@ -89,7 +90,7 @@ export const Detail = styled.div`
 
 export const Image = styled.img`
   width: 100%;
-  height: 7.25rem;
+  height: 100%;
 
   ${(props) => props.theme.breakpoints.min} {
     width: 24.625rem;
@@ -110,6 +111,7 @@ export const Record = styled.div`
   font-size: 1rem;
   font-weight: 600;
   line-height: 140%;
+  cursor: pointer;
 
   ${(props) => props.theme.breakpoints.min} {
     height: 3.75rem;

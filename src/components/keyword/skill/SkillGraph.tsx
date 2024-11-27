@@ -25,10 +25,10 @@ export const SkillGraph = () => {
   }, []);
 
   const getChartColor = (percent: number) => {
-    if (percent > 20) return Colors.blue200;
-    if (percent > 10) return Colors.blue100;
-    if (percent > 5) return Colors.yellow200;
-    if (percent > 2) return Colors.yellow50;
+    if (percent > 33) return Colors.blue200;
+    if (percent > 25) return Colors.blue100;
+    if (percent > 20) return Colors.yellow200;
+    if (percent > 10) return Colors.yellow50;
     return Colors.gray25;
   };
 
@@ -39,7 +39,7 @@ export const SkillGraph = () => {
     const xLineStart = cx + lineStartRadius * Math.cos(-midAngle * RADIAN);
     const yLineStart = cy + lineStartRadius * Math.sin(-midAngle * RADIAN);
 
-    const lineEndRadius = outerRadius + 15;
+    const lineEndRadius = outerRadius + 10;
     const xLineEnd = cx + lineEndRadius * Math.cos(-midAngle * RADIAN);
     const yLineEnd = cy + lineEndRadius * Math.sin(-midAngle * RADIAN);
 
@@ -63,11 +63,7 @@ export const SkillGraph = () => {
           y={yText}
           textAnchor={textAnchor}
           dominantBaseline="middle"
-          style={{
-            fontSize: '1rem',
-            fontWeight: '600',
-            fill: Colors.gray700,
-          }}
+          style={S.CustomizedLabelStyle}
         >
           {name}
         </text>

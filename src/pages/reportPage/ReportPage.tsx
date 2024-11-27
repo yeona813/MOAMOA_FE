@@ -51,7 +51,7 @@ export const ReportPage = () => {
     };
 
     fetchSkill();
-  }, [analysisId, openEditBottom]);
+  }, [analysisId, openEditBottom, openChangeBottom]);
 
   const handleDataChange = (key: keyof AnalysisProps, value: string) => {
     if (newData) {

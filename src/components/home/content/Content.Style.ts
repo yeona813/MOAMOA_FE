@@ -9,7 +9,6 @@ export const Content = styled.div`
   gap: 1.5rem;
   padding: 1rem 1.25rem 1.25rem;
   background-color: ${Colors.gray25};
-  border-radius: 1.25rem 1.25rem 0rem 0rem;
   color: ${Colors.gray900};
 
   ${(props) => props.theme.breakpoints.min} {

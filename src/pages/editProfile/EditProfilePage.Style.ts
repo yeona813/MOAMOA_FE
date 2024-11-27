@@ -36,7 +36,7 @@ export const ButtonStyle = styled.div`
   ${(props) => props.theme.breakpoints.min} {
     width: 11.0625rem;
     position: absolute;
-    top: 38rem;
+    bottom: 2.5rem;
     left: 60rem;
   }
 `;

@@ -34,7 +34,7 @@ export const FolderChangePopUp = ({
   const [folderName, setFolderName] = useState(intialfolderName);
   const [folderList, setFolderList] = useState<FolderListProps[]>([]);
 
-  const isMobile = useMediaQuery('(max-width: 1048)');
+  const isMobile = useMediaQuery('(max-width: 1048px)');
 
   useEffect(() => {
     const fetchFolderList = async () => {

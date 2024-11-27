@@ -28,6 +28,7 @@ export const HeaderContainer = styled.div`
   background-image: url('/images/HeaderImage.png');
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -69,14 +70,23 @@ export const TitleContainer = styled.div`
 export const Title = styled.h4`
   margin-top: 6rem;
   margin-bottom: 0.75rem;
-  margin-left: 3rem;
+  margin-left: 2rem;
+
+  ${(props) => props.theme.breakpoints.min} {
+    margin-left: 3rem;
+  }
 `;
 
 export const SubTitle = styled.h6`
   line-height: 140%;
+  font-weight: 500;
   margin-bottom: 1rem;
-  margin-left: 3rem;
+  margin-left: 2rem;
   white-space: pre-line;
+
+  ${(props) => props.theme.breakpoints.min} {
+    margin-left: 3rem;
+  }
 `;
 
 export const Form = styled.form<RecordCompletePageProps>`

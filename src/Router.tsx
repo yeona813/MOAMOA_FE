@@ -15,6 +15,7 @@ import { ReportPage } from './pages/reportPage/ReportPage';
 import { ChatPage } from './pages/chatPage/ChatPage';
 import { RecordCompletePage } from './pages/recordCompletePage/RecordCompletePage';
 import { OnboardingPage } from './pages/onboardingPage/OnboardingPage';
+import { NotFoundPage } from './pages/notFoundPage/NotFoundPage';
 
 export const Router = createBrowserRouter([
   {
@@ -92,6 +93,10 @@ export const Router = createBrowserRouter([
       {
         path: 'onboarding',
         element: <OnboardingPage />,
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />,
       },
     ],
   },
