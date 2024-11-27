@@ -26,7 +26,11 @@ export const EditProfilePage = () => {
   };
 
   const handleSubmit = async () => {
-    localStorage.setItem('nickname', nickname);
+    const currentNickname = localStorage.getItem('nickname');
+
+    if (currentNickname !== nickname && nickname !== '') {
+      localStorage.setItem('nickname', nickname);
+    }
 
     const response = await patchUserInfo({ nickname, status: select });
     if (response.is_success) {
