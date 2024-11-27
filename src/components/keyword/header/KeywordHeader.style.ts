@@ -33,6 +33,7 @@ export const TabBar = styled.div`
   display: flex;
   margin-top: 1rem;
   width: 100%;
+  cursor: pointer;
 `;
 
 export const Item = styled.div<{ $isSelected: boolean }>`

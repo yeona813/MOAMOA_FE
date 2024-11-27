@@ -42,7 +42,7 @@ export const ChatPage = () => {
   const [showGuideButton, setShowGuideButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const isReviewMode = window.location.pathname.includes('review-chat');
+  const isReviewMode = window.location.pathname.startsWith('/review-chat');
   const isPC = useMediaQuery('(min-width: 768px)');
 
   const scrollToBottom = () => {
@@ -82,7 +82,7 @@ export const ChatPage = () => {
         throw new Error('유효하지 않은 채팅방 ID입니다.');
       }
 
-      if (window.location.pathname.includes('review-chat')) {
+      if (window.location.pathname.startsWith('/review-chat')) {
         setShowGuideButton(false);
       }
       const response = await getChat(chatRoomId);
