@@ -55,15 +55,6 @@ export const ChatPage = () => {
     }
   }, [messages]);
 
-  // URL 파라미터로부터 채팅방 ID 설정
-  useEffect(() => {
-    if (id) {
-      setChatRoomId(Number(id));
-    } else {
-      handleNewChat();
-    }
-  }, [id]);
-
   // 임시 저장된 채팅 기록 조회
   useEffect(() => {
     const fetchTmpChatData = async () => {
@@ -285,7 +276,7 @@ export const ChatPage = () => {
     }
   };
 
-  const handleNewChat = async () => {
+  const handleNewChat = useCallback(async () => {
     if (chatRoomId !== null) {
       await deleteChat(chatRoomId);
     }
@@ -302,7 +293,16 @@ export const ChatPage = () => {
       isLoading: false,
     }]);
     setShowGuideButton(true);
-  }
+  }, [chatRoomId, formattedFirstChat]);
+
+  // URL 파라미터로부터 채팅방 ID 설정
+  useEffect(() => {
+    if (id) {
+      setChatRoomId(Number(id));
+    } else {
+      handleNewChat();
+    }
+  }, [handleNewChat, id]);
 
   // 임시저장 채팅 계속하기 선택 시
   const handleContinueChat = async () => {
