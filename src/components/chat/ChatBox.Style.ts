@@ -30,7 +30,7 @@ export const ChatBoxInput = styled.input`
   height: 100%;
   background-color: ${Colors.gray25};
   border-radius: 0.625rem;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 400;
   border: none;
   padding: 0.625rem;
