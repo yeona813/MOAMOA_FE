@@ -23,9 +23,12 @@ export const Container = styled.div<SignUpPageStyleProps>`
   flex-direction: column;
   height: calc(100vh - 3.75rem);
   padding: 0 1.25rem;
-
-  width: ${({ $isPC }) => ($isPC ? '30rem' : '100%')};
+  width: 100%;
   max-width: 100%;
+
+  ${(props) => props.theme.breakpoints.min} {
+    width: 30rem;
+  }
 `;
 
 export const Title = styled.p`
