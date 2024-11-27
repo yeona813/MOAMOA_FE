@@ -13,6 +13,10 @@ export const Container = styled.div`
   height: 100%;
   padding: 0.75rem 1rem;
   margin: 0rem 3rem 0 3rem;
+
+  ${(props) => props.theme.breakpoints.min} {
+    flex-direction: row;
+  }
 `;
 
 export const Line = styled.div`
@@ -20,6 +24,19 @@ export const Line = styled.div`
   height: 0.0625rem;
   background-color: ${Colors.gray50};
   margin-bottom: 2rem;
+
+  ${(props) => props.theme.breakpoints.min} {
+    display: none;
+  }
+`;
+
+export const ListItemContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 `;
 
 export const ListItem = styled.div<ListItemProps>`
@@ -32,10 +49,10 @@ export const ListItem = styled.div<ListItemProps>`
   border-radius: 0.75rem;
   padding: 0.8125rem 1rem;
   background-color: ${({ $percent }) => {
-    if ($percent > 20) return Colors.blue200;
-    if ($percent > 10) return Colors.blue100;
-    if ($percent > 5) return Colors.yellow200;
-    if ($percent > 2) return Colors.yellow50;
+    if ($percent > 33) return Colors.blue200;
+    if ($percent > 25) return Colors.blue100;
+    if ($percent > 20) return Colors.yellow200;
+    if ($percent > 10) return Colors.yellow50;
     else return Colors.gray25;
   }};
 `;

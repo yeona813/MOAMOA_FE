@@ -17,7 +17,7 @@ export const Background = styled.div`
 export const Modal = styled.div<{ $isPC?: boolean }>`
   position: relative;
   width: ${({ $isPC }) => ($isPC ? '31.25rem' : '17.5rem')};
-  padding: ${({ $isPC }) => ($isPC ? '1.5rem' : '2.625rem 0.75rem 0.875rem')};
+  padding: ${({ $isPC }) => ($isPC ? '1.5rem' : '2.25rem 0.75rem 0.875rem')};
   border-radius: 0.75rem;
   background-color: ${Colors.white};
 `;

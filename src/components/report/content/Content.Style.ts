@@ -72,6 +72,7 @@ export const ChatText = styled.h6`
   color: ${Colors.gray500};
   font-weight: 400;
   line-height: 145%;
+  cursor: pointer;
 
   ${(props) => props.theme.breakpoints.min} {
     font-size: 1.125rem;

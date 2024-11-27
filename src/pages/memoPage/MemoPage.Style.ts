@@ -20,15 +20,20 @@ export const Container = styled.div<ReviewModeProps>`
   position: relative;
   height: 100%;
   align-items: center;
-  width: ${({ $isPC }) => ($isPC ? '60%' : '100%')};
+  width: 100%;
   margin: 0 auto;
+
+  ${(props) => props.theme.breakpoints.min} {
+    width: 60%;
+  }
 `;
 
 export const HeaderContainer = styled.div`
   height: 14.5rem;
-  background-image: url('/images/HeaderImage.png');
+  background-image: url('/images/MemoHeaderImage.png');
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -119,7 +124,9 @@ export const Label = styled.p<ReviewModeProps>`
 
 export const InputTitle = styled(OriginalInput)`
   width: 100%;
-  margin-bottom: 0rem;
+  margin: 0;
+  padding-left: 0;
+  padding-bottom: 0;
   border: none;
   background-color: ${({ disabled }) => (disabled ? Colors.white : 'inherit')};
   &:focus {
@@ -140,7 +147,7 @@ export const Content = styled.textarea<ReviewModeProps>`
   font-weight: 400;
   line-height: 145%;
   width: 95%;
-  min-height: ${({ $isReviewMode }) => ($isReviewMode ? '15rem' : '10rem')};
+  min-height: ${({ $isReviewMode }) => ($isReviewMode ? '10rem' : '15rem')};
   height: 100%;
   border: none;
   outline: none;
@@ -163,7 +170,7 @@ export const Content = styled.textarea<ReviewModeProps>`
 
   ${(props) => props.theme.breakpoints.min} {
     font-size: 1.125rem;
-    height: 20rem;
+    height: 15rem;
   }
 `;
 

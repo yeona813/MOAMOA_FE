@@ -17,6 +17,7 @@ export const MobileHeader = styled.header`
 `;
 
 export const PcHeader = styled.header`
+  display: none;
   ${(props) => props.theme.breakpoints.min} {
     display: flex;
     justify-content: space-between;
@@ -32,6 +33,7 @@ export const Edit = styled.h5`
   ${(props) => props.theme.breakpoints.min} {
     line-height: 145%;
     color: ${Colors.gray500};
+    cursor: pointer;
   }
 `;
 

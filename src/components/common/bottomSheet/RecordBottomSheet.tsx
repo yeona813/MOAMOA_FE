@@ -2,8 +2,8 @@ import { SheetItem, SheetItemProps } from '../../home/sheetItem/SheetItem';
 import { BottomSheet } from './BottomSheet';
 import * as S from './RecordBottomSheet.Style';
 import CloseIcon from '@icons/CloseIcon.svg';
-import Memo from '@icons/MemoIcon.svg';
-import Chat from '@icons/ChatIcon.svg';
+import Memo from '/images/MemoImg.png';
+import Chat from '/images/ChatImg.png';
 
 const SHEET_ITEMS: SheetItemProps[] = [
   {
