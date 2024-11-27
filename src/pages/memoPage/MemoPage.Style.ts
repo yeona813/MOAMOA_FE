@@ -147,7 +147,7 @@ export const Content = styled.textarea<ReviewModeProps>`
   font-weight: 400;
   line-height: 145%;
   width: 95%;
-  min-height: ${({ $isReviewMode }) => ($isReviewMode ? '15rem' : '10rem')};
+  min-height: ${({ $isReviewMode }) => ($isReviewMode ? '10rem' : '15rem')};
   height: 100%;
   border: none;
   outline: none;
@@ -170,7 +170,7 @@ export const Content = styled.textarea<ReviewModeProps>`
 
   ${(props) => props.theme.breakpoints.min} {
     font-size: 1.125rem;
-    height: 20rem;
+    height: 15rem;
   }
 `;
 
