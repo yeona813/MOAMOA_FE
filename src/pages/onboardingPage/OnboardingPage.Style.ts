@@ -10,6 +10,9 @@ export const Cotainer = styled.div`
   height: 100%;
   padding-top: 3.75rem;
   gap: 1.25rem;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 69.2%, rgba(163, 177, 255, 0.2) 99.76%),
+    #fff;
+
   ${(props) => props.theme.breakpoints.min} {
     display: none;
   }
@@ -67,12 +70,4 @@ export const Circle = styled.div<{ $isSelected: boolean }>`
   height: ${({ $isSelected }) => ($isSelected ? '0.625rem' : '0.5rem')};
   border-radius: 100%;
   background-color: ${({ $isSelected }) => ($isSelected ? '#007aff' : '#d9d9d9')};
-`;
-
-export const ButtonContainer = styled.div`
-  position: absolute;
-  bottom: 1.25rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 20.3125rem;
 `;
