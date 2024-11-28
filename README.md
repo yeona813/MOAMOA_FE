@@ -1,46 +1,81 @@
-## 📘📝 MOAMOA FRONTEND
-대학생 IT경영학회 KUSITMS 30기 밋업 프로젝트 G조 <br />
-**MOAMOA Frontend Repository**
+## 🎯 Kusitms 30th 밋업 프로젝트 G조 MOAMOA
+> 개발 기간 : 2024.09.28 ~ 2024.11.28 <br>
+> 배포 주소 : https://www.corecord.site
 
-<br />
+<br><br>
 
-## ✏️ 프로젝트 소개
+![간지장표](https://github.com/user-attachments/assets/1113c19d-2721-450f-a963-74ff6d0c6bb2)
+
+
+<br>
+
+# 👥 Member
+|  오유민  |  안연아  |   김다은   |   오세연   |                                                                                                   
+| :-----: | :----: | :------: |:--------: | 
+| <img src="https://avatars.githubusercontent.com/yuminnnnni?v=4" width=90px alt="오유민"/> |<img src="https://avatars.githubusercontent.com/yeona813?v=4" width=90px alt="안연아"/>  | <img src="https://avatars.githubusercontent.com/u/122000839?v=4" width=90px alt="김다은"/> | <img src="https://avatars.githubusercontent.com/oosedus?v=4" width=90px alt="오세연"/> |  
+| [@yuminnnnni](https://github.com/yuminnnnni) | [@yeona813](https://github.com/yeona813) |  [@daeun084](https://github.com/daeun084) |  [@oosedus](https://github.com/oosedus)  | 
+| 🕸️ Frontend Lead | 🕸️ Frontend  | 💻 Backend Lead | 💻 Backend |
+| 아주대학교 소프트웨어학과 | 서강대학교 수학과 | 숭실대학교 컴퓨터학부 | 서울과학기술대학교 ITM전공 | 
+
+<br><br>
+
+# ✏️ Project
 *”아 경험 정리 해야 하는데 .. 언제 다 하지? 미리 할 걸 ”*
 <br />
 *“모아모아에서 몇 마디 대화를 나눴을 뿐인데 경험 정리가 끝났어요!” 
 “경험 정리를 했더니, 나의 역량을 알려줘요”*
-- 모아모아(MOAMOA)는 막막하게 느껴지던 경험 정리를 매일 조금씩 하도록 돕고, AI가 경험을 분석해 나만의 역량을 찾아주는 서비스입니다.
+<br><br>
+**모아모아(MOAMOA)는 막막하게 느껴지던 경험 정리를 매일 조금씩 하도록 돕고, AI가 경험을 분석해 나만의 역량을 찾아주는 서비스예요!**
 <br><br>
 
-## ✏️ 배포 주소
-[🚗 Visit MOAMOA](https://www.corecord.site/)  
+<img width="1920" alt="background" src="https://github.com/user-attachments/assets/8f603160-4322-473b-aa5b-2ca17e6c5f86">
+<img width="1920" alt="painpoint-solution" src="https://github.com/user-attachments/assets/5ac89812-979c-4f72-a123-962ca287471e">
+<img width="1920" alt="서비스 소개" src="https://github.com/user-attachments/assets/958f4a42-d745-4c15-970c-33ba1fbc48a6">
+
+<img width="1920" alt="서비스 point" src="https://github.com/user-attachments/assets/36f122a9-80e4-434c-b2b2-2e9e3bb329b8">
+<img width="1920" alt="서비스 point-1" src="https://github.com/user-attachments/assets/a6404091-e9fe-4e51-9e03-e3e258dae499">
+<img width="1920" alt="서비스 point-2" src="https://github.com/user-attachments/assets/6ee1d558-1437-412f-95a8-377754b3a364">
+<img width="1920" alt="서비스 point-3" src="https://github.com/user-attachments/assets/d1eb9dd0-900d-4ca9-958a-61cafd7fcacc">
+<img width="1920" alt="463" src="https://github.com/user-attachments/assets/24e54064-9448-4ee9-807d-e4d7f0300378">
+
 <br><br>
 
-## ✏️ 개발 기간 및  작업 관리
 
-### 개발 기간
-2024.10 ~ 2024.11.28
+# 💻 Stack
+
+### 🛠️ BackEnd
+
+**Language & Framework**  
+<img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Java&logoColor=white" />
+<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=SpringBoot&logoColor=white" /> 
+<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat&logo=SpringSecurity&logoColor=white" />
+
+**Documentation**  
+<img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=Swagger&logoColor=black" />
+
+**Database & ORM**  
+<img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=flat&logo=Spring&logoColor=white" /> 
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white" /> 
+
+**Build Tool**  
+<img src="https://img.shields.io/badge/Gradle-02303A?style=flat&logo=Gradle&logoColor=white" />
+
+**Cloud & Hosting**  
+<img src="https://img.shields.io/badge/AmazonEC2-FF9900?style=flat&logo=AmazonEC2&logoColor=white" /> 
+<img src="https://img.shields.io/badge/AmazonRDS-527FFF?style=flat&logo=AmazonRDS&logoColor=white" /> 
+
+**Containerization & CI/CD**  
+<img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=Docker&logoColor=white" /> 
+<img src="https://img.shields.io/badge/GithubActions-2088FF?style=flat&logo=GithubActions&logoColor=white" />
+
+**Network & Security**  
+<img src="https://img.shields.io/badge/Nginx-009639?style=flat&logo=nginx&logoColor=white" />
+<img src="https://img.shields.io/badge/AWS Load Balancer-FF9900?style=flat&logo=AmazonAWS&logoColor=white" />
+<img src="https://img.shields.io/badge/AWS Certificate Manager-527FFF?style=flat&logo=AmazonAWS&logoColor=white" />
+
 <br>
-**추후 리팩토링 예정**
-<br>
 
-### 작업 관리
-- GitHub Projects와 Issues, Milestone을 사용하여 진행 상황을 공유했습니다.
-- 매 주 2회 Discord에서 회의를 진행하여 작업 순서와 기능 구현에 대한 고민을 나누고, Notion에 회의 내용을 기록했습니다.
-
-<br><br>
-
-## ✏️ 팀원 소개
-|  오유민  |  안연아  |                                                                                                  
-| :----: | :----: |
-| <img src="https://avatars.githubusercontent.com/yuminnnnni?v=4" width=90px alt="오유민"/> |<img src="https://avatars.githubusercontent.com/yeona813?v=4" width=90px alt="안연아"/>  |
-| [@yuminnnnni](https://github.com/yuminnnnni) | [@yeona813](https://github.com/yeona813) |
-| 아주대학교 소프트웨어학과 | 서강대학교 수학과 |
-
-<br><br>
-
-
-## ✏️ 기술 스택
+### 🌐 FrontEnd
 **Language & Framework**  
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white" />
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white" />
@@ -55,26 +90,95 @@
 **Deployment**  
 <img src="https://img.shields.io/badge/vercel-000000?style=flat&logo=vercel&logoColor=white" />
 
+<br>
 
 ### 🌎 Co-Work
-[<img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white" />](https://github.com/FITPET-A)
+[<img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white" />](https://github.com/KUSITMS-MOAMOA)
 <img src="https://img.shields.io/badge/Notion-000000?style=flat&logo=Notion&logoColor=white" />
 <br><br>
 
 
-## ✏️ 기술 선정 이유
-
-- **React :** 컴포넌트 기반 아키텍처를 통해 재사용성과 유지보수성을 극대화하였습니다.
-- **TypeScript :** 정적 타입을 제공해서 컴파일 단계에서 오류를 미리 잡을 수 있고, 코드 유지보수가 훨씬 쉬워집니다. 자동완성과 리팩토링도 더 편리해져서 개발 속도를 개선할 수 있습니다.
-- **Styled-Components :** 컴포넌트 단위로 스타일을 작성할 수 있는 라이브러리입니다. CSS가 컴포넌트에 종속되기 때문에 스타일 충돌이 없고, 동적으로 스타일을 적용할 수 있어서 유지보수에도 유리합니다.
-- **Axios :** HTTP 요청을 쉽게 처리할 수 있는 클라이언트 라이브러리입니다. API 호출을 간편하게 할 수 있고, 비동기 요청 관리도 직관적이라 코드 작성이 편리합니다.
-- **Vite :** 최신 빌드 도구로, 개발 환경에서 빌드 속도가 매우 빠릅니다. 특히 핫 모듈 리플레이스먼트(HMR)가 즉각적으로 작동해서 코드 수정 시 바로 반영돼서 개발 속도를 개선하였습니다.
-- **Prettier & ESLint:** 코드 품질을 관리하고, 일관성과 가독성을 유지하기 위해 사용되는 도구입니다. 두 도구는 서로 다른 역할을 가지고 있지만, 함께 사용하면 더 좋은 개발 경험을 제공합니다.
-- **Vercel:** Vercel은 웹 애플리케이션 배포 플랫폼으로, React, Next.js 같은 현대적인 프론트엔드 프레임워크에 최적화된 환경을 제공합니다.
+# 🏛️ System Architecture
+![MOAMOA_ARCHITECTURE](https://github.com/user-attachments/assets/e2a1654a-5beb-422d-9ba9-1f9e20735fd6)
 
 <br><br>
 
-## ✏️ 디렉토리 구조
+# 📊 ERD
+![MOAMOA_ERD](https://github.com/user-attachments/assets/33a3e6ce-c5cf-419b-9635-b33de76b0342)
+
+# 🗒️ API 명세서
+https://spiny-lake-7e5.notion.site/API-10b37be2e3fa8020a345c0aa4089a0a0?pvs=4
+
+
+<br><br>
+
+# 📏 Convention
+### 🛠️ BackEnd
+
+#### Commit Convention
+- **`ConventionType: 구현한 내용`** <br>
+
+#### Convention Type
+| convention type | description |
+| --- | --- |
+| `feat` | 새로운 기능 구현 |
+| `add` | 파일 및 코드 추가 |
+| `chore` | 부수적인 코드 수정 및 기타 변경사항 |
+| `docs` | 문서 추가 및 수정, 삭제 |
+| `fix` | 버그 수정 |
+| `rename` | 파일 및 폴더 이름 변경 |
+| `test` | 테스트 코드 추가 및 수정, 삭제 |
+| `refactor` | 코드 리팩토링 |
+| `!hotfix` | develop 브랜치에 급하게 커밋해야 하는 경우 |
+
+#### Issue
+- Issue Title : **`ConventionType: 작업할 내용`**
+- 모든 작업은 `Issue`를 만든 후, 해당 이슈 번호에 대한 branch를 통해 수행
+- 수행할 작업에 대한 설명과 할 일을 작성
+
+#### Pull Request
+- Pull Request Title : **`[ContentionType/#이슈번호] 작업한 내용`**
+- 수행한 작업에 대한 설명을 작성하고 관련 스크린샷을 첨부
+- Reviewer, Assigner, Label, Project, Milestone, 관련 이슈를 태그
+- 작업 중 참고한 자료 혹은 reviewer에게 전할 내용이 있다면 하단에 작성
+
+#### Branch
+- Branch Name : **`컨벤션명/#이슈번호`**
+- `Pull Request`를 통해 develop branch에 merge 후, 해당 branch 제거
+
+<br>
+
+### 🌐 FrontEnd
+
+#### Commit Convention
+- **`ConventionType: 구현한 내용`** <br>
+
+#### Convention Type
+| convention type | description |
+| --- | --- |
+| `feat` | 새로운 기능 구현 |
+| `refactor` | 코드 리팩토링 |
+| `style` | 코드 의미에 영향을 주지 않는 변경사항 (코드 포맷팅, 오타 수정 등) |
+| `chore` | 빌드 부분 혹은 패키지 매니저 수정 사항 및 기타 변경사항 |
+| `fix` | 버그 수정 |
+| `remove` | 파일 및 코드 삭제 |
+
+#### Issue
+- Issue Title : **`[ConventionType] : 작업할 내용`**
+- 모든 작업은 `Issue`를 만든 후, 해당 이슈 번호에 대한 branch를 통해 수행
+- 수행할 작업에 대한 설명과 할 일을 작성
+
+#### Pull Request
+- Pull Request Title : **`#이슈번호 [ContentionType] : 작업한 내용`**
+- 수행한 작업에 대한 설명을 작성하고 필요시 관련 스크린샷을 첨부
+- Reviewer, Assigner, Label, Project, Milestone, 관련 이슈를 태그
+- 작업 중 참고한 자료 혹은 reviewer에게 전할 내용이 있다면 하단에 작성
+
+#### Branch
+- Branch Name : **`컨벤션명/작업 내용`**
+- `Pull Request`를 통해 develop branch에 merge 후, 해당 branch 제거
+
+#### 디렉토리 구조
 ```
 pubblic/
 ├── font/
@@ -131,146 +235,3 @@ src/
 ```
 
 <br><br>
-
-## ✏️ 코딩 컨벤션
-
-#### Commit Convention
-- **`ConventionType: 구현한 내용`** <br>
-
-#### Convention Type
-| convention type | description |
-| --- | --- |
-| `feat` | 새로운 기능 구현 |
-| `refactor` | 코드 리팩토링 |
-| `style` | 코드 의미에 영향을 주지 않는 변경사항 (코드 포맷팅, 오타 수정 등) |
-| `chore` | 빌드 부분 혹은 패키지 매니저 수정 사항 및 기타 변경사항 |
-| `fix` | 버그 수정 |
-| `remove` | 파일 및 코드 삭제 |
-
-#### Issue
-- Issue Title : **`[ConventionType] : 작업할 내용`**
-- 모든 작업은 `Issue`를 만든 후, 해당 이슈 번호에 대한 branch를 통해 수행
-- 수행할 작업에 대한 설명과 할 일을 작성
-
-#### Pull Request
-- Pull Request Title : **`#이슈번호 [ContentionType] : 작업한 내용`**
-- 수행한 작업에 대한 설명을 작성하고 필요시 관련 스크린샷을 첨부
-- Reviewer, Assigner, Label, Project, Milestone, 관련 이슈를 태그
-- 작업 중 참고한 자료 혹은 reviewer에게 전할 내용이 있다면 하단에 작성
-
-#### Branch
-- Branch Name : **`컨벤션명/작업 내용`**
-- `Pull Request`를 통해 develop branch에 merge 후, 해당 branch 제거
-
-#### Code Review
-- 코드 리뷰 시 주요 내용을 요약해서 작성하고, 코드 리뷰어의 의견을 존중하는 자세로 소통했습니다.
-- [PN]룰을 적용하여 효율적인 코드 리뷰를 진행했습니다.
-
-
-<br><br>
-
-## ✏️ 역할 분담
-### 🐰 안연아
-- UI
-  - 페이지: 홈, 경험 리스트, 역량 레포트, 마이, 프로필 수정, 온보딩
-  - 공통 컴포넌트: 버튼, 칩, 모달, 셀렉트박스, 사이드바, 인풋, 탭바, 팝업
-- 기능
-  - 홈에서 기록 조회, 폴더 조회 & 추가 & 삭제, 레포트 조회 & 수정, 로그아웃, 회원 탈퇴 
-
-### 🐣 오유민
-- UI
-  - 페이지: 회원 가입, 로그인, 채팅 기록, 메모 기록, 역량 그래프, 404
-  - 공통 컴포넌트: 토스트, 로딩, 채팅
-- 기능
-  - 카카오 소셜 로그인, 채팅/메모 기록 & 임시저장, 완료 경험 세부 조회, 역량 그래프 조회 
-
-<br><br>
-
-## ✏️ 페이지 별 주요 기능
-
-### [로그인 화면]
-- 카카오 소셜 로그인
-- 회원 가입 (추가 정보 작성)
-- 회원 가입 완료
-  
-<img src="public/readMe/Login.png" width="300px" alt="login" />
-<img src="public/readMe/Register.png" width="300px" alt="register" />
-<img src="public/readMe/LoginSuccess.png" width="300px" alt="loginSuccess" />
-
-### [온보딩 페이지]
-- 신규 로그인 유저에 한해 온보딩 페이지 출력
-
-<img src="public/readMe/OnBoarding1.png" width="300px" alt="onboarding1" />
-<img src="public/readMe/OnBoarding2.png" width="300px" alt="onboarding2" />
-<img src="public/readMe/OnBoarding3.png" width="300px" alt="onboarding3" />
-<img src="public/readMe/OnBoarding4.png" width="300px" alt="onboarding4" />
-
-### [홈]
-- 기록 조회
-- 바텀 시트로 채팅 / 메모 기록 이동
-
-<img src="public/readMe/Home.png" width="300px" alt="home" />
-<img src="public/readMe/Home2.png" width="300px" alt="home2" />
-
-### [AI 채팅 기록]
-- 채팅 기록 시작
-- 채팅 기록 임시저장
-- 채팅 기록 완료
-
-<img src="public/readMe/Chat1.png" width="300px" alt="chat1" />
-<img src="public/readMe/Chat2.png" width="300px" alt="chat2" />
-<img src="public/readMe/Chat3.png" width="300px" alt="chat3" />
-<img src="public/readMe/Chat4.png" width="300px" alt="chat4" />
-
-
-### [경험 요약 완료]
-- AI 채팅 기록 완료 후 경험 요약 완료 페이지 출력
-
-<img src="public/readMe/RecordComplete.png" width="300px" alt="recordComplete" />
-
-### [메모 기록]
-- 메모 기록
-
-<img src="public/readMe/Memo.png" width="300px" alt="memo" />
-
-### [로딩]
-- AI 채팅 기록 중 로딩 화면 출력
-- 메모 기록 & 경험 기록 완료 중 로딩 화면 출력
-- 로그인 중 로딩 화면 출력
-
-<img src="public/readMe/Loading1.png" width="300px" alt="loading1" />
-<img src="public/readMe/Loading2.png" width="300px" alt="loading2" />
-
-### [경험 모아보기]
-- 경험 리스트 조회
-- 폴더 추가 및 삭제
-
-<img src="public/readMe/List1.png" width="300px" alt="list1" />
-<img src="public/readMe/List2.png" width="300px" alt="list2" />
-<img src="public/readMe/List3.png" width="300px" alt="list3" />
-<img src="public/readMe/List4.png" width="300px" alt="list4" />
-
-### [역량 레포트]
-- 역량 키워드 별 역량 레포트 조회
-- 역량 그래프 조회
-
-<img src="public/readMe/Report1.png" width="300px" alt="report1" />
-<img src="public/readMe/Report2.png" width="300px" alt="report2" />
-<img src="public/readMe/Report3.png" width="300px" alt="report3" />
-<img src="public/readMe/Report4.png" width="300px" alt="report4" />
-
-
-### [마이 페이지]
-- 프로필 수정
-- 회원 탈퇴
-
-<img src="public/readMe/My1.png" width="300px" alt="my1" />
-<img src="public/readMe/My2.png" width="300px" alt="my2" />
-<img src="public/readMe/My3.png" width="300px" alt="my3" />
-<img src="public/readMe/My4.png" width="300px" alt="my4" />
-<img src="public/readMe/My5.png" width="300px" alt="my5" />
-
-### [404 페이지]
-- 존재하지 않는 페이지 접근 시 404 페이지 출력
-
-<img src="public/readMe/404.png" width="300px" alt="404" />
