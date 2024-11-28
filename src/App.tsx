@@ -9,7 +9,7 @@ import * as S from './App.Style';
 export const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const hideSideBarPath = ['/oauth', '/login', '/register', '/login-success', '/chat/:id', '/review-chat/:id']; // router 확정되면 추후 수정
+  const hideSideBarPath = ['/oauth', '/login', '/register', '/login-success', '/chat/:id', '/review-chat/:id', '/404']; // router 확정되면 추후 수정
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,7 +35,6 @@ export const App = () => {
             </S.SideBar>
           )}
           <S.ContentWrapper>
-            {/* <Outlet /> */}
             <Outlet context={{ setIsLoading }} />
           </S.ContentWrapper>
         </S.Container>

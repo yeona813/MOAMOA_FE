@@ -12,8 +12,12 @@ export const SkillGraph = () => {
     const fetchGraphData = async () => {
       const data = await getGraph();
       if (data) {
+        const topSkills = data
+          .sort((a: SkillData, b: SkillData) => b.percent - a.percent)
+          .slice(0, 7);
+
         setChartData(
-          data.map((skill: SkillData) => ({
+          topSkills.map((skill: SkillData) => ({
             name: skill.keyword,
             value: skill.count,
             percent: skill.percent,
