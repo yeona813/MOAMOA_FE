@@ -200,10 +200,10 @@ src/
 ### [온보딩 페이지]
 - 신규 로그인 유저에 한해 온보딩 페이지 출력
 
-<img src="public/readMe/Onboarding1.png" width="300px" alt="onboarding1" />
-<img src="public/readMe/Onboarding2.png" width="300px" alt="onboarding2" />
-<img src="public/readMe/Onboarding3.png" width="300px" alt="onboarding3" />
-<img src="public/readMe/Onboarding4.png" width="300px" alt="onboarding4" />
+<img src="public/readMe/OnBoarding1.png" width="300px" alt="onboarding1" />
+<img src="public/readMe/OnBoarding2.png" width="300px" alt="onboarding2" />
+<img src="public/readMe/OnBoarding3.png" width="300px" alt="onboarding3" />
+<img src="public/readMe/OnBoarding4.png" width="300px" alt="onboarding4" />
 
 ### [홈]
 - 기록 조회
