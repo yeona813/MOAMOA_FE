@@ -70,6 +70,9 @@ export const Circle = styled.div<{ $isSelected: boolean }>`
 `;
 
 export const ButtonContainer = styled.div`
-  display: flex;
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
   width: 20.3125rem;
 `;
