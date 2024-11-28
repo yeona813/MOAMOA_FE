@@ -46,7 +46,7 @@ export const SideBarItem = () => {
   return (
     <div>
       <S.SideBar onClick={(e) => e.stopPropagation()}>
-        <S.Title onClick={() => goToHome}>MOAMOA</S.Title>
+        <S.Title onClick={() => goToHome()}>MOAMOA</S.Title>
         <S.ItemContainer>
           {SIDEBAR_ITEMS.map((item) => {
             const isActive = location.pathname === item.path;
