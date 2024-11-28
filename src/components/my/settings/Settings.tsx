@@ -2,8 +2,14 @@ import { SettingItem } from './SettingItem';
 import * as S from './Settings.Style';
 
 const POLICY_DATA = [
-  { title: '개인정보처리방침', url: 'www.naver.com' }, // 노션 링크로 수정 필요
-  { title: '이용약관', url: 'www.naver.com' }, // 노션 링크로 수정 필요
+  {
+    title: '개인정보처리방침',
+    url: 'https://spiny-lake-7e5.notion.site/f49d26665f464e3cb486a6a2f97b31ba?pvs=4',
+  },
+  {
+    title: '이용약관',
+    url: 'https://spiny-lake-7e5.notion.site/e9bfdb6c0c9247799dfc1fc1be55da65?pvs=4',
+  },
 ];
 interface SettingsProps {
   onClickLogout: () => void;
@@ -13,7 +19,7 @@ interface SettingsProps {
 export const Settings = ({ onClickLogout, onClickDeleteId }: SettingsProps) => {
   const goToLink = (url: string) => {
     return () => {
-      window.location.href = url;
+      window.open(url, '_blank');
     };
   };
 
@@ -21,7 +27,7 @@ export const Settings = ({ onClickLogout, onClickDeleteId }: SettingsProps) => {
     <S.Container>
       <S.Content>
         {POLICY_DATA.map((item, index) => (
-          <SettingItem key={index} onClick={() => goToLink(item.url)}>
+          <SettingItem key={index} onClick={goToLink(item.url)}>
             {item.title}
           </SettingItem>
         ))}
