@@ -65,6 +65,6 @@ export const Form = styled.form`
 
 export const ButtonWrapper = styled.div`
   position: absolute;
-  bottom: 1.25rem;
+  bottom: 3rem;
   width: 100%;
 `;
