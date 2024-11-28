@@ -193,24 +193,24 @@ src/
 - 회원 가입 (추가 정보 작성)
 - 회원 가입 완료
   
-<img src="public/readMe/login.png" width="300px" alt="login" />
-<img src="public/readMe/register.png" width="300px" alt="register" />
-<img src="public/readMe/loginSuccess.png" width="300px" alt="loginSuccess" />
+<img src="public/readMe/Login.png" width="300px" alt="login" />
+<img src="public/readMe/Register.png" width="300px" alt="register" />
+<img src="public/readMe/LoginSuccess.png" width="300px" alt="loginSuccess" />
 
 ### [온보딩 페이지]
 - 신규 로그인 유저에 한해 온보딩 페이지 출력
 
-<img src="public/readMe/onboarding1.png" width="300px" alt="onboarding1" />
-<img src="public/readMe/onboarding2.png" width="300px" alt="onboarding2" />
-<img src="public/readMe/onboarding3.png" width="300px" alt="onboarding3" />
-<img src="public/readMe/onboarding4.png" width="300px" alt="onboarding4" />
+<img src="public/readMe/Onboarding1.png" width="300px" alt="onboarding1" />
+<img src="public/readMe/Onboarding2.png" width="300px" alt="onboarding2" />
+<img src="public/readMe/Onboarding3.png" width="300px" alt="onboarding3" />
+<img src="public/readMe/Onboarding4.png" width="300px" alt="onboarding4" />
 
 ### [홈]
 - 기록 조회
 - 바텀 시트로 채팅 / 메모 기록 이동
 
-<img src="public/readMe/home.png" width="300px" alt="home" />
-<img src="public/readMe/home2.png" width="300px" alt="home2" />
+<img src="public/readMe/Home.png" width="300px" alt="home" />
+<img src="public/readMe/Home2.png" width="300px" alt="home2" />
 
 ### [AI 채팅 기록]
 - 채팅 기록 시작
