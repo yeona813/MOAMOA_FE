@@ -129,7 +129,7 @@ export const TextArea = styled.textarea<RecordCompletePageProps>`
   font-weight: 400;
   line-height: 145%;
   width: 95%;
-  min-height: 10rem;
+  min-height: 15rem;
   height: 100%;
   border: none;
   outline: none;
