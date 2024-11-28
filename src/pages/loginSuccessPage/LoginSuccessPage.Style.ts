@@ -6,7 +6,7 @@ export const Container = styled.section`
   justify-content: space-between;
   align-items: center;
   min-height: 100vh;
-  padding: 15rem 2rem 1.25rem;
+  padding: 10rem 2rem 1.25rem;
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 1) 0%,
@@ -52,5 +52,5 @@ export const ButtonWrapper = styled.div`
   width: 100%;
   max-width: 30.375rem;
   margin: 0 auto;
-  margin-bottom: 4.8125rem;
+  margin-bottom: 8rem;
 `;
