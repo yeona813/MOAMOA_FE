@@ -6,7 +6,6 @@ import Image2 from '/images/OnBoarding2.png';
 import Image3 from '/images/OnBoarding3.png';
 import Image4 from '/images/OnBoarding4.png';
 import { useState } from 'react';
-import { Button } from '@/components/common/button/Button';
 
 const CONTENT_DATA = [
   {
@@ -33,7 +32,7 @@ const CONTENT_DATA = [
   },
   {
     index: 4,
-    chip: '메모 기록',
+    chip: '역량 그래프',
     highlightText: '나만의 강점을',
     text: '한 눈에 파악할 수 있어요',
     image: Image4,
@@ -44,16 +43,20 @@ export const OnboardingPage = () => {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleSwipe = (index: number) => {
-    setCurrentIndex(index);
-  };
-
   const handleClickLast = () => {
     navigate('/home');
   };
 
   return (
-    <S.Cotainer>
+    <S.Cotainer
+      onClick={() => {
+        if (currentIndex === CONTENT_DATA.length - 1) {
+          handleClickLast();
+        } else {
+          setCurrentIndex(currentIndex + 1);
+        }
+      }}
+    >
       <S.Icon src={CloseIcon} alt="닫기" onClick={() => navigate('/home')} />
       <S.Chips>{CONTENT_DATA[currentIndex].chip}</S.Chips>
       <S.TextContainer>
@@ -74,28 +77,10 @@ export const OnboardingPage = () => {
       </S.TextContainer>
       <S.Circles>
         {CONTENT_DATA.map((_, index) => (
-          <S.Circle
-            key={index}
-            $isSelected={index === currentIndex}
-            onClick={() => handleSwipe(index)}
-          />
+          <S.Circle key={index} $isSelected={index === currentIndex} />
         ))}
       </S.Circles>
       <S.Image src={CONTENT_DATA[currentIndex].image} />
-      <S.ButtonContainer>
-        <Button
-          styleType="basic"
-          onClick={() => {
-            if (currentIndex === CONTENT_DATA.length - 1) {
-              handleClickLast();
-            } else {
-              setCurrentIndex(currentIndex + 1);
-            }
-          }}
-        >
-          {currentIndex === CONTENT_DATA.length - 1 ? '시작하기' : '다음'}
-        </Button>
-      </S.ButtonContainer>
     </S.Cotainer>
   );
 };
