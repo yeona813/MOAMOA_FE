@@ -13,6 +13,7 @@ import { LoadingScreen } from '@components/common/loading/LoadingScreen';
 import { postAiChat, postTmpChat, checkTmpChat, getChat, getSummary, deleteChat, postChat } from '@/api/Chat';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { AxiosError } from 'axios';
+import { useValidatePathId } from '@/hooks/useValidatePathId';
 
 interface Message {
   message: string;
@@ -42,8 +43,9 @@ export const ChatPage = () => {
   const [showGuideButton, setShowGuideButton] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const isReviewMode = window.location.pathname.includes('review-chat');
+  const isReviewMode = window.location.pathname.startsWith('/review-chat');
   const isPC = useMediaQuery('(min-width: 768px)');
+  useValidatePathId();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -54,15 +56,6 @@ export const ChatPage = () => {
       scrollToBottom();
     }
   }, [messages]);
-
-  // URL 파라미터로부터 채팅방 ID 설정
-  useEffect(() => {
-    if (id) {
-      setChatRoomId(Number(id));
-    } else {
-      handleNewChat();
-    }
-  }, [id]);
 
   // 임시 저장된 채팅 기록 조회
   useEffect(() => {
@@ -91,7 +84,7 @@ export const ChatPage = () => {
         throw new Error('유효하지 않은 채팅방 ID입니다.');
       }
 
-      if (window.location.pathname.includes('review-chat')) {
+      if (window.location.pathname.startsWith('/review-chat')) {
         setShowGuideButton(false);
       }
       const response = await getChat(chatRoomId);
@@ -285,7 +278,7 @@ export const ChatPage = () => {
     }
   };
 
-  const handleNewChat = async () => {
+  const handleNewChat = useCallback(async () => {
     if (chatRoomId !== null) {
       await deleteChat(chatRoomId);
     }
@@ -302,7 +295,16 @@ export const ChatPage = () => {
       isLoading: false,
     }]);
     setShowGuideButton(true);
-  }
+  }, [chatRoomId, formattedFirstChat]);
+
+  // URL 파라미터로부터 채팅방 ID 설정
+  useEffect(() => {
+    if (id) {
+      setChatRoomId(Number(id));
+    } else {
+      handleNewChat();
+    }
+  }, [handleNewChat, id]);
 
   // 임시저장 채팅 계속하기 선택 시
   const handleContinueChat = async () => {

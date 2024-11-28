@@ -125,7 +125,8 @@ export const Label = styled.p<ReviewModeProps>`
 export const InputTitle = styled(OriginalInput)`
   width: 100%;
   margin: 0;
-  padding-left: 0;
+  font-weight: 400;
+  padding-left: 0.375rem;
   padding-bottom: 0;
   border: none;
   background-color: ${({ disabled }) => (disabled ? Colors.white : 'inherit')};
@@ -177,7 +178,7 @@ export const Content = styled.textarea<ReviewModeProps>`
 export const WarningCountContainer = styled.div`
   width: 95%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   position: relative;
 `;
@@ -188,7 +189,6 @@ export const Warning = styled.p`
   font-weight: 400;
   line-height: 130%;
   color: #ff4d4d;
-  margin-left: 0.625rem;
 `;
 
 export const Count = styled.p`

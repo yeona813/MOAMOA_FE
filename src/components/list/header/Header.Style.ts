@@ -59,13 +59,8 @@ export const FolderIcon = styled.div`
 `;
 
 export const Icon = styled.img`
-  width: 0.9375rem;
-  height: 0.9375rem;
-
-  ${(props) => props.theme.breakpoints.min} {
-    width: 1.125rem;
-    height: 1.125rem;
-  }
+  width: 1.125rem;
+  height: 1.125rem;
 `;
 
 export const ChipContainer = styled.div`

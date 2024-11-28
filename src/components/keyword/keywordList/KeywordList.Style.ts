@@ -14,6 +14,7 @@ export const KeywordList = styled.div`
 
 export const Title = styled.h6`
   line-height: 145%;
+  margin-bottom: 0.25rem;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -27,6 +28,7 @@ export const Title = styled.h6`
 
 export const Description = styled.p`
   font-size: 0.8125rem;
+  margin-bottom: 0.375rem;
   line-height: 145%;
   max-width: 100%;
   white-space: nowrap;
