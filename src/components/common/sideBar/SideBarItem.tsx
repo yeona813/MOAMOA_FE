@@ -38,7 +38,7 @@ export const SideBarItem = () => {
   };
 
   const goToHome = () => {
-    if (location.pathname === '/home') {
+    if (location.pathname !== '/home') {
       navigate('/home');
     }
   };
