@@ -19,8 +19,12 @@ export const Container = styled.div<RecordCompletePageProps>`
   position: relative;
   height: 100%;
   align-items: center;
-  width: ${({ $isPC }) => ($isPC ? '60%' : '100%')};
+  width: 100%;
   margin: 0 auto;
+
+  ${(props) => props.theme.breakpoints.min} {
+    width: 60%;
+  }
 `;
 
 export const HeaderContainer = styled.div`
@@ -121,12 +125,12 @@ export const Line = styled.div`
 
 export const TextArea = styled.textarea<RecordCompletePageProps>`
   font-family: 'Pretendard';
-  font-size: ${({ $isPC }) => ($isPC ? '1.125rem' : '1rem')};
+  font-size: 1rem;
   font-weight: 400;
   line-height: 145%;
   width: 95%;
-  min-height: ${({ $isPC }) => ($isPC ? '15rem' : '10rem')};
-  height: ${({ $isPC }) => ($isPC ? '20rem' : '100%')};
+  min-height: 10rem;
+  height: 100%;
   border: none;
   outline: none;
   padding: 0.5rem;
@@ -140,6 +144,9 @@ export const TextArea = styled.textarea<RecordCompletePageProps>`
   }
   ${(props) => props.theme.breakpoints.min} {
     margin-left: 1rem;
+    font-size: 1.125rem;
+    min-height: 15rem;
+    height: 20rem;
   }
 `;
 
@@ -166,10 +173,16 @@ export const CategoryContainer = styled.div`
 `;
 
 export const ButtonWrapper = styled.div<RecordCompletePageProps>`
-  width: ${({ $isPC }) => ($isPC ? '176px' : '100%')};
-  margin-top: ${({ $isPC }) => ($isPC ? '5rem' : '2rem')};
+  width: 100%;
+  margin-top: 2rem;
   margin-bottom: 1.25rem;
-  margin-left: ${({ $isPC }) => ($isPC ? 'auto' : '0')};
+  margin-left: 0;
+
+  ${(props) => props.theme.breakpoints.min} {
+    margin-top: 5rem;
+    margin-left: auto;
+    width: 11rem;
+  }
 `;
 
 export const Icon = styled.svg`

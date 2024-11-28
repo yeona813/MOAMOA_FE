@@ -11,7 +11,7 @@ export const Container = styled.div<ContainerProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 5rem;
+  padding-top: 2rem;
   padding-bottom: 5rem;
   background-color: ${({ $isEmpty }) => $isEmpty ? Colors.gray25 : Colors.white};
   overflow-x: hidden;

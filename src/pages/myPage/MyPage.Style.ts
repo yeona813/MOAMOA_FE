@@ -23,7 +23,6 @@ export const MobileHeader = styled.div`
 `;
 
 export const PcHeader = styled.h2`
-  display: none;
   ${(props) => props.theme.breakpoints.max} {
     display: none;
     line-height: 140%;

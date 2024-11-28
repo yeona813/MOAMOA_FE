@@ -8,6 +8,7 @@ export const Content = styled.div`
   padding: 1.75rem 1.25rem;
   color: ${Colors.gray900};
   gap: 2.75rem;
+  margin-top: 3.375rem;
 
   ${(props) => props.theme.breakpoints.min} {
     margin-top: 4rem;

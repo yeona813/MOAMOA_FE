@@ -26,6 +26,7 @@ export const Profile = styled.div`
   ${(props) => props.theme.breakpoints.min} {
     display: flex;
     width: auto;
+    align-items: flex-start;
     flex-direction: column;
     gap: 2.5rem;
   }
@@ -94,7 +95,7 @@ export const Image = styled.img`
 
   ${(props) => props.theme.breakpoints.min} {
     width: 24.625rem;
-    height: 6.75rem;
+    height: 8rem;
   }
 `;
 

@@ -48,6 +48,7 @@ export const ListItem = styled.div<ListItemProps>`
   height: 3rem;
   border-radius: 0.75rem;
   padding: 0.8125rem 1rem;
+  cursor: pointer;
   background-color: ${({ $percent }) => {
     if ($percent > 33) return Colors.blue200;
     if ($percent > 25) return Colors.blue100;
