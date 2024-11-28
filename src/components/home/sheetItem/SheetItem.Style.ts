@@ -15,7 +15,7 @@ export const SheetItem = styled.div`
 
   ${(props) => props.theme.breakpoints.min} {
     gap: 0rem;
-    padding-top: 0rem;
+    padding: 0rem 0rem 1.25rem 1.25rem;
   }
 `;
 
