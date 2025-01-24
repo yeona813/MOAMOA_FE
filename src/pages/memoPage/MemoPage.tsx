@@ -46,7 +46,7 @@ export const MemoPage = () => {
   const { setIsLoading } = useOutletContext<{ setIsLoading: (loading: boolean) => void }>();
   const isPC = useMediaQuery('(min-width: 1048px)');
   const isReviewMode = window.location.pathname.startsWith('/review-memo');
-  useValidatePathId();
+  useValidatePathId(isReviewMode);
 
   useEffect(() => {
     // 폴더 조회

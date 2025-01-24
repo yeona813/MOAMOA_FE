@@ -45,7 +45,7 @@ export const ChatPage = () => {
   const [isError, setIsError] = useState(false);
   const isReviewMode = window.location.pathname.startsWith('/review-chat');
   const isPC = useMediaQuery('(min-width: 768px)');
-  useValidatePathId();
+  useValidatePathId(true);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });

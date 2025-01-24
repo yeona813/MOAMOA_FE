@@ -29,7 +29,7 @@ export const ReportPage = () => {
 
   const analysisId = id ? parseInt(id, 10) : undefined;
 
-  useValidatePathId();
+  useValidatePathId(true);
 
   useEffect(() => {
     const fetchSkill = async () => {
